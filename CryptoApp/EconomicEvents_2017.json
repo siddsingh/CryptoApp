@@ -1,0 +1,237 @@
+{
+ "eventSets":[
+              {
+                "name":"Fed Meeting",
+                "identifier":"ECONOMY_FOMC",
+                "agency":"Federal Open Market Committee",
+                "impact":"Very High",
+                "impactReason":"Outcome determines key interest rates.",
+                "sectorsImpacted":"Financial",
+                "shortDescription":"Meeting between federal officials to determine future monetary policy.",
+                "moreInfoUrl":"http://www.federalreserve.gov/monetarypolicy/default.htm",
+                "tip":"If short term interest rates go up, banks typically benefit because they can earn more.",
+                "timing":"2:00 p.m. ET",
+                "instances":[
+                             {
+                                "date":20170201,
+                                "relatedPeriod":"Feb"
+                             },
+                             {
+                                "date":20170315,
+                                "relatedPeriod":"Mar"
+                             },
+                             {
+                                "date":20170503,
+                                "relatedPeriod":"May"
+                             },
+                             {
+                                "date":20170614,
+                                "relatedPeriod":"Jun"
+                             },
+                             {
+                                "date":20170726,
+                                "relatedPeriod":"Jul"
+                             },
+                             {
+                                "date":20170920,
+                                "relatedPeriod":"Sep"
+                             },
+                             {
+                                "date":20171101,
+                                "relatedPeriod":"Nov"
+                             },
+                             {
+                                "date":20171213,
+                                "relatedPeriod":"Dec"
+                             }
+                ],
+                "datesPressConference":[20170315,20170614,20170920,20171213]
+              },
+              {
+                "name":"Jobs Report",
+                "identifier":"ECONOMY_BLS",
+                "agency":"Bureau of Labor Statistics",
+                "impact":"Very High",
+                "impactReason":"Reflects the health of the job market.",
+                "sectorsImpacted":"All",
+                "shortDescription":"An estimate of the number of people who have jobs and those that don't.",
+                "moreInfoUrl":"http://www.bls.gov/mobile/mobile_releases.htm",
+                "tip":"Watch the jobless rate. In a strong labor market this decreases.",
+                "timing":"8:30 a.m. ET",
+                "instances":[
+                             {
+                                "date":20170106,
+                                "relatedPeriod":"Dec"
+                             },
+                             {
+                                "date":20170203,
+                                "relatedPeriod":"Jan"
+                             },
+                             {
+                                "date":20170310,
+                                "relatedPeriod":"Feb"
+                             },
+                             {
+                                "date":20170407,
+                                "relatedPeriod":"Mar"
+                             },
+                             {
+                                "date":20170505,
+                                "relatedPeriod":"Apr"
+                             },
+                             {
+                                "date":20170602,
+                                "relatedPeriod":"May"
+                             },
+                             {
+                                "date":20170707,
+                                "relatedPeriod":"Jun"
+                             },
+                             {
+                                "date":20170804,
+                                "relatedPeriod":"Jul"
+                             },
+                             {
+                                "date":20170901,
+                                "relatedPeriod":"Aug"
+                             },
+                             {
+                                "date":20171006,
+                                "relatedPeriod":"Sep"
+                             },
+                             {
+                                "date":20171103,
+                                "relatedPeriod":"Oct"
+                             },
+                             {
+                                "date":20171208,
+                                "relatedPeriod":"Nov"
+                             }
+                ]
+              },
+              {
+                "name":"Consumer Confidence",
+                "identifier":"ECONOMY_TCB",
+                "agency":"The Conference Board",
+                "impact":"Medium",
+                "impactReason":"Indicator of future personal spending.",
+                "sectorsImpacted":"Retail",
+                "shortDescription":"Measure of how likely people are to spend money in the future.",
+                "moreInfoUrl":"https://www.conference-board.org/data/consumerconfidence.cfm",
+                "tip":"Consumers account for about two-thirds of the nation's economic activity.",
+                "timing":"10:00 a.m. ET",
+                "instances":[
+                             {
+                                "date":20170131,
+                                "relatedPeriod":"Jan"
+                             },
+                             {
+                                "date":20170228,
+                                "relatedPeriod":"Feb"
+                             },
+                             {
+                                "date":20170328,
+                                "relatedPeriod":"Mar"
+                             },
+                             {
+                                "date":20170425,
+                                "relatedPeriod":"Apr"
+                             },
+                             {
+                                "date":20170530,
+                                "relatedPeriod":"May"
+                             },
+                             {
+                                "date":20170627,
+                                "relatedPeriod":"Jun"
+                             },
+                             {
+                                "date":20170725,
+                                "relatedPeriod":"Jul"
+                             },
+                             {
+                                "date":20170829,
+                                "relatedPeriod":"Aug"
+                             },
+                             {
+                                "date":20170926,
+                                "relatedPeriod":"Sep"
+                             },
+                             {
+                                "date":20171031,
+                                "relatedPeriod":"Oct"
+                             },
+                             {
+                                "date":20171128,
+                                "relatedPeriod":"Nov"
+                             },
+                             {
+                                "date":20171227,
+                                "relatedPeriod":"Dec"
+                             }
+                ]
+              },
+              {
+                "name":"GDP Release",
+                "identifier":"ECONOMY_BEA",
+                "agency":"Bureau of Economic Analysis",
+                "impact":"Medium",
+                "impactReason":"Scorecard of the country's economic health.",
+                "sectorsImpacted":"All",
+                "shortDescription":"GDP is a measure of the country's economic health.",
+                "moreInfoUrl":"http://www.bea.gov/newsreleases/news_release_sort_national.htm",
+                "tip":"Decreasing GDP for 2 or more quarters indicates a recession.",
+                "timing":"8:30 a.m. ET",
+                "instances":[
+                             {
+                                "date":20170127,
+                                "relatedPeriod":"Q4 2016 Initial"
+                             },
+                             {
+                                "date":20170228,
+                                "relatedPeriod":"Q4 2016 Second"
+                             },
+                             {
+                                "date":20170330,
+                                "relatedPeriod":"Q4 2016 Third"
+                             },
+                             {
+                                "date":20170428,
+                                "relatedPeriod":"Q1 Initial"
+                             },
+                             {
+                                "date":20170526,
+                                "relatedPeriod":"Q1 Second"
+                             },
+                             {
+                                "date":20170629,
+                                "relatedPeriod":"Q1 Third"
+                             },
+                             {
+                                "date":20170728,
+                                "relatedPeriod":"Q2 Initial"
+                             },
+                             {
+                                "date":20170830,
+                                "relatedPeriod":"Q2 Second"
+                             },
+                             {
+                                "date":20170928,
+                                "relatedPeriod":"Q2 Third"
+                             },
+                             {
+                                "date":20171027,
+                                "relatedPeriod":"Q3 Initial"
+                             },
+                             {
+                                "date":20171129,
+                                "relatedPeriod":"Q3 Second"
+                             },
+                             {
+                                "date":20171221,
+                                "relatedPeriod":"Q3 Third"
+                             }
+                ]
+              }
+ ]
+}
