@@ -196,11 +196,10 @@
 
 #pragma mark - Methods to call Company names and tickers from local files
 
-// Get all company tickers and names from local files, which currently is a csv file and write them to the data store.
+// Get crypto tickers and names from local files, which currently is a json file and write them to the data store.
 - (void)getAllTickersAndNamesFromLocalStorage;
 
-// Get all company tickers and names from local code, which currently is hard coded here and write them to the data store. This is the one place you need add new tickers, including product ones.
-// NOTE!!!!!!!!Add a any new tickers here as we won't be syncing from file anymore.
+// Add top cryptocurrencies
 - (void)getAllTickersAndNamesFromLocalCode;
 
 #pragma mark - Methods to call Economic Events Data Sources
@@ -243,6 +242,9 @@
 // Get all price change events. Returns a results controller with identities of all Events recorded, but no more
 // than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
 - (NSFetchedResultsController *)getAllPriceChangeEventsForFollowedStocks;
+
+// Get all price change events. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getAllCurrencyPriceChangeEvents;
 
 // Get the date on which the events were last synced
 - (NSDate *)getDailyPriceEventSyncDate;

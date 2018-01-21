@@ -56,8 +56,8 @@
         
         FADataController *econEventDataController = [[FADataController alloc] init];
         
-        // Add newer company tickers from hard code. This gets all the newer added prod event tickers as well.
-        [econEventDataController getAllTickersAndNamesFromLocalCode];
+        // Add the supported crypto currency tickers and name.
+        [econEventDataController getAllTickersAndNamesFromLocalStorage];
         
             // Add new tickers + Refresh existing events and get product events
             // Async processing of non ui tasks should not be done on the main thread.
@@ -65,9 +65,6 @@
                 
                 // Create a new FADataController so that this thread has its own MOC
                 FADataController *eventDataController = [[FADataController alloc] init];
-                
-                // Add newer company tickers from hard code. This gets all the newer added prod event tickers as well.
-                [eventDataController getAllTickersAndNamesFromLocalCode];
                 
                 if ([self checkForInternetConnectivity]) {
                     // TO DO: Testing. Delete before shipping v4.3

@@ -2145,7 +2145,7 @@ bool eventsUpdated = NO;
 #pragma mark - Methods to call Company names and tickers from local files
 
 // Add top cryptocurrencies
-- (void)getAllTickersAndNamesFromLocalCodeAndRemote {
+- (void)getAllTickersAndNamesFromLocalCode {
     
     // WHEN ADDING HERE, MAKE SURE YOU ADD TO FASNAPSHOT ISCURRENCYSUPPORTED.
     // TOP 20 BY MARKET CAP.
@@ -2179,79 +2179,52 @@ bool eventsUpdated = NO;
     [self insertUniqueCompanyWithTicker:@"ZEC" name:@"Zcash"];
 }
 
-// Get all company tickers and names from local files, which currently is a csv file and write them to the data store.
+// Get crypto tickers and names from local files, which currently is a json file and write them to the data store.
 - (void)getAllTickersAndNamesFromLocalStorage
 {
     // Get the company ticker and names file path
-    NSString *tickersFilePath = [[NSBundle mainBundle] pathForResource:@"ZEA-datasets-codes_20161119" ofType:@"csv"];
+    NSString *tickersFilePath = [[NSBundle mainBundle] pathForResource:@"Cryptos_Jan_2018" ofType:@"json"];
     // TO DO: Delete Later
     //NSLog(@"Found the json file at: %@",tickersFilePath);
     
-    // Parse the file contents
-    // ***IMPORTANT: When using a new file search for " and remove the " and , in the string that contains names
-    // e.g. "Ulta Salon, Cosmetics & Fragrance Inc" should be Ulta Salon Cosmetics & Fragrance Inc
-    
-    // Get the contents into a parsed object
     NSError *error;
-    NSMutableArray *tickerStrs = [NSMutableArray array];
-    NSMutableArray *nameStrs = [NSMutableArray array];
+    NSString *eventsJsonStr = [[NSString alloc] initWithContentsOfFile:tickersFilePath encoding:NSUTF8StringEncoding error:&error];
+    NSArray *parsedResponse = [NSJSONSerialization JSONObjectWithData:[eventsJsonStr dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     
-    NSString *tickersStr = [[NSString alloc] initWithContentsOfFile:tickersFilePath encoding:NSUTF8StringEncoding error:&error];
-    NSArray* tickerRows = [tickersStr componentsSeparatedByString:@"\n"];
-    for (NSString *tickerRow in tickerRows){
+    // This is the response structure
+    /* [
+     {
+     "id": "bitcoin",
+     "name": "Bitcoin",
+     "symbol": "BTC",
+     "rank": "1",
+     "price_usd": "12611.8",
+     "price_btc": "1.0",
+     "24h_volume_usd": "11831200000.0",
+     "market_cap_usd": "212080180142",
+     "available_supply": "16816012.0",
+     "total_supply": "16816012.0",
+     "max_supply": "21000000.0",
+     "percent_change_1h": "-1.13",
+     "percent_change_24h": "3.62",
+     "percent_change_7d": "-10.97",
+     "last_updated": "1516509261"
+     },*/
+    
+    
+    NSString *currencyName = nil;
+    NSString *currencySymbol = nil;
+    
+    // Iterate through the currencies prices array in the parsed response.
+    for (NSDictionary *currencyDetails in parsedResponse) {
         
-        if (![tickerRow isEqualToString:@""] ) {
-            NSArray* tickerColumns = [tickerRow componentsSeparatedByString:@","];
-            [tickerStrs addObject:tickerColumns[0]];
-            [nameStrs addObject:tickerColumns[1]];
+        // Get the currency symbol
+        currencySymbol = [currencyDetails objectForKey:@"symbol"];
+        // Get the currency name
+        currencyName = [currencyDetails objectForKey:@"name"];
+        // Insert it
+        [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
         }
-    }
-    
-    // Loop through the tickers and add the tickers and names to the database
-    int tickerIndex = 0;
-    NSString *companyTicker = nil;
-    NSString *companyNameString = nil;
-    NSRange forString;
-    NSString *endTickerString = nil;
-    NSRange endTicker;
-    NSRange companyNameRange;
-    NSString *companyName = nil;
-    
-    for (NSString *tickerStr in tickerStrs) {
-        
-        // Get the company ticker and company name string
-        companyTicker = tickerStr;
-        // Strip out ZEA/
-        companyTicker = [companyTicker stringByReplacingOccurrencesOfString:@"ZEA/" withString:@""];
-        // Replace underscore in certain ticker names with . e.g.GRP_U -> GRP.U
-        companyTicker = [companyTicker stringByReplacingOccurrencesOfString:@"_" withString:@"."];
-
-        companyNameString = [nameStrs objectAtIndex:tickerIndex];
-        
-        // Extract the company name from the company name string
-        forString = [companyNameString rangeOfString:@"for"];
-        endTickerString = [NSString stringWithFormat:@"(%@)",companyTicker];
-        endTicker = [companyNameString rangeOfString:endTickerString];
-        companyNameRange = NSMakeRange(forString.location + 4, (endTicker.location - forString.location) - 5);
-        companyName = [companyNameString substringWithRange:companyNameRange];
-        // If there is a period at the end, remove it
-        if ([companyName length] > 0) {
-            if([companyName hasSuffix:@"."])
-            {
-                companyName = [companyName substringToIndex:[companyName length]-1];
-            }
-        }
-        
-        // Add company ticker and name into the data store
-        [self insertUniqueCompanyWithTicker:companyTicker name:companyName];
-        
-        ++tickerIndex;
-    }
-    
-    // Some cleanup
-    // There are two tickers with the same company name T.BB and BBRY -> Blackberry Ltd This is messing up the app, so setting T.BB to say Blackberry Ltd Old
-    [self deleteCompanyWithTicker:@"T.BB"];
-    
 }
 
 #pragma mark - Methods to call Economic Events Data Sources
@@ -2652,14 +2625,16 @@ bool eventsUpdated = NO;
         NSString *currPriceStr = nil;
         NSString *specificEventType = nil;
         NSString *currencySymbol = nil;
+        NSString *currencyName = nil;
         NSString *percentChangeSinceYestStr = nil;
         NSDate *eventDate = nil;
         
         // Iterate through the currencies prices array in the parsed response.
         for (NSDictionary *currencyDetails in parsedResponse) {
             
-            // Get the currency symbol
+            // Get the currency symbol and name
             currencySymbol = [currencyDetails objectForKey:@"symbol"];
+            currencyName = [currencyDetails objectForKey:@"name"];
     
             // Set date to now.
             eventDate = [NSDate date];
@@ -2668,10 +2643,41 @@ bool eventsUpdated = NO;
             percentChangeSinceYest = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_24h"] doubleValue]];
             // Get a string representation for the change
             percentChangeSinceYestStr = [NSString stringWithFormat:@"%.02f",[percentChangeSinceYest doubleValue]];
-            
+            // TO DO:V 1.0: Delete later
             NSLog(@"For the currency ticker:%@, the 24 h percentage change is:%@", currencySymbol, percentChangeSinceYestStr);
             
+            // Get current price
+            currPrice = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"price_usd"] doubleValue]];
+            // Format the current price string
+            currPriceStr = [NSString stringWithFormat:@"%.02f",[currPrice doubleValue]];
             
+            // Get whatever the daily price change is
+            if([percentChangeSinceYest doubleValue] >= 0.0) {
+                
+                specificEventType = [NSString stringWithFormat:@"+%@%% up today $%@",percentChangeSinceYestStr,currPriceStr];
+                // Insert into the events datastore
+                [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                // TO DO:V 2.0: Add in notifications
+                // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
+                // TO DO: Hardcoding this for now to be quarterly earnings
+                /*if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
+                    [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
+                } */
+            }
+            if([percentChangeSinceYest doubleValue] < 0.0) {
+                
+                percentChangeSinceYestStr = [percentChangeSinceYestStr substringFromIndex:1];
+                specificEventType = [NSString stringWithFormat:@"-%@%% down today $%@",percentChangeSinceYestStr,currPriceStr];
+                // Insert into the events datastore
+                // Note the upsert logic takes care of matching the generic piece of the event type to uniquely identify this event ensuring there's only one instance of this.
+                [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                // TO DO:V 2.0: Add in notifications
+                // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
+                // TO DO: Hardcoding this for now to be quarterly earnings
+                /*if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
+                    [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
+                }*/
+            }
         }
     }
             
@@ -3341,6 +3347,39 @@ bool eventsUpdated = NO;
     NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"(ANY actions.type == %@)", @"PriceChange"];
     [eventFetchRequest setPredicate:datePredicate];
     NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"listedCompany.ticker" ascending:YES];
+    [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
+    [eventFetchRequest setFetchBatchSize:15];
+    self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
+                                                                 managedObjectContext:dataStoreContext sectionNameKeyPath:nil
+                                                                            cacheName:nil];
+    NSError *error;
+    if (![self.resultsController performFetch:&error]) {
+        NSLog(@"ERROR: Getting all price change events for followed stocks from data store failed: %@",error.description);
+    }
+    
+    return self.resultsController;
+}
+
+// Get all price change events. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getAllCurrencyPriceChangeEvents
+{
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    
+    // Get today's date formatted to midnight last night
+    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    
+    // Get all future events with the upcoming ones first
+    NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
+    [eventFetchRequest setEntity:eventEntity];
+    // Set the filter. Get price change events with date clause
+    NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND (ANY actions.type == %@)", todaysDate, @"PriceChange"];
+    // Set the filter. Get price change events with no date clause
+    eventPredicate = [NSPredicate predicateWithFormat:@"type contains %@ AND type contains %@",@"%",@"today"];
+    // Future, if you need the date clause
+    //NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"(ANY actions.type == %@)", @"PriceChange"];
+    [eventFetchRequest setPredicate:eventPredicate];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:YES];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
     [eventFetchRequest setFetchBatchSize:15];
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
@@ -4273,11 +4312,17 @@ bool eventsUpdated = NO;
 // 1. If the speculated date of an event is within 2 weeks of today, then we consider it likely that the event has been updated
 // in the remote source. The likely event also needs to have a certainty of either "Estimated" or "Unknown" to qualify for the update.
 // 2. If the confirmed date of the event is in the past.
-// ADDITIONALLY: Add trending tickers only initially
-// PLUS: Check to see if product events need to be added or refreshed. If yes, do that. Currently product events are being fetched whole each time.
+// CURRENTLY: Getting only the price change events to start with.
 - (void)updateEventsFromRemoteIfNeeded {
     
-    eventsUpdated = NO;
+    // Delete the existing price change events
+    [self deleteAllDailyPriceChangeEvents];
+    [self getAllCryptoPriceChangeEventsFromApi];
+    
+    
+    
+    
+ /*   eventsUpdated = NO;
     
     // Check to make sure that we haven't already requested an events refresh today
     // Get Today's Date
@@ -4349,20 +4394,11 @@ bool eventsUpdated = NO;
             }
             
             eventsUpdated = YES;
-        }
-        
-        // Check to see if trending ticker events exist already. If not add those
-        // No longer needed as 15 earnings events, covering all of these, are already in the db.
-        /*if (![self doTrendingTickerEventsExist]) {
-            
-            // TO DO: Delete Later before shipping v4.3
-            NSLog(@"About to add trending ticker events from remote");
-            [self performTrendingEventSyncRemotely];
-        }*/
+        } */
         
         // Check to see if product events need to be added or refreshed. If yes, do that.
         // *****NOTE*****Currently always returning true since we have not implemented update logic.
-        if ([self doProductEventsNeedToBeAddedRefreshed]) {
+      /*  if ([self doProductEventsNeedToBeAddedRefreshed]) {
             
             // Use the wrapper as it sets off a start busy spinner as well.
             // NOTE:!!!!!!!! the wrapper also stops the busy spinner so if we need to do additional stuff here like price change fetch modify accordingly.
@@ -4407,8 +4443,8 @@ bool eventsUpdated = NO;
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
         });
     }
-    // Get price changes every time
-    /*else {
+    // Get price changes every time. This whole else is actually commented.
+    else {
         // Start the busy spinner on the UI to indicate that a fetch is in progress. Any async UI element update has to happen in the main thread.
         dispatch_async(dispatch_get_main_queue(), ^{
             // TO DO: Delete Later
