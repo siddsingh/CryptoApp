@@ -193,6 +193,36 @@ bool eventsUpdated = NO;
     //NSLog(@"DONE COMITTING DELETE OF BBRY TICKER COMPANY");
 }
 
+// Check to see if a currency exists in the db ?
+- (BOOL)doesTickerExist:(NSString *)ticker
+{
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    BOOL exists = NO;
+    
+    // Check to see if the Company exists by doing a case insensitive query on companyTicker
+    NSFetchRequest *companyFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *companyEntity = [NSEntityDescription entityForName:@"Company" inManagedObjectContext:dataStoreContext];
+    NSPredicate *companyPredicate = [NSPredicate predicateWithFormat:@"ticker =[c] %@",ticker];
+    [companyFetchRequest setEntity:companyEntity];
+    [companyFetchRequest setPredicate:companyPredicate];
+    NSError *error;
+    Company *existingCompany = nil;
+    NSArray *fetchedCompanies = [dataStoreContext executeFetchRequest:companyFetchRequest error:&error];
+    existingCompany  = [fetchedCompanies lastObject];
+    if (fetchedCompanies.count == 1) {
+        exists = YES;
+    }
+    if (fetchedCompanies.count > 1) {
+        NSLog(@"SEVERE_WARNING: Found %ld(more than 1) duplicate tickers for %@ when checking for existence in the db",(long)fetchedCompanies.count,ticker);
+        exists = YES;
+    }
+    if (error) {
+        NSLog(@"ERROR: Getting a currency from data store, to check if it exists, failed: %@",error.description);
+    }
+    
+    return exists;
+}
+
 #pragma mark - Events Data Related
 
 // Upsert an Event along with a parent company to the Event Data Store i.e. If the specified event type for that particular company exists, update it. If not insert it.
@@ -2656,7 +2686,15 @@ bool eventsUpdated = NO;
                 
                 specificEventType = [NSString stringWithFormat:@"+%@%% up today $%@",percentChangeSinceYestStr,currPriceStr];
                 // Insert into the events datastore
-                [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                // Check if this currency exists, If yes, insert event
+                if ([self doesTickerExist:currencySymbol]) {
+                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                }
+                // If not add it before inserting the event
+                else {
+                    [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
+                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                }
                 // TO DO:V 2.0: Add in notifications
                 // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
                 // TO DO: Hardcoding this for now to be quarterly earnings
@@ -2669,8 +2707,15 @@ bool eventsUpdated = NO;
                 percentChangeSinceYestStr = [percentChangeSinceYestStr substringFromIndex:1];
                 specificEventType = [NSString stringWithFormat:@"-%@%% down today $%@",percentChangeSinceYestStr,currPriceStr];
                 // Insert into the events datastore
-                // Note the upsert logic takes care of matching the generic piece of the event type to uniquely identify this event ensuring there's only one instance of this.
-                [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                // Check if this currency exists, If yes, insert event
+                if ([self doesTickerExist:currencySymbol]) {
+                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                }
+                // If not add it before inserting the event
+                else {
+                    [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
+                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                }
                 // TO DO:V 2.0: Add in notifications
                 // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
                 // TO DO: Hardcoding this for now to be quarterly earnings

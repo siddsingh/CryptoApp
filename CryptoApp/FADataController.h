@@ -47,6 +47,9 @@
 // Delete a company given a ticker
 - (void)deleteCompanyWithTicker:(NSString *)companyTicker;
 
+// Check to see if a currency exists in the db ?
+- (BOOL)doesTickerExist:(NSString *)ticker;
+
 #pragma mark - Events Data Related
 
 // Upsert an Event along with a parent company to the Event Data Store i.e. If the specified event type for that particular company exists, update it. If not insert it.
