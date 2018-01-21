@@ -143,6 +143,10 @@
     // Get a primary data controller that you will use later
     self.primaryDataController = [[FADataController alloc] init];
     
+    // TO DO:V 1.0: Delete later: Testing price fetch
+    [self.primaryDataController getAllCryptoPriceChangeEventsFromApi];
+    
+    
     // Ensure that the remote fetch spinner is not animating thus hidden
     if ([[self.primaryDataController getEventSyncStatus] isEqualToString:@"RefreshCheckDone"]) {
         [self removeBusyMessage];

@@ -49,30 +49,12 @@
      
     // Check to see if application version 4.2 has been used by the user at least once. If not show tutorial and do the data updates. The format for key represents app store version 4_1 and the final internal build being shipped. Lagging build number by 1.
     // *****************IMPORTANT*********************************************************************** If you are changing this, also change applicationbecameactive and tutorialDonePressed button on FATutorialViewController as that makes more sense.
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"V4_3_2_UsedOnce"])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"V1_0_1_UsedOnce"])
     {
         // Show tutorial
         [self configViewControllerWithName:@"FATutorialViewController"];
         
         FADataController *econEventDataController = [[FADataController alloc] init];
-        
-        // Delete all entries in the action table to reset state so that any user is starting with a clean slate for following.Don't need to do this reset anymore as most of the people who were going to upgrade have probably already done so and are using following which we don't want to wipeout.
-        //[econEventDataController deleteAllEventActions];
-        
-        // Sync the 2018 econ events
-        [econEventDataController getAllEconomicEventsFromLocalStorage];
-        
-        // Delete the FIFA 18 events as there are duplicates that have somehow got in. No longer need to do this as people are likely to have upgraded killing these anyway.
-        //[econEventDataController deleteAllFIFA18Events];
-        
-        // Delete all events from a past version that currently don't have any Ticker as the BBRY change to BB might have created some of these.
-        [econEventDataController deleteAllEmptyTickerEvents];
-        
-        // Delete all BBRY events as ticker has changed from BBRY to BB.
-        [econEventDataController deleteAllBBRYEvents];
-        
-        // Delete the BBRY ticker
-        [econEventDataController deleteCompanyWithTicker:@"BBRY"];
         
         // Add newer company tickers from hard code. This gets all the newer added prod event tickers as well.
         [econEventDataController getAllTickersAndNamesFromLocalCode];
@@ -157,7 +139,7 @@
         // Refresh events, sync product events after upgrade is done
         // Async processing of non ui tasks should not be done on the main thread.
         // *****************IMPORTANT*********************************************************************** If you are changing this, also change applicationfinishedlaunching and tutorialDonePressed button on FATutorialViewController.
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"V4_3_2_UsedOnce"])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"V1_0_1_UsedOnce"])
         {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
                 

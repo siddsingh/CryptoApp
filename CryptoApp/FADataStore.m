@@ -62,14 +62,14 @@ static FADataStore *sharedInstance;
     // TO DO: COMMENT FOR PRE SEEDING DB: When preseeding we don't want to use the existing db. We want a new one created.
     // Check to see if a sqlite db already exists. If not, find the path to the preloaded DB and use that.
     // Post ios7 you need to add the code for copying the sqlite-wal and sqlite-shm files as well if you decide to generate the preseeded file with wal journalling on. Currently we switch that off while generating the preseeded db.
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+    /*if (![[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
         // Copy the .sqlite file
         NSURL *preloadURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"FinApp" ofType:@"sqlite"]];
         NSError* err = nil;
         if (![[NSFileManager defaultManager] copyItemAtURL:preloadURL toURL:storeURL error:&err]) {
             NSLog(@"ERROR: Could not copy the Preloaded SQL Database .sqlite file for use because:%@",err.description);
         }
-    }
+    }*/
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

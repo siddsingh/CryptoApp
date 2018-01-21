@@ -50,8 +50,8 @@
 		9EBD8EEA1BAC9DAB008A0370 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD8EE91BAC9DAB008A0370 /* SystemConfiguration.framework */; };
 		9EBD8EED1BAC9EA0008A0370 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD8EEC1BAC9EA0008A0370 /* Reachability.m */; };
 		9EBD8EEE1BAC9EA0008A0370 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD8EEC1BAC9EA0008A0370 /* Reachability.m */; };
-		9ECE7B471CBF60BF000F8D77 /* FinApp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9ECE7B461CBF60BF000F8D77 /* FinApp.sqlite */; };
-		9ECE7B481CBF60BF000F8D77 /* FinApp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9ECE7B461CBF60BF000F8D77 /* FinApp.sqlite */; };
+		9ECE7B471CBF60BF000F8D77 /* ToDelete_FinApp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9ECE7B461CBF60BF000F8D77 /* ToDelete_FinApp.sqlite */; };
+		9ECE7B481CBF60BF000F8D77 /* ToDelete_FinApp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9ECE7B461CBF60BF000F8D77 /* ToDelete_FinApp.sqlite */; };
 		9EEE52131E14AF73009DD013 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEE52121E14AF72009DD013 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +73,7 @@
 		9E2F49561CE1622700D51401 /* ProductEvents_2016_Local.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductEvents_2016_Local.json; sourceTree = "<group>"; };
 		9E44C2991DD6A3B7009D9317 /* FATutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FATutorialViewController.h; sourceTree = "<group>"; };
 		9E44C29A1DD6A3B7009D9317 /* FATutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FATutorialViewController.m; sourceTree = "<group>"; };
-		9E602D1419E655DF00ACDEC6 /* Crypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E602D1419E655DF00ACDEC6 /* Cryptofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E602D1819E655DF00ACDEC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E602D1919E655DF00ACDEC6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E602D1B19E655DF00ACDEC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		9E602D1F19E655DF00ACDEC6 /* FinApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FinApp.xcdatamodel; sourceTree = "<group>"; };
 		9E602D2519E655DF00ACDEC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E602D2A19E655DF00ACDEC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9E602D3019E655DF00ACDEC6 /* CryptoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E602D3019E655DF00ACDEC6 /* CryptofiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptofiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E602D3519E655DF00ACDEC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E602D3619E655DF00ACDEC6 /* FinAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinAppTests.m; sourceTree = "<group>"; };
 		9E681D4B1A43B08F00FC5E5D /* FAEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAEventsViewController.h; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		9EBD8EE91BAC9DAB008A0370 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9EBD8EEB1BAC9EA0008A0370 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9EBD8EEC1BAC9EA0008A0370 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		9ECE7B461CBF60BF000F8D77 /* FinApp.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = FinApp.sqlite; sourceTree = "<group>"; };
+		9ECE7B461CBF60BF000F8D77 /* ToDelete_FinApp.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ToDelete_FinApp.sqlite; sourceTree = "<group>"; };
 		9EEE52121E14AF72009DD013 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -164,8 +164,8 @@
 		9E602D1519E655DF00ACDEC6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9E602D1419E655DF00ACDEC6 /* Crypto.app */,
-				9E602D3019E655DF00ACDEC6 /* CryptoTests.xctest */,
+				9E602D1419E655DF00ACDEC6 /* Cryptofi.app */,
+				9E602D3019E655DF00ACDEC6 /* CryptofiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 				9E6F0B941ED1FA4F007BACD7 /* FASnapShot.m */,
 				9E602D2419E655DF00ACDEC6 /* Main.storyboard */,
 				9E602D2919E655DF00ACDEC6 /* LaunchScreen.xib */,
-				9ECE7B461CBF60BF000F8D77 /* FinApp.sqlite */,
+				9ECE7B461CBF60BF000F8D77 /* ToDelete_FinApp.sqlite */,
 				9E602D1E19E655DF00ACDEC6 /* FinApp.xcdatamodeld */,
 				9E81709E1DE11FBB0066C85B /* ZEA-datasets-codes_20161119.csv */,
 				9E2F49561CE1622700D51401 /* ProductEvents_2016_Local.json */,
@@ -259,9 +259,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9E602D1319E655DF00ACDEC6 /* Crypto */ = {
+		9E602D1319E655DF00ACDEC6 /* Cryptofi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E602D3A19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "Crypto" */;
+			buildConfigurationList = 9E602D3A19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "Cryptofi" */;
 			buildPhases = (
 				9E602D1019E655DF00ACDEC6 /* Sources */,
 				9E602D1119E655DF00ACDEC6 /* Frameworks */,
@@ -271,14 +271,14 @@
 			);
 			dependencies = (
 			);
-			name = Crypto;
+			name = Cryptofi;
 			productName = FinApp;
-			productReference = 9E602D1419E655DF00ACDEC6 /* Crypto.app */;
+			productReference = 9E602D1419E655DF00ACDEC6 /* Cryptofi.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9E602D2F19E655DF00ACDEC6 /* CryptoTests */ = {
+		9E602D2F19E655DF00ACDEC6 /* CryptofiTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E602D3D19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "CryptoTests" */;
+			buildConfigurationList = 9E602D3D19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "CryptofiTests" */;
 			buildPhases = (
 				9E602D2C19E655DF00ACDEC6 /* Sources */,
 				9E602D2D19E655DF00ACDEC6 /* Frameworks */,
@@ -289,9 +289,9 @@
 			dependencies = (
 				9E602D3219E655DF00ACDEC6 /* PBXTargetDependency */,
 			);
-			name = CryptoTests;
+			name = CryptofiTests;
 			productName = FinAppTests;
-			productReference = 9E602D3019E655DF00ACDEC6 /* CryptoTests.xctest */;
+			productReference = 9E602D3019E655DF00ACDEC6 /* CryptofiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -309,6 +309,7 @@
 					};
 					9E602D2F19E655DF00ACDEC6 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = N9Q8RJ74WR;
 						TestTargetID = 9E602D1319E655DF00ACDEC6;
 					};
 				};
@@ -326,8 +327,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9E602D1319E655DF00ACDEC6 /* Crypto */,
-				9E602D2F19E655DF00ACDEC6 /* CryptoTests */,
+				9E602D1319E655DF00ACDEC6 /* Cryptofi */,
+				9E602D2F19E655DF00ACDEC6 /* CryptofiTests */,
 			);
 		};
 /* End PBXProject section */
@@ -340,7 +341,7 @@
 				9E81709F1DE11FBC0066C85B /* ZEA-datasets-codes_20161119.csv in Resources */,
 				9E602D2619E655DF00ACDEC6 /* Main.storyboard in Resources */,
 				9E953F651FEDE0C200D60343 /* EconomicEvents_2018.json in Resources */,
-				9ECE7B471CBF60BF000F8D77 /* FinApp.sqlite in Resources */,
+				9ECE7B471CBF60BF000F8D77 /* ToDelete_FinApp.sqlite in Resources */,
 				9EA8E47C1C99053C002B1F5E /* EconomicEvents_2016.json in Resources */,
 				9E81709C1DE0DD610066C85B /* EconomicEvents_2017.json in Resources */,
 				9E602D2B19E655DF00ACDEC6 /* LaunchScreen.xib in Resources */,
@@ -354,7 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9ECE7B481CBF60BF000F8D77 /* FinApp.sqlite in Resources */,
+				9ECE7B481CBF60BF000F8D77 /* ToDelete_FinApp.sqlite in Resources */,
 				9E81709D1DE0DD610066C85B /* EconomicEvents_2017.json in Resources */,
 				9E8170A01DE11FBC0066C85B /* ZEA-datasets-codes_20161119.csv in Resources */,
 				9E2F49581CE1622800D51401 /* ProductEvents_2016_Local.json in Resources */,
@@ -407,7 +408,7 @@
 /* Begin PBXTargetDependency section */
 		9E602D3219E655DF00ACDEC6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9E602D1319E655DF00ACDEC6 /* Crypto */;
+			target = 9E602D1319E655DF00ACDEC6 /* Cryptofi */;
 			targetProxy = 9E602D3119E655DF00ACDEC6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -578,6 +579,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = N9Q8RJ74WR;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -587,7 +589,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.siddsingh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Knotifi.app/Knotifi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptofi.app/Cryptofi";
 			};
 			name = Debug;
 		};
@@ -595,12 +597,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = N9Q8RJ74WR;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = CryptoAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.siddsingh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Knotifi.app/Knotifi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptofi.app/Cryptofi";
 			};
 			name = Release;
 		};
@@ -616,7 +619,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E602D3A19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "Crypto" */ = {
+		9E602D3A19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "Cryptofi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E602D3B19E655DF00ACDEC6 /* Debug */,
@@ -625,7 +628,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E602D3D19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "CryptoTests" */ = {
+		9E602D3D19E655DF00ACDEC6 /* Build configuration list for PBXNativeTarget "CryptofiTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E602D3E19E655DF00ACDEC6 /* Debug */,

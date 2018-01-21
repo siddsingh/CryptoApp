@@ -817,5 +817,86 @@ static FASnapShot *sharedInstance;
     return colorToReturn;
 }
 
+// Check to see if a crypto currency is supported
+- (BOOL)isCurrencySupported:(NSString *)ticker {
+    
+    BOOL isSupported = NO;
+    
+    // CURATED NEWS ONES FIRST
+    if ([ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"ETH"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"ADA"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    
+    
+    if ([ticker caseInsensitiveCompare:@"LTC"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"XEM"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"NEO"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"XLM"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"EOS"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    
+    
+    if ([ticker caseInsensitiveCompare:@"MIOTA"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"XMR"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"BTG"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    
+    
+    if ([ticker caseInsensitiveCompare:@"ICX"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"QTUM"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"ETC"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"LSK"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    if ([ticker caseInsensitiveCompare:@"XRB"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    
+    
+    // ADDING UPCOMING ONES
+    if ([ticker caseInsensitiveCompare:@"ZEC"] == NSOrderedSame) {
+        isSupported = YES;
+    }
+    
+    return isSupported;
+}
 
 @end

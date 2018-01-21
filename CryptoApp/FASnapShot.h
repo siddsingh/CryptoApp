@@ -28,4 +28,7 @@
 // Get the brand text color for given ticker
 - (UIColor *)getBrandTextColorForCompany:(NSString *)ticker;
 
+// Check to see if a crypto currency is supported
+- (BOOL)isCurrencySupported:(NSString *)ticker;
+
 @end

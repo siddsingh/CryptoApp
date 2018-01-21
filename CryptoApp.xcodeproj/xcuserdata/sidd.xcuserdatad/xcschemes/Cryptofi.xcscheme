@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9E602D1319E655DF00ACDEC6"
-               BuildableName = "Crypto.app"
-               BlueprintName = "Crypto"
+               BuildableName = "Cryptofi.app"
+               BlueprintName = "Cryptofi"
                ReferencedContainer = "container:CryptoApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9E602D2F19E655DF00ACDEC6"
-               BuildableName = "CryptoTests.xctest"
-               BlueprintName = "CryptoTests"
+               BuildableName = "CryptofiTests.xctest"
+               BlueprintName = "CryptofiTests"
                ReferencedContainer = "container:CryptoApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,8 +48,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9E602D2F19E655DF00ACDEC6"
-               BuildableName = "CryptoTests.xctest"
-               BlueprintName = "CryptoTests"
+               BuildableName = "CryptofiTests.xctest"
+               BlueprintName = "CryptofiTests"
                ReferencedContainer = "container:CryptoApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -58,8 +58,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9E602D1319E655DF00ACDEC6"
-            BuildableName = "Crypto.app"
-            BlueprintName = "Crypto"
+            BuildableName = "Cryptofi.app"
+            BlueprintName = "Cryptofi"
             ReferencedContainer = "container:CryptoApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,8 +82,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9E602D1319E655DF00ACDEC6"
-            BuildableName = "Crypto.app"
-            BlueprintName = "Crypto"
+            BuildableName = "Cryptofi.app"
+            BlueprintName = "Cryptofi"
             ReferencedContainer = "container:CryptoApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -107,8 +107,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9E602D1319E655DF00ACDEC6"
-            BuildableName = "Crypto.app"
-            BlueprintName = "Crypto"
+            BuildableName = "Cryptofi.app"
+            BlueprintName = "Cryptofi"
             ReferencedContainer = "container:CryptoApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
