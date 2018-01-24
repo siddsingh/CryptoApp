@@ -143,12 +143,12 @@
     // Get a primary data controller that you will use later
     self.primaryDataController = [[FADataController alloc] init];
     
-    // Ensure that the remote fetch spinner is not animating thus hidden
-    if ([[self.primaryDataController getEventSyncStatus] isEqualToString:@"RefreshCheckDone"]) {
+    // TO DO:V 1.0: Delete if not needed. Ensure that the remote fetch spinner is not animating thus hidden
+    /*if ([[self.primaryDataController getEventSyncStatus] isEqualToString:@"RefreshCheckDone"]) {
         [self removeBusyMessage];
     } else {
         [self showBusyMessage];
-    }
+    }*/
     
     // TO DO: DEBUGGING: DELETE. Make one of the events confirmed to yesterday
     /*NSDate *today = [NSDate date];
@@ -241,8 +241,8 @@
         // Get the right future events depending on event type
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Home"] == NSOrderedSame) {
             //self.eventResultsController = [self.primaryDataController getAllFutureEventsWithProductEventsOfVeryHighImpact];
-            // TO DO:V 1.0: Change this to be correct
-            self.eventResultsController = [self.primaryDataController getAllCurrencyPriceChangeEvents];
+            //self.eventResultsController = [self.primaryDataController getAllCurrencyPriceChangeEvents];
+            self.eventResultsController = [self.primaryDataController getAllEvents];
         }
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Earnings"] == NSOrderedSame) {
             self.eventResultsController = [self.primaryDataController getAllFutureEarningsEvents];
@@ -1923,8 +1923,8 @@
             
             // Check to see if the Events Main Nav is selected
             if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
-                // Query all future events, including today, as that is the default view
-                self.eventResultsController = [self.primaryDataController getAllFutureEventsWithProductEventsOfVeryHighImpact];
+                // Query all price change events
+                self.eventResultsController = [self.primaryDataController getAllCurrencyPriceChangeEvents];
                 
                 // Set the Filter Specified flag to false, indicating that no search filter has been specified
                 self.filterSpecified = NO;
@@ -2222,7 +2222,8 @@
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
             // Set correct header text
             [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING MARKET EVENTS"];
-            self.eventResultsController = [self.primaryDataController getAllFutureEventsWithProductEventsOfVeryHighImpact];
+            // Query all price change events
+            self.eventResultsController = [self.primaryDataController getAllCurrencyPriceChangeEvents];
             [self.eventsListTable reloadData];
         }
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
@@ -2764,7 +2765,7 @@
         
         // Get the right future events depending on event type
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Home"] == NSOrderedSame) {
-            self.eventResultsController = [secondaryDataController getAllFutureEventsWithProductEventsOfVeryHighImpact];
+            self.eventResultsController = [secondaryDataController getAllCurrencyPriceChangeEvents];
         }
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Earnings"] == NSOrderedSame) {
             self.eventResultsController = [secondaryDataController getAllFutureEarningsEvents];

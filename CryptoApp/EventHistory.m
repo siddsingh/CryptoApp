@@ -32,13 +32,16 @@
 
 // Stock price on the previous event 1 date.
 // NOTE: 999999.9 is a placeholder for empty prices, meaning we don't have the value.
+// For currency price change events this stores the percent change for the last 7 days.
 @dynamic previous1Price;
 
 // Stock price on previous 1 related event date.
 // NOTE: 999999.9 is a placeholder for empty prices, meaning we don't have the value.
+// For currency price change events this stores the 24 hr volume.
 @dynamic previous1RelatedPrice;
 
 // Current stock price which right now is yesterday's price
+// For currency price change events this stores the 24 hr percent change
 @dynamic currentPrice;
 
 // Parent event for which this is the history.

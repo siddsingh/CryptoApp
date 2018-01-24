@@ -55,6 +55,9 @@
 // Upsert an Event along with a parent company to the Event Data Store i.e. If the specified event type for that particular company exists, update it. If not insert it.
 - (void)upsertEventWithDate:(NSDate *)eventDate relatedDetails:(NSString *)eventRelatedDetails relatedDate:(NSDate *)eventRelatedDate type:(NSString *)eventType certainty:(NSString *)eventCertainty listedCompany:(NSString *)listedCompanyTicker estimatedEps:(NSNumber *)eventEstEps priorEndDate:(NSDate *)eventPriorEndDate actualEpsPrior:(NSNumber *)eventActualEpsPrior;
 
+// Upsert an Event along with history to the Event Data Store i.e. If the specified event type for that particular company exists, update it along with history. If not insert it along with history.
+- (void)upsertEventWithDate:(NSDate *)eventDate relatedDetails:(NSString *)eventRelatedDetails relatedDate:(NSDate *)eventRelatedDate type:(NSString *)eventType certainty:(NSString *)eventCertainty listedCompany:(NSString *)listedCompanyTicker estimatedEps:(NSNumber *)eventEstEps priorEndDate:(NSDate *)eventPriorEndDate actualEpsPrior:(NSNumber *)eventActualEpsPrior previous1RelatedPrice:(NSNumber *)relPrice previous1Price:(NSNumber *)prevPrice currentPrice:(NSNumber *)currPrice;
+
 // Get all Events. Returns a results controller with identities of all Events recorded, but no more
 // than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
 - (NSFetchedResultsController *)getAllEvents;
@@ -226,6 +229,9 @@
 
 // Get 24 hr price changes for all the cryptocurrencies
 - (void)getAllCryptoPriceChangeEventsFromApi;
+
+// Wrapper method to get crypto events from the API. Takes care of busy spinner start/stop along with events refresh.
+- (void)getCryptoPriceEventsWrapper;
 
 // Get all the price change events and details from the data source APIs. This is the new version that uses the same data source as used for getting prices elsewhere.
 - (void)getAllPriceChangeEventsFromApiNew;

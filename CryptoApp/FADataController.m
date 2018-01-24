@@ -328,7 +328,127 @@ bool eventsUpdated = NO;
     if (![dataStoreContext save:&error]) {
         NSLog(@"ERROR: Saving event of type: %@ and with ticker:%@ to data store failed: %@",eventType,listedCompanyTicker,error.description);
     }
+    
+    // TO DO:V 1.0: Testing. Delete before shipping v4.3
+    NSLog(@"INSERTING EVENT OF TYPE:%@ WITH TICKER:%@",eventType,listedCompanyTicker);
 }
+
+
+// Upsert an Event along with history to the Event Data Store i.e. If the specified event type for that particular company exists, update it along with history. If not insert it along with history.
+- (void)upsertEventWithDate:(NSDate *)eventDate relatedDetails:(NSString *)eventRelatedDetails relatedDate:(NSDate *)eventRelatedDate type:(NSString *)eventType certainty:(NSString *)eventCertainty listedCompany:(NSString *)listedCompanyTicker estimatedEps:(NSNumber *)eventEstEps priorEndDate:(NSDate *)eventPriorEndDate actualEpsPrior:(NSNumber *)eventActualEpsPrior previous1RelatedPrice:(NSNumber *)relPrice previous1Price:(NSNumber *)prevPrice currentPrice:(NSNumber *)currPrice
+{
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    
+    // Check to see if the event exists by doing a case insensitive query on parent company Ticker and event type.
+    // TO DO: Current assumption is that an event is uniquely identified by the combination of above 2 fields. This might need to change in the future.
+    NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
+    // If event is of type price change set type filter to be more generic depending on the type of price change event
+    // "50.12% up today" "50.12% down today" "10.12% down 30 days" "30.12% down ytd"
+    NSPredicate *eventPredicate = nil;
+    // For daily change event - % up today or % down today
+    if ([eventType containsString:@"% up today"]||[eventType containsString:@"% down today"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@ AND type contains %@",listedCompanyTicker,@"%",@"today"];
+    }
+    // For 30 days change event - % down 30 days
+    else if ([eventType containsString:@"% down 30 days"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"% down 30 days"];
+    }
+    // For 30 days change event - % up 30 days
+    else if ([eventType containsString:@"% up 30 days"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"% up 30 days"];
+    }
+    // For year to date change event - % down ytd
+    else if ([eventType containsString:@"% down ytd"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"% down ytd"];
+    }
+    // For year to date change event - % up ytd
+    else if ([eventType containsString:@"% up ytd"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"% up ytd"];
+    }
+    // For 52 week High event
+    else if ([eventType containsString:@"52 Week High"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"52 Week High"];
+    }
+    // For 52 week Low event
+    else if ([eventType containsString:@"52 Week Low"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"52 Week Low"];
+    }
+    // If not a price change event, it's an exact match to the type string
+    else {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type =[c] %@",listedCompanyTicker,eventType];
+    }
+    
+    [eventFetchRequest setEntity:eventEntity];
+    [eventFetchRequest setPredicate:eventPredicate];
+    NSError *error;
+    Event *existingEvent = nil;
+    existingEvent  = [[dataStoreContext executeFetchRequest:eventFetchRequest error:&error] lastObject];
+    if (error) {
+        NSLog(@"ERROR: Getting an event from data store, to check uniqueness when upserting, failed: %@",error.description);
+    }
+    
+    // If the event does not exist, insert it
+    if (!existingEvent) {
+        
+        // Get the parent listed company for the event by doing a case insensitive query on the company ticker
+        NSFetchRequest *companyFetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *companyEntity = [NSEntityDescription entityForName:@"Company" inManagedObjectContext:dataStoreContext];
+        [companyFetchRequest setEntity:companyEntity];
+        NSPredicate *companyPredicate = [NSPredicate predicateWithFormat:@"ticker =[c] %@",listedCompanyTicker];
+        [companyFetchRequest setPredicate:companyPredicate];
+        Company *parentCompany = nil;
+        parentCompany  = [[dataStoreContext executeFetchRequest:companyFetchRequest error:&error] lastObject];
+        if (error) {
+            NSLog(@"ERROR: Getting a parent listed company, for inserting an associated event from data store failed: %@",error.description);
+        }
+        
+        // Insert the event and history with the parent listed company
+        Event *event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:dataStoreContext];
+        event.type = eventType;
+        event.date = eventDate;
+        event.relatedDetails = eventRelatedDetails;
+        event.relatedDate = eventRelatedDate;
+        event.certainty = eventCertainty;
+        event.listedCompany = parentCompany;
+        event.estimatedEps = eventEstEps;
+        event.priorEndDate = eventPriorEndDate;
+        event.actualEpsPrior = eventActualEpsPrior;
+        EventHistory *history = [NSEntityDescription insertNewObjectForEntityForName:@"EventHistory" inManagedObjectContext:dataStoreContext];
+        history.previous1RelatedPrice = relPrice;
+        history.previous1Price = prevPrice;
+        history.currentPrice = currPrice;
+        event.relatedEventHistory = history;
+        // TO DO:V 1.0: Testing. Delete before shipping v4.3
+        NSLog(@"INSERTING NEW EVENT OF TYPE:%@ WITH TICKER:%@ WITH RANK:%@ WITH VOL:%@ WITH MARKET CAP:%@  WITH 1hrPERCENTCHANGE:%@ WITH 24hrPERCENTCHANGE:%@ WITH 7dPERCENTCHANGE:%@",eventType,listedCompanyTicker,event.relatedDetails,history.previous1RelatedPrice,event.estimatedEps,event.actualEpsPrior,history.currentPrice,history.previous1Price);
+    }
+    
+    // If the event exists update it
+    else {
+        
+        // Don't need to update type and company as these are the unique identifiers
+        existingEvent.date = eventDate;
+        existingEvent.relatedDetails = eventRelatedDetails;
+        existingEvent.relatedDate = eventRelatedDate;
+        existingEvent.certainty = eventCertainty;
+        existingEvent.estimatedEps = eventEstEps;
+        existingEvent.priorEndDate = eventPriorEndDate;
+        existingEvent.actualEpsPrior = eventActualEpsPrior;
+        EventHistory *existingEventHistory = (EventHistory *) existingEvent.relatedEventHistory;
+        existingEventHistory.previous1RelatedPrice = relPrice;
+        existingEventHistory.previous1Price = prevPrice;
+        existingEventHistory.currentPrice = currPrice;
+        
+        // TO DO:V 1.0: Testing. Delete before shipping v4.3
+        NSLog(@"INSERTING EXISTING EVENT OF TYPE:%@ WITH TICKER:%@ WITH RANK:%@ WITH VOL:%@ WITH MARKET CAP:%@  WITH 1hrPERCENTCHANGE:%@ WITH 24hrPERCENTCHANGE:%@ WITH 7dPERCENTCHANGE:%@",eventType,listedCompanyTicker,existingEvent.relatedDetails,existingEventHistory.previous1RelatedPrice,existingEvent.estimatedEps,existingEvent.actualEpsPrior,existingEventHistory.currentPrice,existingEventHistory.previous1Price);
+    }
+    
+    // Perform the insert
+    if (![dataStoreContext save:&error]) {
+        NSLog(@"ERROR: Saving event of type: %@ and with ticker:%@ to data store failed: %@",eventType,listedCompanyTicker,error.description);
+    }
+}
+
 
 // Get all Events. Returns a results controller with identities of all Events recorded, but no more
 // than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
@@ -2602,7 +2722,6 @@ bool eventsUpdated = NO;
     });
 }
 
-
 #pragma mark - Methods for Price Change Data
 
 // Get 24 hr price changes for all the cryptocurrencies
@@ -2658,6 +2777,12 @@ bool eventsUpdated = NO;
         NSString *currencyName = nil;
         NSString *percentChangeSinceYestStr = nil;
         NSDate *eventDate = nil;
+        NSString *capRank = nil;
+        NSNumber *marketCap = [[NSNumber alloc] initWithFloat:0.0];
+        NSNumber *oneHrPercentChange = [[NSNumber alloc] initWithFloat:0.0];
+        NSNumber *volumeSinceYest = [[NSNumber alloc] initWithFloat:0.0];
+        NSNumber *sevenDaysPercentChange = [[NSNumber alloc] initWithFloat:0.0];
+        
         
         // Iterate through the currencies prices array in the parsed response.
         for (NSDictionary *currencyDetails in parsedResponse) {
@@ -2668,6 +2793,11 @@ bool eventsUpdated = NO;
     
             // Set date to now.
             eventDate = [NSDate date];
+            
+            // Get Market cap rank and Cap and One Hr Percent Change
+            capRank = [currencyDetails objectForKey:@"rank"];
+            marketCap = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"market_cap_usd"] doubleValue]];
+            oneHrPercentChange = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_1h"] doubleValue]];
             
             // Get percentage change in the last 24 hours
             percentChangeSinceYest = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_24h"] doubleValue]];
@@ -2688,12 +2818,12 @@ bool eventsUpdated = NO;
                 // Insert into the events datastore
                 // Check if this currency exists, If yes, insert event
                 if ([self doesTickerExist:currencySymbol]) {
-                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
                 }
                 // If not add it before inserting the event
                 else {
                     [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
-                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
                 }
                 // TO DO:V 2.0: Add in notifications
                 // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
@@ -2709,12 +2839,12 @@ bool eventsUpdated = NO;
                 // Insert into the events datastore
                 // Check if this currency exists, If yes, insert event
                 if ([self doesTickerExist:currencySymbol]) {
-                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
                 }
                 // If not add it before inserting the event
                 else {
                     [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
-                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
                 }
                 // TO DO:V 2.0: Add in notifications
                 // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
@@ -2859,6 +2989,27 @@ bool eventsUpdated = NO;
         // Log error to console
         NSLog(@"ERROR: Could not get price events data from the API Data Source in the new way as used in the client. Error description: %@",error.description);
     } */
+}
+
+// Wrapper method to get crypto events from the API. Takes care of busy spinner start/stop along with events refresh.
+- (void)getCryptoPriceEventsWrapper {
+    
+    // Show busy
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // TO DO:V 1.0: TO DO: Delete Later
+        NSLog(@"About to start busy spinner");
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
+    });
+    
+    [self getAllCryptoPriceChangeEventsFromApi];
+    
+    // Stop Busy
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // TO DO:V 1.0: TO DO: Delete Later.
+        NSLog(@"About to stop busy spinner");
+        [self sendEventsChangeNotification];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
+    });
 }
 
 // Get all the price change events and details from the data source APIs. This is the new version that uses the same data source as used for getting prices elsewhere.
@@ -3418,13 +3569,11 @@ bool eventsUpdated = NO;
     NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
     [eventFetchRequest setEntity:eventEntity];
     // Set the filter. Get price change events with date clause
-    NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND (ANY actions.type == %@)", todaysDate, @"PriceChange"];
-    // Set the filter. Get price change events with no date clause
-    eventPredicate = [NSPredicate predicateWithFormat:@"type contains %@ AND type contains %@",@"%",@"today"];
+    NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND type contains %@ AND type contains %@", todaysDate, @"%", @"today"];
     // Future, if you need the date clause
     //NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"(ANY actions.type == %@)", @"PriceChange"];
     [eventFetchRequest setPredicate:eventPredicate];
-    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:YES];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:NO];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
     [eventFetchRequest setFetchBatchSize:15];
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
@@ -4360,12 +4509,8 @@ bool eventsUpdated = NO;
 // CURRENTLY: Getting only the price change events to start with.
 - (void)updateEventsFromRemoteIfNeeded {
     
-    // Delete the existing price change events
-    [self deleteAllDailyPriceChangeEvents];
-    [self getAllCryptoPriceChangeEventsFromApi];
-    
-    
-    
+    // Get All Crypto price events wrapper that takes care of busy spinner, table refresh etc.
+    [self getCryptoPriceEventsWrapper];
     
  /*   eventsUpdated = NO;
     

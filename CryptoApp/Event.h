@@ -32,7 +32,7 @@
 // "Before Market Open, "During Market Trading", "Unknown".
 //  2. Economic Event like "Jan Fed Meeting" would contain the weblink to get more details.
 // 3. Product Events like "iPhone 7 Launch" have timing information for the event.
-// 4. Price change events don't have any details currently.
+// 4. Currency Price change events have the market cap rank.
 @property (nonatomic, retain) NSString * relatedDetails;
 
 // Date related to the event.
@@ -50,9 +50,11 @@
 @property (nonatomic, retain) NSString * certainty;
 
 // Estimated EPS for the upcoming event
+// For currency price change events this is used to store current market cap
 @property (nonatomic, retain) NSNumber * estimatedEps;
 
 // Actual EPS for the previously reported quarter for now. or fiscal year later
+// For currency price change events this is used to store 1 hr price change
 @property (nonatomic, retain) NSNumber * actualEpsPrior;
 
 // Actions associated with the event
