@@ -428,6 +428,7 @@ bool eventsUpdated = NO;
         
         // Don't need to update type and company as these are the unique identifiers
         existingEvent.date = eventDate;
+        existingEvent.type = eventType;
         existingEvent.relatedDetails = eventRelatedDetails;
         existingEvent.relatedDate = eventRelatedDate;
         existingEvent.certainty = eventCertainty;
@@ -1019,7 +1020,7 @@ bool eventsUpdated = NO;
     }
     
     // Check to see if the event type is "Earnings". Search on "ticker" or "name" fields for the listed Company for earnings events
-    if ([eventType caseInsensitiveCompare:@"Earnings"] == NSOrderedSame) {
+    if ([eventType caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
         // Case and Diacractic Insensitive Filtering
         searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@) AND (type =[c] %@) AND (date >= %@)", searchText, searchText, @"Quarterly Earnings", todaysDate];
         sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
@@ -1033,7 +1034,7 @@ bool eventsUpdated = NO;
     }
     
     // Check to see if the event type is "Crypto". Search on "ticker" or "name" fields for the listed Company or the "type" field on the event for all economic events
-    if ([eventType caseInsensitiveCompare:@"Crypto"] == NSOrderedSame) {
+    if ([eventType caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
         // Case and Diacractic Insensitive Filtering
         // FOR BTC: Add any new cryptocurrencies here as well.
         searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@) AND (date >= %@)", searchText, searchText, searchText, @"BTC", @"ETHR", @"BCH$", @"XRP", todaysDate];
@@ -2783,145 +2784,48 @@ bool eventsUpdated = NO;
         NSNumber *volumeSinceYest = [[NSNumber alloc] initWithFloat:0.0];
         NSNumber *sevenDaysPercentChange = [[NSNumber alloc] initWithFloat:0.0];
         
+        // Set date to now.
+        eventDate = [NSDate date];
         
         // Iterate through the currencies prices array in the parsed response.
         for (NSDictionary *currencyDetails in parsedResponse) {
             
-            // Get the currency symbol and name
-            currencySymbol = [currencyDetails objectForKey:@"symbol"];
-            currencyName = [currencyDetails objectForKey:@"name"];
-    
-            // Set date to now.
-            eventDate = [NSDate date];
-            
-            // Get Market cap rank and Cap and One Hr Percent Change
-            capRank = [currencyDetails objectForKey:@"rank"];
-            marketCap = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"market_cap_usd"] doubleValue]];
-            oneHrPercentChange = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_1h"] doubleValue]];
-            
-            // Get percentage change in the last 24 hours
-            percentChangeSinceYest = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_24h"] doubleValue]];
-            // Get a string representation for the change
-            percentChangeSinceYestStr = [NSString stringWithFormat:@"%.02f",[percentChangeSinceYest doubleValue]];
-            // TO DO:V 1.0: Delete later
-            NSLog(@"For the currency ticker:%@, the 24 h percentage change is:%@", currencySymbol, percentChangeSinceYestStr);
-            
-            // Get current price
-            currPrice = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"price_usd"] doubleValue]];
-            // Format the current price string
-            currPriceStr = [NSString stringWithFormat:@"%.02f",[currPrice doubleValue]];
-            
-            // Get whatever the daily price change is
-            if([percentChangeSinceYest doubleValue] >= 0.0) {
-                
-                specificEventType = [NSString stringWithFormat:@"+%@%% up today $%@",percentChangeSinceYestStr,currPriceStr];
-                // Insert into the events datastore
-                // Check if this currency exists, If yes, insert event
-                if ([self doesTickerExist:currencySymbol]) {
-                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
-                }
-                // If not add it before inserting the event
-                else {
-                    [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
-                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
-                }
-                // TO DO:V 2.0: Add in notifications
-                // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
-                // TO DO: Hardcoding this for now to be quarterly earnings
-                /*if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
-                    [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
-                } */
+            // Check to see any of the field values are not null. If it is continue without processing it.
+            if ([[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"symbol"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"name"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"rank"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"market_cap_usd"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"percent_change_1h"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"24h_volume_usd"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"percent_change_7d"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"percent_change_24h"]] containsString:@"null"]||
+                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"price_usd"]] containsString:@"null"])
+            {
+                continue;
             }
-            if([percentChangeSinceYest doubleValue] < 0.0) {
+            else
+            {
+                // Get the currency symbol and name
+                currencySymbol = [currencyDetails objectForKey:@"symbol"];
+                currencyName = [currencyDetails objectForKey:@"name"];
                 
-                percentChangeSinceYestStr = [percentChangeSinceYestStr substringFromIndex:1];
-                specificEventType = [NSString stringWithFormat:@"-%@%% down today $%@",percentChangeSinceYestStr,currPriceStr];
-                // Insert into the events datastore
-                // Check if this currency exists, If yes, insert event
-                if ([self doesTickerExist:currencySymbol]) {
-                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
-                }
-                // If not add it before inserting the event
-                else {
-                    [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
-                    [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
-                }
-                // TO DO:V 2.0: Add in notifications
-                // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
-                // TO DO: Hardcoding this for now to be quarterly earnings
-                /*if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
-                    [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
-                }*/
-            }
-        }
-    }
-            
-            
-   /*
-        
-        // Get the list of data slices from the overall data set
-        NSDictionary *parsedDataSets = [parsedResponse objectForKey:@"results"];
-        
-        // TO DO: Delete Later before shipping v2.7
-        //NSLog(@"The parsed quote response data set is:%@",parsedDataSets.description);
-        
-        // Check to make sure that the correct response has come back. e.g. If you get an error message response from the API,
-        // then you don't want to process the data and enter as historical prices.
-        // If response is not correct, show the user an error message
-        if ([parsedDataSets.description isEqualToString:@"<null>"])
-        {
-            // TO DO: Ideally show user an error message but currently for simplicity we want to keep this transparent to the user.
-            // TO DO: Delete Later before shipping v2.7
-            //NSLog(@"Trapping the current price error");
-            
-        }
-        // Else process response to enter historical prices
-        else
-        {
-            NSNumber *percentChangeSinceYest = [[NSNumber alloc] initWithFloat:0.0];
-            NSNumber *currPrice = [[NSNumber alloc] initWithFloat:0.0];
-            NSString *currPriceStr = nil;
-            NSString *specificEventType = nil;
-            NSString *companySymbol = nil;
-            NSString *percentChangeSinceYestStr = nil;
-            // Set the event date to today by default
-            NSDate *eventDate = [NSDate date];
-            NSString *eventDateStr = nil;
-            NSArray *dateComponents;
-            NSDateFormatter *eventDateFormatter = [[NSDateFormatter alloc] init];
-            [eventDateFormatter setDateFormat:@"yyyy-MM-dd"];
-            // TO DO: Use later when you want to work with times as well
-            //[eventDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss-HH:mm"];
-            
-            // Iterate through price array within the parsed data set, which only contains one dictionary.
-            for (NSDictionary *parsedDetailsList in parsedDataSets) {
+                // Get Market cap rank and Cap and One Hr Percent Change
+                capRank = [currencyDetails objectForKey:@"rank"];
+                marketCap = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"market_cap_usd"] doubleValue]];
+                oneHrPercentChange = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_1h"] doubleValue]];
+                // Get Volume and 7 days percent change
+                volumeSinceYest = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"24h_volume_usd"] doubleValue]];
+                sevenDaysPercentChange = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_7d"] doubleValue]];
                 
-                // Check if that ticker price is not null. If it is continue without processing it.The commented line might be a better way but couldn't test it hence going with the old way.
-                // if ([parsedDetailsList objectForKey:@"netChange"] == (id)[NSNull null])
-                if ([[NSString stringWithFormat:@"%@",[parsedDetailsList objectForKey:@"mode"]] containsString:@"null"])
-                {
-                    continue;
-                }
-                ////// Get daily price change
-                
-                // Get the company ticker
-                companySymbol = [parsedDetailsList objectForKey:@"symbol"];
-                
-                // Get the last trade date
-                dateComponents = [[parsedDetailsList objectForKey:@"tradeTimestamp"] componentsSeparatedByString:@"T"];
-                eventDateStr =  [NSString stringWithFormat: @"%@", dateComponents[0]];
-                // Convert from string to Date
-                eventDate = [eventDateFormatter dateFromString:eventDateStr];
-                //NSLog(@"The date on which the event takes place formatted as a Date: %@",eventDate);
-                
-                // Get percentage changed since yesterday
-                percentChangeSinceYest = [NSNumber numberWithDouble:[[parsedDetailsList objectForKey:@"percentChange"] doubleValue]];
-                
+                // Get percentage change in the last 24 hours: max_supply
+                percentChangeSinceYest = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_24h"] doubleValue]];
                 // Get a string representation for the change
                 percentChangeSinceYestStr = [NSString stringWithFormat:@"%.02f",[percentChangeSinceYest doubleValue]];
+                // TO DO:V 1.0: Delete later
+                NSLog(@"For the currency ticker:%@, the 24 h percentage change is:%@", currencySymbol, percentChangeSinceYestStr);
                 
                 // Get current price
-                currPrice = [NSNumber numberWithDouble:[[parsedDetailsList objectForKey:@"lastPrice"] doubleValue]];
+                currPrice = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"price_usd"] doubleValue]];
                 // Format the current price string
                 currPriceStr = [NSString stringWithFormat:@"%.02f",[currPrice doubleValue]];
                 
@@ -2930,65 +2834,46 @@ bool eventsUpdated = NO;
                     
                     specificEventType = [NSString stringWithFormat:@"+%@%% up today $%@",percentChangeSinceYestStr,currPriceStr];
                     // Insert into the events datastore
-                    // Note the upsert logic takes care of matching the generic piece of the event type to uniquely identify this event ensuring there's only one instance of this.
-                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:companySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    // Check if this currency exists, If yes, insert event
+                    if ([self doesTickerExist:currencySymbol]) {
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                    }
+                    // If not add it before inserting the event
+                    else {
+                        [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                    }
+                    // TO DO:V 2.0: Add in notifications
                     // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
                     // TO DO: Hardcoding this for now to be quarterly earnings
-                    if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
-                        [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
-                    }
+                    /*if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
+                     [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
+                     } */
                 }
                 if([percentChangeSinceYest doubleValue] < 0.0) {
                     
                     percentChangeSinceYestStr = [percentChangeSinceYestStr substringFromIndex:1];
                     specificEventType = [NSString stringWithFormat:@"-%@%% down today $%@",percentChangeSinceYestStr,currPriceStr];
                     // Insert into the events datastore
-                    // Note the upsert logic takes care of matching the generic piece of the event type to uniquely identify this event ensuring there's only one instance of this.
-                    [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:companySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    // Check if this currency exists, If yes, insert event
+                    if ([self doesTickerExist:currencySymbol]) {
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                    }
+                    // If not add it before inserting the event
+                    else {
+                        [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                    }
+                    // TO DO:V 2.0: Add in notifications
                     // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
                     // TO DO: Hardcoding this for now to be quarterly earnings
-                    if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
-                        [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
-                    }
-                }
-                
-                ////// Get 52 week highs
-                NSString *hiLoEventStr = nil;
-                NSNumber *hiLoPrice = [[NSNumber alloc] initWithFloat:0.0];
-                
-                eventDateStr = [parsedDetailsList objectForKey:@"fiftyTwoWkHighDate"];
-                eventDate = [eventDateFormatter dateFromString:eventDateStr];
-                hiLoPrice = [NSNumber numberWithDouble:[[parsedDetailsList objectForKey:@"fiftyTwoWkHigh"] doubleValue]];
-                hiLoEventStr = [NSString stringWithFormat:@"%.02f",[hiLoPrice doubleValue]];
-                
-                specificEventType = [NSString stringWithFormat:@"52 Week High $%@",hiLoEventStr];
-                [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:companySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
-                // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
-                // TO DO: Hardcoding this for now to be quarterly earnings
-                if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
-                    [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
-                }
-                
-                ////// Get 52 week lows
-                
-                eventDateStr = [parsedDetailsList objectForKey:@"fiftyTwoWkLowDate"];
-                eventDate = [eventDateFormatter dateFromString:eventDateStr];
-                hiLoPrice = [NSNumber numberWithDouble:[[parsedDetailsList objectForKey:@"fiftyTwoWkLow"] doubleValue]];
-                hiLoEventStr = [NSString stringWithFormat:@"%.02f",[hiLoPrice doubleValue]];
-                
-                specificEventType = [NSString stringWithFormat:@"52 Week Low $%@",hiLoEventStr];
-                [self upsertEventWithDate:eventDate relatedDetails:nil relatedDate:nil type:specificEventType certainty:nil listedCompany:companySymbol estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
-                // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
-                // TO DO: Hardcoding this for now to be quarterly earnings
-                if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
-                    [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
+                    /*if ([self doesReminderActionExistForEventWithTicker:companySymbol eventType:@"Quarterly Earnings"]){
+                     [self insertActionOfType:@"PriceChange" status:@"Queued" eventTicker:companySymbol eventType:specificEventType];
+                     }*/
                 }
             }
         }
-    } else {
-        // Log error to console
-        NSLog(@"ERROR: Could not get price events data from the API Data Source in the new way as used in the client. Error description: %@",error.description);
-    } */
+    }
 }
 
 // Wrapper method to get crypto events from the API. Takes care of busy spinner start/stop along with events refresh.
@@ -3006,7 +2891,7 @@ bool eventsUpdated = NO;
     // Stop Busy
     dispatch_async(dispatch_get_main_queue(), ^{
         // TO DO:V 1.0: TO DO: Delete Later.
-        NSLog(@"About to stop busy spinner");
+        NSLog(@"About to stop busy spinner and send events change notification");
         [self sendEventsChangeNotification];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
     });
@@ -3556,7 +3441,7 @@ bool eventsUpdated = NO;
     return self.resultsController;
 }
 
-// Get all price change events. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+// Get all price change events starting with highest market cap. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
 - (NSFetchedResultsController *)getAllCurrencyPriceChangeEvents
 {
     NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
@@ -3570,10 +3455,68 @@ bool eventsUpdated = NO;
     [eventFetchRequest setEntity:eventEntity];
     // Set the filter. Get price change events with date clause
     NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND type contains %@ AND type contains %@", todaysDate, @"%", @"today"];
-    // Future, if you need the date clause
-    //NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"(ANY actions.type == %@)", @"PriceChange"];
+    // Future, if you don't need the date clause
+    //NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"type contains %@ AND type contains %@", @"%", @"today"];
     [eventFetchRequest setPredicate:eventPredicate];
-    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:NO];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"estimatedEps" ascending:NO];
+    [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
+    [eventFetchRequest setFetchBatchSize:15];
+    self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
+                                                                 managedObjectContext:dataStoreContext sectionNameKeyPath:nil
+                                                                            cacheName:nil];
+    NSError *error;
+    if (![self.resultsController performFetch:&error]) {
+        NSLog(@"ERROR: Getting all price change events from data store failed: %@",error.description);
+    }
+    
+    return self.resultsController;
+}
+
+// Get price change events with positive 24 hr percentage increases, starting with the highest increase. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getTopGainersCurrencyPriceChangeEvents
+{
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    
+    // Get today's date formatted to midnight last night
+    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    
+    // Get all future events with the upcoming ones first
+    NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
+    [eventFetchRequest setEntity:eventEntity];
+    // Set the filter. Get price change events with date clause
+    NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND type contains %@ AND type contains %@ AND type contains %@", todaysDate,@"+", @"%", @"today"];
+    [eventFetchRequest setPredicate:eventPredicate];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedEventHistory.currentPrice" ascending:NO];
+    [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
+    [eventFetchRequest setFetchBatchSize:15];
+    self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
+                                                                 managedObjectContext:dataStoreContext sectionNameKeyPath:nil
+                                                                            cacheName:nil];
+    NSError *error;
+    if (![self.resultsController performFetch:&error]) {
+        NSLog(@"ERROR: Getting all price change events from data store failed: %@",error.description);
+    }
+    
+    return self.resultsController;
+}
+
+// Get price change events with 24 hr percentage decreases, starting with the highest decrease. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getTopLosersCurrencyPriceChangeEvents
+{
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    
+    // Get today's date formatted to midnight last night
+    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    
+    // Get all future events with the upcoming ones first
+    NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
+    [eventFetchRequest setEntity:eventEntity];
+    // Set the filter. Get price change events with date clause
+    NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND type contains %@ AND type contains %@ AND type contains %@", todaysDate,@"-", @"%", @"today"];
+    [eventFetchRequest setPredicate:eventPredicate];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedEventHistory.currentPrice" ascending:YES];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
     [eventFetchRequest setFetchBatchSize:15];
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest

@@ -255,6 +255,12 @@
 // Get all price change events. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
 - (NSFetchedResultsController *)getAllCurrencyPriceChangeEvents;
 
+// Get price change events with positive 24 hr percentage increases, starting with the highest increase. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getTopGainersCurrencyPriceChangeEvents;
+
+// Get price change events with 24 hr percentage decreases, starting with the highest decrease. Returns a results controller with identities of all Events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getTopLosersCurrencyPriceChangeEvents;
+
 // Get the date on which the events were last synced
 - (NSDate *)getDailyPriceEventSyncDate;
 
