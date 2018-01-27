@@ -480,14 +480,23 @@
         // Check to see if the Events Main Nav is selected
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
             // Show the "Get Events" text in the event display area.
-            [[cell eventDescription] setText:@"GET EVENTS"];
+            //[[cell eventDescription] setText:@"GET EVENTS"];
             // Set color to a link blue to provide a visual cue to click
-            cell.eventDescription.textColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
-            // FOR BTC or ETHR or BCH$ or XRP, in case the user ever gets into this situation, set to NOT AVAILABLE.
-            if (([cell.companyTicker.text caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"XRP"] == NSOrderedSame)) {
-                [[cell eventDescription] setText:@"NOT AVAILABLE"];
-                // Set color to a light gray.
-                cell.eventDescription.textColor = [UIColor lightGrayColor];
+            //cell.eventDescription.textColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+            // Currently just format to show proper error message
+            // Set color to a light gray.
+            cell.eventDescription.textColor = [UIColor lightGrayColor];
+            // If Cap and not found means that it probably dropped out of the top 100
+            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
+                 [[cell eventDescription] setText:@"NOT AVAILABLE"];
+            }
+            // If Gainer and not found means it did not gain today.
+            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
+                [[cell eventDescription] setText:@"NOT A GAINER"];
+            }
+            // If Gainer and not found means it did not gain today.
+            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
+                [[cell eventDescription] setText:@"NOT A LOSER"];
             }
         }
         // Check to see if the Following Main Nav is selected
@@ -1846,6 +1855,15 @@
                 // has been specified.
                 self.filterType = [NSString stringWithFormat:@"Match_Companies_Events"];
             }
+            // If no events are found, search for the name and ticker fields on the companies data store.
+            if ([self.filteredResultsController fetchedObjects].count == 0) {
+                
+                self.filteredResultsController = [self.primaryDataController searchCompaniesFor:searchBar.text];
+                
+                // Set the filter type to Match_Companies_NoEvents, meaning a filter matching companies with no existing events
+                // has been specified.
+                self.filterType = [NSString stringWithFormat:@"Match_Companies_NoEvents"];
+            }
             // Check to see if the Following Main Nav is selected
             if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
                 // Search the ticker and name fields on the company related to the events and the type of event in the data store, for the search text entered
@@ -2137,43 +2155,9 @@
 // If not show the user a message warning them.
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar*)searchBar {
     
-    // Check for connectivity. If yes, give user information message
-    if ([self checkForInternetConnectivity]) {
-        
-        // TO DO: OPTIONAL UNCOMMENT FOR PRE SEEDING DB: Commenting out since we don't want to kick off a company/event sync due to preseeded data.
-        /*
-        // If the companies data is still being synced, give the user a warning message
-        if (![[self.primaryDataController getCompanySyncStatus] isEqualToString:@"FullSyncDone"]) {
-            // Show user a message that companies data is being synced
-            // Give the user an informational message
-            int pagesDone = [[self.primaryDataController getCompanySyncedUptoPage] intValue];
-            // TO DO: Currently this is hardcoded to 26 as 26 pages worth of companies (7517 companies at 300 per page) were available as of Sep 29, 2105. When you change this, change the hard coded value in getAllCompaniesFromApi(2 places) in FADataController. Also change in Search Bar Began Editing in the Events View Controller. Also change in getAllCompaniesFromApiInBackground in FA Events View Controller. Also Change in refreshCompanyInfoIfNeededFromApiInBackground in AppDelegate.
-            // TO DO: Delete this later
-            // int totalPages = 26;
-            // TO DO: Account for the case where total no of company pages to sync might be -1.
-            int totalPages = (int)[[self.primaryDataController getTotalNoOfCompanyPagesToSync] integerValue];
-            float percentageDone = (100 * pagesDone)/totalPages;
-            NSString *userMessage = [NSString stringWithFormat:@"Fetching Tickers(%.f%% Done)! Can't find one,retry in a bit.", percentageDone];
-            [self sendUserMessageCreatedNotificationWithMessage:userMessage];
-            // TO DO: Delete Later after testing.
-            //[self sendUserMessageCreatedNotificationWithMessage:@"Fetching Tickers! Can't find one, retry in a bit."];
-        } */
-        
-        // TRACKING EVENT: Search Initiated: User clicked into the search bar to initiate a search.
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Search Initiated"];
-        
-        // If the newer companies data is still being synced, give the user a warning message
-        if (![[self.primaryDataController getCompanySyncStatus] isEqualToString:@"FullSyncDone"]) {
-            
-            [self sendUserMessageCreatedNotificationWithMessage:@"Fetching new tickers."];
-        }
-    }
-    // If not, show error message,
-    else {
-        
-        [self sendUserMessageCreatedNotificationWithMessage:@"No Connection. Limited functionality."];
-    }
+    // TRACKING EVENT: Search Initiated: User clicked into the search bar to initiate a search.
+    // TO DO: Disabling to not track development events. Enable before shipping.
+    [FBSDKAppEvents logEvent:@"Search Initiated"];
     
     return YES;
 }

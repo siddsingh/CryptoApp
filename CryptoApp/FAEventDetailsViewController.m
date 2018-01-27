@@ -341,7 +341,7 @@
             NSString *capRankString = [NSString stringWithFormat:@"#%@", eventData.relatedDetails];
             
             [[cell titleLabel] setText:capRankString];
-            [[cell descriptionArea] setText:@"Market Cap Rank"];
+            [[cell descriptionArea] setText:@"MARKET CAP RANK"];
         }
         break;
             
@@ -356,7 +356,7 @@
             NSString *totalCapString = [NSString stringWithFormat:@"%@", [currencyFormatter1 stringFromNumber:eventData.estimatedEps]];
             
             [[cell titleLabel] setText:totalCapString];
-            [[cell descriptionArea] setText:@"Total Market Cap"];
+            [[cell descriptionArea] setText:@"TOTAL MARKET CAP"];
         }
         break;
             
@@ -371,7 +371,7 @@
             NSString *currPriceString = [NSString stringWithFormat:@"%@", [currencyFormatter2 stringFromNumber:eventHistoryData.currentPrice]];
             
             [[cell titleLabel] setText:currPriceString];
-            [[cell descriptionArea] setText:@"Current Price"];
+            [[cell descriptionArea] setText:@"CURRENT PRICE"];
         }
         break;
             
@@ -386,7 +386,7 @@
             NSString *oneChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventData.actualEpsPrior]];
             
             [[cell titleLabel] setText:oneChangeString];
-            [[cell descriptionArea] setText:@"1 Hr Price Change"];
+            [[cell descriptionArea] setText:@"1 HR PRICE CHANGE"];
         }
         break;
             
@@ -401,7 +401,7 @@
             NSString *twentyChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventHistoryData.previous1RelatedPrice]];
             
             [[cell titleLabel] setText:twentyChangeString];
-            [[cell descriptionArea] setText:@"24 Hr Price Change"];
+            [[cell descriptionArea] setText:@"24 HR PRICE CHANGE"];
         }
         break;
             
@@ -416,7 +416,7 @@
             NSString *sevenChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventHistoryData.previous1Price]];
             
             [[cell titleLabel] setText:sevenChangeString];
-            [[cell descriptionArea] setText:@"7 Days Price Change"];
+            [[cell descriptionArea] setText:@"7 DAYS PRICE CHANGE"];
         }
         break;
             

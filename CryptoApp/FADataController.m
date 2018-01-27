@@ -972,7 +972,7 @@ bool eventsUpdated = NO;
     return self.resultsController;
 }
 
-// Search and return all future events that match the search text dpending on the display event type. Note this is different from the type field on the event data object: 0. All (all eventTypes) 1. "Earnings" (Quarterly Earnings) 2. "Economic" (Economic Event) 3. "Product" (Product Event).NOTE: If there is a new type of product event like launch or conference added, add that here as well. 4. "Crypto" (Crypto Currency event)
+// Search and return all future events that match the search text dpending on the display event type.
 // Returns a results controller with identities of all events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the data store at a time.
 - (NSFetchedResultsController *)searchEventsFor:(NSString *)searchText eventDisplayType:(NSString *)eventType
 {
@@ -1008,33 +1008,26 @@ bool eventsUpdated = NO;
         sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
     }
     
-    // Check to see if the event display type is "Home". Search on "ticker" or "name" fields for the listed Company or the "type" field on the event for all events, Exclude product events with impact other than Very High.
-    if ([eventType caseInsensitiveCompare:@"Home"] == NSOrderedSame) {
+    // Check to see if the event display type is "Prices->Cap". Search on "ticker" or "name" fields for the listed Currency.
+    if ([eventType caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
         // Case and Diacractic Insensitive Filtering
-        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (date >= %@) AND (NOT ((type contains[cd] %@) OR (type contains[cd] %@) OR (type contains[cd] %@))) AND ((NOT ((relatedEventHistory.previous1Status contains[cd] %@) OR (relatedEventHistory.previous1Status contains[cd] %@) OR (relatedEventHistory.previous1Status contains[cd] %@))) OR (relatedEventHistory.previous1Status contains[cd] %@))", searchText, searchText, searchText, todaysDate, @"% up", @"% down", @"52 Week", @"High_", @"Medium_", @"Low_", @"Very High_"];
-        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@) AND (date >= %@) AND ((type contains[cd] %@) OR (type contains[cd] %@))", searchText, searchText, todaysDate, @"% up today", @"% down today"];
+        sortField = [[NSSortDescriptor alloc] initWithKey:@"listedCompany.name" ascending:YES];
     }
     
-    // Check to see if the event type is "Earnings". Search on "ticker" or "name" fields for the listed Company for earnings events
+    // Check to see if the event type is "Prices->Gainers". Search on "ticker" or "name" fields for the listed Currency.
     if ([eventType caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
         // Case and Diacractic Insensitive Filtering
-        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@) AND (type =[c] %@) AND (date >= %@)", searchText, searchText, @"Quarterly Earnings", todaysDate];
-        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@) AND (date >= %@) AND (type contains[cd] %@)", searchText, searchText, todaysDate, @"% up today"];
+        sortField = [[NSSortDescriptor alloc] initWithKey:@"listedCompany.name" ascending:YES];
     }
     
-    // Check to see if the event type is "Economic". Search on "ticker" or "name" fields for the listed Company or the "type" field on the event for all economic events
-    if ([eventType caseInsensitiveCompare:@"Economic"] == NSOrderedSame) {
-        // Case and Diacractic Insensitive Filtering
-        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (listedCompany.ticker contains %@) AND (date >= %@)", searchText, searchText, searchText, @"ECONOMY_", todaysDate];
-        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
-    }
-    
-    // Check to see if the event type is "Crypto". Search on "ticker" or "name" fields for the listed Company or the "type" field on the event for all economic events
+    // Check to see if the event display type is "Prices->Losers". Search on "ticker" or "name" fields for the listed Currency.
     if ([eventType caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
         // Case and Diacractic Insensitive Filtering
         // FOR BTC: Add any new cryptocurrencies here as well.
-        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@) AND (date >= %@)", searchText, searchText, searchText, @"BTC", @"ETHR", @"BCH$", @"XRP", todaysDate];
-        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@) AND (date >= %@) AND (type contains[cd] %@)", searchText, searchText, todaysDate, @"% down today"];
+        sortField = [[NSSortDescriptor alloc] initWithKey:@"listedCompany.name" ascending:YES];
     }
     
     // Check to see if the event type is "Product". Search on "ticker" or "name" fields for the listed Company or the "type" field on the event for all product events
