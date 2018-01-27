@@ -249,23 +249,57 @@
 {
     // Get a custom cell to display details and reset states/colors of cell elements to avoid carryover
     FAEventDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventDetailsCell" forIndexPath:indexPath];
+    // Get the event details parts of which will be displayed in the details table
+    Event *eventData = [self.primaryDetailsDataController getEventForParentEventTicker:self.parentTicker andEventType:self.eventType];
+    // Set the event history details
+    EventHistory *eventHistoryData = (EventHistory *)[eventData relatedEventHistory];
     
-    // Assign a row no to the type of event detail row. Currently upto 5 types of related info pieces are available.
+    // Define formatters
+    // Currency formatter. Currently using US locale for everything.
+    NSNumberFormatter *currencyFormatter1 = [[NSNumberFormatter alloc] init];
+    [currencyFormatter1 setNumberStyle:NSNumberFormatterCurrencyStyle];
+    currencyFormatter1.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    [currencyFormatter1 setMaximumFractionDigits:0];
+    
+    NSNumberFormatter *currencyFormatter2 = [[NSNumberFormatter alloc] init];
+    [currencyFormatter2 setNumberStyle:NSNumberFormatterCurrencyStyle];
+    currencyFormatter2.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    [currencyFormatter2 setMaximumFractionDigits:4];
+    
+    NSNumberFormatter *twoDecNumberFormatter = [[NSNumberFormatter alloc] init];
+    twoDecNumberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    [twoDecNumberFormatter setMaximumFractionDigits:2];
+    
+    // Assign a row no to the type of event detail row.
+    #define infoRow0  -1
     #define infoRow1  0
+    #define infoRow2  1
+    #define infoRow3  2
+    #define infoRow4  3
+    #define infoRow5  4
+    #define infoRow6  5
+    int rowNo = 0;
     
-    // Get Row no
-    int rowNo = (int)indexPath.row;
+    // If it's a currency price event, start at Row 1, which is Market Cap onwards
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+        rowNo = (int)indexPath.row;
+    }
+    // If it's a news event, start at Row 0, which includes a description of the event.
+    else {
+         rowNo = ((int)indexPath.row - 1);
+    }
     
+    
+   
     // Default
-    [[cell titleLabel] setText:@"?"];
+    [[cell titleLabel] setText:@"NA"];
     [[cell descriptionArea] setText:@"Details not available."];
     
     // Display the appropriate details based on the row no
-    // TO DO: SOLIDIFY LATER: Currently we use the event data to get the previous related date in expectedEps, priorEps, changeSincePrevQuarter. The scrubbed version of the previous related date (updated if it was on a weekend) is stored in the event history so that the stock price can be fetched. This is working fine for now but might want to rethink this.
     switch (rowNo) {
         
-            // Common impact and description cell
-        case infoRow1:
+        // Show impact and desscription for product events right now.
+        case infoRow0:
         {
             // Get Impact String
             NSString *impact_str = [self getImpactDescriptionForEventType:self.eventType eventParent:self.parentTicker];
@@ -294,11 +328,100 @@
             // Set the rationale
             [[cell descriptionArea] setText:[NSString stringWithFormat:@"%@.%@",[self getImpactDescriptionForEventType:self.eventType eventParent:self.parentTicker],[self getEventDescriptionForEventType:self.eventType eventParent:self.parentTicker]]];
         }
-            break;
+        break;
+            
+        // Show Market Cap Rank
+        case infoRow1:
+        {
+            // Default State Colors
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            
+            // Cap Rank String
+            NSString *capRankString = [NSString stringWithFormat:@"#%@", eventData.relatedDetails];
+            
+            [[cell titleLabel] setText:capRankString];
+            [[cell descriptionArea] setText:@"Market Cap Rank"];
+        }
+        break;
+            
+        // Show Total Market Cap
+        case infoRow2:
+        {
+            // Default State Colors
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            
+            // Total Cap String
+            NSString *totalCapString = [NSString stringWithFormat:@"%@", [currencyFormatter1 stringFromNumber:eventData.estimatedEps]];
+            
+            [[cell titleLabel] setText:totalCapString];
+            [[cell descriptionArea] setText:@"Total Market Cap"];
+        }
+        break;
+            
+        // Show Current Price
+        case infoRow3:
+        {
+            // Default State Colors
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            
+            // Curr Price String
+            NSString *currPriceString = [NSString stringWithFormat:@"%@", [currencyFormatter2 stringFromNumber:eventHistoryData.currentPrice]];
+            
+            [[cell titleLabel] setText:currPriceString];
+            [[cell descriptionArea] setText:@"Current Price"];
+        }
+        break;
+            
+        // Show 1 Hr Price Change
+        case infoRow4:
+        {
+            // Default State Colors
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            
+            // Curr Price String
+            NSString *oneChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventData.actualEpsPrior]];
+            
+            [[cell titleLabel] setText:oneChangeString];
+            [[cell descriptionArea] setText:@"1 Hr Price Change"];
+        }
+        break;
+            
+        // Show 24 Hr Price Change
+        case infoRow5:
+        {
+            // Default State Colors
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            
+            // Curr Price String
+            NSString *twentyChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventHistoryData.previous1RelatedPrice]];
+            
+            [[cell titleLabel] setText:twentyChangeString];
+            [[cell descriptionArea] setText:@"24 Hr Price Change"];
+        }
+        break;
+            
+        // Show 7 Days Price Change
+        case infoRow6:
+        {
+            // Default State Colors
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            
+            // Curr Price String
+            NSString *sevenChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventHistoryData.previous1Price]];
+            
+            [[cell titleLabel] setText:sevenChangeString];
+            [[cell descriptionArea] setText:@"7 Days Price Change"];
+        }
+        break;
             
         default:
-            
-            break;
+        break;
     }
     
     return cell;
@@ -1799,6 +1922,16 @@
 - (NSInteger)getNoOfInfoPiecesForEventType
 {
     NSInteger numberOfPieces = 1;
+    
+    // If it's a currency price event
+    // Price change events we want to show the current stock price and 30 day and ytd change.
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+        
+        // Market Cap Rank, Total Market Cap, Current Price, 1 Hr Price Change, 24 Hr Price change, 7 Days Price Change, 24 Hr Trade Volume
+        numberOfPieces = 6;
+    } else {
+        numberOfPieces = 7;
+    }
     
 /*    // Set a value indicating that a value is not available. Currently a Not Available value is represented by
     double notAvailable = 999999.9f;

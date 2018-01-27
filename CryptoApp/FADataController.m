@@ -237,13 +237,9 @@ bool eventsUpdated = NO;
     // If event is of type price change set type filter to be more generic depending on the type of price change event
     // "50.12% up today" "50.12% down today" "10.12% down 30 days" "30.12% down ytd"
     NSPredicate *eventPredicate = nil;
-    // For daily change event - % up today
-    if ([eventType containsString:@"% up today"]) {
-        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"% up today"];
-    }
-    // For daily change event - % down today
-    if ([eventType containsString:@"% down today"]) {
-        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@",listedCompanyTicker,@"% down today"];
+    // For daily change event - % up today or % down today
+    if ([eventType containsString:@"% up today"]||[eventType containsString:@"% down today"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@ AND type contains %@",listedCompanyTicker,@"%",@"today"];
     }
     // For 30 days change event - % down 30 days
     else if ([eventType containsString:@"% down 30 days"]) {
@@ -1220,7 +1216,15 @@ bool eventsUpdated = NO;
     NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
     // Case and Diacractic Insensitive Filtering
-    NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type =[c] %@",eventCompanyTicker, eventType];
+    // For daily change event - % up today or % down today do a fuzzy match
+    NSPredicate *eventPredicate = nil;
+    if ([eventType containsString:@"% up today"]||[eventType containsString:@"% down today"]) {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type contains %@ AND type contains %@",eventCompanyTicker,@"%",@"today"];
+    }
+    // For others do an exact match
+    else {
+        eventPredicate = [NSPredicate predicateWithFormat:@"listedCompany.ticker =[c] %@ AND type =[c] %@",eventCompanyTicker, eventType];
+    }
     [eventFetchRequest setEntity:eventEntity];
     [eventFetchRequest setPredicate:eventPredicate];
     NSError *error;
@@ -2728,7 +2732,11 @@ bool eventsUpdated = NO;
 // Get 24 hr price changes for all the cryptocurrencies
 - (void)getAllCryptoPriceChangeEventsFromApi
 {
-    
+    // Currency formatter for prices
+    NSNumberFormatter *currencyFormatter2 = [[NSNumberFormatter alloc] init];
+    [currencyFormatter2 setNumberStyle:NSNumberFormatterCurrencyStyle];
+    currencyFormatter2.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    [currencyFormatter2 setMaximumFractionDigits:4];
     
     // Here are the various price APIs available:
     // CoinMarketCap: Free for now but could become paid later. Using this currently: https://coinmarketcap.com/api/
@@ -2781,7 +2789,6 @@ bool eventsUpdated = NO;
         NSString *capRank = nil;
         NSNumber *marketCap = [[NSNumber alloc] initWithFloat:0.0];
         NSNumber *oneHrPercentChange = [[NSNumber alloc] initWithFloat:0.0];
-        NSNumber *volumeSinceYest = [[NSNumber alloc] initWithFloat:0.0];
         NSNumber *sevenDaysPercentChange = [[NSNumber alloc] initWithFloat:0.0];
         
         // Set date to now.
@@ -2796,7 +2803,6 @@ bool eventsUpdated = NO;
                 [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"rank"]] containsString:@"null"]||
                 [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"market_cap_usd"]] containsString:@"null"]||
                 [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"percent_change_1h"]] containsString:@"null"]||
-                [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"24h_volume_usd"]] containsString:@"null"]||
                 [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"percent_change_7d"]] containsString:@"null"]||
                 [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"percent_change_24h"]] containsString:@"null"]||
                 [[NSString stringWithFormat:@"%@",[currencyDetails objectForKey:@"price_usd"]] containsString:@"null"])
@@ -2813,8 +2819,7 @@ bool eventsUpdated = NO;
                 capRank = [currencyDetails objectForKey:@"rank"];
                 marketCap = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"market_cap_usd"] doubleValue]];
                 oneHrPercentChange = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_1h"] doubleValue]];
-                // Get Volume and 7 days percent change
-                volumeSinceYest = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"24h_volume_usd"] doubleValue]];
+                // Get 7 days percent change
                 sevenDaysPercentChange = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_7d"] doubleValue]];
                 
                 // Get percentage change in the last 24 hours: max_supply
@@ -2827,21 +2832,24 @@ bool eventsUpdated = NO;
                 // Get current price
                 currPrice = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"price_usd"] doubleValue]];
                 // Format the current price string
-                currPriceStr = [NSString stringWithFormat:@"%.02f",[currPrice doubleValue]];
+                // New way using currency formatter which will make it easier to globalize
+                currPriceStr = [NSString stringWithFormat:@"%@", [currencyFormatter2 stringFromNumber:currPrice]];
+                // Old way using self formatting.
+                //currPriceStr = [NSString stringWithFormat:@"%.02f",[currPrice doubleValue]];
                 
                 // Get whatever the daily price change is
                 if([percentChangeSinceYest doubleValue] >= 0.0) {
                     
-                    specificEventType = [NSString stringWithFormat:@"+%@%% up today $%@",percentChangeSinceYestStr,currPriceStr];
+                    specificEventType = [NSString stringWithFormat:@"+%@%% up today %@",percentChangeSinceYestStr,currPriceStr];
                     // Insert into the events datastore
                     // Check if this currency exists, If yes, insert event
                     if ([self doesTickerExist:currencySymbol]) {
-                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:percentChangeSinceYest previous1Price:sevenDaysPercentChange currentPrice:currPrice];
                     }
                     // If not add it before inserting the event
                     else {
                         [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
-                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:percentChangeSinceYest previous1Price:sevenDaysPercentChange currentPrice:currPrice];
                     }
                     // TO DO:V 2.0: Add in notifications
                     // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
@@ -2853,16 +2861,16 @@ bool eventsUpdated = NO;
                 if([percentChangeSinceYest doubleValue] < 0.0) {
                     
                     percentChangeSinceYestStr = [percentChangeSinceYestStr substringFromIndex:1];
-                    specificEventType = [NSString stringWithFormat:@"-%@%% down today $%@",percentChangeSinceYestStr,currPriceStr];
+                    specificEventType = [NSString stringWithFormat:@"-%@%% down today %@",percentChangeSinceYestStr,currPriceStr];
                     // Insert into the events datastore
                     // Check if this currency exists, If yes, insert event
                     if ([self doesTickerExist:currencySymbol]) {
-                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:percentChangeSinceYest previous1Price:sevenDaysPercentChange currentPrice:currPrice];
                     }
                     // If not add it before inserting the event
                     else {
                         [self insertUniqueCompanyWithTicker:currencySymbol name:currencyName];
-                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:volumeSinceYest previous1Price:sevenDaysPercentChange currentPrice:percentChangeSinceYest];
+                        [self upsertEventWithDate:eventDate relatedDetails:capRank relatedDate:nil type:specificEventType certainty:nil listedCompany:currencySymbol estimatedEps:marketCap priorEndDate:nil actualEpsPrior:oneHrPercentChange previous1RelatedPrice:percentChangeSinceYest previous1Price:sevenDaysPercentChange currentPrice:currPrice];
                     }
                     // TO DO:V 2.0: Add in notifications
                     // Check to see if a reminder action has already been created for the quarterly earnings event for this ticker, which means this ticker is already being followed. In which case add a "PriceChange" action type to indicate this is a followed event.
@@ -3487,7 +3495,7 @@ bool eventsUpdated = NO;
     // Set the filter. Get price change events with date clause
     NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND type contains %@ AND type contains %@ AND type contains %@", todaysDate,@"+", @"%", @"today"];
     [eventFetchRequest setPredicate:eventPredicate];
-    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedEventHistory.currentPrice" ascending:NO];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedEventHistory.previous1RelatedPrice" ascending:NO];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
     [eventFetchRequest setFetchBatchSize:15];
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
@@ -3516,7 +3524,7 @@ bool eventsUpdated = NO;
     // Set the filter. Get price change events with date clause
     NSPredicate *eventPredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND type contains %@ AND type contains %@ AND type contains %@", todaysDate,@"-", @"%", @"today"];
     [eventFetchRequest setPredicate:eventPredicate];
-    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedEventHistory.currentPrice" ascending:YES];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedEventHistory.previous1RelatedPrice" ascending:YES];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
     [eventFetchRequest setFetchBatchSize:15];
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest

@@ -38,11 +38,11 @@
 @property (nonatomic, retain) NSNumber * previous1Price;
 
 // Stock price on previous 1 related event date.
-// For currency price change events this stores the 24 hr volume.
+// For currency price change events this stores the 24 hr percent change
 @property (nonatomic, retain) NSNumber * previous1RelatedPrice;
 
 // Current stock price which right now is yesterday's price
-// For currency price change events this stores the 24 hr percent change
+// For currency price change events this stores the current price.
 @property (nonatomic, retain) NSNumber * currentPrice;
 
 // Parent event for which this is the history.
