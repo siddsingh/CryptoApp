@@ -700,8 +700,7 @@ bool eventsUpdated = NO;
     NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
     [eventFetchRequest setEntity:eventEntity];
     // Set the filter for date and event type
-    // FOR BTC - Add any new crypto currency here to make it show up in the Crypto section
-    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND (listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@ OR listedCompany.ticker =[c] %@)", todaysDate, @"BTC", @"ETHR", @"BCH$", @"XRP"];
+    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"date >= %@ AND (type contains[cd] %@ OR type contains[cd] %@)", todaysDate, @"Launch", @"Conference"];
     [eventFetchRequest setPredicate:datePredicate];
     NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
@@ -2461,6 +2460,9 @@ bool eventsUpdated = NO;
 // Get all the product events and details from the data source APIs
 - (void)getAllProductEventsFromApi
 {
+    // TO DO:V 1.0: Delete Later
+    NSLog(@"ABOUT TO SYNC PRODUCT EVENTS");
+          
     // TO DO: Delete this later as we are getting this from the cloud now
     // Get the product events file path
    /* NSString *eventsFilePath = [[NSBundle mainBundle] pathForResource:@"ProductEvents_2016_Local" ofType:@"json"];
@@ -2529,6 +2531,32 @@ bool eventsUpdated = NO;
         //NSLog(@"The endpoint being called for getting product events information is:%@",endpointURL);
         //NSLog(@"The API response for getting product events information is:%@",[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]);
         
+        NSString *parentTicker = nil;
+        NSString *eventName = nil;
+        NSString *eventType = nil;
+        NSArray *typeComponents = nil;
+        NSString *eventDateStr = nil;
+        NSDateFormatter *eventDateFormatter = [[NSDateFormatter alloc] init];
+        [eventDateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate *eventDate = nil;
+        NSString *timeLabel = nil;
+        NSString *eventAddtlInfo = nil;
+        NSString *updatedOnDateStr = nil;
+        NSDate *updatedOnDate = nil;
+        NSString *confidenceStr = nil;
+        BOOL approved = NO;
+        NSDate *lastSyncDate = nil;
+        NSDate *syncedMinus1Date = nil;
+        NSDate *maxFutureYear = nil;
+        NSDateComponents *differenceDayComponents = [[NSDateComponents alloc] init];
+        NSDateComponents *differenceYrComponents = [[NSDateComponents alloc] init];
+        NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDate *todaysDate = [NSDate date];
+        NSDateComponents *syncDateDiffComponents = nil;
+        NSInteger daysBetweenSyncDates;
+        NSDateComponents *maxFutureDiffComponents = nil;
+        NSInteger daysTillMaxFuture;
+        
         // Process the response that contains the events for the company.
         // Get the response into a parsed object
         NSDictionary *parsedResponse = [NSJSONSerialization JSONObjectWithData:responseData
@@ -2542,116 +2570,122 @@ bool eventsUpdated = NO;
         for (NSDictionary *event in parsedEvents) {
             
             // Get the ticker for the event's parent company
-            NSString *parentTicker = [event objectForKey:@"ticker"];
-            // TO DO: Delete Later
-            //NSLog(@"The event parent company is: %@", parentTicker);
+            parentTicker = [event objectForKey:@"ticker"];
+            // TO DO:V 1.0: Delete Later
+            NSLog(@"The event parent company is: %@", parentTicker);
             
-            // Get the event raw name e.g. iPhone 7
-            NSString *eventName = [event objectForKey:@"name"];
-            // TO DO: Delete Later
-            //NSLog(@"The event raw name is: %@", eventName);
-            
-            // Get the event type
-            NSString *eventType = [event objectForKey:@"type"];
-            // TO DO: Delete Later
-            //NSLog(@"The event type is: %@", eventType);
-            
-            // Construct the formatted event name from raw name and event type e.g. iPhone 7 Launch
-            NSArray *typeComponents = [eventType componentsSeparatedByString:@"_"];
-            eventName = [eventName stringByAppendingString:@" "];
-            eventName = [eventName stringByAppendingString:typeComponents.lastObject];
-            // TO DO: Delete Later
-            //NSLog(@"The event formatted name is: %@", eventName);
-            
-            // Get the event date
-            NSString *eventDateStr =  [event objectForKey:@"date"];
-            NSDateFormatter *eventDateFormatter = [[NSDateFormatter alloc] init];
-            [eventDateFormatter setDateFormat:@"yyyy-MM-dd"];
-            NSDate *eventDate = [eventDateFormatter dateFromString:eventDateStr];
-            // TO DO: Delete Later
-            //NSLog(@"The date on which the event takes place formatted as a Date: %@",eventDate);
-            
-            // Get the time label
-            NSString *timeLabel = [event objectForKey:@"exactTimeLabel"];
-            // TO DO: Delete Later
-            //NSLog(@"The event time label is: %@", timeLabel);
-            
-            // TO DO: Fix when you add a new table in the data model for event characteristics.
-            // For Product Events, we overload a field in Event History called previous1Status to store a string representing Impact, Impact Description, More Info Title and More Info Url i.e. (Impact_Impact Description_MoreInfoTitle_MoreInfoUrl)
-            NSString *eventAddtlInfo = [NSString stringWithFormat:@"%@_%@_%@_%@", [event objectForKey:@"impact"], [event objectForKey:@"impactDescription"], [event objectForKey:@"moreInfoTitle"], [event objectForKey:@"moreInfoUrl"]];
-            // TO DO: Delete Later
-            //NSLog(@"The event addtl info with Impact, Impact Description, More Info Title and More Info Url is: %@", eventAddtlInfo);
-            
-            // Get the updated on date
-            NSString *updatedOnDateStr = [event objectForKey:@"updated"];
-            NSDate *updatedOnDate = [eventDateFormatter dateFromString:updatedOnDateStr];
-            // TO DO: Delete Later
-            //NSLog(@"The updated on date formatted as a Date: %@",updatedOnDate);
-            
-            // Construct if the event is "Estimated" or "Confirmed" based on confidence value
-            // Currently, keeping it simple, if the confidence is 0.5 it's estimated, if it's 1.0 it's confirmed.
-            NSString *confidenceStr = [NSString stringWithFormat: @"%@", [event objectForKey:@"confidence"]];
-            if ([confidenceStr isEqualToString:@"0.5"]) {
-                confidenceStr = @"Estimated";
-            }
-            if ([confidenceStr isEqualToString:@"1"]) {
-                confidenceStr = @"Confirmed";
-            }
-            // TO DO: Delete Later
-            //NSLog(@"The confidence string is: %@",confidenceStr);
-            
-            // Check if this event is approved or not. Only if approved it will be added to local data store.
-            // Before updating, check if the earnings event for that company exists. If not, sync it.
-            BOOL approved = [[event objectForKey:@"approved"] boolValue];
-            // FOR BTC & ETHR & BCH$ & XRP event addition, add the condition that is the event is BTC or ETHR, sync it even if it is not approved. This is to ensure that only folks that have upgraded to this version get the events, older ones don't since the events in the db are not approved. It's probably safe to mark the events of these types as approved in the DB after about 2 mos after the release of this version. Follow this process for any new product event types.
-            // Old way where we only respect approved.
-            //if(approved) {
-            if((approved)||([parentTicker caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"XRP"] == NSOrderedSame))  {
+            // Only process cryptocurrencies by checking if this is one of the tickers we are tracking plus handle the BCH$, ETHR case. Check if Stellar XLM is fine.
+            if([self doesTickerExist:parentTicker]||([parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame))  {
+                // Sync only those events that are at least a day older than the last synced date
+                // Get the updated on date for the event
+                updatedOnDateStr = [event objectForKey:@"updated"];
+                updatedOnDate = [eventDateFormatter dateFromString:updatedOnDateStr];
+                // Get the event date
+                eventDateStr =  [event objectForKey:@"date"];
+                eventDate = [eventDateFormatter dateFromString:eventDateStr];
+                // Get the last event sync date
+                lastSyncDate = [self setTimeToMidnightLastNightOnDate:[self getEventSyncDate]];
+                // Subract 1 day from it
+                differenceDayComponents.day = -1;
+                syncedMinus1Date = [self setTimeToMidnightLastNightOnDate:[aGregorianCalendar dateByAddingComponents:differenceDayComponents toDate:lastSyncDate options:0]];
+                differenceYrComponents.year = 5;
+                // Show only events a max of 5 years from now on out. Currently using the year 2030 to set cancelled events.
+                maxFutureYear = [aGregorianCalendar dateByAddingComponents:differenceYrComponents toDate:todaysDate options:0];
+                // TO DO:V 1.0: Delete Later
+                NSLog(@"LAST EVENT SYNCED DATE AND TIME IS:%@",lastSyncDate);
+                NSLog(@"SYNCED MINUS DATE IS:%@",syncedMinus1Date);
+                NSLog(@"FUTURE MAX DATE IS:%@",maxFutureYear);
+                NSLog(@"UPDATED ON DATE IS:%@",updatedOnDate);
                 
-                // Check if earnings event exists for this ticker. If not fetch it, since we don't want a company that has only a product event and no earnings event.
-                // FOR BTC or ETHR or BCH$ or XRP, Check if BTC or ETHR and don't fetch quarterly earnings,if so.
-                if (!(([parentTicker caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"XRP"] == NSOrderedSame))) {
-                    if(![self doesEventExistForParentEventTicker:parentTicker andEventType:@"Quarterly Earnings"]) {
-                        // TO DO: Delete before shipping v4.3
-                        //NSLog(@"About to fetch earnings for ticker:%@",parentTicker);
-                        [self getAllEventsFromApiWithTicker:parentTicker];
+                syncDateDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:syncedMinus1Date toDate:updatedOnDate options:0];
+                daysBetweenSyncDates = [syncDateDiffComponents day];
+                maxFutureDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:eventDate toDate:maxFutureYear options:0];
+                daysTillMaxFuture = [maxFutureDiffComponents day];
+                
+                // TO DO:V 1.0: Delete Later
+                NSLog(@"DAYS FROM LAST SYNC DATE ARE:%d",(int)daysBetweenSyncDates);
+                NSLog(@"DAYS TO MAX FUTURE ARE:%d",(int)daysTillMaxFuture);
+                // If event has been added/updated since a day before the latest sync and is within the next 5 years, resync it.
+                if(((int)daysBetweenSyncDates >= 0) && ((int)daysTillMaxFuture > 0)) {
+                    // Get the event raw name e.g. iPhone 7
+                    eventName = [event objectForKey:@"name"];
+                    // TO DO:V 1.0: Delete Later
+                    NSLog(@"The event raw name is: %@", eventName);
+                    // Get the event type
+                    eventType = [event objectForKey:@"type"];
+                    // TO DO: Delete Later
+                    //NSLog(@"The event type is: %@", eventType);
+                    // Construct the formatted event name from raw name and event type e.g. iPhone 7 Launch
+                    typeComponents = [eventType componentsSeparatedByString:@"_"];
+                    eventName = [eventName stringByAppendingString:@" "];
+                    eventName = [eventName stringByAppendingString:typeComponents.lastObject];
+                    // TO DO: Delete Later
+                    //NSLog(@"The event formatted name is: %@", eventName);
+                    // Get the time label
+                    timeLabel = [event objectForKey:@"exactTimeLabel"];
+                    // TO DO: Delete Later
+                    //NSLog(@"The event time label is: %@", timeLabel);
+                    // TO DO: Fix when you add a new table in the data model for event characteristics.
+                    // For Product Events, we overload a field in Event History called previous1Status to store a string representing Impact, Impact Description, More Info Title and More Info Url i.e. (Impact_Impact Description_MoreInfoTitle_MoreInfoUrl)
+                    eventAddtlInfo = [NSString stringWithFormat:@"%@_%@_%@_%@", [event objectForKey:@"impact"], [event objectForKey:@"impactDescription"], [event objectForKey:@"moreInfoTitle"], [event objectForKey:@"moreInfoUrl"]];
+                    // TO DO: Delete Later
+                    //NSLog(@"The event addtl info with Impact, Impact Description, More Info Title and More Info Url is: %@", eventAddtlInfo);
+                    // TO DO: Delete Later
+                    //NSLog(@"The updated on date formatted as a Date: %@",updatedOnDate);
+                    // Construct if the event is "Estimated" or "Confirmed" based on confidence value
+                    // Currently, keeping it simple, if the confidence is 0.5 it's estimated, if it's 1.0 it's confirmed.
+                    confidenceStr = [NSString stringWithFormat: @"%@", [event objectForKey:@"confidence"]];
+                    if ([confidenceStr isEqualToString:@"0.5"]) {
+                        confidenceStr = @"Estimated";
+                    }
+                    if ([confidenceStr isEqualToString:@"1"]) {
+                        confidenceStr = @"Confirmed";
+                    }
+                    // TO DO: Delete Later
+                    //NSLog(@"The confidence string is: %@",confidenceStr);
+                    // Check if this event is approved or not. Only if approved it will be added to local data store.
+                    // Before updating, check if the earnings event for that company exists. If not, sync it.
+                    approved = [[event objectForKey:@"approved"] boolValue];
+                    // Old way where we only respect approved.
+                    //if(approved) {
+                    // FOR BTC: For special tickers like BCH$ and ETHR, transform then to the proper currency BCH$->BCH, ETHR->ETH,
+                    if([parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)  {
+                        parentTicker = @"ETH";
+                    }
+                    if([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)  {
+                        parentTicker = @"BCH";
+                    }
+                    // Insert each instance into the events datastore
+                    [self upsertEventWithDate:eventDate relatedDetails:timeLabel relatedDate:updatedOnDate type:eventName certainty:confidenceStr listedCompany:parentTicker estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    // TO DO: Fix when you add a new table in the data model for event characteristics.
+                    // For Product Events, we overload a field in Event History called previous1Status to store a string representing Impact, Impact Description, More Info Title and More Info Url i.e. (Impact_Impact Description_MoreInfoTitle_MoreInfoUrl)
+                    [self insertHistoryWithPreviousEvent1Date:nil previousEvent1Status:eventAddtlInfo previousEvent1RelatedDate:nil currentDate:nil previousEvent1Price:nil previousEvent1RelatedPrice:nil currentPrice:nil parentEventTicker:parentTicker parentEventType:eventName];
+                    
+                    // If the ticker is being followed and there is no queued reminder for this event, it means it's a new event. Create a queued reminder for it even if it's confirmed, since in the very next step it will create the reminder. Also this ensures that the event is added to the following list.
+                    if ([self isBeingFollowed:parentTicker]&&(![self doesReminderActionExistForSpecificEvent:eventName])) {
+                        [self insertActionOfType:@"OSReminder" status:@"Queued" eventTicker:parentTicker eventType:eventName];
+                    }
+                    
+                    // If this product event just went from estimated to confirmed and there is a queued reminder to be created for it, and the event is not in the past, fire a notification to create the reminder.
+                    if ([confidenceStr isEqualToString:@"Confirmed"]&&[self doesQueuedReminderActionExistForEventWithTicker:parentTicker eventType:eventName]&&([self calculateDistanceFromEventDate:eventDate] <= 0)) {
+                        //TO DO: For testing, delete before shipping v 2.5
+                        //NSLog(@"This product event just went from estimated to confirmed:%@ %@ with status string:%@",parentTicker,eventName,confidenceStr);
+                        // Create array that contains {eventType,companyTicker,eventDateText} to pass on to the notification
+                        NSString *notifEventType = [NSString stringWithFormat: @"%@", eventName];
+                        NSString *notifCompanyTicker = [NSString stringWithFormat: @"%@", parentTicker];
+                        // Format the eventDateText to include the timing details
+                        // Show the event date
+                        NSDateFormatter *notifEventDateFormatter = [[NSDateFormatter alloc] init];
+                        [notifEventDateFormatter setDateFormat:@"EEEE MMMM dd"];
+                        NSString *notifEventDateTxt = [notifEventDateFormatter stringFromDate:eventDate];
+                        NSString *notifEventTimeString = timeLabel;
+                        // Append timing information to the event date if it's known
+                        notifEventDateTxt = [NSString stringWithFormat:@"%@ %@ ",notifEventDateTxt,notifEventTimeString];
+                        
+                        // Fire the notification, passing on the necessary information
+                        [self sendCreateReminderNotificationWithEventInformation:@[notifEventType, notifCompanyTicker, notifEventDateTxt]];
                     }
                 }
-                // Insert each instance into the events datastore
-                [self upsertEventWithDate:eventDate relatedDetails:timeLabel relatedDate:updatedOnDate type:eventName certainty:confidenceStr listedCompany:parentTicker estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
-                
-                // TO DO: Fix when you add a new table in the data model for event characteristics.
-                // For Product Events, we overload a field in Event History called previous1Status to store a string representing Impact, Impact Description, More Info Title and More Info Url i.e. (Impact_Impact Description_MoreInfoTitle_MoreInfoUrl)
-                [self insertHistoryWithPreviousEvent1Date:nil previousEvent1Status:eventAddtlInfo previousEvent1RelatedDate:nil currentDate:nil previousEvent1Price:nil previousEvent1RelatedPrice:nil currentPrice:nil parentEventTicker:parentTicker parentEventType:eventName];
-                
-                // If the ticker is being followed and there is no queued reminder for this event, it means it's a new event. Create a queued reminder for it even if it's confirmed, since in the very next step it will create the reminder. Also this ensures that the event is added to the following list.
-                if ([self isBeingFollowed:parentTicker]&&(![self doesReminderActionExistForSpecificEvent:eventName])) {
-                    [self insertActionOfType:@"OSReminder" status:@"Queued" eventTicker:parentTicker eventType:eventName];
-                }
-                
-                // If this product event just went from estimated to confirmed and there is a queued reminder to be created for it, and the event is not in the past, fire a notification to create the reminder.
-                if ([confidenceStr isEqualToString:@"Confirmed"]&&[self doesQueuedReminderActionExistForEventWithTicker:parentTicker eventType:eventName]&&([self calculateDistanceFromEventDate:eventDate] <= 0)) {
-                    //TO DO: For testing, delete before shipping v 2.5
-                    //NSLog(@"This product event just went from estimated to confirmed:%@ %@ with status string:%@",parentTicker,eventName,confidenceStr);
-                    // Create array that contains {eventType,companyTicker,eventDateText} to pass on to the notification
-                    NSString *notifEventType = [NSString stringWithFormat: @"%@", eventName];
-                    NSString *notifCompanyTicker = [NSString stringWithFormat: @"%@", parentTicker];
-                    // Format the eventDateText to include the timing details
-                    // Show the event date
-                    NSDateFormatter *notifEventDateFormatter = [[NSDateFormatter alloc] init];
-                    [notifEventDateFormatter setDateFormat:@"EEEE MMMM dd"];
-                    NSString *notifEventDateTxt = [notifEventDateFormatter stringFromDate:eventDate];
-                    NSString *notifEventTimeString = timeLabel;
-                    // Append timing information to the event date if it's known
-                    notifEventDateTxt = [NSString stringWithFormat:@"%@ %@ ",notifEventDateTxt,notifEventTimeString];
-                    
-                    // Fire the notification, passing on the necessary information
-                    [self sendCreateReminderNotificationWithEventInformation:@[notifEventType, notifCompanyTicker, notifEventDateTxt]];
-                }
-                
-            } else {
-                // TO DO: Delete Later
-                //NSLog(@"This entry is NOT APPROVED");
             }
         }
     } else {
@@ -2784,8 +2818,8 @@ bool eventsUpdated = NO;
         NSNumber *oneHrPercentChange = [[NSNumber alloc] initWithFloat:0.0];
         NSNumber *sevenDaysPercentChange = [[NSNumber alloc] initWithFloat:0.0];
         
-        // Set date to now.
-        eventDate = [NSDate date];
+        // Set date to today at midnight
+        eventDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
         
         // Iterate through the currencies prices array in the parsed response.
         for (NSDictionary *currencyDetails in parsedResponse) {
@@ -4777,7 +4811,7 @@ bool eventsUpdated = NO;
 // Additionally since the user object is created when the first company data sync is done, set the event sync
 // status for the user to "NoSyncPerformed" when creating the user, not for the update.
 // Synced Page number is the page to which the company data sync was completed, ranges from 0 to total no of pages in the company data API response.
-- (void)upsertUserWithCompanySyncStatus:(NSString *)syncStatus syncedPageNo: (NSNumber *)pageNo;
+- (void)upsertUserWithCompanySyncStatus:(NSString *)syncStatus syncedPageNo: (NSNumber *)pageNo
 {
     NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
     
@@ -4821,6 +4855,7 @@ bool eventsUpdated = NO;
     }
 }
 
+
 // Update the total number of company pages to be synced to the user data store. This method updates the user with the given number. If the user doesn't exist, it logs an error. Since the user is created the first time a company event sync is performed, CALL THIS METHOD AFTER THE UPSERT COMPANY SYNC STATUS METHOD IS CALLED AT LEAST ONCE.
 - (void)updateUserWithTotalNoOfCompanyPagesToSync:(NSNumber *)noOfPages
 {
@@ -4859,10 +4894,59 @@ bool eventsUpdated = NO;
         NSLog(@"ERROR: Updating user's total number of companies to fetch to data store failed: %@",error.description);
     }
 }
-
+// Insert, if it doesn't exist or update user object with event sync status and 50 years in the past date
+- (void)initializeUserAndSetPastSyncDate
+{
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    
+    NSDate *veryPastDate = nil;
+    NSDate *todaysDate = [NSDate date];
+    NSDateComponents *differenceYrComponents = [[NSDateComponents alloc] init];
+    NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    differenceYrComponents.year = -50;
+    // Set sync date to way in the past, 50 yrs ago.
+    veryPastDate = [aGregorianCalendar dateByAddingComponents:differenceYrComponents toDate:todaysDate options:0];
+    
+    // Check to see if the user object exists by querying for it
+    NSFetchRequest *userFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *userEntity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:dataStoreContext];
+    [userFetchRequest setEntity:userEntity];
+    NSError *error;
+    User *existingUser = nil;
+    NSArray *fetchedUsers= [dataStoreContext executeFetchRequest:userFetchRequest error:&error];
+    
+    if (error) {
+        NSLog(@"ERROR: Getting user from data store failed: %@",error.description);
+    }
+    
+    existingUser = [fetchedUsers lastObject];
+    if (fetchedUsers.count > 1) {
+        NSLog(@"SEVERE_WARNING: Found more than 1 user objects in the User Data Store");
+    }
+    
+    // If the user does not exist
+    else if (!existingUser) {
+        User *user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:dataStoreContext];
+        user.companySyncStatus = @"SeedSyncDone";
+        user.companySyncDate = [NSDate date];
+        user.companyPageNumber = 0;
+        user.eventSyncStatus = [NSString stringWithFormat:@"NoSyncPerformed"];
+        user.eventSyncDate = veryPastDate;
+    }
+    
+    // If the user exists
+    else {
+        NSLog(@"ERROR: User record already exists when trying to initialize it: %@",error.description);
+    }
+    
+    // Update the user
+    if (![dataStoreContext save:&error]) {
+        NSLog(@"ERROR: Saving user company data sync status to data store failed: %@",error.description);
+    }
+}
 // Add events data sync status to the user data store. This method updates the user with the given events sync
 // status. If the user doesn't exist, it logs an error. Since the user is created the first time a company
-// event sync is performed, CALL THIS METHOD AFTER THE UPSERT COMPANY SYNC STATUS METHOD IS CALLED AT LEAST ONCE.
+// event sync is performed, CALL THIS METHOD AFTER THE initializeUserAndSetPastSyncDate.
 - (void)updateUserWithEventSyncStatus:(NSString *)syncStatus
 {
     NSManagedObjectContext *dataStoreContext = [self managedObjectContext];

@@ -336,6 +336,9 @@
 // Update the total number of company pages to be synced to the user data store. This method updates the user with the given number. If the user doesn't exist, it logs an error. Since the user is created the first time a company event sync is performed, CALL THIS METHOD AFTER THE UPSERT COMPANY SYNC STATUS METHOD IS CALLED AT LEAST ONCE.
 - (void)updateUserWithTotalNoOfCompanyPagesToSync:(NSNumber *)noOfPages;
 
+// Insert, if it doesn't exist or update user object with event sync status and 50 years in the past date
+- (void)initializeUserAndSetPastSyncDate;
+
 // Add events data sync status to the user data store. This method updates the user with the given events sync
 // status. If the user doesn't exist, it logs an error. Since the user is created the first time a company
 // event sync is performed, CALL THIS METHOD AFTER THE UPSERT COMPANY SYNC STATUS METHOD IS CALLED ONCE.

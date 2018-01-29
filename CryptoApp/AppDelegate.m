@@ -59,6 +59,9 @@
         // Add the supported crypto currency tickers and name.
         [econEventDataController getAllTickersAndNamesFromLocalStorage];
         
+        // Initialize the user record to set the event sysnc date to way in the past so that all events can be pulled later
+        [econEventDataController initializeUserAndSetPastSyncDate];
+        
             // Add new tickers + Refresh existing events and get product events
             // Async processing of non ui tasks should not be done on the main thread.
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
