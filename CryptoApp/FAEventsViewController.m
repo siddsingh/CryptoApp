@@ -143,10 +143,6 @@
     // Get a primary data controller that you will use later
     self.primaryDataController = [[FADataController alloc] init];
     
-    // TO DO:V 1.0: Delete Later
-    NSLog(@"IN VIEW DID LOAD ABOUT TO SYNC PRODUCT EVENTS");
-    [self.primaryDataController syncProductEventsWrapper];
-    
     // TO DO:V 1.0: Delete if not needed. Ensure that the remote fetch spinner is not animating thus hidden
     /*if ([[self.primaryDataController getEventSyncStatus] isEqualToString:@"RefreshCheckDone"]) {
         [self removeBusyMessage];
@@ -261,16 +257,16 @@
         }
     }
     // If following is selected in which case show the right following events
-    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
+    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
         // Show all following events
-        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Home"] == NSOrderedSame) {
-            self.eventResultsController = [self.primaryDataController getAllFollowingFutureEvents];
+        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
+            self.eventResultsController = [self.primaryDataController getAllFutureCryptoEvents];
         }
-        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Earnings"] == NSOrderedSame) {
-            self.eventResultsController = [self.primaryDataController getAllFollowingFutureEarningsEvents];
+        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
+            self.eventResultsController = [self.primaryDataController getAllPastCryptoEvents];
         }
-        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Econ"] == NSOrderedSame) {
-            self.eventResultsController = [self.primaryDataController getAllFollowingFutureEconEvents];
+        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
+            self.eventResultsController = [self.primaryDataController getLatestCryptoEvents];
         }
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Crypto"] == NSOrderedSame) {
             self.eventResultsController = [self.primaryDataController getAllFollowingFutureCryptoEvents];
@@ -2313,9 +2309,9 @@
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
         
         // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
             // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING CRYPTO EVENTS"];
+            [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING EVENTS"];
             self.eventResultsController = [self.primaryDataController getAllFutureCryptoEvents];
             [self.eventsListTable reloadData];
         }
@@ -2323,7 +2319,7 @@
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Losers" } ];
+                      parameters:@{ @"Event Type" : @"Upcoming" } ];
     }
     // Events - Recent
     if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
@@ -2342,21 +2338,20 @@
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
         
         // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
             // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING CRYPTO EVENTS"];
-            [self.primaryDataController syncProductEventsWrapper];
-            self.eventResultsController = [self.primaryDataController getAllFutureCryptoEvents];
+            [self.navigationController.navigationBar.topItem setTitle:@"RECENT EVENTS"];
+            self.eventResultsController = [self.primaryDataController getAllPastCryptoEvents];
             [self.eventsListTable reloadData];
         }
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Losers" } ];
+                      parameters:@{ @"Event Type" : @"Recent" } ];
     }
-    // Events - Updated
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Updated"] == NSOrderedSame) {
+    // Events - Latest
+    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
         
         NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                         [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
@@ -2372,17 +2367,25 @@
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
         
         // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
             // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING CRYPTO EVENTS"];
-            self.eventResultsController = [self.primaryDataController getAllFutureCryptoEvents];
+            [self.navigationController.navigationBar.topItem setTitle:@"THE LATEST"];
+            self.eventResultsController = [self.primaryDataController getLatestCryptoEvents];
             [self.eventsListTable reloadData];
         }
+        
+        // Get all price change events for followed stocks asynchronously
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
+            // Create a new FADataController so that this thread has its own MOC
+            FADataController *prodEventsDataController = [[FADataController alloc] init];
+            
+            [prodEventsDataController syncProductEventsWrapper];
+        });
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Losers" } ];
+                      parameters:@{ @"Event Type" : @"Latest" } ];
     }
     
     // NEWS (Prod) - Black
@@ -2561,15 +2564,15 @@
         [self.eventTypeSelector setTitle:@"LOSERS" forSegmentAtIndex:2];
     }
     // If Events is selected, set the correct search bar placeholder text enable and format the event segments
-    else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
+    else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
         [self.eventTypeSelector setEnabled:YES];
         [self.eventTypeSelector setHidden:NO];
         // Set correct search bar placeholder text
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
         // Format the event selectors
-        [self.eventTypeSelector setTitle:@"UPCOMING" forSegmentAtIndex:0];
-        [self.eventTypeSelector setTitle:@"RECENT" forSegmentAtIndex:1];
-        [self.eventTypeSelector setTitle:@"UPDATED" forSegmentAtIndex:2];
+        [self.eventTypeSelector setTitle:@"LATEST" forSegmentAtIndex:0];
+        [self.eventTypeSelector setTitle:@"UPCOMING" forSegmentAtIndex:1];
+        [self.eventTypeSelector setTitle:@"RECENT" forSegmentAtIndex:2];
     }
     
     // Set events selector to All Events
@@ -2815,16 +2818,16 @@
         }
     }
     // If following is selected in which case show the right following events
-    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
+    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
         // Show all following events
-        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Home"] == NSOrderedSame) {
-            self.eventResultsController = [secondaryDataController getAllFollowingFutureEvents];
+        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
+            self.eventResultsController = [secondaryDataController getAllFutureCryptoEvents];
         }
-        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Earnings"] == NSOrderedSame) {
-            self.eventResultsController = [secondaryDataController getAllFollowingFutureEarningsEvents];
+        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
+            self.eventResultsController = [secondaryDataController getAllPastCryptoEvents];
         }
-        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Econ"] == NSOrderedSame) {
-            self.eventResultsController = [secondaryDataController getAllFollowingFutureEconEvents];
+        if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
+            self.eventResultsController = [secondaryDataController getLatestCryptoEvents];
         }
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Crypto"] == NSOrderedSame) {
             self.eventResultsController = [secondaryDataController getAllFollowingFutureCryptoEvents];
@@ -3803,21 +3806,21 @@
             }
         }
         // If following is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
             
             // If Home is selected
-            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Home"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"ALL FOLLOWED EVENTS"];
+            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
+                [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING EVENTS"];
             }
             
             // If Earnings is selected
-            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Earnings"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"FOLLOWED EARNINGS"];
+            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
+                [self.navigationController.navigationBar.topItem setTitle:@"RECENT EVENTS"];
             }
             
             // If Econ events is selected
-            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Econ"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"FOLLOWED ECON EVENTS"];
+            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
+                [self.navigationController.navigationBar.topItem setTitle:@"THE LATEST"];
             }
             
             // If Crypto events is selected

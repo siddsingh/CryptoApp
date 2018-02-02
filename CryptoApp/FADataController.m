@@ -716,6 +716,61 @@ bool eventsUpdated = NO;
     return self.resultsController;
 }
 
+// Get all past cryptocurrency events excluding today. Returns a results controller with identities of all crypto events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getAllPastCryptoEvents {
+    
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    
+    // Get today's date formatted to midnight last night
+    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    
+    // Get all future events with the upcoming ones first
+    NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
+    [eventFetchRequest setEntity:eventEntity];
+    // Set the filter for date and event type
+    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"date < %@ AND (type contains[cd] %@ OR type contains[cd] %@)", todaysDate, @"Launch", @"Conference"];
+    [eventFetchRequest setPredicate:datePredicate];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
+    [eventFetchRequest setFetchBatchSize:15];
+    self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
+                                                                 managedObjectContext:dataStoreContext sectionNameKeyPath:nil
+                                                                            cacheName:nil];
+    NSError *error;
+    if (![self.resultsController performFetch:&error]) {
+        NSLog(@"ERROR: Getting all future events from data store failed: %@",error.description);
+    }
+    
+    return self.resultsController;
+}
+
+// Get latest cryptocurrency events. Returns a results controller with identities of all crypto events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getLatestCryptoEvents {
+    
+    NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
+    
+    // Get all events with the most recently added/updated first
+    NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
+    [eventFetchRequest setEntity:eventEntity];
+    // Set the filter for date and event type
+    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@ OR type contains[cd] %@", @"Launch", @"Conference"];
+    [eventFetchRequest setPredicate:datePredicate];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedDate" ascending:NO];
+    [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
+    [eventFetchRequest setFetchBatchSize:15];
+    self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
+                                                                 managedObjectContext:dataStoreContext sectionNameKeyPath:nil
+                                                                            cacheName:nil];
+    NSError *error;
+    if (![self.resultsController performFetch:&error]) {
+        NSLog(@"ERROR: Getting all future events from data store failed: %@",error.description);
+    }
+    
+    return self.resultsController;
+}
+
 // Get all following future economic events including today. Returns a results controller with identities of all economic events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
 // Currently this is empty as we haven't figured out how to follow Econ Events
 - (NSFetchedResultsController *)getAllFollowingFutureEconEvents
@@ -2733,25 +2788,46 @@ bool eventsUpdated = NO;
     return YES;
 }
 
-// Wrapper method to get product events from the API. Currently fetches all product events.
+// Wrapper method to get crypto product events from the API. Currently fetches all product events.
 - (void)syncProductEventsWrapper {
     
-    // Show busy
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // TO DO: Delete Later
-        //NSLog(@"About to start busy spinner");
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
-    });
+    // Check to make sure that we haven't already requested an events refresh today
+    // Get Today's Date
+    NSDate *todaysDate = [NSDate date];
+    // Get the event sync date
+    NSDate *lastSyncDate = [self getEventSyncDate];
+    // TO DO: Delete Later before shipping v2.5
+    NSLog(@"LAST EVENT SYNCED DATE AND TIME IS:%@",lastSyncDate);
+    NSLog(@"TODAY DATE AND TIME IS:%@",todaysDate);
+     // Get the number of hours between the 2 dates
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *hourComponents = [gregorianCalendar components:NSCalendarUnitHour fromDate:lastSyncDate toDate:todaysDate options:0];
+    NSInteger hoursBetween = [hourComponents hour];
+    // TO DO: Delete Later before shipping v4.3
+    NSLog(@"Hours between LAST EVENT SYNC AND TODAY are: %d",(int)hoursBetween);
     
-    [self getAllProductEventsFromApi];
     
-    // Stop Busy
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // TO DO: Delete Later.
-        //NSLog(@"About to stop busy spinner");
-        [self sendEventsChangeNotification];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
-    });
+    // TO DO: Sync every 2 hours.
+    if(((int)hoursBetween >= 2)) {
+        // Show busy
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // TO DO:V 1.0: Delete Later
+            NSLog(@"About to start busy spinner for fetching product events");
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
+        });
+        
+        [self getAllProductEventsFromApi];
+        // Set events sync status to "RefreshCheckDone" means a check to see if refreshed events data is available is done. This also sets the event sync date to today.
+        [self updateUserWithEventSyncStatus:@"RefreshCheckDone"];
+        
+        // Stop Busy
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // TO DO:V 1.0: Delete Later.
+            NSLog(@"About to stop busy spinner for fetching product events");
+            [self sendEventsChangeNotification];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
+        });
+    }
 }
 
 #pragma mark - Methods for Price Change Data

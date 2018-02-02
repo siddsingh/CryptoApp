@@ -101,6 +101,12 @@
 // NOTE: If there is a new type of product event like launch or conference added, add that here as well.
 - (NSFetchedResultsController *)getAllFutureProductEvents;
 
+// Get all past cryptocurrency events excluding today. Returns a results controller with identities of all crypto events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getAllPastCryptoEvents;
+
+// Get latest cryptocurrency events. Returns a results controller with identities of all crypto events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the persistent store at a time.
+- (NSFetchedResultsController *)getLatestCryptoEvents;
+
 // This is actually the next 2 days
 - (NSFetchedResultsController *)getPastProductEventsIncludingNext7Days;
 
