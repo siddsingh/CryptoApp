@@ -1084,18 +1084,27 @@ bool eventsUpdated = NO;
         sortField = [[NSSortDescriptor alloc] initWithKey:@"listedCompany.name" ascending:YES];
     }
     
-    // Check to see if the event type is "Product". Search on "ticker" or "name" fields for the listed Company or the "type" field on the event for all product events
-    if ([eventType caseInsensitiveCompare:@"Product"] == NSOrderedSame) {
+    // Check to see if the event type is "News->Latest". Search on "ticker" or "name" fields for the listed Currency or the "type" field on the event for all news events
+    if ([eventType caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
         
-        // Old way included crypto events and sorting was different.
-        // Case and Diacractic Insensitive Filtering
-        //searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (type contains[cd] %@ OR type contains[cd] %@) AND (date <= %@)", searchText, searchText, searchText, @"Launch", @"Conference", weekDate];
-        //sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (NOT ((type contains[cd] %@) OR (type contains[cd] %@)))", searchText, searchText, searchText, @"% up today", @"% down today"];
+        sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedDate" ascending:NO];
+    }
+    
+    // Check to see if the event type is "News->Latest". Search on "ticker" or "name" fields for the listed Currency or the "type" field on the event for all news events
+    if ([eventType caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
+        
+        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (NOT ((type contains[cd] %@) OR (type contains[cd] %@))) AND (date >= %@)", searchText, searchText, searchText, @"% up today", @"% down today", todaysDate];
+        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+    }
+    
+    // Check to see if the event type is "News->Latest". Search on "ticker" or "name" fields for the listed Currency or the "type" field on the event for all news events
+    if ([eventType caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
         
         // New way does not include crypto events and only allows future events.
         // FOR BTC - Add any new crypto currency here to make it show up in the Crypto section
-        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (type contains[cd] %@ OR type contains[cd] %@) AND (date >= %@) AND (listedCompany.ticker !=[c] %@ AND listedCompany.ticker !=[c] %@ AND listedCompany.ticker !=[c] %@ AND listedCompany.ticker !=[c] %@)", searchText, searchText, searchText, @"Launch", @"Conference", todaysDate, @"BTC", @"ETHR", @"BCH$", @"XRP"];
-        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+        searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (NOT ((type contains[cd] %@) OR (type contains[cd] %@))) AND (date < %@)", searchText, searchText, searchText, @"% up today", @"% down today", todaysDate];
+        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
     }
     
     [eventFetchRequest setPredicate:searchPredicate];
@@ -1113,7 +1122,7 @@ bool eventsUpdated = NO;
     return self.resultsController;
 }
 
-// Search and return all following future events that match the search text depending on the display event type. Note this is different from the type field on the event data object: 0. All (all eventTypes) 1. "Earnings" (Quarterly Earnings) 2. "Economic" (Economic Event) 3. "Product" (Product Event).NOTE: If there is a new type of product event like launch or conference added, add that here as well.
+// Search and return all product events that match the search text depending on the display event type. Note this is different from the type field on the event data object: 0. All (all eventTypes) 1. "Earnings" (Quarterly Earnings) 2. "Economic" (Economic Event) 3. "Product" (Product Event).NOTE: If there is a new type of product event like launch or conference added, add that here as well.
 // Returns a results controller with identities of all events recorded, but no more than batchSize (currently set to 15) objects’ data will be fetched from the data store at a time.
 - (NSFetchedResultsController *)searchFollowingEventsFor:(NSString *)searchText eventDisplayType:(NSString *)eventType
 {
@@ -4565,160 +4574,6 @@ bool eventsUpdated = NO;
     
     // Get All Crypto price events wrapper that takes care of busy spinner, table refresh etc.
     [self getCryptoPriceEventsWrapper];
-    
- /*   eventsUpdated = NO;
-    
-    // Check to make sure that we haven't already requested an events refresh today
-    // Get Today's Date
-    NSDate *todaysDate = [NSDate date];
-    // Get the event sync date
-    NSDate *lastSyncDate = [self getEventSyncDate];
-    // TO DO: Delete Later before shipping v2.5
-    //NSLog(@"LAST EVENT SYNCED DATE AND TIME IS:%@",lastSyncDate);
-    //NSLog(@"TODAY DATE AND TIME IS:%@",todaysDate);
-    // Get the number of days between the 2 dates
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay fromDate:lastSyncDate toDate:todaysDate options:0];
-    NSInteger daysBetween = [components day];
-    // Get the number of hours between the 2 dates
-    NSDateComponents *hourComponents = [gregorianCalendar components:NSCalendarUnitHour fromDate:lastSyncDate toDate:todaysDate options:0];
-    NSInteger hoursBetween = [hourComponents hour];
-    // TO DO: Delete Later before shipping v4.3
-    //NSLog(@"Days between LAST EVENT SYNC AND TODAY are: %ld",(long)daysBetween);
-    //NSLog(@"Hours between LAST EVENT SYNC AND TODAY are: %d",(int)hoursBetween);
-
-    // Uncomment this if you want it to sync only after 24 hours.
-    //if((int)daysBetween > 0) {
-    // TO DO: Sync every 2 hours or if it's an upgrade to force a sync when the user might have just synced under 2 hrs ago on the old version.
-    if(((int)hoursBetween >= 2)||(![[NSUserDefaults standardUserDefaults] boolForKey:@"V4_3_2_Upgraded"])) {
-        
-        // Set that the user has upgraded so that it now respects the 2 hours sync.
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"V4_3_2_Upgraded"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        // Get all events in the local data store.
-        NSFetchedResultsController *eventResultsController = [self getAllEvents];
-        
-        // For every earnings event check if it's likely that the remote source has been updated. There are 2 scenarios where it's likely:
-        // 1. If the speculated date of an event is within 31 days from today, then we consider it likely that the event has been updated
-        // in the remote source. The likely event also needs to have a certainty of either "Estimated" or "Unknown" to qualify for the update.
-        // 2. If the confirmed date of the event is in the past.
-        // An earnings event that overall qualifies will be refetched from the remote data source and updated in the local data store.
-        for (Event *localEvent in eventResultsController.fetchedObjects)
-        {
-            // Get the event's date
-            NSDate *eventDate = localEvent.date;
-            // Get the number of days between the 2 dates
-            components = [gregorianCalendar components:NSCalendarUnitDay fromDate:todaysDate toDate:eventDate options:0];
-            daysBetween = [components day];
-            
-            // Start the busy spinner at every iteration as we don't know which when will register.
-            //if (!eventsUpdated) {
-             // Start the busy spinner on the UI to indicate that a fetch is in progress. Any async UI element update has to happen in the main thread.
-             dispatch_async(dispatch_get_main_queue(), ^{
-             // TO DO: Delete before shipping v4.3
-             //NSLog(@"About to start busy spinner");
-             [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
-             });
-             //}
-            
-            // See if the event is Quarterly Earnings
-            if ([localEvent.type isEqualToString:@"Quarterly Earnings"]) {
-                
-                // See if the event qualifies for the update. If it does, call the remote data source to update it.
-                if ((([localEvent.certainty isEqualToString:@"Estimated"]||[localEvent.certainty isEqualToString:@"Unknown"])&&((int)daysBetween <= 31))||([localEvent.certainty isEqualToString:@"Confirmed"]&&((int)daysBetween < 0))){
-                    
-                    // TO DO: Delete before shipping v4.3
-                    //NSLog(@"About to fetch earnings from initial non product sync for ticker:%@",localEvent.listedCompany.ticker);
-                    
-                    [self getAllEventsFromApiWithTicker:localEvent.listedCompany.ticker];
-                    
-                    //eventsUpdated = YES;
-                }
-            }
-            
-            eventsUpdated = YES;
-        } */
-        
-        // Check to see if product events need to be added or refreshed. If yes, do that.
-        // *****NOTE*****Currently always returning true since we have not implemented update logic.
-      /*  if ([self doProductEventsNeedToBeAddedRefreshed]) {
-            
-            // Use the wrapper as it sets off a start busy spinner as well.
-            // NOTE:!!!!!!!! the wrapper also stops the busy spinner so if we need to do additional stuff here like price change fetch modify accordingly.
-            //[self getAllProductEventsFromApi];
-            [self syncProductEventsWrapper];
-        }
-    
-        // Fetch any price change events using the new API which gets it the sme way as in the client. Currently only getting daily price changes.
-        // Delete the existing daily price change events from the db to not create duplicates
-        //[self deleteAllDailyPriceChangeEvents];
-        //[self getAllPriceChangeEventsFromApiNew];
-        
-        // TO DO: Delete Later
-        //NSLog(@"Finished adding product events and price change events");
-    
-        // Setting events updated to true as new price events and new product events might be added. Later make sure
-        // it's only getting set to true if truly new events have been added.
-        eventsUpdated = YES;
-    
-        // Set events sync status to "RefreshCheckDone" means a check to see if refreshed events data is available is done. This also sets the event sync date to today.
-        [self updateUserWithEventSyncStatus:@"RefreshCheckDone"];
-        
-        // Fire events change notification if any event was updated. Plus Stop the busy spinner on the UI to indicate that the fetch is complete.
-        if (eventsUpdated) {
-            
-            // Any async UI element update has to happen in the main thread.
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self sendEventsChangeNotification];
-                // TO DO: Delete before shipping v4.3
-                //NSLog(@"About to stop busy spinner");
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
-            });
-        }
-    }
-    // Make sure you are always refreshing the first view to not show yesterday's events.
-    else {
-        // Any async UI element update has to happen in the main thread.
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self sendEventsChangeNotification];
-            // TO DO: Delete Later.
-            //NSLog(@"About to stop busy spinner");
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
-        });
-    }
-    // Get price changes every time. This whole else is actually commented.
-    else {
-        // Start the busy spinner on the UI to indicate that a fetch is in progress. Any async UI element update has to happen in the main thread.
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // TO DO: Delete Later
-            //NSLog(@"About to start busy spinner");
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
-        });
-        
-        // Check to see if product events need to be added or refreshed. If yes, do that.
-        // *****NOTE*****Currently always returning true since we have not implemented update logic
-        //if ([self doProductEventsNeedToBeAddedRefreshed]) {
-            
-            // TO DO: Delete Later
-            //NSLog(@"About to add product events from Knotifi Data Platform");
-            //[self getAllProductEventsFromApi];
-        //}
-
-        // Fetch any price change events using the new API which gets it the sme way as in the client. Currently only getting daily price changes.
-        // Delete the existing daily price change events from the db to not create duplicates
-        //[self deleteAllDailyPriceChangeEvents];
-        //[self getAllPriceChangeEventsFromApiNew];
-        
-        // Fire events change notification if any event was updated. Plus Stop the busy spinner on the UI to indicate that the fetch is complete.
-        // Any async UI element update has to happen in the main thread.
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self sendEventsChangeNotification];
-            // TO DO: Delete Later.
-            //NSLog(@"About to stop busy spinner");
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
-        });
-    } */
 }
 
 #pragma mark - User State Related
