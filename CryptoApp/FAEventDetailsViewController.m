@@ -250,9 +250,17 @@
     // Get a custom cell to display details and reset states/colors of cell elements to avoid carryover
     FAEventDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventDetailsCell" forIndexPath:indexPath];
     // Get the event details parts of which will be displayed in the details table
-    Event *eventData = [self.primaryDetailsDataController getEventForParentEventTicker:self.parentTicker andEventType:self.eventType];
+    // Trickery: We basically want to get the price change event to get the related details, so when viewing a news event trick it into getting the price change event
+    Event *eventData = nil;
+    EventHistory *eventHistoryData = nil;
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+        eventData = [self.primaryDetailsDataController getEventForParentEventTicker:self.parentTicker andEventType:self.eventType];
+    }
+    else {
+        eventData = [self.primaryDetailsDataController getEventForParentEventTicker:self.parentTicker andEventType:@"% up today"];
+    }
     // Set the event history details
-    EventHistory *eventHistoryData = (EventHistory *)[eventData relatedEventHistory];
+    eventHistoryData = (EventHistory *)[eventData relatedEventHistory];
     
     // Define formatters
     // Currency formatter. Currently using US locale for everything.

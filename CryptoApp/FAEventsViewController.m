@@ -132,7 +132,7 @@
     // Set text color of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     [self.mainNavSelector setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]} forState:UIControlStateNormal];
     // Set text color for the segment selected for the very first time which is Black for ALL events type. Also set focus bar to draw focus to the search bar to the same color.
-    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
         NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
@@ -242,7 +242,7 @@
     
     // Query all future events depending on the type selected in the selector, including today, as that is the default view first shown. Also factor in if the following nav is selected or not.
     // If All Events is selected.
-    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
         
         // Get the right future events depending on event type
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
@@ -484,7 +484,7 @@
         [[cell newsButon] setHidden:YES];
         
         // Check to see if the Events Main Nav is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             // Show the "Get Events" text in the event display area.
             //[[cell eventDescription] setText:@"GET EVENTS"];
             // Set color to a link blue to provide a visual cue to click
@@ -648,7 +648,7 @@
     if (cell.eventRemoteFetch) {
         
         // Check to see if the Events Main Nav is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             
             // FOR BTC or ETHR or BCH$ or XRP, don't fetch event from API as that's not needed
             if (!(([cell.companyTicker.text caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"XRP"] == NSOrderedSame))) {
@@ -1507,7 +1507,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
             
             // Cap
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Search the ticker and name fields on the company related to the events and the type of event in the data store, for the search text entered
                 self.filteredResultsController = [self.primaryDataController searchEventsFor:searchBar.text eventDisplayType:@"Cap"];
                 // Set the filter type to Match_Companies_Events, meaning a filter matching companies with existing events
@@ -1544,7 +1544,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
             
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Search the ticker and name fields on the company related to the events and the type of event in the data store, for the search text entered
                 self.filteredResultsController = [self.primaryDataController searchEventsFor:searchBar.text eventDisplayType:@"Gainers"];
                 // Set the filter type to Match_Companies_Events, meaning a filter matching companies with existing events
@@ -1573,7 +1573,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
     
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Search the ticker and name fields on the company related to the events and the type of event in the data store, for the search text entered
                 self.filteredResultsController = [self.primaryDataController searchEventsFor:searchBar.text eventDisplayType:@"Losers"];
                 // Set the filter type to Match_Companies_Events, meaning a filter matching companies with existing events
@@ -1711,7 +1711,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
             
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Search the ticker and name fields on the company related to the events and the type of event in the data store, for the search text entered
                 self.filteredResultsController = [self.primaryDataController searchEventsFor:searchBar.text eventDisplayType:@"Cap"];
                 // Set the filter type to Match_Companies_Events, meaning a filter matching companies with existing events
@@ -1749,7 +1749,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
             
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Search the ticker and name fields on the company related to the events and the type of event in the data store, for the search text entered
                 self.filteredResultsController = [self.primaryDataController searchEventsFor:searchBar.text eventDisplayType:@"Gainers"];
                 // Set the filter type to Match_Companies_Events, meaning a filter matching companies with existing events
@@ -1778,7 +1778,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
             
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Search the ticker and name fields on the company related to the events and the type of event in the data store, for the search text entered
                 self.filteredResultsController = [self.primaryDataController searchEventsFor:searchBar.text eventDisplayType:@"Losers"];
                 // Set the filter type to Match_Companies_Events, meaning a filter matching companies with existing events
@@ -1896,7 +1896,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
             
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Query all price change events
                 self.eventResultsController = [self.primaryDataController getAllCurrencyPriceChangeEvents];
                 
@@ -1932,7 +1932,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
             
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Query all future events, including today, as that is the default view
                 self.eventResultsController = [self.primaryDataController getTopGainersCurrencyPriceChangeEvents];
                 
@@ -1954,7 +1954,7 @@
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
             
             // Check to see if the Events Main Nav is selected
-            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
                 // Query all future events, including today, as that is the default view
                 self.eventResultsController = [self.primaryDataController getTopLosersCurrencyPriceChangeEvents];
                 
@@ -2111,7 +2111,7 @@
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
         
         // Query all future events or future following events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             // Set correct header text
             [self.navigationController.navigationBar.topItem setTitle:@"HIGHEST CAP"];
             // Query all price change events
@@ -2152,7 +2152,7 @@
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
         
         // Query all future earnings events or following future events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             // Set correct header text
             [self.navigationController.navigationBar.topItem setTitle:@"TOP GAINERS"];
             self.eventResultsController = [self.primaryDataController getTopGainersCurrencyPriceChangeEvents];
@@ -2181,7 +2181,7 @@
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
         
         // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             // Set correct header text
             [self.navigationController.navigationBar.topItem setTitle:@"TOP LOSERS"];
             self.eventResultsController = [self.primaryDataController getTopLosersCurrencyPriceChangeEvents];
@@ -2301,7 +2301,7 @@
         [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
         
         // Query all future product events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             
             // Set correct header text
             [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING PRODUCT EVENTS"];
@@ -2454,7 +2454,7 @@
         self.eventsSearchBar.placeholder = @"Company/Ticker/Cryptocurrency";
     }
     // If Events is selected, set the correct search bar placeholder text enable and show the event selection bar and format event segments.
-    else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+    else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
         [self.eventTypeSelector setEnabled:YES];
         [self.eventTypeSelector setHidden:NO];
         // Set correct search bar placeholder text
@@ -2699,7 +2699,7 @@
     // Query all future events depending on the type selected in the selector, including today, as that is the default view first shown
     
     // If All Events is selected.
-    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
         
         // Get the right future events depending on event type
         if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
@@ -3679,7 +3679,7 @@
         [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
         
         // If All Events is selected.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             
             // If Home is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
@@ -3755,7 +3755,7 @@
         FADataController *refreshDataController = [[FADataController alloc] init];
         
         // If Price is selected.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Events"] == NSOrderedSame) {
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             
             // Synchronous refresh
             [refreshDataController getAllCryptoPriceChangeEventsFromApi];
