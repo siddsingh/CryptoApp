@@ -2639,7 +2639,7 @@ bool eventsUpdated = NO;
             NSLog(@"The event parent company is: %@", parentTicker);
             
             // Only process cryptocurrencies by checking if this is one of the tickers we are tracking plus handle the BCH$, ETHR case. Check if Stellar XLM is fine.
-            if([self doesTickerExist:parentTicker]||([parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame))  {
+            if([self doesTickerExist:parentTicker]||([parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"LTC$"] == NSOrderedSame))  {
                 // Sync only those events that are at least a day older than the last synced date
                 // Get the updated on date for the event
                 updatedOnDateStr = [event objectForKey:@"updated"];
@@ -2718,6 +2718,9 @@ bool eventsUpdated = NO;
                     }
                     if([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)  {
                         parentTicker = @"BCH";
+                    }
+                    if([parentTicker caseInsensitiveCompare:@"LTC$"] == NSOrderedSame)  {
+                        parentTicker = @"LTC";
                     }
                     // Insert each instance into the events datastore
                     [self upsertEventWithDate:eventDate relatedDetails:timeLabel relatedDate:updatedOnDate type:eventName certainty:confidenceStr listedCompany:parentTicker estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];

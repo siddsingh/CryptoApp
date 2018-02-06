@@ -417,9 +417,6 @@
     // Reset color for Event description to dark text, in case it's been set to blue for a "Get Events" display.
     cell.eventDescription.textColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
     
-    // Hide the event impact label
-    cell.eventImpact.hidden = YES;
-    
     // Unhide the company ticker in case it was hidden during a product timeline view
     [[cell  companyTicker] setHidden:NO];
     
@@ -549,18 +546,8 @@
     }
     else {
         
-        // TO DO:V 1.0: Testing. Delete before shipping v4.3
-        NSLog(@"RELOADING TABLE CELL FOR TICKER:%@ with EVENT:%@",cell.companyTicker.text,cell.eventDescription.text);
-        
         // TO DO LATER: !!!!!!!!!!IMPORTANT!!!!!!!!!!!!!: Any change to the formatting here could affect reminder creation (processReminderForEventInCell:,editActionsForRowAtIndexPath) since the reminder values are taken from the cell. Additionally changes here need to be reconciled with changes in the getEvents for ticker's queued reminder creation. Also reconcile in didSelectRowAtIndexPath.
         
-        // Make the cell inactive if it's of type 52 Week.
-        // NOTE: In some places just 52 Week is used
-        if ([eventAtIndex.type containsString:@"52 Week High"]||[eventAtIndex.type containsString:@"52 Week Low"]) {
-            cell.userInteractionEnabled = NO;
-        } else {
-            cell.userInteractionEnabled = YES;
-        }
         // Set the company ticker text and Add a tap gesture recognizer to the event ticker
         [[cell companyTicker] setText:[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker]];
         UITapGestureRecognizer *tickerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processTypeIconTap:)];
@@ -613,7 +600,8 @@
         // Show the event type. Format it for display. Currently map "Quarterly Earnings" to "Earnings", "Jan Fed Meeting" to "Fed Meeting", "Jan Jobs Report" to "Jobs Report" and so on.
         // TO DO LATER: !!!!!!!!!!IMPORTANT!!!!!!!!!!!!! If you are making a change here, reconcile with prepareForSegue in addition to the methods mentioned above.
         [[cell  eventDescription] setText:[self formatEventType:eventAtIndex.type]];
-        [cell.eventDescription setTextColor:[self getColorForCellLabelsBasedOnEventType:eventAtIndex.type]];
+        // Currently not changing the color of the text based on anything.
+        //[cell.eventDescription setTextColor:[self getColorForCellLabelsBasedOnEventType:eventAtIndex.type]];
         
         // Show the event date
         [[cell eventDate] setText:[self formatDateBasedOnEventType:eventAtIndex.type withDate:eventAtIndex.date withRelatedDetails:eventAtIndex.relatedDetails withStatus:eventAtIndex.certainty]];
@@ -624,9 +612,33 @@
         // Set event distance to the appropriate color using a reddish scheme.
         [[cell eventDistance] setTextColor:[self getColorForDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
         
-        // Show event impact label if the impact is high
-        if ([self.dataSnapShot isEventHighImpact:eventAtIndex.type eventParent:eventAtIndex.listedCompany.ticker]) {
-            [[cell eventImpact] setHidden:NO];
+        
+        // Add an up or down arrow if price event else set it to show nothing
+        if ([eventAtIndex.type containsString:@"% up"])
+        {
+            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:20]];
+            [cell.eventImpact setText:@"▲"];
+            // % Up Green
+            [cell.eventImpact setTextColor:[UIColor colorWithRed:98.0f/255.0f green:189.0f/255.0f blue:49.0f/255.0f alpha:1.0f]];
+        }
+        else if ([eventAtIndex.type containsString:@"% down"])
+        {
+            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:16]];
+            [cell.eventImpact setText:@"▼"];
+            // % Down Reddish Pink
+            [cell.eventImpact setTextColor:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f]];
+        }
+        // Else show High Impact Label if needed
+        else if ([self.dataSnapShot isEventHighImpact:eventAtIndex.type eventParent:eventAtIndex.listedCompany.ticker]) {
+            [cell.eventImpact setFont:[UIFont systemFontOfSize:12]];
+            [cell.eventImpact setText:@"🔥"];
+        }
+        // Else clear it out.
+        else {
+            [cell.eventImpact setFont:[UIFont systemFontOfSize:12]];
+            [cell.eventImpact setText:@" "];
+            // White color same as cell
+            [cell.eventImpact setTextColor:[UIColor whiteColor]];
         }
         
         // Hide the event certainty as this information is not needed to be displayed to the user.
@@ -703,40 +715,6 @@
         // Get Details to pass off to detailed view.
         NSIndexPath *selectedRowIndexPath = [self.eventsListTable indexPathForSelectedRow];
         FAEventsTableViewCell *selectedCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:selectedRowIndexPath];
-        
-        /*
-        // New structure to fetch prices and segue to the detail view
-        
-        // Get Details to pass off to async processing of the price details fetch
-        NSIndexPath *selectedRowIndexPath = [self.eventsListTable indexPathForSelectedRow];
-        FAEventsTableViewCell *selectedCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:selectedRowIndexPath];
-        NSString *eventType = [self formatBackToEventType:selectedCell.eventDescription.text withAddedInfo:selectedCell.eventCertainty.text];
-        // Get the ticker for the Quarterly Earnings
-        NSString *eventTicker = selectedCell.companyTicker.text;
-        
-        // Pass off to async processing of the price details fetch
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
-            
-            // FOR BTC or ETHR or BCH$ or XRP, don't fetch price details yet as this is not supported.
-            if (!(([eventTicker caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([eventTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([eventTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([eventTicker caseInsensitiveCompare:@"XRP"] == NSOrderedSame))) {
-                // Check for connectivity. If yes, process the fetch
-                if ([self checkForInternetConnectivity]) {
-                    // Create a new FADataController so that this thread has its own MOC
-                    FADataController *priceDetailsDataController = [[FADataController alloc] init];
-                    self.currPriceAndChange = [priceDetailsDataController getPriceDetailsForEventOfType:eventType withTicker:eventTicker];
-                }
-                // If not, show error message
-                else {
-                    
-                    //  Currently for simplicity, we are handling this in the event details controller as that's where the user is transitioning to on click.
-                }
-            }
-            
-            // Perform segue to the event detail view from the main thread as you can't do this in a background thread.
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self performSegueWithIdentifier:@"ShowEventDetails1" sender:selectedCell];
-            });
-        }); */
         
         [self performSegueWithIdentifier:@"ShowEventDetails1" sender:selectedCell];
     }
@@ -2887,8 +2865,13 @@
         // For Product Events that are estimated, prepend the estimated keyword
         // When new product event types are added, change here as well
         if (([eventType containsString:@"Launch"]||[eventType containsString:@"Conference"])&&[selectedCell.eventCertainty.text isEqualToString:@"Estimated"]) {
-            [eventDetailsViewController setEventScheduleStr:[NSString stringWithFormat:@"%@ %@",selectedCell.eventCertainty.text,selectedCell.eventDate.text]];
-            
+            // If the cell's date is empty (e.g. For Latest News) make the whole thing empty
+            if ([selectedCell.eventDate.text caseInsensitiveCompare:@" "] == NSOrderedSame) {
+                [eventDetailsViewController setEventScheduleStr:@" "];
+            }
+            else {
+                [eventDetailsViewController setEventScheduleStr:[NSString stringWithFormat:@"%@ %@",selectedCell.eventCertainty.text,selectedCell.eventDate.text]];
+            }
         }
         // For price change events, there's no schedule
         else if ([eventType containsString:@"% up"]||[eventType containsString:@"% down"]) {
@@ -3193,13 +3176,17 @@
         eventDateString = @" ";
     }
     
+    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
+        eventDateString = @" ";
+    }
+    
     return eventDateString;
 }
 
 // Calculate how far the event is from today. Typical values are Past,Today, Tomorrow, 2d, 3d and so on.
 - (NSString *)calculateDistanceFromEventDate:(NSDate *)eventDate withEventType:(NSString *)rawEventType
 {
-    NSString *formattedDistance = @"Details ▸";
+    NSString *formattedDistance = @" ";
     
     // Calculate the number of days between event date and today's date
     NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -3207,105 +3194,37 @@
     NSDateComponents *diffDateComponents = [aGregorianCalendar components:unitFlags fromDate:[self setTimeToMidnightLastNightOnDate:[NSDate date]] toDate:[self setTimeToMidnightLastNightOnDate:eventDate] options:0];
     NSInteger difference = [diffDateComponents day];
     
-    // Return an appropriately formatted string
-   /* if ((difference < 0)&&(difference > -2)) {
-        formattedDistance = @"Yesterday ▸";
-    } else if ((difference <= -2)&&(difference > -4)) {
-        formattedDistance = @"Day Before ▸";
-    } else if ((difference <= -4)&&(difference > -8)) {
-        formattedDistance = [NSString stringWithFormat:@"%@d ago ▸",[@(ABS(difference)) stringValue]];
-    } else if ((difference <= -8)&&(difference > -31)) {
-        formattedDistance = @"Past month ▸";
-    } else if ((difference <= -31)&&(difference > -92)) {
-        formattedDistance = @"Past 3 mos ▸";
-    } else if ((difference <= -92)&&(difference > -184)) {
-        formattedDistance = @"Past 6 mos ▸";
-    } else if ((difference <= -184)&&(difference > -366)) {
-        formattedDistance = @"Past year ▸";
-    } else if (difference <= -366) {
-        formattedDistance = [NSString stringWithFormat:@"%@d ago ▸",[@(ABS(difference)) stringValue]];
-    } else if (difference == 0) {
-        formattedDistance = @"Today ▸";
-    } else if (difference == 1) {
-        formattedDistance = @"Tomorrow ▸";
-    } else if ((difference > 1)&&(difference < 8)) {
-        formattedDistance = [NSString stringWithFormat:@"In %@d ▸",[@(difference) stringValue]];
-    } else if ((difference >= 8)&&(difference < 15)) {
-        formattedDistance = @"In 1 wk ▸";
-    } else if ((difference >= 15)&&(difference < 31)) {
-        formattedDistance = @"In 2 wks ▸";
-    } else if ((difference >= 31)&&(difference < 62)) {
-        formattedDistance = @"In 1 mo ▸";
-    } else if ((difference >= 62)&&(difference < 92)) {
-        formattedDistance = @"In 2 mos ▸";
-    } else if ((difference >= 92)&&(difference < 123)) {
-        formattedDistance = @"In 3 mos ▸";
-    } else if ((difference >= 123)&&(difference < 153)) {
-        formattedDistance = @"In 4 mos ▸";
-    } else if ((difference >= 153)&&(difference < 184)) {
-        formattedDistance = @"In 5 mos ▸";
-    } else if ((difference >= 184)&&(difference < 214)) {
-        formattedDistance = @"In 6 mos ▸";
-    } else if ((difference >= 214)&&(difference < 366)) {
-        formattedDistance = @"Beyond 6 mos ▸";
-    } else if (difference >= 366) {
-        formattedDistance = @"Beyond 1 yr ▸";
-    } else {
-        formattedDistance = [NSString stringWithFormat:@"%@d ▸",[@(difference) stringValue]];
-    }*/
-    
-    
-    // Return an appropriately formatted string. Show the ▸ when it's not a price event, else don't show that for price event as there is going to be no detail view for that.
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
+    // For Price events, currently just show empty
+    if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame)) {
+        formattedDistance = @" ";
+    }
+    // For Latest News, again show empty
+    else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
+        formattedDistance = @" ";
+    }
+    else {
         if ((difference < 0)&&(difference > -2)) {
-            formattedDistance = @"Yesterday";
+            formattedDistance = @"Yesterday ";
         } else if ((difference <= -2)&&(difference > -4)) {
-            formattedDistance = @"Day Before";
+            formattedDistance = @"Day Before ";
         } else if ((difference <= -4)&&(difference > -31)) {
-            formattedDistance = [NSString stringWithFormat:@"%@d ago",[@(ABS(difference)) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@d ago ",[@(ABS(difference)) stringValue]];
         } else if ((difference <= -31)&&(difference > -366)) {
-            formattedDistance = [NSString stringWithFormat:@"%@mos ago",[@(ABS(difference/30)) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@mos ago ",[@(ABS(difference/30)) stringValue]];
         } else if (difference <= -366) {
-            formattedDistance = @"Over 1yr ago";
+            formattedDistance = @"Over 1yr ago ";
         } else if (difference == 0) {
-            formattedDistance = @"Today";
+            formattedDistance = @"Today ";
         } else if (difference == 1) {
-            formattedDistance = @"Tomorrow";
+            formattedDistance = @"Tomorrow ";
         } else if ((difference > 1)&&(difference < 31)) {
-            formattedDistance = [NSString stringWithFormat:@"In %@d",[@(difference) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"In %@d ",[@(difference) stringValue]];
         } else if ((difference >= 31)&&(difference < 366)) {
-            formattedDistance = [NSString stringWithFormat:@"In %@mos",[@(difference/30) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"In %@mos ",[@(difference/30) stringValue]];
         } else if (difference >= 366) {
-            formattedDistance = @"Beyond 1yr ▸";
+            formattedDistance = @"Beyond 1yr ";
         } else {
-            formattedDistance = [NSString stringWithFormat:@"%@d",[@(difference) stringValue]];
-        }
-        if ([rawEventType containsString:@"% up"]||[rawEventType containsString:@"% down"]) {
-            formattedDistance = [NSString stringWithFormat:@"%@ ▸",formattedDistance];
-        }
-    } else {
-        if ((difference < 0)&&(difference > -2)) {
-            formattedDistance = @"Yesterday ▸";
-        } else if ((difference <= -2)&&(difference > -4)) {
-            formattedDistance = @"Day Before ▸";
-        } else if ((difference <= -4)&&(difference > -31)) {
-            formattedDistance = [NSString stringWithFormat:@"%@d ago ▸",[@(ABS(difference)) stringValue]];
-        } else if ((difference <= -31)&&(difference > -366)) {
-            formattedDistance = [NSString stringWithFormat:@"%@mos ago ▸",[@(ABS(difference/30)) stringValue]];
-        } else if (difference <= -366) {
-            formattedDistance = @"Over 1yr ago ▸";
-        } else if (difference == 0) {
-            formattedDistance = @"Today ▸";
-        } else if (difference == 1) {
-            formattedDistance = @"Tomorrow ▸";
-        } else if ((difference > 1)&&(difference < 31)) {
-            formattedDistance = [NSString stringWithFormat:@"In %@d ▸",[@(difference) stringValue]];
-        } else if ((difference >= 31)&&(difference < 366)) {
-            formattedDistance = [NSString stringWithFormat:@"In %@mos ▸",[@(difference/30) stringValue]];
-        } else if (difference >= 366) {
-            formattedDistance = @"Beyond 1yr ▸";
-        } else {
-            formattedDistance = [NSString stringWithFormat:@"%@d ▸",[@(difference) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@d ",[@(difference) stringValue]];
         }
     }
     
@@ -3321,13 +3240,12 @@
     // For % up and down events, go with the color green or red. For all others include the
     if ([rawEventType containsString:@"% up"])
     {
-        // Kinda Green
-        //colorToReturn = [UIColor colorWithRed:56.0f/255.0f green:197.0f/255.0f blue:4.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:4.0f/255.0f alpha:1.0f];
+        // Default Total Black
+        colorToReturn = [UIColor blackColor];
     } else if ([rawEventType containsString:@"% down"])
     {
-        // Kinda Red
-        colorToReturn = [UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
+        // Default Total Black
+        colorToReturn = [UIColor blackColor];
     } else if ([rawEventType containsString:@"52 Week High"])
     {
         // Very lightish gray
@@ -3337,11 +3255,11 @@
         // Very lightish gray
         colorToReturn = [UIColor colorWithRed:150.0f/255.0f green:150.0f/255.0f blue:150.0f/255.0f alpha:1.0f];
     }
-    // Don't need this anymore as we are not treating PROD events any differently.
-    /*else if (([rawEventType containsString:@"Launch"]||[rawEventType containsString:@"Conference"])&&([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Prod"] == NSOrderedSame)) {
-        // Very lightish gray
-        colorToReturn = [UIColor colorWithRed:150.0f/255.0f green:150.0f/255.0f blue:150.0f/255.0f alpha:1.0f];
-    }*/
+    // For Latest News make it the default total black
+    else if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame)) {
+        // Default Total Black
+        colorToReturn = [UIColor blackColor];
+    }
     else {
         
         // Return the standard color pattern
