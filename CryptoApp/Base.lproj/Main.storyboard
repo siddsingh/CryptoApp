@@ -199,6 +199,7 @@
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Cc-6r-XL8">
                                                     <rect key="frame" x="388" y="9" width="20" height="27"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27" id="1P0-Tt-uzs"/>
                                                         <constraint firstAttribute="width" constant="20" id="yYo-1K-idO"/>
@@ -421,7 +422,7 @@
                                     </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.24652777779999999" green="0.24652777779999999" blue="0.24652777779999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -548,7 +549,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="Very High Impact. Windows Cloud software,hardware to compete with Chromebooks.">
                                                             <attributes>
-                                                                <color key="NSColor" red="0.24652777779999999" green="0.24652777779999999" blue="0.24652777779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="NSColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="15" name="Helvetica"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
@@ -624,14 +625,14 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLd-0H-0lu">
-                                <rect key="frame" x="144.66666666666666" y="55" width="124.99999999999997" height="40"/>
+                                <rect key="frame" x="145" y="55" width="124.66666666666669" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="JRQ-Is-hga"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="SA NEWS ▶︎"/>
+                                <state key="normal" title="News Today ▶︎"/>
                                 <state key="disabled">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -647,7 +648,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="YF NEWS ▶︎"/>
+                                <state key="normal" title="Crypto News ▶︎"/>
                                 <state key="disabled">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -656,14 +657,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92d-w5-paa">
-                                <rect key="frame" x="10.000000000000007" y="55" width="124.66666666666669" height="40"/>
+                                <rect key="frame" x="10" y="55" width="125" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="rRt-6i-aUq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="G NEWS ▶︎">
+                                <state key="normal" title="Forums ▶︎">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -874,13 +875,13 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEM-uf-cSM">
                                 <rect key="frame" x="57" y="28" width="300" height="50"/>
-                                <color key="backgroundColor" red="0.4062454144" green="0.71248259250000001" blue="0.14636443830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="2ff-kN-EqZ"/>
                                     <constraint firstAttribute="width" constant="119" id="3uP-iK-jsq"/>
                                     <constraint firstAttribute="height" constant="50" id="ize-2L-Jae"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
                                 <state key="normal" title="GOT IT">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>

@@ -71,46 +71,15 @@
                 
                 if ([self checkForInternetConnectivity]) {
                     // TO DO:V 1.0: Testing. Delete before shipping v4.3
-                    NSLog(@"Kicking off refresh of events in didfinish launch");
+                    //NSLog(@"Kicking off refresh of events in didfinish launch");
                 [self refreshEventsIfNeededFromApiInBackgroundWithDataController:eventDataController];
                 }
             });
-        
-        // Update the list of companies in a background task. Don't need to do this anymore as we are getting most of the tickers in the updatefromlocalcode. See in the future if you want to bring this back.
-       /* __block UIBackgroundTaskIdentifier backgroundFetchTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"backgroundIncrementalCompaniesFetch" expirationHandler:^{
-            
-            // Stopped or ending the task outright.
-            [[UIApplication sharedApplication] endBackgroundTask:backgroundFetchTask];
-            backgroundFetchTask = UIBackgroundTaskInvalid;
-        }];
-        // Start the long-running task and return immediately.
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            // TO DO: For testing, comment before shipping.Keeping it around for future pre seeding testing.
-            // Delete before shipping v4.3
-            NSLog(@"About to start the background get incremental companies from local file");
-            
-            // Create a new FADataController so that this thread has its own MOC
-            FADataController *tickerBkgrndDataController = [[FADataController alloc] init];
-            
-            // Sync all the tickers to make sure you get the latest ones.
-            [tickerBkgrndDataController getAllTickersAndNamesFromLocalStorage];
-            
-            // TO DO: For testing, comment before shipping.Keeping it around for future pre seeding testing.
-            // Delete before shipping v4.3
-            NSLog(@"Ended the background get incremental companies from local file");
-            
-            [[UIApplication sharedApplication] endBackgroundTask:backgroundFetchTask];
-            backgroundFetchTask = UIBackgroundTaskInvalid;
-        }); */
     }
     // If yes
     else {
         [self configViewControllerWithName:@"FAEventsNavController"];
     }
-    
-    // TO DO: Testing. Delete before shipping v4.3
-    //NSLog(@"Did finish launching with options");
     
     return YES;
 }
@@ -144,7 +113,7 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
                 
                 // TO DO:V 1.0: Testing. Delete before shipping v4.3
-                NSLog(@"Kicking off refresh of events in app became active");
+                //NSLog(@"Kicking off refresh of events in app became active");
                 
                 // Create a new FADataController so that this thread has its own MOC
                 FADataController *eventDataController = [[FADataController alloc] init];
@@ -152,9 +121,6 @@
                 [self refreshEventsIfNeededFromApiInBackgroundWithDataController:eventDataController];
             });
         }
-        
-        // TO DO: Delete Later, Testing only
-        //NSLog(@"Application did become active called");
         
         // TRACKING EVENT: App Launch: Application was launched.
         // TO DO: Disabling to not track development events. Enable before shipping.

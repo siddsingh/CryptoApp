@@ -324,9 +324,6 @@ bool eventsUpdated = NO;
     if (![dataStoreContext save:&error]) {
         NSLog(@"ERROR: Saving event of type: %@ and with ticker:%@ to data store failed: %@",eventType,listedCompanyTicker,error.description);
     }
-    
-    // TO DO:V 1.0: Testing. Delete before shipping v4.3
-    NSLog(@"INSERTING EVENT OF TYPE:%@ WITH TICKER:%@",eventType,listedCompanyTicker);
 }
 
 
@@ -415,8 +412,6 @@ bool eventsUpdated = NO;
         history.previous1Price = prevPrice;
         history.currentPrice = currPrice;
         event.relatedEventHistory = history;
-        // TO DO:V 1.0: Testing. Delete before shipping v4.3
-        NSLog(@"INSERTING NEW EVENT OF TYPE:%@ WITH TICKER:%@ WITH RANK:%@ WITH VOL:%@ WITH MARKET CAP:%@  WITH 1hrPERCENTCHANGE:%@ WITH 24hrPERCENTCHANGE:%@ WITH 7dPERCENTCHANGE:%@",eventType,listedCompanyTicker,event.relatedDetails,history.previous1RelatedPrice,event.estimatedEps,event.actualEpsPrior,history.currentPrice,history.previous1Price);
     }
     
     // If the event exists update it
@@ -435,9 +430,6 @@ bool eventsUpdated = NO;
         existingEventHistory.previous1RelatedPrice = relPrice;
         existingEventHistory.previous1Price = prevPrice;
         existingEventHistory.currentPrice = currPrice;
-        
-        // TO DO:V 1.0: Testing. Delete before shipping v4.3
-        NSLog(@"INSERTING EXISTING EVENT OF TYPE:%@ WITH TICKER:%@ WITH RANK:%@ WITH VOL:%@ WITH MARKET CAP:%@  WITH 1hrPERCENTCHANGE:%@ WITH 24hrPERCENTCHANGE:%@ WITH 7dPERCENTCHANGE:%@",eventType,listedCompanyTicker,existingEvent.relatedDetails,existingEventHistory.previous1RelatedPrice,existingEvent.estimatedEps,existingEvent.actualEpsPrior,existingEventHistory.currentPrice,existingEventHistory.previous1Price);
     }
     
     // Perform the insert
@@ -2355,41 +2347,6 @@ bool eventsUpdated = NO;
 
 #pragma mark - Methods to call Company names and tickers from local files
 
-// Add top cryptocurrencies
-- (void)getAllTickersAndNamesFromLocalCode {
-    
-    // WHEN ADDING HERE, MAKE SURE YOU ADD TO FASNAPSHOT ISCURRENCYSUPPORTED.
-    // TOP 20 BY MARKET CAP.
-    
-    // CURATED NEWS ONES FIRST
-    [self insertUniqueCompanyWithTicker:@"BTC" name:@"Bitcoin"];
-    [self insertUniqueCompanyWithTicker:@"ETH" name:@"Ethereum"];
-    [self insertUniqueCompanyWithTicker:@"XRP" name:@"Ripple"];
-    [self insertUniqueCompanyWithTicker:@"BCH" name:@"Bitcoin Cash"];
-    [self insertUniqueCompanyWithTicker:@"ADA" name:@"Cardano"];
-    
-    [self insertUniqueCompanyWithTicker:@"LTC" name:@"Litecoin"];
-    [self insertUniqueCompanyWithTicker:@"XEM" name:@"Nem"];
-    [self insertUniqueCompanyWithTicker:@"NEO" name:@"Neo"];
-    [self insertUniqueCompanyWithTicker:@"XLM" name:@"Stellar"];
-    [self insertUniqueCompanyWithTicker:@"EOS" name:@"Eos"];
-    
-    [self insertUniqueCompanyWithTicker:@"MIOTA" name:@"Iota"];
-    [self insertUniqueCompanyWithTicker:@"DASH" name:@"Dash"];
-    [self insertUniqueCompanyWithTicker:@"XMR" name:@"Monero"];
-    [self insertUniqueCompanyWithTicker:@"TRX" name:@"Tron"];
-    [self insertUniqueCompanyWithTicker:@"BTG" name:@"Bitcoin Gold"];
-    
-    [self insertUniqueCompanyWithTicker:@"ICX" name:@"Icon"];
-    [self insertUniqueCompanyWithTicker:@"QTUM" name:@"Qtum"];
-    [self insertUniqueCompanyWithTicker:@"ETC" name:@"Ethereum Classic"];
-    [self insertUniqueCompanyWithTicker:@"LSK" name:@"Lisk"];
-    [self insertUniqueCompanyWithTicker:@"XRB" name:@"RaiBlocks"];
-    
-    // ADDING UPCOMING ONES
-    [self insertUniqueCompanyWithTicker:@"ZEC" name:@"Zcash"];
-}
-
 // Get crypto tickers and names from local files, which currently is a json file and write them to the data store.
 - (void)getAllTickersAndNamesFromLocalStorage
 {
@@ -2524,9 +2481,6 @@ bool eventsUpdated = NO;
 // Get all the product events and details from the data source APIs
 - (void)getAllProductEventsFromApi
 {
-    // TO DO:V 1.0: Delete Later
-    NSLog(@"ABOUT TO SYNC PRODUCT EVENTS");
-          
     // TO DO: Delete this later as we are getting this from the cloud now
     // Get the product events file path
    /* NSString *eventsFilePath = [[NSBundle mainBundle] pathForResource:@"ProductEvents_2016_Local" ofType:@"json"];
@@ -2635,8 +2589,6 @@ bool eventsUpdated = NO;
             
             // Get the ticker for the event's parent company
             parentTicker = [event objectForKey:@"ticker"];
-            // TO DO:V 1.0: Delete Later
-            NSLog(@"The event parent company is: %@", parentTicker);
             
             // Only process cryptocurrencies by checking if this is one of the tickers we are tracking plus handle the BCH$, ETHR case. Check if Stellar XLM is fine.
             if([self doesTickerExist:parentTicker]||([parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([parentTicker caseInsensitiveCompare:@"LTC$"] == NSOrderedSame))  {
@@ -2655,26 +2607,16 @@ bool eventsUpdated = NO;
                 differenceYrComponents.year = 5;
                 // Show only events a max of 5 years from now on out. Currently using the year 2030 to set cancelled events.
                 maxFutureYear = [aGregorianCalendar dateByAddingComponents:differenceYrComponents toDate:todaysDate options:0];
-                // TO DO:V 1.0: Delete Later
-                NSLog(@"LAST EVENT SYNCED DATE AND TIME IS:%@",lastSyncDate);
-                NSLog(@"SYNCED MINUS DATE IS:%@",syncedMinus1Date);
-                NSLog(@"FUTURE MAX DATE IS:%@",maxFutureYear);
-                NSLog(@"UPDATED ON DATE IS:%@",updatedOnDate);
                 
                 syncDateDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:syncedMinus1Date toDate:updatedOnDate options:0];
                 daysBetweenSyncDates = [syncDateDiffComponents day];
                 maxFutureDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:eventDate toDate:maxFutureYear options:0];
                 daysTillMaxFuture = [maxFutureDiffComponents day];
                 
-                // TO DO:V 1.0: Delete Later
-                NSLog(@"DAYS FROM LAST SYNC DATE ARE:%d",(int)daysBetweenSyncDates);
-                NSLog(@"DAYS TO MAX FUTURE ARE:%d",(int)daysTillMaxFuture);
                 // If event has been added/updated since a day before the latest sync and is within the next 5 years, resync it.
                 if(((int)daysBetweenSyncDates >= 0) && ((int)daysTillMaxFuture > 0)) {
                     // Get the event raw name e.g. iPhone 7
                     eventName = [event objectForKey:@"name"];
-                    // TO DO:V 1.0: Delete Later
-                    NSLog(@"The event raw name is: %@", eventName);
                     // Get the event type
                     eventType = [event objectForKey:@"type"];
                     // TO DO: Delete Later
@@ -2809,22 +2751,20 @@ bool eventsUpdated = NO;
     // Get the event sync date
     NSDate *lastSyncDate = [self getEventSyncDate];
     // TO DO: Delete Later before shipping v2.5
-    NSLog(@"LAST EVENT SYNCED DATE AND TIME IS:%@",lastSyncDate);
-    NSLog(@"TODAY DATE AND TIME IS:%@",todaysDate);
+    //NSLog(@"LAST EVENT SYNCED DATE AND TIME IS:%@",lastSyncDate);
+    //NSLog(@"TODAY DATE AND TIME IS:%@",todaysDate);
      // Get the number of hours between the 2 dates
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *hourComponents = [gregorianCalendar components:NSCalendarUnitHour fromDate:lastSyncDate toDate:todaysDate options:0];
     NSInteger hoursBetween = [hourComponents hour];
     // TO DO: Delete Later before shipping v4.3
-    NSLog(@"Hours between LAST EVENT SYNC AND TODAY are: %d",(int)hoursBetween);
+    //NSLog(@"Hours between LAST EVENT SYNC AND TODAY are: %d",(int)hoursBetween);
     
     
     // TO DO: Sync every 2 hours.
     if(((int)hoursBetween >= 2)) {
         // Show busy
         dispatch_async(dispatch_get_main_queue(), ^{
-            // TO DO:V 1.0: Delete Later
-            NSLog(@"About to start busy spinner for fetching product events");
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
         });
         
@@ -2834,8 +2774,6 @@ bool eventsUpdated = NO;
         
         // Stop Busy
         dispatch_async(dispatch_get_main_queue(), ^{
-            // TO DO:V 1.0: Delete Later.
-            NSLog(@"About to stop busy spinner for fetching product events");
             [self sendEventsChangeNotification];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
         });
@@ -2941,8 +2879,6 @@ bool eventsUpdated = NO;
                 percentChangeSinceYest = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"percent_change_24h"] doubleValue]];
                 // Get a string representation for the change
                 percentChangeSinceYestStr = [NSString stringWithFormat:@"%.02f",[percentChangeSinceYest doubleValue]];
-                // TO DO:V 1.0: Delete later
-                NSLog(@"For the currency ticker:%@, the 24 h percentage change is:%@", currencySymbol, percentChangeSinceYestStr);
                 
                 // Get current price
                 currPrice = [NSNumber numberWithDouble:[[currencyDetails objectForKey:@"price_usd"] doubleValue]];
@@ -3004,8 +2940,6 @@ bool eventsUpdated = NO;
     
     // Show busy
     dispatch_async(dispatch_get_main_queue(), ^{
-        // TO DO:V 1.0: TO DO: Delete Later
-        NSLog(@"About to start busy spinner");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
     });
     
@@ -3013,8 +2947,6 @@ bool eventsUpdated = NO;
     
     // Stop Busy
     dispatch_async(dispatch_get_main_queue(), ^{
-        // TO DO:V 1.0: TO DO: Delete Later.
-        NSLog(@"About to stop busy spinner and send events change notification");
         [self sendEventsChangeNotification];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
     });
@@ -3718,7 +3650,7 @@ bool eventsUpdated = NO;
     
     // TRACKING EVENT: Explicitly track Price fetch events
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Price Fetched"
+    [FBSDKAppEvents logEvent:@"Stock Price Fetched"
                   parameters:@{ @"Event Type" : @"Daily Price" } ];
 }
 
@@ -3814,7 +3746,7 @@ bool eventsUpdated = NO;
     
     // TRACKING EVENT: Explicitly track Price fetch events
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Price Fetched"
+    [FBSDKAppEvents logEvent:@"Stock Price Fetched"
                   parameters:@{ @"Event Type" : @"Daily Price" } ];
     
     // Get historical prices if needed
@@ -3827,7 +3759,7 @@ bool eventsUpdated = NO;
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Price Fetched"
+            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
                           parameters:@{ @"Event Type" : @"Price History" } ];
         } else {
             
@@ -3835,7 +3767,7 @@ bool eventsUpdated = NO;
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Price Fetched"
+            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
                           parameters:@{ @"Event Type" : @"Price History" } ];
         }
     }

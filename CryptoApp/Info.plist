@@ -23,16 +23,16 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb554155671427989</string>
+				<string>fb573491389653186</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>554155671427989</string>
+	<string>573491389653186</string>
 	<key>FacebookDisplayName</key>
-	<string>Knotifi</string>
+	<string>Cryptofi</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

@@ -131,23 +131,8 @@
             [self.reminderButton setTitleColor:[self getTextColorForEventType:self.eventType] forState:UIControlStateNormal];
         }
     } */
-
-    // For Crypto events, disable + hide the newsbuttons 2 & 3 for others enable + show them.
-    // FOR BTC or ETHR or BCH$ or XRP.
-    if (([self.parentTicker caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([self.parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([self.parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([self.parentTicker caseInsensitiveCompare:@"XRP"] == NSOrderedSame)) {
-        [self.newsButton2 setEnabled:NO];
-        [self.newsButton2 setHidden:YES];
-        [self.newsButton3 setEnabled:NO];
-        [self.newsButton3 setHidden:YES];
-    }
-    else {
-        [self.newsButton2 setEnabled:YES];
-        [self.newsButton2 setHidden:NO];
-        [self.newsButton3 setEnabled:YES];
-        [self.newsButton3 setHidden:NO];
-    }
     
-    // Set color of "See News" buttons based on event type. Currently not using News Buttons 2 and 3.
+    // Set color of "See News" buttons based on event type. Currently not using this.
     [self.newsButton setBackgroundColor:[self getColorForEventType:self.eventType]];
     [self.newsButton2 setBackgroundColor:[self getColorForEventType:self.eventType]];
     [self.newsButton3 setBackgroundColor:[self getColorForEventType:self.eventType]];
@@ -155,6 +140,13 @@
     [self.newsButton2 setTitleColor:[self getTextColorForEventType:self.eventType] forState:UIControlStateNormal];
     [self.newsButton3 setTitleColor:[self getTextColorForEventType:self.eventType] forState:UIControlStateNormal];
     
+    // Set title of news button 2 to say <CRYPTOCURRENCY TICKER> News e.g. XRB News for price events and More Info for News events.
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"])
+    {
+        [self.newsButton2 setTitle:[NSString stringWithFormat:@"%@ News ▸",self.parentTicker] forState:UIControlStateNormal];
+    } else {
+        [self.newsButton2 setTitle:[NSString stringWithFormat:@"More Info ▸"] forState:UIControlStateNormal];
+    }
     
     
     // Set color of back navigation item based on event type
@@ -312,25 +304,30 @@
             // Get Impact String
             NSString *impact_str = [self getImpactDescriptionForEventType:self.eventType eventParent:self.parentTicker];
             
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            
             // Set the impact icon
             // Very High Impact
             if ([impact_str caseInsensitiveCompare:@"Very High Impact"] == NSOrderedSame) {
-                [[cell titleLabel] setText:@"🔥"];
+                [[cell titleLabel] setText:@"SUMMARY"];
             }
             // High Impact
             if ([impact_str caseInsensitiveCompare:@"High Impact"] == NSOrderedSame) {
-                cell.titleLabel.textColor = [UIColor colorWithRed:229.0f/255.0f green:55.0f/255.0f blue:53.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"♨︎"];
+                //cell.titleLabel.textColor = [UIColor colorWithRed:229.0f/255.0f green:55.0f/255.0f blue:53.0f/255.0f alpha:1.0f];
+                [[cell titleLabel] setText:@"SUMMARY"];
             }
             // Medium Impact
             if ([impact_str caseInsensitiveCompare:@"Medium Impact"] == NSOrderedSame) {
-                cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:127.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"♨︎"];
+                //cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:127.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
+                [[cell titleLabel] setText:@"SUMMARY"];
             }
             // Low Impact
             if ([impact_str caseInsensitiveCompare:@"Low Impact"] == NSOrderedSame) {
-                cell.titleLabel.textColor = [UIColor colorWithRed:207.0f/255.0f green:187.0f/255.0f blue:29.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"♨︎"];
+                //cell.titleLabel.textColor = [UIColor colorWithRed:207.0f/255.0f green:187.0f/255.0f blue:29.0f/255.0f alpha:1.0f];
+                [[cell titleLabel] setText:@"SUMMARY"];
             }
             
             // Set the rationale
@@ -341,9 +338,10 @@
         // Show Market Cap Rank
         case infoRow1:
         {
-            // Default State Colors
+            // Correct Font and Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
             
             // Cap Rank String
             NSString *capRankString = [NSString stringWithFormat:@"#%@", eventData.relatedDetails];
@@ -357,8 +355,10 @@
         case infoRow2:
         {
             // Default State Colors
+            // Correct Font and Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
             
             // Total Cap String
             NSString *totalCapString = [NSString stringWithFormat:@"%@", [currencyFormatter1 stringFromNumber:eventData.estimatedEps]];
@@ -373,7 +373,14 @@
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
-            cell.titleLabel.textColor = [UIColor blackColor];
+            // If 24 hr price change is 0 or positive set green else red
+            if ([eventHistoryData.previous1RelatedPrice floatValue] >= 0.0f) {
+                cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            } else {
+                cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+            }
             
             // Curr Price String
             NSString *currPriceString = [NSString stringWithFormat:@"%@", [currencyFormatter2 stringFromNumber:eventHistoryData.currentPrice]];
@@ -388,9 +395,15 @@
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
-            cell.titleLabel.textColor = [UIColor blackColor];
+            // If 1 hr price change is 0 or positive set green else red
+            if ([eventData.actualEpsPrior floatValue] >=  0.0f) {
+                cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            } else {
+                cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+            }
             
-            // Curr Price String
             NSString *oneChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventData.actualEpsPrior]];
             
             [[cell titleLabel] setText:oneChangeString];
@@ -403,7 +416,14 @@
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
-            cell.titleLabel.textColor = [UIColor blackColor];
+            // If 24 hr price change is 0 or positive set green else red
+            if ([eventHistoryData.previous1RelatedPrice floatValue] >= 0.0f) {
+                cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            } else {
+                cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+            }
             
             // Curr Price String
             NSString *twentyChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventHistoryData.previous1RelatedPrice]];
@@ -418,7 +438,14 @@
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
-            cell.titleLabel.textColor = [UIColor blackColor];
+            // If 24 hr price change is 0 or positive set green else red
+            if ([eventHistoryData.previous1Price floatValue] >= 0.0f) {
+                cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            } else {
+                cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+            }
             
             // Curr Price String
             NSString *sevenChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventHistoryData.previous1Price]];
@@ -1163,8 +1190,8 @@
 
 #pragma mark - News related
 
-// Send the user to the appropriate news site when they click the news button 1. Currently Google.
-- (IBAction)seeNewsAction:(id)sender {
+// Show them Google news
+- (IBAction)seeNewsAction2:(id)sender {
     
     NSString *moreInfoURL = nil;
     NSString *searchTerm = nil;
@@ -1179,40 +1206,22 @@
     
     // Google news is default for now
     moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.google.com/m/search?tbm=nws&q="];
-    searchTerm = [NSString stringWithFormat:@"%@",@"stocks"];
-    
-    // For Quarterly Earnings, search query term is ticker and Earnings e.g. BOX earnings
-    if ([self.eventType isEqualToString:@"Quarterly Earnings"]) {
-        searchTerm = [NSString stringWithFormat:@"%@ %@",self.parentTicker,@"earnings"];
-    }
+    searchTerm = [NSString stringWithFormat:@"%@",@"cryptocurrency news"];
     
     // For Product events, search query term is the product name i.e. iPhone 7 or WWWDC 2016
     if ([self.eventType containsString:@"Launch"]) {
-        searchTerm = [self.eventType stringByReplacingOccurrencesOfString:@" Launch" withString:@""];
+        searchTerm = [NSString stringWithFormat:@"%@ %@",self.parentCompany,[self.eventType stringByReplacingOccurrencesOfString:@" Launch" withString:@""]];
     }
     // E.g. Naples Epyc Sales Launch becomes Naples Epyc
     if ([self.eventType containsString:@"Sales Launch"]) {
-        searchTerm = [self.eventType stringByReplacingOccurrencesOfString:@" Sales Launch" withString:@""];
+        searchTerm = [NSString stringWithFormat:@"%@ %@",self.parentCompany,[self.eventType stringByReplacingOccurrencesOfString:@" Sales Launch" withString:@""]];
     }
     if ([self.eventType containsString:@"Conference"]) {
-        searchTerm = [self.eventType stringByReplacingOccurrencesOfString:@" Conference" withString:@""];
+        searchTerm = [NSString stringWithFormat:@"%@ %@",self.parentCompany,[self.eventType stringByReplacingOccurrencesOfString:@" Conference" withString:@""]];
     }
     
-    // For economic events, search query term is customized for each type
-    if ([self.eventType containsString:@"GDP Release"]) {
-        searchTerm = @"us gdp growth";
-    }
-    if ([self.eventType containsString:@"Consumer Confidence"]) {
-        searchTerm = @"us consumer confidence";
-    }
-    if ([self.eventType containsString:@"Fed Meeting"]) {
-        searchTerm = @"fomc meeting";
-    }
-    if ([self.eventType containsString:@"Jobs Report"]) {
-        searchTerm = @"jobs report us";
-    }
     if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        searchTerm = [NSString stringWithFormat:@"%@ %@",self.parentTicker,@"stock"];
+        searchTerm = [NSString stringWithFormat:@"%@ %@",self.parentCompany,@"cryptocurrency"];
     }
     
     // Remove any spaces in the URL query string params
@@ -1239,8 +1248,8 @@
 }
 
 
-// Send the user to the appropriate news site when they click the news button 2. Currently Seeking Alpha News.
-- (IBAction)seeNewsAction2:(id)sender {
+// Surface Reddit content through Bing https://www.bing.com/search?q=Reddit+Ripple
+- (IBAction)seeNewsAction:(id)sender {
     
     NSString *moreInfoURL = nil;
     NSString *searchTerm = nil;
@@ -1248,45 +1257,9 @@
     
     // Send them to different sites with different queries based on which site has the best informtion for that event type
     
-    // TO DO: If you want to revert to using Bing
-    // Bing News is the default we are going with for now
-    /*moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.bing.com/news/search?q="];
-     searchTerm = [NSString stringWithFormat:@"%@",@"stocks"];*/
-    
-    // Seeking Alpha home is default
-    moreInfoURL = [NSString stringWithFormat:@"%@",@"https://seekingalpha.com"];
-    searchTerm = [NSString stringWithFormat:@"%@",@""];
-    
-    // For Quarterly Earnings, the URL extension is the ticker /symbol/NVDA
-    if ([self.eventType isEqualToString:@"Quarterly Earnings"]) {
-        searchTerm = [NSString stringWithFormat:@"%@%@",@"/symbol/",self.parentTicker];
-    }
-    
-    // For Product events, the URL extension is the ticker /symbol/NVDA
-    if ([self.eventType containsString:@"Launch"]) {
-        searchTerm = [NSString stringWithFormat:@"%@%@",@"/symbol/",self.parentTicker];
-    }
-    if ([self.eventType containsString:@"Conference"]) {
-        searchTerm = [NSString stringWithFormat:@"%@%@",@"/symbol/",self.parentTicker];
-    }
-    
-    // For economic events, just take them to the SA home page, so no URL extension
-    if ([self.eventType containsString:@"GDP Release"]) {
-        searchTerm = @"";
-    }
-    if ([self.eventType containsString:@"Consumer Confidence"]) {
-        searchTerm = @"";
-    }
-    if ([self.eventType containsString:@"Fed Meeting"]) {
-        searchTerm = @"";
-    }
-    if ([self.eventType containsString:@"Jobs Report"]) {
-        searchTerm = @"";
-    }
-    // For Price events, the URL extension is the ticker /symbol/NVDA
-    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        searchTerm =[NSString stringWithFormat:@"%@%@",@"/symbol/",self.parentTicker];
-    }
+    // Here is the URL for surfacing Reddit info on Bing https://www.bing.com/search?q=Reddit+Ripple
+    moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.bing.com/search?q="];
+    searchTerm = [NSString stringWithFormat:@"%@ %@",@"reddit",self.parentCompany];
     
     // Remove any spaces in the URL query string params
     searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -1299,7 +1272,7 @@
         // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"See External News"
-                      parameters:@{ @"News Source" : @"Seeking Alpha",
+                      parameters:@{ @"News Source" : @"Bing_Reddit",
                                     @"Action Query" : searchTerm,
                                     @"Action URL" : [targetURL absoluteString]} ];
         
@@ -1311,59 +1284,16 @@
     } 
 }
 
-// Send the user to the appropriate news site when they click the news button 3. Currently Yahoo Finance.
+// Send the user to the appropriate news site when they click the news button 3. Currently cointelegraph.
 - (IBAction)seeNewsAction3:(id)sender {
     
     NSString *moreInfoURL = nil;
-    NSString *searchTerm = nil;
     NSURL *targetURL = nil;
     
     // Send them to different sites with different queries based on which site has the best informtion for that event type
     
-    // TO DO: If you want to revert to using Bing
-    // Bing News is the default we are going with for now
-    /*moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.bing.com/news/search?q="];
-     searchTerm = [NSString stringWithFormat:@"%@",@"stocks"];*/
-    
-    // Yahoo finance is default
-    moreInfoURL = [NSString stringWithFormat:@"%@",@"https://finance.yahoo.com"];
-    searchTerm = [NSString stringWithFormat:@"%@",@""];
-    
-    // For Quarterly Earnings, the URL extension is the ticker /quote/NVDA?ql
-    if ([self.eventType isEqualToString:@"Quarterly Earnings"]) {
-        searchTerm = [NSString stringWithFormat:@"%@%@%@",@"/quote/",self.parentTicker,@"?ql"];
-    }
-    
-    // For Product events, the URL extension is the ticker /quote/NVDA?ql
-    if ([self.eventType containsString:@"Launch"]) {
-        searchTerm = [NSString stringWithFormat:@"%@%@%@",@"/quote/",self.parentTicker,@"?ql"];
-    }
-    if ([self.eventType containsString:@"Conference"]) {
-        searchTerm = [NSString stringWithFormat:@"%@%@%@",@"/quote/",self.parentTicker,@"?ql"];
-    }
-    
-    // For economic events, just take them to the home page, so no URL extension
-    if ([self.eventType containsString:@"GDP Release"]) {
-        searchTerm = @"";
-    }
-    if ([self.eventType containsString:@"Consumer Confidence"]) {
-        searchTerm = @"";
-    }
-    if ([self.eventType containsString:@"Fed Meeting"]) {
-        searchTerm = @"";
-    }
-    if ([self.eventType containsString:@"Jobs Report"]) {
-        searchTerm = @"";
-    }
-    // For Price events, the URL extension is the ticker /quote/NVDA?ql
-    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        searchTerm = [NSString stringWithFormat:@"%@%@%@",@"/quote/",self.parentTicker,@"?ql"];
-    }
-    
-    // Remove any spaces in the URL query string params
-    searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    moreInfoURL = [moreInfoURL stringByAppendingString:searchTerm];
-    
+    // Cointelegraph
+    moreInfoURL = [NSString stringWithFormat:@"%@",@"https://cointelegraph.com"];
     targetURL = [NSURL URLWithString:moreInfoURL];
     
     if (targetURL) {
@@ -1371,8 +1301,8 @@
         // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"See External News"
-                      parameters:@{ @"News Source" : @"Yahoo Finance",
-                                    @"Action Query" : searchTerm,
+                      parameters:@{ @"News Source" : @"Cointelegraph",
+                                    @"Action Query" : @" ",
                                     @"Action URL" : [targetURL absoluteString]} ];
         
         SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];

@@ -211,9 +211,6 @@
 // Get crypto tickers and names from local files, which currently is a json file and write them to the data store.
 - (void)getAllTickersAndNamesFromLocalStorage;
 
-// Add top cryptocurrencies
-- (void)getAllTickersAndNamesFromLocalCode;
-
 #pragma mark - Methods to call Economic Events Data Sources
 
 // Get all the economic events and details from local storage, which currently is a json file and write them to the data store.

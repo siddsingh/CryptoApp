@@ -143,13 +143,6 @@
     // Get a primary data controller that you will use later
     self.primaryDataController = [[FADataController alloc] init];
     
-    // TO DO:V 1.0: Delete if not needed. Ensure that the remote fetch spinner is not animating thus hidden
-    /*if ([[self.primaryDataController getEventSyncStatus] isEqualToString:@"RefreshCheckDone"]) {
-        [self removeBusyMessage];
-    } else {
-        [self showBusyMessage];
-    }*/
-    
     // TO DO: DEBUGGING: DELETE. Make one of the events confirmed to yesterday
     /*NSDate *today = [NSDate date];
     NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -355,9 +348,6 @@
 {
     NSInteger numberOfRows = 0;
     
-    // TO DO:V 1.0: Testing. Delete before shipping v4.3
-    NSLog(@"FILTER TYPE IS:%@ and FILTER SPECIFIED:%d",self.filterType,self.filterSpecified);
-    
     // If a search filter has been applied return the number of events in the filtered list of events or companies,
     // depending on the type of filter
     if (self.filterSpecified) {
@@ -390,8 +380,6 @@
         numberOfRows = [eventSection numberOfObjects];
     }
 
-    // TO DO:V 1.0: Testing. Delete before shipping v4.3
-    NSLog(@"NUMBER OF ROWS IN TABLE REFRESH ARE:%ld",(long)numberOfRows);
     return numberOfRows;
 }
 
@@ -612,26 +600,71 @@
         // Set event distance to the appropriate color using a reddish scheme.
         [[cell eventDistance] setTextColor:[self getColorForDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
         
-        
-        // Add an up or down arrow if price event else set it to show nothing
+        // Add an up or down arrow if price event else set it to show nothing. Also format the string appropriately with colors
         if ([eventAtIndex.type containsString:@"% up"])
         {
-            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:20]];
+            // The green is one pixel bigger than the red for better contrast.
+            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:18]];
             [cell.eventImpact setText:@"▲"];
-            // % Up Green
-            [cell.eventImpact setTextColor:[UIColor colorWithRed:98.0f/255.0f green:189.0f/255.0f blue:49.0f/255.0f alpha:1.0f]];
+            // Crypto Up Green
+            [cell.eventImpact setTextColor:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f]];
+            
+            // Create the event description formatted string
+            NSDictionary *greenTxtAttributes = @{
+                                                 NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f],
+                                                 NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
+                                                 };
+            NSMutableAttributedString *formattedTxt = [[NSMutableAttributedString alloc] initWithString:cell.eventDescription.text attributes:greenTxtAttributes];
+            UIColor *defaultDarkColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"up today" options:NSCaseInsensitiveSearch];
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:defaultDarkColor, NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:upDownTxtRange];
+            
+            NSRange percentSignRange = [cell.eventDescription.text rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:percentSignRange];
+            
+            NSRange dollarSignRange = [cell.eventDescription.text rangeOfString:@"$" options:NSCaseInsensitiveSearch];
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:dollarSignRange];
+            NSRange plusSignRange = [cell.eventDescription.text rangeOfString:@"+" options:NSCaseInsensitiveSearch];
+            
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:plusSignRange];
+            
+            // Set event description text to formatted string
+            [cell.eventDescription setAttributedText:formattedTxt];
         }
         else if ([eventAtIndex.type containsString:@"% down"])
         {
-            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:16]];
+            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:17]];
             [cell.eventImpact setText:@"▼"];
-            // % Down Reddish Pink
+            // Crypto Down Red
             [cell.eventImpact setTextColor:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f]];
+            
+            // Create the event description formatted string
+            NSDictionary *redTxtAttributes = @{
+                                                 NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
+                                                 NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]
+                                                 };
+            NSMutableAttributedString *formattedTxt = [[NSMutableAttributedString alloc] initWithString:cell.eventDescription.text attributes:redTxtAttributes];
+            UIColor *defaultDarkColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"down today" options:NSCaseInsensitiveSearch];
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:defaultDarkColor, NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:upDownTxtRange];
+            
+            NSRange percentSignRange = [cell.eventDescription.text rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:percentSignRange];
+            
+            NSRange dollarSignRange = [cell.eventDescription.text rangeOfString:@"$" options:NSCaseInsensitiveSearch];
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:dollarSignRange];
+            
+            NSRange minusSignRange = [cell.eventDescription.text rangeOfString:@"-" options:NSCaseInsensitiveSearch];
+            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:minusSignRange];
+            
+            // Set event description text to formatted string
+            [cell.eventDescription setAttributedText:formattedTxt];
         }
-        // Else show High Impact Label if needed
+        // Else show High Impact Label if needed. Taking this out currently to not self design a proper symbol later.
         else if ([self.dataSnapShot isEventHighImpact:eventAtIndex.type eventParent:eventAtIndex.listedCompany.ticker]) {
             [cell.eventImpact setFont:[UIFont systemFontOfSize:12]];
-            [cell.eventImpact setText:@"🔥"];
+            [cell.eventImpact setText:@" "];
+            [cell.eventImpact setTextColor:[UIColor whiteColor]];
         }
         // Else clear it out.
         else {
@@ -730,7 +763,7 @@
 
 // Make Sure the table row, if it should be, is editable
 // TO DO: Before shipping v2.8: Do I really need this method ?
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+/*- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     
     BOOL returnVal = YES;
     
@@ -748,16 +781,16 @@
     }
     
     return returnVal;
-}
+} */
 
 // TO DO: Understand this method better. Basically need this to be able to use the custom UITableViewRowAction
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+/*- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-}
+}*/
 
 // Add the right actions to each row in the table, either following or Set Reminder.
 // Also add the Delete or Unfollow based on which main nav option is selected
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+/*- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // Get the cell for the row on which the action is being exercised
     FAEventsTableViewCell *cell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:indexPath];
@@ -990,7 +1023,7 @@
     }
     
     return @[setReminderAction];
-}
+} */
 
 #pragma mark - Following Reminder Creation
 
@@ -1440,7 +1473,7 @@
     
     // TRACKING EVENT: Explicitly track Price fetch events
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Price Fetched"
+    [FBSDKAppEvents logEvent:@"Stock Price Fetched"
                   parameters:@{ @"Event Type" : @"Daily Price" } ];
     
     // Get historical prices if needed
@@ -1453,7 +1486,7 @@
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Price Fetched"
+            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
                           parameters:@{ @"Event Type" : @"Price History" } ];
         } else {
             
@@ -1461,7 +1494,7 @@
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Price Fetched"
+            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
                           parameters:@{ @"Event Type" : @"Price History" } ];
         }
     }
@@ -2305,7 +2338,7 @@
         // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Prod" } ];
+                      parameters:@{ @"Event Type" : @"Product Event" } ];
     }
     
     // PRICE - BLACK
@@ -2399,7 +2432,7 @@
         // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Price" } ];
+                      parameters:@{ @"Event Type" : @"Stock Price" } ];
     }
 }
 
@@ -2664,9 +2697,6 @@
 
 // Refetch the events and refresh the events table when the events store for the table has changed
 - (void)eventStoreChanged:(NSNotification *)notification {
-    
-    // TO DO:V 1.0: Testing. Delete before shipping v4.3
-    NSLog(@"RECEIVED NOTIFICATION TO REFRESH TABLE");
     
     // Create a new DataController so that this thread has its own MOC
     // TO DO: Understand at what point does a new thread get spawned off. Seems to me the new thread is being created for
@@ -3695,7 +3725,7 @@
             
             // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Event Type Refreshed"
+            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
                           parameters:@{ @"Event Type" : [self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] } ];
         }
         
@@ -3722,7 +3752,7 @@
             
             // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Event Type Refreshed"
+            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
                           parameters:@{ @"Event Type" : [self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] } ];
         }
     }
