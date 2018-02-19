@@ -38,13 +38,51 @@ static FACoinAltData *sharedInstance;
     return sharedInstance;
 }
 
-// Get profile information for a given coin i.e. Short Description,Real World Use Case,Backed By,Best Exchange,More Exchanges.
+// Get mostly static profile information for a given coin i.e.
+// 1. Short Description,
+// 2. Real World Use Cases,
+// 3. Website,
+// 4. Subreddit,
+// 5. Github,
+// 6. Twitter Handle,
+// 7. Supporters (Countries, Institutions, People)
+// 8. Detractors (Countries, Institutions, People)
+// 9. Neutral (Countries, Institutions, People)
+// 10. Best Exchange,
+// 11. Known Exchanges.
 - (NSMutableArray *)getProfileInfoForCoin:(NSString *)ticker {
     
-    NSMutableArray * infoArray = [NSMutableArray arrayWithCapacity:5];
+    NSMutableArray * infoArray = [NSMutableArray arrayWithCapacity:10];
+    
+    // NOTE:
+    // Here are the assumed base URLS
+    // Reddit: https://www.reddit.com
+    // Github: https://github.com
+    // Twitter: https://twitter.com/
     
     if ([ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
-        
+        // 1. Short Description
+        [infoArray addObject:@"First cryptocurrency, it's an innovative payment network & a new kind of money"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Peer to peer transactions like payments, Store of value like digital gold"];
+        // 3. Website
+        [infoArray addObject:@"https://bitcoin.org"];
+        // 4. Subreddit
+        [infoArray addObject:@"/r/Bitcoin"];
+        // 5. Github
+        [infoArray addObject:@"/bitcoin/"];
+        // 6. Twitter Handle
+        [infoArray addObject:@"@Bitcoin"];
+        // 7. Supporters (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 8. Detractors (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 9. Neutral (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 10. Best Exchange
+        [infoArray addObject:@"Not Available"];
+        // 11. Known Exchanges
+        [infoArray addObject:@"Not Available"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"ETH"] == NSOrderedSame) {
@@ -84,11 +122,28 @@ static FACoinAltData *sharedInstance;
     }
     // If not available set to default value of Not Available
     else {
-        [infoArray addObject:@"Not Availabe"];
-        [infoArray addObject:@"Not Availabe"];
-        [infoArray addObject:@"Not Availabe"];
-        [infoArray addObject:@"Not Availabe"];
-        [infoArray addObject:@"Not Availabe"];
+        // 1. Short Description
+        [infoArray addObject:@"Not Available"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Not Available"];
+        // 3. Website
+        [infoArray addObject:@"Not Available"];
+        // 4. Subreddit
+        [infoArray addObject:@"Not Available"];
+        // 5. Github
+        [infoArray addObject:@"Not Available"];
+        // 6. Twitter Handle
+        [infoArray addObject:@"Not Available"];
+        // 7. Supporters (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 8. Detractors (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 9. Neutral (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 10. Best Exchange
+        [infoArray addObject:@"Not Available"];
+        // 11. Known Exchanges
+        [infoArray addObject:@"Not Available"];
     }
     
     return infoArray;
