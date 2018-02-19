@@ -594,6 +594,9 @@
         // Show the event date
         [[cell eventDate] setText:[self formatDateBasedOnEventType:eventAtIndex.type withDate:eventAtIndex.date withRelatedDetails:eventAtIndex.relatedDetails withStatus:eventAtIndex.certainty]];
         
+        // Set the appropriate event date text color
+        [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
+        
         // Show the event distance
         [[cell eventDistance] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
         
@@ -3206,11 +3209,21 @@
         eventDateString = @" ";
     }
     
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
-        eventDateString = @" ";
+    return eventDateString;
+}
+
+// Return the appropriate color for event date based on the UI navigation option selected.
+- (UIColor *)formatColorForEventDateBasedOnSelection {
+   
+    // Default gray for event date in the storyboard
+    UIColor *colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
+    
+   if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame)) {
+        // White to hide
+        colorToReturn = [UIColor whiteColor];
     }
     
-    return eventDateString;
+    return colorToReturn;
 }
 
 // Calculate how far the event is from today. Typical values are Past,Today, Tomorrow, 2d, 3d and so on.
@@ -3226,10 +3239,6 @@
     
     // For Price events, currently just show empty
     if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame)) {
-        formattedDistance = @" ";
-    }
-    // For Latest News, again show empty
-    else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
         formattedDistance = @" ";
     }
     else {
@@ -3285,10 +3294,10 @@
         // Very lightish gray
         colorToReturn = [UIColor colorWithRed:150.0f/255.0f green:150.0f/255.0f blue:150.0f/255.0f alpha:1.0f];
     }
-    // For Latest News make it the default total black
+    // For Latest News make it the default white so it doesn't show
     else if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame)) {
-        // Default Total Black
-        colorToReturn = [UIColor blackColor];
+        // Default White
+        colorToReturn = [UIColor whiteColor];
     }
     else {
         
@@ -3760,6 +3769,7 @@
     else {
         
         [self sendUserMessageCreatedNotificationWithMessage:@"No Connection. Limited functionality."];
+        [refreshTblControl endRefreshing];
     }
 }
 

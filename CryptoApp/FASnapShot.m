@@ -197,7 +197,7 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:12.0f/255.0f green:16.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor blackColor];
     }
     
     if ([ticker caseInsensitiveCompare:@"USDT"] == NSOrderedSame) {
@@ -427,7 +427,7 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:132.0f/255.0f green:166.0f/255.0f blue:220.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithRed:120.0f/255.0f green:248.0f/255.0f blue:223.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"USDT"] == NSOrderedSame) {
