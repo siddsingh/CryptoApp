@@ -60,7 +60,7 @@ static FACoinAltData *sharedInstance;
     // Here are the assumed base URLS
     // Reddit: https://www.reddit.com
     // Github: https://github.com
-    // Twitter: https://twitter.com/ and @ should be appended to the handle.
+    // Twitter: https://twitter.com/ and @ should be appended to form handle if needed.
     //
     
     if ([ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
@@ -110,7 +110,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Japan,Russia,Germany,JP Morgan,Intel,Microsoft,Vitalik Buterin(Creator)"];
         // 9. Detractors (Countries, Institutions, People)
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"Say users have lost money to hacks,faulty code,human error"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -123,48 +123,147 @@ static FACoinAltData *sharedInstance;
     
     else if ([ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"Blockchain solution for global payments geared to large financial institutions"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"Real time cross border payments,low cost liquidity,$155 trillion market"];
         // 3. Website
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"https://ripple.com"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"https://ripple.com/use-cases/"];
         // 5. Subreddit
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"/r/Ripple"];
         // 6. Github
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"/ripple"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"Ripple"];
         // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"HongKong,UAE,Santander,MoneyGram,Softbank,Bank Of America,UBS"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Argue it's centralized with Ripple Labs owning 60% of XRP tokens"];
+        // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
-        // 9. Detractors (Countries, Institutions, People)
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kraken,BitStamp"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://cointelegraph.com"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Bitcoin offshoot promising faster,cheaper peer to peer electronic cash"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Peer to peer electronic transactions like cash payments"];
+        // 3. Website
+        [infoArray addObject:@"https://www.bitcoincash.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.bitcoincash.org"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Bitcoincash"];
+        // 6. Github
+        [infoArray addObject:@"/bitcoincashorg/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"BITCOlNCASH"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Coinbase,Roger Ver(Bitcoin Evangelist),Calvin Ayre(Gaming Mogul)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Charlie Lee(Litecoin Creator) is opposed to it's scaling approach"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Coinbase(GDAX)"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Coinbase(GDAX),Kraken,Binance"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://news.bitcoin.com"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ADA"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Ethereum of Japan is a platform to build & run smart contracts"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Exchange of money,content,property,shares with regulatory support"];
+        // 3. Website
+        [infoArray addObject:@"https://www.cardanohub.org/en/home/"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://blockonomi.com/cardano-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/cardano/"];
+        // 6. Github
+        [infoArray addObject:@"/input-output-hk/cardano-sl/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"CardanoStiftung"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Charles Hoskinson(Ethereum CoFounder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
         [infoArray addObject:@"Not Available"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"Binance,Bittrex,Bitmex"];
         // 13. Best News Coverage Site
-        [infoArray addObject:@"https://www.coindesk.com"];
-        
-    }
-    
-    else if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
-        
-    }
-    
-    else if ([ticker caseInsensitiveCompare:@"ADA"] == NSOrderedSame) {
-        
+        [infoArray addObject:@"https://ethereumworldnews.com"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"LTC"] == NSOrderedSame) {
-        
+        // 1. Short Description
+        [infoArray addObject:@"Silver to Bitcoin's Gold but with faster transaction times"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Ideal for small size purchases"];
+        // 3. Website
+        [infoArray addObject:@"https://litecoin.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://litecoin.com"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/litecoin"];
+        // 6. Github
+        [infoArray addObject:@"/litecoin-project/litecoin"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"litecoin"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Coinbase,Charlie Lee(Litecoin Creator)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Not Available"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Coinbase(GDAX)"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Coinbase(GDAX),Kraken,Binance"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://www.ccn.com/litecoin-news/"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"NEO"] == NSOrderedSame) {
-        
+        // 1. Short Description
+        [infoArray addObject:@"Ethereum of China is a platform to build & run smart contracts"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Digitize,exchange traditional assets with existing programming languages"];
+        // 3. Website
+        [infoArray addObject:@"https://neo.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coinsutra.com/neo-cryptocurrency/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/NEO/"];
+        // 6. Github
+        [infoArray addObject:@"/neo-project"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"NEO_Blockchain"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"China(Speculation),Microsoft,Alibaba,Da Hongfei(NEO Creator)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Not Available"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bitfinex,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://cryptocurrencynews.com/category/daily-news/altcoins/"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"XLM"] == NSOrderedSame) {
