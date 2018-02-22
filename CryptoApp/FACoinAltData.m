@@ -54,14 +54,14 @@ static FACoinAltData *sharedInstance;
 // 13. Best News Coverage Site
 - (NSMutableArray *)getProfileInfoForCoin:(NSString *)ticker {
     
-    NSMutableArray * infoArray = [NSMutableArray arrayWithCapacity:10];
+    NSMutableArray * infoArray = [NSMutableArray arrayWithCapacity:13];
     
     // NOTE:
     // Here are the assumed base URLS
     // Reddit: https://www.reddit.com
     // Github: https://github.com
     // Twitter: https://twitter.com/ and @ should be appended to form handle if needed.
-    //
+    // If News Site is Not Available, then it is assumed we will use the best crypto news site whatever it is.
     
     if ([ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
         // 1. Short Description
@@ -89,7 +89,7 @@ static FACoinAltData *sharedInstance;
         // 12. Known Exchanges
         [infoArray addObject:@"Coinbase(GDAX),Kraken,Bittrex,Gemini"];
         // 13. Best News Coverage Site
-        [infoArray addObject:@"https://www.coindesk.com"];
+        [infoArray addObject:@"Not Available"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"ETH"] == NSOrderedSame) {
@@ -147,7 +147,7 @@ static FACoinAltData *sharedInstance;
         // 12. Known Exchanges
         [infoArray addObject:@"Binance,Kraken,BitStamp"];
         // 13. Best News Coverage Site
-        [infoArray addObject:@"https://cointelegraph.com"];
+        [infoArray addObject:@"Not Available"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
@@ -216,7 +216,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://litecoin.com"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://litecoin.com"];
+        [infoArray addObject:@"https://litecoin.com/#guide"];
         // 5. Subreddit
         [infoArray addObject:@"/r/litecoin"];
         // 6. Github
@@ -263,20 +263,247 @@ static FACoinAltData *sharedInstance;
         // 12. Known Exchanges
         [infoArray addObject:@"Binance,Bitfinex,Huobi"];
         // 13. Best News Coverage Site
-        [infoArray addObject:@"https://cryptocurrencynews.com/category/daily-news/altcoins/"];
+        [infoArray addObject:@"Not Available"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"XLM"] == NSOrderedSame) {
-        
+        // 1. Short Description
+        [infoArray addObject:@"Like Ripple but catering to developers building affordable financial services"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Fast & cheap cross border payments,Micropayments,Services for the underbanked"];
+        // 3. Website
+        [infoArray addObject:@"https://www.stellar.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.stellar.org/how-it-works/stellar-basics/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Stellar/"];
+        // 6. Github
+        [infoArray addObject:@"/stellar"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"StellarOrg"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"IBM,Stripe,Jed McCaleb(Ex Cofounder Ripple)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Not Available"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Cex.Io"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
     }
     
     else if ([ticker caseInsensitiveCompare:@"EOS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Like Ethereum but with interesting performance and scalability benefits"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Exchange of money,content,property,shares or anything of value"];
+        // 3. Website
+        [infoArray addObject:@"https://eos.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://stocksgazette.com/2018/02/15/will-eos-eos-ever-overtake-ethereum-eth/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/eos/"];
+        // 6. Github
+        [infoArray addObject:@"/eosio"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"EOS_io"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Bitfinex,Dan Larimer(Founder STEEM),Li Xiaolai(Chinese Bitcoin Investor)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Not Available"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bitfinex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Instant, private payments online or in-store"];
+        // 3. Website
+        [infoArray addObject:@"https://www.dash.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/dashpay/"];
+        // 6. Github
+        [infoArray addObject:@"/dashpay/dash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Dashpay"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"MIOTA"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Instant, private payments online or in-store"];
+        // 3. Website
+        [infoArray addObject:@"https://www.dash.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/dashpay/"];
+        // 6. Github
+        [infoArray addObject:@"/dashpay/dash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Dashpay"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
         
     }
+    
+    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Instant, private payments online or in-store"];
+        // 3. Website
+        [infoArray addObject:@"https://www.dash.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/dashpay/"];
+        // 6. Github
+        [infoArray addObject:@"/dashpay/dash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Dashpay"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Instant, private payments online or in-store"];
+        // 3. Website
+        [infoArray addObject:@"https://www.dash.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/dashpay/"];
+        // 6. Github
+        [infoArray addObject:@"/dashpay/dash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Dashpay"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Instant, private payments online or in-store"];
+        // 3. Website
+        [infoArray addObject:@"https://www.dash.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/dashpay/"];
+        // 6. Github
+        [infoArray addObject:@"/dashpay/dash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Dashpay"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Instant, private payments online or in-store"];
+        // 3. Website
+        [infoArray addObject:@"https://www.dash.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/dashpay/"];
+        // 6. Github
+        [infoArray addObject:@"/dashpay/dash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Dashpay"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
@@ -304,7 +531,7 @@ static FACoinAltData *sharedInstance;
         // 12. Known Exchanges
         [infoArray addObject:@"Not Available"];
         // 13. Best News Coverage Site
-        [infoArray addObject:@"https://www.coindesk.com"];
+        [infoArray addObject:@"Not Available"];
     }
     
     return infoArray;
