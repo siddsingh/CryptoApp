@@ -71,7 +71,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://bitcoin.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://bitcoin.org/en/how-it-works"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-bitcoin/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/Bitcoin"];
         // 6. Github
@@ -100,7 +100,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://www.ethereum.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.coindesk.com/information/what-is-ethereum/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-ethereum/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/ethereum"];
         // 6. Github
@@ -129,7 +129,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://ripple.com"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://ripple.com/use-cases/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-ripple/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/Ripple"];
         // 6. Github
@@ -187,7 +187,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://www.cardanohub.org/en/home/"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://blockonomi.com/cardano-guide/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-cardano/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/cardano/"];
         // 6. Github
@@ -216,7 +216,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://litecoin.com"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://litecoin.com/#guide"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-litecoin/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/litecoin"];
         // 6. Github
@@ -245,7 +245,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://neo.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://coinsutra.com/neo-cryptocurrency/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-neo/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/NEO/"];
         // 6. Github
@@ -274,7 +274,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://www.stellar.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.stellar.org/how-it-works/stellar-basics/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-are-stellar-lumens-xlm/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/Stellar/"];
         // 6. Github
@@ -303,7 +303,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://eos.io"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://stocksgazette.com/2018/02/15/will-eos-eos-ever-overtake-ethereum-eth/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-eos/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/eos/"];
         // 6. Github
@@ -362,7 +362,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://getmonero.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.monero.how/how-does-monero-work-details-in-plain-english"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-monero/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/Monero/"];
         // 6. Github
@@ -391,7 +391,7 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://iota.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.dailydot.com/debug/what-is-iota/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-iota-miota/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/Iota/"];
         // 6. Github
@@ -413,91 +413,151 @@ static FACoinAltData *sharedInstance;
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"XEM"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        [infoArray addObject:@"Smart Asset Blockchain for Enterprise"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Instant, private payments online or in-store"];
+        [infoArray addObject:@"Put business transactions on the blockchain e.g. payments,escrow,etc"];
         // 3. Website
-        [infoArray addObject:@"https://www.dash.org"];
+        [infoArray addObject:@"https://nem.io/enterprise/"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-nem/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/dashpay/"];
+        [infoArray addObject:@"/r/nem/"];
         // 6. Github
-        [infoArray addObject:@"/dashpay/dash"];
+        [infoArray addObject:@"/NemProject"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Dashpay"];
+        [infoArray addObject:@"NEMofficial"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        [infoArray addObject:@"Singapore,Lon Wong(NEM President)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        [infoArray addObject:@"Not Available"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
-        [infoArray addObject:@"Binance"];
+        [infoArray addObject:@"Bittrex"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        [infoArray addObject:@"Bittrex,Poloniex,Huobi"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"ETC"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        [infoArray addObject:@"Similar to and forked from Ethereum after a hacker attack"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Instant, private payments online or in-store"];
+        [infoArray addObject:@"Exchange of money,content,property,shares or anything of value"];
         // 3. Website
-        [infoArray addObject:@"https://www.dash.org"];
+        [infoArray addObject:@"https://ethereumclassic.github.io"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-ethereum-classic/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/dashpay/"];
+        [infoArray addObject:@"/r/EthereumClassic/"];
         // 6. Github
-        [infoArray addObject:@"/dashpay/dash"];
+        [infoArray addObject:@"/ethereumproject"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Dashpay"];
+        [infoArray addObject:@"eth_classic"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        [infoArray addObject:@"Not Available"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        [infoArray addObject:@"Not Available"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        [infoArray addObject:@"Binance,Bittrex,Kraken"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        [infoArray addObject:@"Goal is to create a healthier entertainment ecosystem on blockchain"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Instant, private payments online or in-store"];
+        [infoArray addObject:@"Users can freely publish,store & own their data like text,pictures,etc"];
         // 3. Website
-        [infoArray addObject:@"https://www.dash.org"];
+        [infoArray addObject:@"https://tron.network/enindex.html"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-tron/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/dashpay/"];
+        [infoArray addObject:@"/r/Tronix/"];
         // 6. Github
-        [infoArray addObject:@"/dashpay/dash"];
+        [infoArray addObject:@"/tronprotocol"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Dashpay"];
+        [infoArray addObject:@"Tronfoundation"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        [infoArray addObject:@"Singapore based,Chinese team,Justin Sun(CEO,Forbes Asia 30 under 30)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        [infoArray addObject:@"Don't believe that TRON can succeed with Chinese media rules"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        [infoArray addObject:@"Binance,YoBit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Goal is to create a healthier entertainment ecosystem on blockchain"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users can freely publish,store & own their data like text,pictures,etc"];
+        // 3. Website
+        [infoArray addObject:@"https://tron.network/enindex.html"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-tron/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Tronix/"];
+        // 6. Github
+        [infoArray addObject:@"/tronprotocol"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Tronfoundation"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Singapore based,Chinese team,Justin Sun(CEO,Forbes Asia 30 under 30)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Don't believe that TRON can succeed with Chinese media rules"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,YoBit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Goal is to create a healthier entertainment ecosystem on blockchain"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users can freely publish,store & own their data like text,pictures,etc"];
+        // 3. Website
+        [infoArray addObject:@"https://tron.network/enindex.html"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-tron/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Tronix/"];
+        // 6. Github
+        [infoArray addObject:@"/tronprotocol"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Tronfoundation"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Singapore based,Chinese team,Justin Sun(CEO,Forbes Asia 30 under 30)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Don't believe that TRON can succeed with Chinese media rules"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,YoBit"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
