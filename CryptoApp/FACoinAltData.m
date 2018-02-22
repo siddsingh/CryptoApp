@@ -354,61 +354,60 @@ static FACoinAltData *sharedInstance;
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"XMR"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        [infoArray addObject:@"Secure,private,and untraceable cryptocurrency"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Instant, private payments online or in-store"];
+        [infoArray addObject:@"Top currency for anonymous transactions"];
         // 3. Website
-        [infoArray addObject:@"https://www.dash.org"];
+        [infoArray addObject:@"https://getmonero.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        [infoArray addObject:@"https://www.monero.how/how-does-monero-work-details-in-plain-english"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/dashpay/"];
+        [infoArray addObject:@"/r/Monero/"];
         // 6. Github
-        [infoArray addObject:@"/dashpay/dash"];
+        [infoArray addObject:@"/monero-project/monero"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Dashpay"];
+        [infoArray addObject:@"monerocurrency"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        [infoArray addObject:@"Riccardo Spagni(Lead maintainer Monero),Musicians like Mariah Carey"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        [infoArray addObject:@"Believe that this cryptocurrency is popular on the black market"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        [infoArray addObject:@"Binance,Kraken,Bitfinex"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
-        
     }
     
-    else if ([ticker caseInsensitiveCompare:@"DASH"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"MIOTA"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Digital Cash with private transactions,quick confirmation times & low fees"];
+        [infoArray addObject:@"Enabling micropayments with no mining,no blocks,no transaction fees"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Instant, private payments online or in-store"];
+        [infoArray addObject:@"Internet connected devices transacting with each other"];
         // 3. Website
-        [infoArray addObject:@"https://www.dash.org"];
+        [infoArray addObject:@"https://iota.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.btcnn.com/dash-coin-work/"];
+        [infoArray addObject:@"https://www.dailydot.com/debug/what-is-iota/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/dashpay/"];
+        [infoArray addObject:@"/r/Iota/"];
         // 6. Github
-        [infoArray addObject:@"/dashpay/dash"];
+        [infoArray addObject:@"/iotaledger"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Dashpay"];
+        [infoArray addObject:@"iotatoken"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
+        [infoArray addObject:@"Microsoft,Cisco,Samsung Artik,Dominik Schiener(Co Founder)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        [infoArray addObject:@"Say IOTA fans are trying to silence critics without discussion"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Bittrex,Bitfinex"];
+        [infoArray addObject:@"Binance,Bitfinex"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
