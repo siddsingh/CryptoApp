@@ -178,65 +178,131 @@
 // Return number of sections in the events list table view
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // There's only one section for now
-    return 1;
+    NSInteger noOfSections = 0;
+    
+    // If it's a currency price event there are 2 sections
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+        noOfSections = 2;
+    }
+    // Else there are 3
+    else {
+        noOfSections = 3;
+    }
+    
+    return noOfSections;
 }
 
-// TO DO: Delete before shipping v2.5
-// Set the header for the table view to a special table cell that serves as header.
-// TO DO: Currently only set a customized header for non ipad devices since there are weird
-// alignment problems with ipad.
-/*-(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+// To style the header appropriately
+-(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    UITableViewCell *headerView = nil;
+    UILabel *customHeaderView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 25)];
     
-    // If device is ipad
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        
-        // Don't set the header
+    // ipad needed special treatment in the past. If no longer needed you can probably consolidate this code
+   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [customHeaderView setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+       customHeaderView.textColor = [UIColor blackColor];
+       //[customHeaderView setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+       [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+       
+       // If it's a currency price event there are 2 sections
+       if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+           if(section == 0) {
+               [customHeaderView setText:@"   STATS"];
+           }
+           if(section == 1) {
+               [customHeaderView setText:@"   ABOUT"];
+           }
+       }
+       // Else 3 sections
+       else {
+           if(section == 0) {
+               [customHeaderView setText:@"   SUMMARY"];
+           }
+           if(section == 1) {
+               [customHeaderView setText:@"   STATS"];
+           }
+           if(section == 2) {
+               [customHeaderView setText:@"   ABOUT"];
+           }
+       }
     }
     // For all other devices
     else {
+        [customHeaderView setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+        customHeaderView.textColor = [UIColor blackColor];
+        //[customHeaderView setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+        [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:20]];
         
-        // Set the header to the appropriate table cell
-        //headerView = [tableView dequeueReusableCellWithIdentifier:@"EventDetailsTableHeader"];
+        // If it's a currency price event there are 2 sections
+        if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+            if(section == 0) {
+                [customHeaderView setText:@"   STATS"];
+            }
+            if(section == 1) {
+                [customHeaderView setText:@"   ABOUT"];
+            }
+        }
+        // Else 3 sections
+        else {
+            if(section == 0) {
+                [customHeaderView setText:@"   SUMMARY"];
+            }
+            if(section == 1) {
+                [customHeaderView setText:@"   STATS"];
+            }
+            if(section == 2) {
+                [customHeaderView setText:@"   ABOUT"];
+            }
+        }
     }
     
-    return headerView;
-}*/
+    return customHeaderView;
+}
 
-// TO DO: Delete before shipping v2.5
-// Set the section header title for the table view that serves as the overall header.
-// TO DO: Currently only do this for the ipad since we can't use a customized header for it. See above.
-// When we are able to set a customized header for the ipad this won't be needed.
+// Not needed since you are using a Custom Header
 /*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *sectionTitle = nil;
+   NSString *sectionTitle = nil;
     
-    // If device is ipad
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        
-        // Set title. Don't use a title for related data table anymore.
-        // sectionTitle = @"RELATED DATA";
+    // If it's a currency price event there are 2 sections
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+        if(section == 0) {
+            sectionTitle = @"   STATS";
+        }
+        if(section == 1) {
+            sectionTitle = @"   ABOUT";
+        }
+    }
+    // Else 3 sections
+    else {
+        if(section == 0) {
+            sectionTitle = @"   SUMMARY";
+        }
+        if(section == 1) {
+            sectionTitle = @"   STATS";
+        }
+        if(section == 2) {
+            sectionTitle = @"   ABOUT";
+        }
     }
     
     return sectionTitle;
 }*/
 
-// Set the table header to 0 height as we don't need this for the details table.
-// TO DO: Test on the ipad and then remove the above 2 header related methods as they are no longer needed.
+// Set the table header to 25.0 height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 0.0;
+    CGFloat headerSize = 25.0;
+    return headerSize;
 }
 
-// Return number of rows in the events list table view.
+// Return number of rows in the events list table view for a given section
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self getNoOfInfoPiecesForEventType];
+    return [self getNoOfInfoPiecesForEventTypeForSection:section];
 }
 
-// Return a cell configured to display the event details based on the cell number and event type. Currently upto 6 types of information pieces are available.
+// Return a cell configured to display the event details based on the cell number and event type.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Get a custom cell to display details and reset states/colors of cell elements to avoid carryover
@@ -283,13 +349,26 @@
     
     int rowNo = 0;
     
-    // If it's a currency price event, start at Row 1, which is Market Cap onwards
+    // If it's a currency price event, start at Row 1
     if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        rowNo = (int)indexPath.row;
+        if (indexPath.section == 0) {
+            rowNo = (int)indexPath.row;
+        }
+        if (indexPath.section == 1) {
+            rowNo = ((int)indexPath.row + 5);
+        }
     }
     // If it's a news event, start at Row 0, which includes a description of the event.
     else {
-         rowNo = ((int)indexPath.row - 1);
+        if (indexPath.section == 0) {
+            rowNo = ((int)indexPath.row - 1);
+        }
+        if (indexPath.section == 1) {
+            rowNo = (int)indexPath.row;
+        }
+        if (indexPath.section == 2) {
+            rowNo = ((int)indexPath.row + 5);
+        }
     }
     
     // Default
@@ -313,26 +392,26 @@
             // Set the impact icon
             // Very High Impact
             if ([impact_str caseInsensitiveCompare:@"Very High Impact"] == NSOrderedSame) {
-                [[cell titleLabel] setText:@"Summary"];
+                [[cell titleLabel] setText:@"Very High Impact"];
             }
             // High Impact
             if ([impact_str caseInsensitiveCompare:@"High Impact"] == NSOrderedSame) {
                 //cell.titleLabel.textColor = [UIColor colorWithRed:229.0f/255.0f green:55.0f/255.0f blue:53.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"Summary"];
+                [[cell titleLabel] setText:@"High Impact"];
             }
             // Medium Impact
             if ([impact_str caseInsensitiveCompare:@"Medium Impact"] == NSOrderedSame) {
                 //cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:127.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"Summary"];
+                [[cell titleLabel] setText:@"Medium Impact"];
             }
             // Low Impact
             if ([impact_str caseInsensitiveCompare:@"Low Impact"] == NSOrderedSame) {
                 //cell.titleLabel.textColor = [UIColor colorWithRed:207.0f/255.0f green:187.0f/255.0f blue:29.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"Summary"];
+                [[cell titleLabel] setText:@"Low Impact"];
             }
             
             // Set the rationale
-            [[cell descriptionArea] setText:[NSString stringWithFormat:@"%@.%@",[self getImpactDescriptionForEventType:self.eventType eventParent:self.parentTicker],[self getEventDescriptionForEventType:self.eventType eventParent:self.parentTicker]]];
+            [[cell descriptionArea] setText:[NSString stringWithFormat:@"%@",[self getEventDescriptionForEventType:self.eventType eventParent:self.parentTicker]]];
         }
         break;
             
@@ -353,24 +432,6 @@
             [[cell descriptionArea] setText:@"MARKET CAP"];
         }
         break;
-         
-        // Not showing this anymore as it's combined with the above
-        // Show Total Market Cap
-       /* case infoRow2:
-        {
-            // Default State Colors
-            // Correct Font and Colors
-            cell.titleLabel.backgroundColor = [UIColor whiteColor];
-            cell.titleLabel.textColor = [UIColor blackColor];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
-            
-            // Total Cap String
-            NSString *totalCapString = [NSString stringWithFormat:@"%@", [currencyFormatter1 stringFromNumber:eventData.estimatedEps]];
-            
-            [[cell titleLabel] setText:totalCapString];
-            [[cell descriptionArea] setText:@"TOTAL MARKET CAP"];
-        }
-        break; */
             
         // Show Current Price
         case infoRow2:
@@ -468,7 +529,7 @@
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
             
             // What is <coin name>
-            NSString *whatIsString = [NSString stringWithFormat:@"%@ ?",[self.parentCompany capitalizedString]];
+            NSString *whatIsString = [NSString stringWithFormat:@"%@",[self.parentCompany capitalizedString]];
             NSString *descString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:0]];
             
             [[cell titleLabel] setText:whatIsString];
@@ -1874,102 +1935,31 @@
 
 #pragma mark - Event Info Related
 
-//CURRENTLY: Just retunr one row for all types. Depending on the event type return the number of related information pieces available. Currently: Quarterly Earnings -> 5 possible info pieces: Short Description, Expected Eps, Prior Eps, ChangeSincePriorQuarter, ChangeSincePriorEarnings. Jan Fed Meeting -> 4 possible info pieces: Short Description, Impact, SectorsAffected, Tips). NOTE: If any of these pieces is not available that piece will not be counted.
-- (NSInteger)getNoOfInfoPiecesForEventType
+- (NSInteger)getNoOfInfoPiecesForEventTypeForSection:(NSInteger)sectionNo
 {
-    NSInteger numberOfPieces = 1;
+    NSInteger numberOfPieces = 0;
     
     // If it's a currency price event
-    // Price change events we want to show the current stock price and 30 day and ytd change.
     if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        
-        // Market Cap Rank, Total Market Cap, Current Price, 1 Hr Price Change, 24 Hr Price change, 7 Days Price Change, 24 Hr Trade Volume
-        numberOfPieces = 8;
-    } else {
-        numberOfPieces = 9;
-    }
-    
-/*    // Set a value indicating that a value is not available. Currently a Not Available value is represented by
-    double notAvailable = 999999.9f;
-    EventHistory *eventHistoryData;
-    
-    // Based on event type and what's available, return the no of pieces of information.
-    if ([self.eventType isEqualToString:@"Quarterly Earnings"]) {
-        
-        numberOfPieces = 5;
-        // Get the event history.
-        eventHistoryData = [self.primaryDetailsDataController getEventHistoryForParentEventTicker:self.parentTicker parentEventType:self.eventType];
-        
-        // Check to see if stock prices at end of prior quarter and yesterday are available.If yes, then return 4 pieces. If not then return 2 pieces (desc, expected eps, prior eps)
-        double prev1RelatedPriceDbl = [[eventHistoryData previous1RelatedPrice] doubleValue];
-        double currentPriceDbl = [[eventHistoryData currentPrice] doubleValue];
-        
-        // Always return 5 pieces
-        if ((prev1RelatedPriceDbl != notAvailable)&&(currentPriceDbl != notAvailable)) {
-            numberOfPieces = 5;
-        } else {
+        if(sectionNo == 0) {
             numberOfPieces = 5;
         }
-        
+        if(sectionNo == 1) {
+            numberOfPieces = 3;
+        }
     }
-    
-    if ([self.eventType containsString:@"Fed Meeting"]) {
-        numberOfPieces = 4;
-    }
-    
-    if ([self.eventType containsString:@"Jobs Report"]) {
-        numberOfPieces = 4;
-    }
-    
-    if ([self.eventType containsString:@"Consumer Confidence"]) {
-        numberOfPieces = 4;
-    }
-    
-    if ([self.eventType containsString:@"GDP Release"]) {
-        numberOfPieces = 4;
-    }
-    
-    if ([self.eventType containsString:@"Launch"]||[self.eventType containsString:@"Conference"]) {
-        
-        numberOfPieces = 4;
-        
-        // FOR BTC or ETHR or BCH$ or XRP, only show one cell right now. Later make this 4 to show price data.
-        if (([self.parentTicker caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([self.parentTicker caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([self.parentTicker caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([self.parentTicker caseInsensitiveCompare:@"XRP"] == NSOrderedSame)) {
+    // Else
+    else {
+        if(sectionNo == 0) {
             numberOfPieces = 1;
         }
-        else {
-            // Get the event history.
-            eventHistoryData = [self.primaryDetailsDataController getEventHistoryForParentEventTicker:self.parentTicker parentEventType:self.eventType];
-            
-            // Check to see if stock prices at end of prior quarter and yesterday are available.If yes, then return 4 pieces. If not then return 2 pieces (desc, expected eps, prior eps)
-            double prev1RelatedPriceDbl = [[eventHistoryData previous1RelatedPrice] doubleValue];
-            double currentPriceDbl = [[eventHistoryData currentPrice] doubleValue];
-            // Always return 4 pieces
-            if ((prev1RelatedPriceDbl != notAvailable)&&(currentPriceDbl != notAvailable)) {
-                numberOfPieces = 4;
-            } else {
-                numberOfPieces = 4;
-            }
+        if(sectionNo == 1) {
+            numberOfPieces = 5;
+        }
+        if(sectionNo == 2) {
+            numberOfPieces = 3;
         }
     }
-    
-    // Price change events we want to show the current stock price and 30 day and ytd change.
-    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        
-        numberOfPieces = 3;
-        // Get the event history.
-        eventHistoryData = [self.primaryDetailsDataController getEventHistoryForParentEventTicker:self.parentTicker parentEventType:self.eventType];
-        
-        // Check to see if stock prices at end of prior quarter and yesterday are available.If yes, then return 4 pieces. If not then return 2 pieces (desc, expected eps, prior eps)
-        double prev1RelatedPriceDbl = [[eventHistoryData previous1RelatedPrice] doubleValue];
-        double currentPriceDbl = [[eventHistoryData currentPrice] doubleValue];
-        // Always return 3
-        if ((prev1RelatedPriceDbl != notAvailable)&&(currentPriceDbl != notAvailable)) {
-            numberOfPieces = 3;
-        } else {
-            numberOfPieces = 3;
-        }
-    } */
         
     return numberOfPieces;
 }
