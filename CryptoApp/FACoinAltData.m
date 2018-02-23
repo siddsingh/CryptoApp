@@ -503,61 +503,91 @@ static FACoinAltData *sharedInstance;
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"VEN"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Goal is to create a healthier entertainment ecosystem on blockchain"];
+        [infoArray addObject:@"Blockchain platform for businesses to effectively automate product processes"];
+         // 2. Real World Use Cases
+        [infoArray addObject:@"Prevent counterfeit goods,food safety tracking,digitizing car maintenance"];
+         // 3. Website
+         [infoArray addObject:@"https://www.vechain.com/#/"];
+         // 4. Best Detailed Description Weblink
+         [infoArray addObject:@"https://blockonomi.com/vechain-guide/"];
+         // 5. Subreddit
+         [infoArray addObject:@"/r/Vechain/"];
+         // 6. Github
+         [infoArray addObject:@"/vechain"];
+         // 7. Twitter Handle
+         [infoArray addObject:@"vechainofficial"];
+         // 8. Backers (Countries, Institutions, People)
+         [infoArray addObject:@"Chinese Govt Partnerships,PwC,Renault,Microsoft,Singapore based"];
+         // 9. Detractors (Countries, Institutions, People, Argument)
+         [infoArray addObject:@"Not Available"];
+         // 10. On the Fence (Countries, Institutions, People)
+         [infoArray addObject:@"Not Available"];
+         // 11. Best Exchange
+         [infoArray addObject:@"Binance"];
+         // 12. Known Exchanges
+         [infoArray addObject:@"Binance,Huobi,Kucoin"];
+         // 13. Best News Coverage Site
+         [infoArray addObject:@"Not Available"];
+         
+         }
+    
+    else if ([ticker caseInsensitiveCompare:@"LSK"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform to build and deploy blockchain applications in JavaScript"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Users can freely publish,store & own their data like text,pictures,etc"];
+        [infoArray addObject:@"Exchange of money,content,property,shares or anything of value"];
         // 3. Website
-        [infoArray addObject:@"https://tron.network/enindex.html"];
+        [infoArray addObject:@"https://lisk.io"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.investinblockchain.com/what-is-tron/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-lisk/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/Tronix/"];
+        [infoArray addObject:@"/r/Lisk/"];
         // 6. Github
-        [infoArray addObject:@"/tronprotocol"];
+        [infoArray addObject:@"/LiskHQ/"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Tronfoundation"];
+        [infoArray addObject:@"LiskHQ"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Singapore based,Chinese team,Justin Sun(CEO,Forbes Asia 30 under 30)"];
+        [infoArray addObject:@"Berlin based,Max Kordek & Olivier Beddows(co founders,crypto veterans"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Don't believe that TRON can succeed with Chinese media rules"];
+        [infoArray addObject:@"Not Available"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,YoBit"];
+        [infoArray addObject:@"Binance,Livecoin,YoBit"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"TRX"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"USDT"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Goal is to create a healthier entertainment ecosystem on blockchain"];
+        [infoArray addObject:@"Represents fiat,each tether is backed by,pegged to $1 USD"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Users can freely publish,store & own their data like text,pictures,etc"];
+        [infoArray addObject:@"Facilitate transactions with a rate fixed to the USD"];
         // 3. Website
-        [infoArray addObject:@"https://tron.network/enindex.html"];
+        [infoArray addObject:@"https://tether.to"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.investinblockchain.com/what-is-tron/"];
+        [infoArray addObject:@"https://www.reddit.com/r/Tether/comments/7a37al/to_those_that_still_think_it_is_a_good_idea_to/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/Tronix/"];
+        [infoArray addObject:@"/r/Tether/"];
         // 6. Github
-        [infoArray addObject:@"/tronprotocol"];
+        [infoArray addObject:@"Not Available"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Tronfoundation"];
+        [infoArray addObject:@"Tether_to"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Singapore based,Chinese team,Justin Sun(CEO,Forbes Asia 30 under 30)"];
+        [infoArray addObject:@"Incorporated(Hong Kong),Swiss Offices,JL van der Velde(CEO Tether,Bitfinex)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Don't believe that TRON can succeed with Chinese media rules"];
+        [infoArray addObject:@"Controversial business model,and some consider it a scam"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,YoBit"];
+        [infoArray addObject:@"Binance,Huobi,Poloniex"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
