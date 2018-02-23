@@ -17,6 +17,7 @@
 #import "Reachability.h"
 #import "FACompanyInfoStore.h"
 #import "FASnapShot.h"
+#import "FACoinAltData.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SafariServices/SafariServices.h>
 @import EventKit;
@@ -52,6 +53,9 @@
     
     // Get the one data snapshot
     self.dataSnapShot2 = [[FASnapShot alloc] init];
+    
+    // Get the one alt data snapshot
+    self.altDataSnapShot = [[FACoinAltData alloc] init];
 
     // Show the company name in the navigation bar header.
     self.navigationItem.title = [self.eventTitleStr uppercaseString];
@@ -274,6 +278,9 @@
     #define infoRow4  3
     #define infoRow5  4
     #define infoRow6  5
+    #define infoRow7  6
+    #define infoRow8  7
+    
     int rowNo = 0;
     
     // If it's a currency price event, start at Row 1, which is Market Cap onwards
@@ -285,8 +292,6 @@
          rowNo = ((int)indexPath.row - 1);
     }
     
-    
-   
     // Default
     [[cell titleLabel] setText:@"NA"];
     [[cell descriptionArea] setText:@"Details not available."];
@@ -308,22 +313,22 @@
             // Set the impact icon
             // Very High Impact
             if ([impact_str caseInsensitiveCompare:@"Very High Impact"] == NSOrderedSame) {
-                [[cell titleLabel] setText:@"SUMMARY"];
+                [[cell titleLabel] setText:@"Summary"];
             }
             // High Impact
             if ([impact_str caseInsensitiveCompare:@"High Impact"] == NSOrderedSame) {
                 //cell.titleLabel.textColor = [UIColor colorWithRed:229.0f/255.0f green:55.0f/255.0f blue:53.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"SUMMARY"];
+                [[cell titleLabel] setText:@"Summary"];
             }
             // Medium Impact
             if ([impact_str caseInsensitiveCompare:@"Medium Impact"] == NSOrderedSame) {
                 //cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:127.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"SUMMARY"];
+                [[cell titleLabel] setText:@"Summary"];
             }
             // Low Impact
             if ([impact_str caseInsensitiveCompare:@"Low Impact"] == NSOrderedSame) {
                 //cell.titleLabel.textColor = [UIColor colorWithRed:207.0f/255.0f green:187.0f/255.0f blue:29.0f/255.0f alpha:1.0f];
-                [[cell titleLabel] setText:@"SUMMARY"];
+                [[cell titleLabel] setText:@"Summary"];
             }
             
             // Set the rationale
@@ -331,7 +336,7 @@
         }
         break;
             
-        // Show Market Cap Rank
+        // Show Market Cap Rank and Total
         case infoRow1:
         {
             // Correct Font and Colors
@@ -339,16 +344,19 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
             
+            // Total Cap String
+            NSString *totalCapString = [NSString stringWithFormat:@"%@", [currencyFormatter1 stringFromNumber:eventData.estimatedEps]];
             // Cap Rank String
-            NSString *capRankString = [NSString stringWithFormat:@"#%@", eventData.relatedDetails];
+            NSString *capCumulativeStr = [NSString stringWithFormat:@"#%@  %@", eventData.relatedDetails, totalCapString];
             
-            [[cell titleLabel] setText:capRankString];
-            [[cell descriptionArea] setText:@"MARKET CAP RANK"];
+            [[cell titleLabel] setText:capCumulativeStr];
+            [[cell descriptionArea] setText:@"MARKET CAP"];
         }
         break;
-            
+         
+        // Not showing this anymore as it's combined with the above
         // Show Total Market Cap
-        case infoRow2:
+       /* case infoRow2:
         {
             // Default State Colors
             // Correct Font and Colors
@@ -362,10 +370,10 @@
             [[cell titleLabel] setText:totalCapString];
             [[cell descriptionArea] setText:@"TOTAL MARKET CAP"];
         }
-        break;
+        break; */
             
         // Show Current Price
-        case infoRow3:
+        case infoRow2:
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -387,7 +395,7 @@
         break;
             
         // Show 1 Hr Price Change
-        case infoRow4:
+        case infoRow3:
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -408,7 +416,7 @@
         break;
             
         // Show 24 Hr Price Change
-        case infoRow5:
+        case infoRow4:
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -430,7 +438,7 @@
         break;
             
         // Show 7 Days Price Change
-        case infoRow6:
+        case infoRow5:
         {
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -448,6 +456,57 @@
             
             [[cell titleLabel] setText:sevenChangeString];
             [[cell descriptionArea] setText:@"7 DAYS PRICE CHANGE"];
+        }
+        break;
+            
+        // Show What is ?
+        case infoRow6:
+        {
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            
+            // What is <coin name>
+            NSString *whatIsString = [NSString stringWithFormat:@"%@ ?",[self.parentCompany capitalizedString]];
+            NSString *descString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:0]];
+            
+            [[cell titleLabel] setText:whatIsString];
+            [[cell descriptionArea] setText:descString];
+        }
+        break;
+            
+        // Show Use Cases
+        case infoRow7:
+        {
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            
+            // Used For
+            NSString *usedForString = [NSString stringWithFormat:@"Uses"];
+            NSString *usedForDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:1]];
+            
+            [[cell titleLabel] setText:usedForString];
+            [[cell descriptionArea] setText:usedForDescString];
+        }
+        break;
+        
+        // Show Backed By
+        case infoRow8:
+        {
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            
+            // Backed By
+            NSString *backedByString = [NSString stringWithFormat:@"Backers"];
+            NSString *backedByDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:7]];
+            
+            [[cell titleLabel] setText:backedByString];
+            [[cell descriptionArea] setText:backedByDescString];
         }
         break;
             
@@ -1825,9 +1884,9 @@
     if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
         
         // Market Cap Rank, Total Market Cap, Current Price, 1 Hr Price Change, 24 Hr Price change, 7 Days Price Change, 24 Hr Trade Volume
-        numberOfPieces = 6;
+        numberOfPieces = 8;
     } else {
-        numberOfPieces = 7;
+        numberOfPieces = 9;
     }
     
 /*    // Set a value indicating that a value is not available. Currently a Not Available value is represented by
