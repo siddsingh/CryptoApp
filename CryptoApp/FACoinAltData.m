@@ -356,7 +356,7 @@ static FACoinAltData *sharedInstance;
     
     else if ([ticker caseInsensitiveCompare:@"XMR"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Secure,private,and untraceable cryptocurrency"];
+        [infoArray addObject:@"The first secure,private,and untraceable cryptocurrency"];
         // 2. Real World Use Cases
         [infoArray addObject:@"Top currency for anonymous transactions"];
         // 3. Website
@@ -738,6 +738,156 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
         [infoArray addObject:@"Binance,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ZEC"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Like Bitcoin but can fully protect the privacy of transactions"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Privacy based flows e.g. Private Internet Access"];
+        // 3. Website
+        [infoArray addObject:@"https://z.cash"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/invest-in-zcash/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/zec"];
+        // 6. Github
+        [infoArray addObject:@"/zcash/zcash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"zcashco"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"JP Morgan,Israeli Govt,Roger Ver,Erik Voorhees(Major crypto influencers)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Point to politically charged backers,criticize the founders mining tax"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kraken"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kraken,Binance,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BNB"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Coin used to facilitate operations on the popular Binance exchange"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users can pay lower trading fees on Binance using the coin"];
+        // 3. Website
+        [infoArray addObject:@"https://www.binance.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.binance.com/resources/ico/Binance_WhitePaper_en.pdf"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/BinanceExchange/"];
+        // 6. Github
+        [infoArray addObject:@"/binance-exchange"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"binance_2017"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Hong Kong based,servers in S Korea,quickly diverisfying internationally"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"No one knows how China's negative stance on crypto impacts their future."];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bancor Network"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"STEEM"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Currency for the Steemit platform where one gets paid to post content"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Platform for users to monetize content & grow community like Youtube"];
+        // 3. Website
+        [infoArray addObject:@"https://steem.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/steem-steemit/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/steemit/"];
+        // 6. Github
+        [infoArray addObject:@"/steemit/steem"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"steemit"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Ned Scott(Co founder) & Daniel Larimer(Co Founder, Founder BitShares)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Going up against tech behemoths Facebook & Google (Youtube)"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"XVG"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Like Bitcoin,a cryptocurrency with secure,anonymous & private transactions"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Fast business to consumer transactions while maintaining personal privacy"];
+        // 3. Website
+        [infoArray addObject:@"https://vergecurrency.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-verge/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/vergecurrency/"];
+        // 6. Github
+        [infoArray addObject:@"/vergecurrency"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"vergecurrency"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Sunerok(Co founder),CryptoRekt(CMO,Ex Cisco),Kieran Daniels(VP Marketing)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Are concerned that the development is not proceeding at an appreciable pace"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BCN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The first private untraceable cryptocurrency from which Monero split off"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Instant,no fee transactions around the world,totally untraceable"];
+        // 3. Website
+        [infoArray addObject:@"https://bytecoin.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-bytecoin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/BytecoinBCN/"];
+        // 6. Github
+        [infoArray addObject:@"/bcndev"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Bytecoin_BCN"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Monero is basically the improved version of Bytecoin and is better known"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Poloniex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"HitBTC,Poloniex"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
