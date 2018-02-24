@@ -593,6 +593,96 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"BTG"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Fork from Bitcoin that lowers the barrier to entry for new miners"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Decentralize mining by enabling new GPU based miners to come in"];
+        // 3. Website
+        [infoArray addObject:@"https://bitcoingold.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://arstechnica.com/tech-policy/2017/11/bitcoin-gold-the-latest-bitcoin-fork-explained/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/BitcoinGoldHQ"];
+        // 6. Github
+        [infoArray addObject:@"/BTCGPU/BTCGPU"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"bitcoingold"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Martin Kuvandzhiev(Developer)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Some in the community consider Bitcoin Gold a scam"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bitfinex,Bittrex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"OMG"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Ethereum based financial technology for use in mainstream digital wallets"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Digital payment services for individuals & businesses,Unbank the Banked"];
+        // 3. Website
+        [infoArray addObject:@"https://omisego.network"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-omisego-omg/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/omise_go/"];
+        // 6. Github
+        [infoArray addObject:@"/omise/omise-go"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"omise_go"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Big in Southeast Asia(esp Thailand),McDonald’s & Credit Saison"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Say valuation is too high,considering their platform launched in Q4 2017"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bitfinex,Bittrex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"QTUM"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Bitcoin & Ethereum hybrid,it's a platform to build mobile blockchain apps"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Exchange of money,content,property,shares or anything of value"];
+        // 3. Website
+        [infoArray addObject:@"https://qtum.org/en/"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-qtum/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Qtum/"];
+        // 6. Github
+        [infoArray addObject:@"/qtumproject/qtum/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"QtumOfficial"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Singapore based,strong development team,Patrick Dai(CEO)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Some in the community consider Bitcoin Gold a scam"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
