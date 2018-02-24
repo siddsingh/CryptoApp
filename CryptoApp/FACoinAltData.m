@@ -671,13 +671,73 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Singapore based,strong development team,Patrick Dai(CEO)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Some in the community consider Bitcoin Gold a scam"];
+        [infoArray addObject:@"Not Available"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
         [infoArray addObject:@"Binance,Bittrex,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"NANO"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Fast & free digital currency"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Crypto trading,Peer to peer payments,micropayments,business to consumer"];
+        // 3. Website
+        [infoArray addObject:@"https://nano.org/en"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-raiblocks/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/nanocurrency/"];
+        // 6. Github
+        [infoArray addObject:@"/nanocurrency"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"nanocurrency"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Colin LeMahieu(Lead Developer ex AMD,Qualcomm),Strong international team"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Point to a recent hack where a large amount of Nanos were stolen"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin,BitFlip"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ICX"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform to connect all the different blockchains together"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Facilitate operations between different industries e.g. medical & insurance"];
+        // 3. Website
+        [infoArray addObject:@"https://www.icon.foundation/?lang=en"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-icon-icx/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/helloicon/"];
+        // 6. Github
+        [infoArray addObject:@"/theloopkr/loopchain"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"helloiconworld"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"S Korea based,Woori(Korea’s largest bank) & 28 other financial instituions"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Point out that other blockchains might decide to not work with them"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
