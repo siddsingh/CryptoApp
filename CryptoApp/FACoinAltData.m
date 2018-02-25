@@ -1043,6 +1043,36 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"SC"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The Airbnb of hard drives,a cloud storage platform on blockchain"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Reduce costs by allowing users to rent out their unused hard drive"];
+        // 3. Website
+        [infoArray addObject:@"https://sia.tech"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-siacoin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/siacoin/"];
+        // 6. Github
+        [infoArray addObject:@"/NebulousLabs/Sia"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"SiaTechHQ"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Venture Capital Firms,Jim Pallotta(Investor,Co owner Boston Celtics)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Lower content access speed compared to current players like Dropbox"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
     else if ([ticker caseInsensitiveCompare:@"RHOC"] == NSOrderedSame) {
         // 1. Short Description
         [infoArray addObject:@"Like Ethereum,a platform that scales like Facebook & is fast like Visa"];
@@ -1068,6 +1098,36 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Kucoin"];
         // 12. Known Exchanges
         [infoArray addObject:@"Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"WAVES"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Like Ethereum,a platform to build distributed blockchain apps without knowing to code"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Average person can build apps that digitize and exchange anything of value like money"];
+        // 3. Website
+        [infoArray addObject:@"https://www.rchain.coop/#home"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-waves/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Wavesplatform/"];
+        // 6. Github
+        [infoArray addObject:@"/wavesplatform/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"wavesplatform"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Russian Govt,Deloitte,Sasha Ivanov(CEO,Solid track record in the crypto space"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Lack of regulation can lead to and led to (in 2017) scam tokens being created"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
