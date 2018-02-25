@@ -47,7 +47,7 @@ static FACoinAltData *sharedInstance;
 // 6. Github,
 // 7. Twitter Handle,
 // 8. Backers (Countries, Institutions, People)
-// 9. Detractors (Countries, Institutions, People)
+// 9. Detractors (Countries, Institutions, People) - call it Concerns
 // 10. On The Fence (Countries, Institutions, People)
 // 11. Best Exchange,
 // 12. Known Exchanges,
@@ -81,7 +81,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Japan,Russia,Germany,Ronnie Moas(Standpoint Research)"];
         // 9. Detractors (Countries, Institutions, People)
-        [infoArray addObject:@"China,Jamie Dimon(JP Morgan),Tidjane Thiam(Credit Suisse)"];
+        [infoArray addObject:@"China,influencers like Warren Buffett,Jamie Dimon(JP Morgan) opposed to it"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"USA,Lloyd Blankfein(CEO Goldman Sachs)"];
         // 11. Best Exchange
@@ -110,7 +110,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Japan,Russia,Germany,JP Morgan,Intel,Microsoft,Vitalik Buterin(Creator)"];
         // 9. Detractors (Countries, Institutions, People)
-        [infoArray addObject:@"Say users have lost money to hacks,faulty code,human error"];
+        [infoArray addObject:@"Detractors say users have lost money to hacks,faulty code,human error"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -139,7 +139,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"HongKong,UAE,Santander,MoneyGram,Softbank,Bank Of America,UBS"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Argue it's centralized with Ripple Labs owning 60% of XRP tokens"];
+        [infoArray addObject:@"Detractors argue it's centralized,with Ripple Labs owning 60% of XRP tokens"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -255,7 +255,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"China(Speculation),Microsoft,Alibaba,Da Hongfei(NEO Creator)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"China has displayed a negative stance towards the overall crypto space"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -284,7 +284,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"IBM,Stripe,Jed McCaleb(Ex Cofounder Ripple)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"Competitors like Ripple already have a strong foothold"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -342,7 +342,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"FanDuel did a joint promotion with Dash during the Superbowl"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say it's not truly decentralized as some users have more power"];
+        [infoArray addObject:@"Detractors say it's not truly decentralized as some users have more power"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -372,7 +372,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Riccardo Spagni(Lead maintainer Monero),Musicians like Mariah Carey"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Believe that this cryptocurrency is popular on the black market"];
+        [infoArray addObject:@"Detractors believe that this cryptocurrency is popular on the black market"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -399,9 +399,9 @@ static FACoinAltData *sharedInstance;
         // 7. Twitter Handle
         [infoArray addObject:@"iotatoken"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Microsoft,Cisco,Samsung Artik,Dominik Schiener(Co Founder)"];
+        [infoArray addObject:@"Berlin based,Microsoft,Cisco,Samsung,VW,Bosch,Dominik Schiener(Co Founder)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say IOTA fans are trying to silence critics without discussion"];
+        [infoArray addObject:@"Detractors say IOTA fans are trying to silence critics without discussion"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -491,7 +491,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Singapore based,Chinese team,Justin Sun(CEO,Forbes Asia 30 under 30)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Don't believe that TRON can succeed with Chinese media rules"];
+        [infoArray addObject:@"Detractors don't believe that TRON can succeed with Chinese media rules"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -641,7 +641,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Big in Southeast Asia(esp Thailand),McDonald’s & Credit Saison"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Say valuation is too high,considering their platform launched in Q4 2017"];
+        [infoArray addObject:@"Valuation is too high,considering their platform launched in Q4 2017"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -701,7 +701,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Colin LeMahieu(Lead Developer ex AMD,Qualcomm),Strong international team"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Point to a recent hack where a large amount of Nanos were stolen"];
+        [infoArray addObject:@"Detractors point to a recent hack where a large amount of Nanos were stolen"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -731,7 +731,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"S Korea based,Woori(Korea’s largest bank) & 28 other financial instituions"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Point out that other blockchains might decide to not work with them"];
+        [infoArray addObject:@"Other blockchains might decide to not work with them"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -761,7 +761,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"JP Morgan,Israeli Govt,Roger Ver,Erik Voorhees(Major crypto influencers)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Point to politically charged backers,criticize the founders mining tax"];
+        [infoArray addObject:@"Politically charged backers,detractors criticize the founders mining tax"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -851,7 +851,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Sunerok(Co founder),CryptoRekt(CMO,Ex Cisco),Kieran Daniels(VP Marketing)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Are concerned that the development is not proceeding at an appreciable pace"];
+        [infoArray addObject:@"Concern that the development is not proceeding at an appreciable pace"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -918,6 +918,156 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
         [infoArray addObject:@"Binance,Kucoin,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DGD"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"One of two coins,DGD & DGX,created by Digix Global"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"DGD enables partaking in DGX,DGX will be backed by physical gold bullion"];
+        // 3. Website
+        [infoArray addObject:@"https://digix.global"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://captainaltcoin.com/what-is-digixdao-coin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/digix/"];
+        // 6. Github
+        [infoArray addObject:@"/digixglobal"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"DigixGlobal"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Singapore based"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"DGX not yet released,slated for Q1 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"STRAT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform for companies to build custom blockchain apps easily in .NET"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Origin,Tracking for Seafood,Unalterable store of medical research,Fin Tech"];
+        // 3. Website
+        [infoArray addObject:@"https://stratisplatform.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-stratis/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/stratisplatform/"];
+        // 6. Github
+        [infoArray addObject:@"/stratisproject"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"stratisplatform"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"UK based,EarthTwine,Gluon(Partners),Chris Trew(CEO)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Feels relatively new and still exploring use cases and building usage"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DOGE"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Self proclaimed joke coin that has become very popular"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"peer to peer e payments,microtransactions like tipping on articles"];
+        // 3. Website
+        [infoArray addObject:@"http://dogecoin.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-dogecoin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/dogecoin/"];
+        // 6. Github
+        [infoArray addObject:@"/dogecoin/dogecoin"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"dogecoin"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Huge,friendly community of over 100,000 reddit subscribers"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Stalled development without a single update in over 2 years"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"SC"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The Airbnb of hard drives,a cloud storage platform on blockchain"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Reduce costs by allowing users to rent out their unused hard drive"];
+        // 3. Website
+        [infoArray addObject:@"https://sia.tech"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-siacoin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/siacoin/"];
+        // 6. Github
+        [infoArray addObject:@"/NebulousLabs/Sia"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"SiaTechHQ"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Venture Capital Firms,Jim Pallotta(Investor,Co owner Boston Celtics)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Lower content access speed compared to current players like Dropbox"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"RHOC"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Like Ethereum,a platform that scales like Facebook & is fast like Visa"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Exchange of money,content,property,shares or anything of value"];
+        // 3. Website
+        [infoArray addObject:@"https://www.rchain.coop/#home"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-rchain/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/RChain/"];
+        // 6. Github
+        [infoArray addObject:@"/rchain/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"rchain_coop"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Greg Meredith(Creator,mathematician & software engineer)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Remains to be seen if their technology can deliver on the initial promise"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
