@@ -893,6 +893,36 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"PPT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Ethereum based peer to peer platform for invoicing & trade financing"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Marketplace for small investors to finance businesses which need cash"];
+        // 3. Website
+        [infoArray addObject:@"https://populous.co/index.html"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-populous/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/PopulousCoin/"];
+        // 6. Github
+        [infoArray addObject:@"/bitpopulous"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"BitPopulous"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Stephen Williams(British founder,fin expert),Jonathan Millar(noted economist)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Founded in 2017,yet to prove they can churn out great returns for investors"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
