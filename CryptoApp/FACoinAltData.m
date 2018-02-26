@@ -1133,6 +1133,96 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"SNT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Mobile operating system & messaging platform for Ethereum(think Android)"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Enables users to browse & interact with distributed apps built on Ethereum"];
+        // 3. Website
+        [infoArray addObject:@"https://status.im"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-status/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/statusim/"];
+        // 6. Github
+        [infoArray addObject:@"/status-im"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"ethstatus"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Originally Singapore based,Status team exploded into 55 global members in 2017"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Very early,the biggest challenge currently is gaining mass adoption"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BTS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Decentralized peer to peer exchange,removing the need for a central authority"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Price-Stable Cryptocurrencies,Secure Decentralized Asset Exchange"];
+        // 3. Website
+        [infoArray addObject:@"https://bitshares.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://bytemaster.github.io/update/2014/12/18/What-is-BitShares/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/BitShares/"];
+        // 6. Github
+        [infoArray addObject:@"/bitshares"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"bitshares"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Dan Larimer(Founder,impressive resume,also lead developer on both EOS & Steem"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Too sophisticated a business model for the average investor to understand"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,BitShares Asset Exchange"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"SNT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Mobile operating system & messaging platform for Ethereum(think Android)"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Enables users to browse & interact with distributed apps built on Ethereum"];
+        // 3. Website
+        [infoArray addObject:@"https://status.im"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-status/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/statusim/"];
+        // 6. Github
+        [infoArray addObject:@"/status-im"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"ethstatus"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Originally Singapore based,Status team exploded into 55 global members in 2017"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Very early,the biggest challenge currently is gaining mass adoption"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
