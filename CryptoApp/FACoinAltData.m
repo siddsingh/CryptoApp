@@ -1043,36 +1043,6 @@ static FACoinAltData *sharedInstance;
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"SC"] == NSOrderedSame) {
-        // 1. Short Description
-        [infoArray addObject:@"The Airbnb of hard drives,a cloud storage platform on blockchain"];
-        // 2. Real World Use Cases
-        [infoArray addObject:@"Reduce costs by allowing users to rent out their unused hard drive"];
-        // 3. Website
-        [infoArray addObject:@"https://sia.tech"];
-        // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.investinblockchain.com/what-is-siacoin/"];
-        // 5. Subreddit
-        [infoArray addObject:@"/r/siacoin/"];
-        // 6. Github
-        [infoArray addObject:@"/NebulousLabs/Sia"];
-        // 7. Twitter Handle
-        [infoArray addObject:@"SiaTechHQ"];
-        // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Venture Capital Firms,Jim Pallotta(Investor,Co owner Boston Celtics)"];
-        // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Lower content access speed compared to current players like Dropbox"];
-        // 10. On the Fence (Countries, Institutions, People)
-        [infoArray addObject:@"Not Available"];
-        // 11. Best Exchange
-        [infoArray addObject:@"Bittrex"];
-        // 12. Known Exchanges
-        [infoArray addObject:@"Bittrex,Upbit,Poloniex"];
-        // 13. Best News Coverage Site
-        [infoArray addObject:@"Not Available"];
-        
-    }
-    
     else if ([ticker caseInsensitiveCompare:@"RHOC"] == NSOrderedSame) {
         // 1. Short Description
         [infoArray addObject:@"Like Ethereum,a platform that scales like Facebook & is fast like Visa"];
@@ -1179,7 +1149,7 @@ static FACoinAltData *sharedInstance;
         // 7. Twitter Handle
         [infoArray addObject:@"bitshares"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Dan Larimer(Founder,impressive resume,also lead developer on both EOS & Steem"];
+        [infoArray addObject:@"Dan Larimer(Founder,impressive resume,also lead developer on both EOS & Steem)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
         [infoArray addObject:@"Too sophisticated a business model for the average investor to understand"];
         // 10. On the Fence (Countries, Institutions, People)
@@ -1193,31 +1163,61 @@ static FACoinAltData *sharedInstance;
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"SNT"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"WTC"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Mobile operating system & messaging platform for Ethereum(think Android)"];
+        [infoArray addObject:@"Utilizes RFID & Blockchain to create an IoT(internet of things) network"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Enables users to browse & interact with distributed apps built on Ethereum"];
+        [infoArray addObject:@"Enabling businesses to passively & cheaply track any type of physical product"];
         // 3. Website
-        [infoArray addObject:@"https://status.im"];
+        [infoArray addObject:@"https://www.waltonchain.org"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.investinblockchain.com/what-is-status/"];
+        [infoArray addObject:@"https://www.investinblockchain.com/waltonchain/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/statusim/"];
+        [infoArray addObject:@"/r/waltonchain/"];
         // 6. Github
-        [infoArray addObject:@"/status-im"];
+        [infoArray addObject:@"/WaltonChain/WaltonWallet"];
         // 7. Twitter Handle
-        [infoArray addObject:@"ethstatus"];
+        [infoArray addObject:@"Waltonchain"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Originally Singapore based,Status team exploded into 55 global members in 2017"];
+        [infoArray addObject:@"Strong S Korea based team,Xu Fangcheng(Founder,Apparel Billionaire),Coinnest"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Very early,the biggest challenge currently is gaining mass adoption"];
+        [infoArray addObject:@"Privacy is an issue with RFID,Cost is high,RFID tech maturity is low"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Huobi,Upbit"];
+        [infoArray addObject:@"Binance,Coinnest,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ZRX"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Built on Ethereum,it's a platform to create decentralized exchanges"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Offers plug & play exchange capabilities for ethereum based apps"];
+        // 3. Website
+        [infoArray addObject:@"https://www.waltonchain.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/waltonchain/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/waltonchain/"];
+        // 6. Github
+        [infoArray addObject:@"/WaltonChain/WaltonWallet"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Waltonchain"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Strong S Korea based team,Xu Fangcheng(Founder,Apparel Billionaire),Coinnest"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Privacy is an issue with RFID,Cost is high,RFID tech maturity is low"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Coinnest,Kucoin"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
