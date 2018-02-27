@@ -1223,7 +1223,7 @@ static FACoinAltData *sharedInstance;
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"ENT"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"ETN"] == NSOrderedSame) {
         // 1. Short Description
         [infoArray addObject:@"First British cryptocurrency designed specifically for mobile users"];
         // 2. Real World Use Cases
@@ -1432,6 +1432,125 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Not Available"];
         
     }
+    
+    else if ([ticker caseInsensitiveCompare:@"HSR"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"A decentralized & open source cross platform cryptocurrency"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Easy transfer of currency on different blockchains"];
+        // 3. Website
+        [infoArray addObject:@"https://h.cash"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://h.cash"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/hcash/"];
+        // 6. Github
+        [infoArray addObject:@"/HcashOrg/hcashd"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"HcashOfficial"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"9 investors listed on website including Fintech Blockchain Group"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Currently just an idea making people skeptical of it,even calling it a scam"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Poloniex,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"GAS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Sister crypto to NEO,which is the Ethereum of China,a platform for smart contracts"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Digitize,exchange traditional assets with existing programming languages"];
+        // 3. Website
+        [infoArray addObject:@"https://neo.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://hackernoon.com/what-is-neo-and-what-is-gas-5b9828a1aa65"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/NEO/"];
+        // 6. Github
+        [infoArray addObject:@"/neo-project"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"NEO_Blockchain"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"China(Speculation),Microsoft,Alibaba,Da Hongfei(NEO Creator)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"China has displayed a negative stance towards the overall crypto space"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Poloniex,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"KMD"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform to build blockchain solutions including launching a distributed ICO"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Build blockchain solutions,launch an ICO,add an exchange,anonymity features"];
+        // 3. Website
+        [infoArray addObject:@"https://komodoplatform.com/en"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coinsutra.com/komodo-cryptocurrency-kmd/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/komodoplatform/"];
+        // 6. Github
+        [infoArray addObject:@"/KomodoPlatform"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"KomodoPlatform"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Given the anonymity aspect,all team members use aliases,jl777(lead developer)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Feels early,not clear how much adoption they have"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"KCS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Like Binance coin,this coin is issued by the Kucoin cryptocurrency exchange"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users pay lower trading fees on Kucoin by using it,holders of KCS can earn a bonus"];
+        // 3. Website
+        [infoArray addObject:@"https://www.kucoin.com/#/"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://intro.kucoin.com"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/kucoin/"];
+        // 6. Github
+        [infoArray addObject:@"/Kucoin"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"kucoincom"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Hong Kong based,One of the Top 10 crypto exchanges,Michael Gan(CEO,ex Alibaba)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"No one knows how China's negative stance on crypto impacts their future."];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
