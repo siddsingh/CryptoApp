@@ -1199,25 +1199,175 @@ static FACoinAltData *sharedInstance;
         // 2. Real World Use Cases
         [infoArray addObject:@"Offers plug & play exchange capabilities for ethereum based apps"];
         // 3. Website
-        [infoArray addObject:@"https://www.waltonchain.org"];
+        [infoArray addObject:@"https://0xproject.com"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://www.investinblockchain.com/waltonchain/"];
+        [infoArray addObject:@"https://blockonomi.com/0x-guide/"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/waltonchain/"];
+        [infoArray addObject:@"/r/0xProject/"];
         // 6. Github
-        [infoArray addObject:@"/WaltonChain/WaltonWallet"];
+        [infoArray addObject:@"/0xProject"];
         // 7. Twitter Handle
-        [infoArray addObject:@"Waltonchain"];
+        [infoArray addObject:@"0xProject"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Strong S Korea based team,Xu Fangcheng(Founder,Apparel Billionaire),Coinnest"];
+        [infoArray addObject:@"Well funded by Fintech Blockchain Group,Pantera,Polychain Capital & others"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Privacy is an issue with RFID,Cost is high,RFID tech maturity is low"];
+        [infoArray addObject:@"As of Sep 2017,there were no active projects using Ox,so early days"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Coinnest,Kucoin"];
+        [infoArray addObject:@"Binance,Bittrex,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ENT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"First British cryptocurrency designed specifically for mobile users"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Payments from mobile devices,users can mine the currency on their smartphone"];
+        // 3. Website
+        [infoArray addObject:@"https://electroneum.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-electroneum-etn/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Electroneum/"];
+        // 6. Github
+        [infoArray addObject:@"/electroneum"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"electroneum"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Strong team headed by Richard Ells(successful entrepreneur),ICO raised $40 mn"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Listed on only 1 major exchange Cryptopia,Weakly differentiated biz model"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Cryptopia"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Cryptopia"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"AE"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform to build scalable,efficient blockchain apps with governance"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Like Ethereum,digitize and exchange any asset but with better scaling"];
+        // 3. Website
+        [infoArray addObject:@"https://www.aeternity.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-aeternity-cryptocurrency/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Aeternity/"];
+        // 6. Github
+        [infoArray addObject:@"/aeternity"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"aetrnty"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Bulgaria based team of 48 people,ICO raised more than $24 million"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early,security audit slated in Q1 2018,main launch in Q2 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance & HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DCR"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"An autonomous digital currency with community based governance"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Open & progressive currency where people who own it get a say in it's future"];
+        // 3. Website
+        [infoArray addObject:@"https://www.decred.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-decred/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/decred/"];
+        // 6. Github
+        [infoArray addObject:@"/decred"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"decredproject"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Sound engineering team of primarily volunteers that are somewhat anonymous"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Very little hype,challenges are garnering adoption & growing the community"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"REP"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Decentralized prediction market built on Ethereum"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users can trade on their prediction of any future outcome e.g. elections"];
+        // 3. Website
+        [infoArray addObject:@"http://www.augur.net"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-augur/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Augur/"];
+        // 6. Github
+        [infoArray addObject:@"/AugurProject"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"AugurProject"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Experienced dev team,Star advisors like Vitalik Buterin(Ethereum founder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Competing with betting platforms such as Betfair,advantage not clear"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kraken"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kraken,Bittrex,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"VERI"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Offers blockchain based,peer to peer capital markets globally"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Seamless connection of parties & assets without a authoritarian 3rd party"];
+        // 3. Website
+        [infoArray addObject:@"https://veritas.veritaseum.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://drive.google.com/file/d/0B2VyTD2UEyLTTERVNHFPY2x1b00/view"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Augur/"];
+        // 6. Github
+        [infoArray addObject:@"/AugurProject"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"AugurProject"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Very little is known about their product creation"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Competing with betting platforms such as Betfair,advantage not clear"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kraken"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kraken,Bittrex,Poloniex"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
