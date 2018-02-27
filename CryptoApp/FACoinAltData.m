@@ -399,7 +399,7 @@ static FACoinAltData *sharedInstance;
         // 7. Twitter Handle
         [infoArray addObject:@"iotatoken"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Berlin based,Microsoft,Cisco,Samsung,VW,Bosch,Dominik Schiener(Co Founder)"];
+        [infoArray addObject:@"Berlin based,Microsoft,Cisco,Samsung,VW,Dominik Schiener(Co Founder)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
         [infoArray addObject:@"Detractors say IOTA fans are trying to silence critics without discussion"];
         // 10. On the Fence (Countries, Institutions, People)
@@ -549,7 +549,7 @@ static FACoinAltData *sharedInstance;
         // 7. Twitter Handle
         [infoArray addObject:@"LiskHQ"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Berlin based,Max Kordek & Olivier Beddows(co founders,crypto veterans"];
+        [infoArray addObject:@"Berlin based,Max Kordek & Olivier Beddows(co founders,crypto veterans)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
         [infoArray addObject:@"Not Available"];
         // 10. On the Fence (Countries, Institutions, People)
@@ -1353,26 +1353,85 @@ static FACoinAltData *sharedInstance;
         // 4. Best Detailed Description Weblink
         [infoArray addObject:@"https://drive.google.com/file/d/0B2VyTD2UEyLTTERVNHFPY2x1b00/view"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/Augur/"];
+        [infoArray addObject:@"Not Available"];
         // 6. Github
-        [infoArray addObject:@"/AugurProject"];
+        [infoArray addObject:@"/veritaseum"];
         // 7. Twitter Handle
-        [infoArray addObject:@"AugurProject"];
+        [infoArray addObject:@"Veritaseuminc"];
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Very little is known about their product creation"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Competing with betting platforms such as Betfair,advantage not clear"];
+        [infoArray addObject:@"Lack of clear & detailed info on the project casts doubt on it as a scam"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
-        [infoArray addObject:@"Kraken"];
+        [infoArray addObject:@"HitBTC"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Kraken,Bittrex,Poloniex"];
+        [infoArray addObject:@"HitBTC"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"R"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"First trustworthy reviews platform,built with blockchain technology"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users get paid for posting tamper proof reviews,companies pay for the feedback"];
+        // 3. Website
+        [infoArray addObject:@"https://revain.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"http://www.forexnewsnow.com/forex-analysis/cryptocurrency/know-revain-cryptocurrency/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/revain_org/"];
+        // 6. Github
+        [infoArray addObject:@"/Revain"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Revain_org"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"17 person Russia based team,Dmitry Fedotov(Advisor,CEO Resume Games)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days,tight roadmap with the token & gaming reviews launching late 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin,Cryptopia,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ARDR"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain as a service platform for companies to build scalable apps"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Companies can digitize & exchange anything of value in a highly scalable manner"];
+        // 3. Website
+        [infoArray addObject:@"https://www.ardorplatform.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-ardor/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Ardor/"];
+        // 6. Github Stored on Bitbucket: https://bitbucket.org/Jelurida/ardor/src
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"ArdorPlatform"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Expert team,Lior Yaffe(Cofounder & Developer),Kristina Kalcheva(Cofounder & Legal)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days,yet to see what use cases are built on the Ardor platform"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Poloniex,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
