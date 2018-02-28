@@ -18,5 +18,7 @@
 // The description text box area for the table row.
 @property (weak, nonatomic) IBOutlet UITextView *descriptionArea;
 
+// The label that shows the detail action indicator
+@property (weak, nonatomic) IBOutlet UILabel *detailsActionLbl;
 @end
 
