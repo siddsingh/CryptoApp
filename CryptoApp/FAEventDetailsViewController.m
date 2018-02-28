@@ -346,6 +346,8 @@
     #define infoRow6  5
     #define infoRow7  6
     #define infoRow8  7
+    #define infoRow9  8
+    #define infoRow10  9
     
     int rowNo = 0;
     
@@ -525,8 +527,8 @@
         {
             // Set proper formatting
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
-            cell.titleLabel.textColor = [UIColor blackColor];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            cell.titleLabel.textColor =[self getColorForEventType:self.eventType];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:22]];
             
             // What is <coin name>
             NSString *whatIsString = [NSString stringWithFormat:@"%@",[self.parentCompany capitalizedString]];
@@ -568,6 +570,38 @@
             
             [[cell titleLabel] setText:backedByString];
             [[cell descriptionArea] setText:backedByDescString];
+        }
+        break;
+            
+        // Show Concerns
+        case infoRow9:
+        {
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            
+            NSString *concernsString = [NSString stringWithFormat:@"Concerns"];
+            NSString *concernsDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:8]];
+            
+            [[cell titleLabel] setText:concernsString];
+            [[cell descriptionArea] setText:concernsDescString];
+        }
+        break;
+            
+        // Show Exchanges
+        case infoRow10:
+        {
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            cell.titleLabel.textColor = [UIColor blackColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            
+            NSString *exchangesString = [NSString stringWithFormat:@"Exchanges"];
+            NSString *exchangesListString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:11]];
+            
+            [[cell titleLabel] setText:exchangesString];
+            [[cell descriptionArea] setText:exchangesListString];
         }
         break;
             
@@ -1945,7 +1979,7 @@
             numberOfPieces = 5;
         }
         if(sectionNo == 1) {
-            numberOfPieces = 3;
+            numberOfPieces = 5;
         }
     }
     // Else
@@ -1957,7 +1991,7 @@
             numberOfPieces = 5;
         }
         if(sectionNo == 2) {
-            numberOfPieces = 3;
+            numberOfPieces = 5;
         }
     }
         

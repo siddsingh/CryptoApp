@@ -270,7 +270,7 @@ static FACoinAltData *sharedInstance;
         // 1. Short Description
         [infoArray addObject:@"Like Ripple but catering to developers building affordable financial services"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Fast & cheap cross border payments,Micropayments,Services for the underbanked"];
+        [infoArray addObject:@"Fast,cheap cross border payments,Micropayments,Services for the underbanked"];
         // 3. Website
         [infoArray addObject:@"https://www.stellar.org"];
         // 4. Best Detailed Description Weblink

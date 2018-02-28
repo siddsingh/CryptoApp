@@ -146,7 +146,9 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:16.0f/255.0f green:43.0f/255.0f blue:62.0f/255.0f alpha:1.0f];
+       // colorToReturn = [UIColor colorWithRed:16.0f/255.0f green:43.0f/255.0f blue:62.0f/255.0f alpha:1.0f];
+       // Better color for the detail view scheme. Upper one is the original
+       colorToReturn = [UIColor colorWithRed:24.0f/255.0f green:33.0f/255.0f blue:104.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
@@ -167,9 +169,9 @@ static FASnapShot *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"XLM"] == NSOrderedSame) {
         // Old slightly grayish blue
-        //colorToReturn = [UIColor colorWithRed:172.0f/255.0f green:208.0f/255.0f blue:218.0f/255.0f alpha:1.0f];
-        // More light blue
-        colorToReturn = [UIColor colorWithRed:213.0f/255.0f green:236.0f/255.0f blue:242.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithRed:172.0f/255.0f green:208.0f/255.0f blue:218.0f/255.0f alpha:1.0f];
+        // More light blue, doesn't work as well for detail view
+        //colorToReturn = [UIColor colorWithRed:213.0f/255.0f green:236.0f/255.0f blue:242.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"EOS"] == NSOrderedSame) {
@@ -205,7 +207,9 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"ETC"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:234.0f/255.0f green:234.0f/255.0f blue:234.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:234.0f/255.0f green:234.0f/255.0f blue:234.0f/255.0f alpha:1.0f];
+        // Better color for the detail view scheme. Upper one is the original
+        colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:184.0f/255.0f blue:88.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"VEN"] == NSOrderedSame) {
@@ -443,7 +447,9 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"ETC"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:102.0f/255.0f green:144.0f/255.0f blue:115.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:102.0f/255.0f green:144.0f/255.0f blue:115.0f/255.0f alpha:1.0f];
+        // Better color for the detail view scheme. Upper one is the original
+        colorToReturn = [UIColor blackColor];
     }
     
     if ([ticker caseInsensitiveCompare:@"VEN"] == NSOrderedSame) {
