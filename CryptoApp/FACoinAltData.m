@@ -65,7 +65,7 @@ static FACoinAltData *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"First cryptocurrency,it's an innovative payment network & a new kind of money"];
+        [infoArray addObject:@"1st cryptocurrency,it's an innovative payment network & a new kind of money"];
         // 2. Real World Use Cases
         [infoArray addObject:@"Peer to peer transactions like payments,Store of value like digital gold"];
         // 3. Website
@@ -104,7 +104,7 @@ static FACoinAltData *sharedInstance;
         // 5. Subreddit
         [infoArray addObject:@"/r/ethereum"];
         // 6. Github
-        [infoArray addObject:@"/bitcoin/"];
+        [infoArray addObject:@"/ethereum"];
         // 7. Twitter Handle
         [infoArray addObject:@"ethereumproject"];
         // 8. Backers (Countries, Institutions, People)

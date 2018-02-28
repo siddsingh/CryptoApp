@@ -351,6 +351,9 @@
     #define infoRow8  7
     #define infoRow9  8
     #define infoRow10  9
+    #define infoRow11 10
+    #define infoRow12 11
+    #define infoRow13 12
     
     int rowNo = 0;
     
@@ -396,7 +399,9 @@
             // Set proper formatting
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor = [UIColor blackColor];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+            [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Set the impact icon
             // Very High Impact
@@ -436,6 +441,7 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Total Cap String
             NSString *totalCapString = [NSString stringWithFormat:@"%@", [currencyFormatter1 stringFromNumber:eventData.estimatedEps]];
@@ -455,6 +461,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -483,6 +490,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -510,6 +518,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -538,6 +547,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -567,11 +577,12 @@
             // Set proper formatting
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor =[self getColorForEventType:self.eventType];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // What is <coin name>
-            NSString *whatIsString = [NSString stringWithFormat:@"%@",[self.parentCompany capitalizedString]];
+            NSString *whatIsString = [NSString stringWithFormat:@"%@",[self.parentCompany uppercaseString]];
             NSString *descString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:0]];
             
             if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
@@ -610,11 +621,12 @@
             // Set proper formatting
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor = [UIColor blackColor];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Used For
-            NSString *usedForString = [NSString stringWithFormat:@"Uses"];
+            NSString *usedForString = [NSString stringWithFormat:@"USES"];
             NSString *usedForDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:1]];
             
             [[cell titleLabel] setText:usedForString];
@@ -628,12 +640,12 @@
             // Set proper formatting
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor = [UIColor blackColor];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             // Backed By
-            NSString *backedByString = [NSString stringWithFormat:@"Backers"];
+            NSString *backedByString = [NSString stringWithFormat:@"BACKERS"];
             NSString *backedByDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:7]];
             
             [[cell titleLabel] setText:backedByString];
@@ -647,10 +659,11 @@
             // Set proper formatting
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor = [UIColor blackColor];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
-            NSString *concernsString = [NSString stringWithFormat:@"Concerns"];
+            NSString *concernsString = [NSString stringWithFormat:@"CONCERNS"];
             NSString *concernsDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:8]];
             
             [[cell titleLabel] setText:concernsString];
@@ -664,14 +677,118 @@
             // Set proper formatting
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             cell.titleLabel.textColor = [UIColor blackColor];
-            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
-            NSString *exchangesString = [NSString stringWithFormat:@"Exchanges"];
+            NSString *exchangesString = [NSString stringWithFormat:@"EXCHANGES"];
             NSString *exchangesListString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:11]];
             
             [[cell titleLabel] setText:exchangesString];
             [[cell descriptionArea] setText:exchangesListString];
+        }
+        break;
+            
+        // Show Reddit
+        case infoRow11:
+        {
+            // Show action detail label if the data exists
+            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:4]];
+            
+            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+            {
+                cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                cell.detailsActionLbl.hidden = YES;
+                cell.titleLabel.textColor = [UIColor blackColor];
+            }
+            else
+            {
+                // Reddit Orangish Red
+                cell.detailsActionLbl.textColor = [UIColor colorWithRed:233.0f/255.0f green:63.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                cell.detailsActionLbl.hidden = NO;
+                cell.titleLabel.textColor = [UIColor colorWithRed:233.0f/255.0f green:63.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+            }
+            
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+            [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            
+            NSString *redditTxt = [NSString stringWithFormat:@"SEE REDDIT DISCUSSION"];
+            NSString *subRedditExt = [NSString stringWithFormat:@"%@",actionLocation];
+            
+            [[cell titleLabel] setText:subRedditExt];
+            [[cell descriptionArea] setText:redditTxt];
+        }
+        break;
+            
+        // Show Twitter
+        case infoRow12:
+        {
+            // Show action detail label if the data exists
+            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:6]];
+            
+            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+            {
+                cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                cell.detailsActionLbl.hidden = YES;
+                cell.titleLabel.textColor = [UIColor blackColor];
+            }
+            else
+            {
+                // Twitter Blue
+                cell.detailsActionLbl.textColor = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
+                cell.detailsActionLbl.hidden = NO;
+                cell.titleLabel.textColor = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
+            }
+            
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+            [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            
+            NSString *twitterTxt = [NSString stringWithFormat:@"SEE TWEETS"];
+            NSString *twitterHandle = [NSString stringWithFormat:@"@%@",actionLocation];
+            
+            [[cell titleLabel] setText:twitterHandle];
+            [[cell descriptionArea] setText:twitterTxt];
+        }
+        break;
+            
+        // Show Github
+        case infoRow13:
+        {
+            // Show action detail label if the data exists
+            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
+            
+            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+            {
+                cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                cell.detailsActionLbl.hidden = YES;
+                cell.titleLabel.textColor = [UIColor blackColor];
+            }
+            else
+            {
+                // Code Blue
+                cell.detailsActionLbl.textColor = [UIColor colorWithRed:0.0f/255.0f green:102.0f/255.0f blue:214.0f/255.0f alpha:1.0f];
+                cell.detailsActionLbl.hidden = NO;
+                cell.titleLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:102.0f/255.0f blue:214.0f/255.0f alpha:1.0f];
+            }
+            
+            // Set proper formatting
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+            [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            
+            NSString *githubTxt = [NSString stringWithFormat:@"SEE GITHUB ACTIVITY"];
+            NSString *githubRepo = [NSString stringWithFormat:@"%@",actionLocation];
+            
+            [[cell titleLabel] setText:githubRepo];
+            [[cell descriptionArea] setText:githubTxt];
         }
         break;
             
@@ -690,6 +807,7 @@
     FAEventDetailsTableViewCell *cell = (FAEventDetailsTableViewCell *)[self.eventDetailsTable cellForRowAtIndexPath:indexPath];
     
     NSString *actionLocation = nil;
+    NSString *actionURL = nil;
     NSURL *targetURL = nil;
     
     // Assign a row no to the type of event detail row.
@@ -704,6 +822,9 @@
     #define infoRow8  7
     #define infoRow9  8
     #define infoRow10  9
+    #define infoRow11 10
+    #define infoRow12 11
+    #define infoRow13 12
     
     int rowNo = 0;
     
@@ -858,7 +979,106 @@
             
         }
         break;
+        
+        // Show Reddit
+        case infoRow11:
+        {
+            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:4]];
             
+            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+            {
+                
+            }
+            else
+            {
+                actionURL = [NSString stringWithFormat:@"https://www.reddit.com%@",actionLocation];
+                targetURL = [NSURL URLWithString:actionURL];
+                
+                if (targetURL) {
+                    
+                    // TRACKING EVENT:
+                    // TO DO: Disabling to not track development events. Enable before shipping.
+                    [FBSDKAppEvents logEvent:@"See External About Information"
+                                  parameters:@{ @"About Ticker" : self.parentTicker,
+                                                @"About Field" : @"See Reddit",
+                                                @"Action URL" : [targetURL absoluteString]} ];
+                    
+                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                    externalInfoVC.delegate = self;
+                    // Just use whatever is the default color for the Safari View Controller
+                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                    [self presentViewController:externalInfoVC animated:YES completion:nil];
+                }
+            }
+        }
+        break;
+            
+        // Show Twitter
+        case infoRow12:
+        {
+            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:6]];
+            
+            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+            {
+                
+            }
+            else
+            {
+                actionURL = [NSString stringWithFormat:@"https://twitter.com/%@",actionLocation];
+                targetURL = [NSURL URLWithString:actionURL];
+                
+                if (targetURL) {
+                    
+                    // TRACKING EVENT:
+                    // TO DO: Disabling to not track development events. Enable before shipping.
+                    [FBSDKAppEvents logEvent:@"See External About Information"
+                                  parameters:@{ @"About Ticker" : self.parentTicker,
+                                                @"About Field" : @"See Twitter",
+                                                @"Action URL" : [targetURL absoluteString]} ];
+                    
+                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                    externalInfoVC.delegate = self;
+                    // Just use whatever is the default color for the Safari View Controller
+                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                    [self presentViewController:externalInfoVC animated:YES completion:nil];
+                }
+            }
+        }
+        break;
+            
+        // Show Github
+        case infoRow13:
+        {
+            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
+            
+            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+            {
+                
+            }
+            else
+            {
+                actionURL = [NSString stringWithFormat:@"https://github.com%@",actionLocation];
+                targetURL = [NSURL URLWithString:actionURL];
+                
+                if (targetURL) {
+                    
+                    // TRACKING EVENT:
+                    // TO DO: Disabling to not track development events. Enable before shipping.
+                    [FBSDKAppEvents logEvent:@"See External About Information"
+                                  parameters:@{ @"About Ticker" : self.parentTicker,
+                                                @"About Field" : @"See Github",
+                                                @"Action URL" : [targetURL absoluteString]} ];
+                    
+                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                    externalInfoVC.delegate = self;
+                    // Just use whatever is the default color for the Safari View Controller
+                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                    [self presentViewController:externalInfoVC animated:YES completion:nil];
+                }
+            }
+        }
+        break;
+        
         default:
         break;
     }
@@ -1732,7 +1952,7 @@
             numberOfPieces = 5;
         }
         if(sectionNo == 1) {
-            numberOfPieces = 5;
+            numberOfPieces = 8;
         }
     }
     // Else
@@ -1744,7 +1964,7 @@
             numberOfPieces = 5;
         }
         if(sectionNo == 2) {
-            numberOfPieces = 5;
+            numberOfPieces = 8;
         }
     }
         

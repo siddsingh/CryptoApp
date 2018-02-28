@@ -169,9 +169,9 @@ static FASnapShot *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"XLM"] == NSOrderedSame) {
         // Old slightly grayish blue
-        colorToReturn = [UIColor colorWithRed:172.0f/255.0f green:208.0f/255.0f blue:218.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:172.0f/255.0f green:208.0f/255.0f blue:218.0f/255.0f alpha:1.0f];
         // More light blue, doesn't work as well for detail view
-        //colorToReturn = [UIColor colorWithRed:213.0f/255.0f green:236.0f/255.0f blue:242.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithRed:213.0f/255.0f green:236.0f/255.0f blue:242.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"EOS"] == NSOrderedSame) {
