@@ -20,6 +20,7 @@
 #import "FACoinAltData.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SafariServices/SafariServices.h>
+#import <QuartzCore/QuartzCore.h>
 @import EventKit;
 
 @interface FAEventDetailsViewController () <SFSafariViewControllerDelegate>
@@ -136,13 +137,18 @@
         }
     } */
     
+    self.newsButton2.clipsToBounds = YES;
+    self.newsButton2.layer.cornerRadius = 5;
+    self.newsButton3.clipsToBounds = YES;
+    self.newsButton3.layer.cornerRadius = 5;
+    
     // Set color of news button 2 per event type as this is the primary contextual callout
     [self.newsButton2 setBackgroundColor:[self getColorForEventType:self.eventType]];
     [self.newsButton2 setTitleColor:[self getTextColorForEventType:self.eventType] forState:UIControlStateNormal];
     // Set title of news buttons 2 and 3 as they vary per event type
     if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"])
     {
-        [self.newsButton2 setTitle:[NSString stringWithFormat:@"%@ News",self.parentTicker] forState:UIControlStateNormal];
+        [self.newsButton2 setTitle:[NSString stringWithFormat:@"%@ NEWS",self.parentTicker] forState:UIControlStateNormal];
         
     } else {
         [self.newsButton2 setTitle:[NSString stringWithFormat:@"Best Info"] forState:UIControlStateNormal];
@@ -727,6 +733,8 @@
         // Show Twitter
         case infoRow12:
         {
+            NSString *twitterHandle = nil;
+            
             // Show action detail label if the data exists
             actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:6]];
             
@@ -735,6 +743,7 @@
                 cell.detailsActionLbl.textColor = [UIColor whiteColor];
                 cell.detailsActionLbl.hidden = YES;
                 cell.titleLabel.textColor = [UIColor blackColor];
+                twitterHandle = [NSString stringWithFormat:@"%@",actionLocation];
             }
             else
             {
@@ -742,6 +751,7 @@
                 cell.detailsActionLbl.textColor = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
                 cell.detailsActionLbl.hidden = NO;
                 cell.titleLabel.textColor = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
+                twitterHandle = [NSString stringWithFormat:@"@%@",actionLocation];
             }
             
             // Set proper formatting
@@ -751,7 +761,6 @@
             [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
             
             NSString *twitterTxt = [NSString stringWithFormat:@"SEE TWEETS"];
-            NSString *twitterHandle = [NSString stringWithFormat:@"@%@",actionLocation];
             
             [[cell titleLabel] setText:twitterHandle];
             [[cell descriptionArea] setText:twitterTxt];
@@ -1362,6 +1371,7 @@
     }
 }
 
+// Currently being shown in the About section so no longer used
 // Surface Reddit content through Bing https://www.bing.com/search?q=Reddit+Ripple
 - (IBAction)seeNewsAction:(id)sender {
     

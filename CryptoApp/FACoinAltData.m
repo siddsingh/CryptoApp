@@ -791,7 +791,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Hong Kong based,servers in S Korea,quickly diverisfying internationally"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"No one knows how China's negative stance on crypto impacts their future."];
+        [infoArray addObject:@"No one knows how China's negative stance on crypto impacts their future"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
@@ -1539,7 +1539,7 @@ static FACoinAltData *sharedInstance;
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Hong Kong based,One of the Top 10 crypto exchanges,Michael Gan(CEO,ex Alibaba)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"No one knows how China's negative stance on crypto impacts their future."];
+        [infoArray addObject:@"No one knows how China's negative stance on crypto impacts their future"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
