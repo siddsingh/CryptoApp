@@ -295,10 +295,159 @@
     return sectionTitle;
 }*/
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //Default height is 93.0
+    CGFloat cellHeight = 93.0;
+    
+    // Assign a row no to the type of event detail row.
+    #define infoRow0  -1
+    #define infoRow1  0
+    #define infoRow2  1
+    #define infoRow3  2
+    #define infoRow4  3
+    #define infoRow5  4
+    #define infoRow6  5
+    #define infoRow7  6
+    #define infoRow8  7
+    #define infoRow9  8
+    #define infoRow10  9
+    #define infoRow11 10
+    #define infoRow12 11
+    #define infoRow13 12
+    
+    int rowNo = 0;
+    
+    // If it's a currency price event, start at Row 1
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+        if (indexPath.section == 0) {
+            rowNo = (int)indexPath.row;
+        }
+        if (indexPath.section == 1) {
+            rowNo = ((int)indexPath.row + 5);
+        }
+    }
+    // If it's a news event, start at Row 0, which includes a description of the event.
+    else {
+        if (indexPath.section == 0) {
+            rowNo = ((int)indexPath.row - 1);
+        }
+        if (indexPath.section == 1) {
+            rowNo = (int)indexPath.row;
+        }
+        if (indexPath.section == 2) {
+            rowNo = ((int)indexPath.row + 5);
+        }
+    }
+    
+    // Display the appropriate details based on the row no
+    switch (rowNo) {
+            
+        case infoRow0:
+        {
+            cellHeight = 93.0;
+        }
+            break;
+            
+        case infoRow1:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        case infoRow2:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        case infoRow3:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        case infoRow4:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        case infoRow5:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        case infoRow6:
+        {
+            cellHeight = 93.0;
+        }
+            break;
+            
+        case infoRow7:
+        {
+            cellHeight = 93.0;
+        }
+            break;
+            
+        case infoRow8:
+        {
+            cellHeight = 93.0;
+        }
+            break;
+            
+        case infoRow9:
+        {
+            cellHeight = 93.0;
+        }
+            break;
+            
+        case infoRow10:
+        {
+            cellHeight = 93.0;
+        }
+            break;
+            
+        case infoRow11:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        case infoRow12:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        case infoRow13:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return cellHeight;
+}
+
 // Set the table header to 25.0 height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     CGFloat headerSize = 25.0;
+    
+    // If it's a currency price event there are 2 sections
+    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+        if(section == 0) {
+            headerSize = 25.0;
+        }
+        if(section == 1) {
+            headerSize = 30.0;
+        }
+    }
     return headerSize;
 }
 
@@ -407,7 +556,7 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Set the impact icon
             // Very High Impact
@@ -447,7 +596,7 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Total Cap String
             NSString *totalCapString = [NSString stringWithFormat:@"%@", [currencyFormatter1 stringFromNumber:eventData.estimatedEps]];
@@ -467,7 +616,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -496,7 +645,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -524,7 +673,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -553,7 +702,7 @@
             cell.detailsActionLbl.hidden = YES;
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Default State Colors
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
@@ -585,7 +734,7 @@
             cell.titleLabel.textColor =[self getColorForEventType:self.eventType];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // What is <coin name>
             NSString *whatIsString = [NSString stringWithFormat:@"%@",[self.parentCompany uppercaseString]];
@@ -629,7 +778,7 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Used For
             NSString *usedForString = [NSString stringWithFormat:@"USES"];
@@ -648,7 +797,7 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             // Backed By
             NSString *backedByString = [NSString stringWithFormat:@"BACKERS"];
@@ -667,7 +816,7 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             NSString *concernsString = [NSString stringWithFormat:@"CONCERNS"];
             NSString *concernsDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:8]];
@@ -685,7 +834,7 @@
             cell.titleLabel.textColor = [UIColor blackColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             NSString *exchangesString = [NSString stringWithFormat:@"EXCHANGES"];
             NSString *exchangesListString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:11]];
@@ -720,7 +869,7 @@
             
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             NSString *redditTxt = [NSString stringWithFormat:@"SEE REDDIT DISCUSSION"];
             NSString *subRedditExt = [NSString stringWithFormat:@"%@",actionLocation];
@@ -758,7 +907,7 @@
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             NSString *twitterTxt = [NSString stringWithFormat:@"SEE TWEETS"];
             
@@ -791,7 +940,7 @@
             cell.titleLabel.backgroundColor = [UIColor whiteColor];
             [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
             [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-            [cell.descriptionArea setTextColor:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f]];
+            [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
             
             NSString *githubTxt = [NSString stringWithFormat:@"SEE GITHUB ACTIVITY"];
             NSString *githubRepo = [NSString stringWithFormat:@"%@",actionLocation];
