@@ -332,7 +332,7 @@ static FASnapShot *sharedInstance;
         // Old color
         //colorToReturn = [UIColor colorWithRed:155.0f/255.0f green:197.0f/255.0f blue:220.0f/255.0f alpha:1.0f];
         // New MSFT blue
-        [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"SYS"] == NSOrderedSame) {
