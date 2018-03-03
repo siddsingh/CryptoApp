@@ -5,7 +5,8 @@
 //  Class to store alternate data for crypto coins like description, etc. Implement this class as a Singleton to create a single data store accessible from anywhere in the app.
 //
 //  Created by Sidd Singh on 2/19/18.
-//  Copyright © 2018 Sidd Singh. All rights reserved.
+//  Copyright © 2018 Litchi Labs LLC. All rights reserved.
+//  The data in this file has been curated by Litchi Labs. Cannot be used in apps without approval from Litchi Labs. If you need to please reach connect with us here: http://www.knotifi.com/p/contact.html
 //
 
 #import "FACoinAltData.h"
@@ -51,7 +52,7 @@ static FACoinAltData *sharedInstance;
 // 10. On The Fence (Countries, Institutions, People)
 // 11. Best Exchange,
 // 12. Known Exchanges,
-// 13. Best News Coverage Site
+// 13. Best News Coverage Site is being used to store the whitepaper link where available.
 - (NSMutableArray *)getProfileInfoForCoin:(NSString *)ticker {
     
     NSMutableArray * infoArray = [NSMutableArray arrayWithCapacity:13];
@@ -1546,6 +1547,126 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Kucoin"];
         // 12. Known Exchanges
         [infoArray addObject:@"Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BAT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform for blockchain based digital advertising on a new browser: Brave"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Exchange of value between content creators,advertisers and users"];
+        // 3. Website
+        [infoArray addObject:@"https://basicattentiontoken.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-basic-attention-token-bat/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/BATProject/"];
+        // 6. Github
+        [infoArray addObject:@"/brave-intl/basic-attention-token-crowdsale"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"AttentionToken"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Solid team including the JavaScript creator.Funded by Pantera Capital & more"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Competing with Google,Facebook, etc.Long road to get to mainstream adoption"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://basicattentiontoken.org/BasicAttentionTokenWhitePaper-4.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BTM"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform connecting digital assets with physical financial instruments"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Registration,exchange between cryptocurrencies & dividends,bonds,etc"];
+        // 3. Website
+        [infoArray addObject:@"http://bytom.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-bytom/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/BytomBlockchain/"];
+        // 6. Github
+        [infoArray addObject:@"/Bytom/bytom"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Bytom_Official"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Strong China based team including Duan XinXing(Ex Vice President,OKCoin"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early,highly technical,Bytom blockchain released later this year"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin,Huobi,OKEx"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"http://bytom.io/BytomWhitePaperV1.0_Economic_en.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ARK"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Ecosystem to connect the blockchain of every cryptocurrency together"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Execute ethereum(or another currency) based smart contract using ARK"];
+        // 3. Website
+        [infoArray addObject:@"https://ark.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-ark/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/ArkEcosystem/"];
+        // 6. Github
+        [infoArray addObject:@"/ArkEcosystem"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"ArkEcosystem"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Strong global team,Francois Xavier Thoorens(CTO,Ex Lead Developer Lisk)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Criticism for Ark is that it is trying to do too many things at once"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"GNT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Global decentralized supercomputer made up by combining users’ machines"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users with extra computational power can lend to other users for a price"];
+        // 3. Website
+        [infoArray addObject:@"https://golem.network"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.forbes.com/sites/rogeraitken/2016/11/12/fintech-golems-airbnb-for-computing-crowdsale-scores-8-6m-in-minutes/#61988fe83583"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/GolemProject/"];
+        // 6. Github
+        [infoArray addObject:@"/golemfactory/golem"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"golemproject"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Poland based team,Julian Zawistowski(CEO & Founder),Piotr Janiuk(CTO)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days,with an ambitious vision that will require a lot of tech wins"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Huobi,Poloniex"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
