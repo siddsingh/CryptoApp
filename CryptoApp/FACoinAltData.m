@@ -1672,6 +1672,36 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"SYS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The Swiss army knife of crypto platforms for creating blockchain applications"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"As a first use case,the team developed a secure,reliable marketplace for anything"];
+        // 3. Website
+        [infoArray addObject:@"https://syscoin.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://medium.com/@danieljasonwestby/syscoin-the-hidden-gem-of-2018-96f973b81b9"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/SysCoin/"];
+        // 6. Github
+        [infoArray addObject:@"/syscoin/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"syscoin"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Microsoft Azure is a partner,Sebastian Schepis(Creator & Core developer)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Core use case is not clear. Are they a marketplace or a blockchain platform ?"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"http://whitepaper.syscoin.org/"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
