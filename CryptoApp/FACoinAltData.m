@@ -1702,6 +1702,96 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"ETHOS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"People powered cryptocurrency platform for storing & exchanging crypto assets"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Secure,universal wallet to store,exchange & invest in crypto assets"];
+        // 3. Website
+        [infoArray addObject:@"https://www.ethos.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://bitcoinexchangeguide.com/ethos/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/ethos_io/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Ethos_io"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Shingo Lavine(Founder,early crypto expert,enrolled in Brown University)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"The use case for this being on the blockchain is not super clear"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,HitBTC,CoinExchange"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"http://www.ethos.io/Ethos_Whitepaper.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DRGN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform for businesses to create Blockchain apps,originally built by Disney"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Ability to keep proprietary business logic private when building blockchain apps"];
+        // 3. Website
+        [infoArray addObject:@"https://dragonchain.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-dragonchain/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/drgn/"];
+        // 6. Github
+        [infoArray addObject:@"/dragonchain/dragonchain"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"dragonchaingang"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Joe Roets(Lead Developer,ex Disney),7 member experienced team (many ex Disney)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Competing with the likes of Ethereum and Neo which have a lot of momentum"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://dragonchain.com/assets/Dragonchain_Business_Summary.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"PIVX"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Open source cryptocurrency focused on fast private transactions"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Fast private transactions with low transaction fees & small environmental footprint"];
+        // 3. Website
+        [infoArray addObject:@"https://pivx.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://captainaltcoin.com/what-is-pivx-coin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/pivx/"];
+        // 6. Github
+        [infoArray addObject:@"/PIVX-Project/PIVX/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"_pivx"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Diverse community based team,s3v3n h4cks(Chief Visionary),Coin Server(Sys Admin)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Because of the emphasis on privacy,PIVX is susceptible to criminal activity"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://pivx.org/what-is-pivx/white-papers/"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
