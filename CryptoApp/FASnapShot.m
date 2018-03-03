@@ -384,7 +384,7 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"ARK"] == NSOrderedSame) {
-        colorToReturn = [UIColor redColor];
+        colorToReturn = [UIColor colorWithRed:233.0f/255.0f green:63.0f/255.0f blue:56.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"GNT"] == NSOrderedSame) {
