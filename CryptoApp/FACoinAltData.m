@@ -1792,6 +1792,126 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"DGB"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Created as a faster,more secure alternative to Bitcoin,reaching a wider community"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Focused on secure & super fast transactions for digital payments"];
+        // 3. Website
+        [infoArray addObject:@"https://www.digibyte.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-digibyte/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Digibyte/"];
+        // 6. Github
+        [infoArray addObject:@"/digibyte"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"DigiByteCoin"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Selected to Microsoft's BizSpark startups program,Jared Tate(very public founder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Overtaken by other fast moving projects,yet to see significant mainstream adoption"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin,Bittrex,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"CNX"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Global cryptocurrency to exchange any world's currencies for any cryptocurrencies"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Aiming ot be the go to way to exchange world’s currencies for any cryptocurrencies"];
+        // 3. Website
+        [infoArray addObject:@"https://cryptonex.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-cryptonex/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/user/Cryptonex-CNX"];
+        // 6. Github
+        [infoArray addObject:@"/Cryptonex"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Cryptonex_CNX"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Swiss origins,small team led by Pavel Kalinin(Founder & Managing Director)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still plenty of work to be done before Cryptonex reaches its full potential"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"HitBTC"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"HitBTC,YoBit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://cryptonex.org/pdf/whitepaper.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"CNX"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Global cryptocurrency to exchange any world's currencies for any cryptocurrencies"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Aiming ot be the go to way to exchange world’s currencies for any cryptocurrencies"];
+        // 3. Website
+        [infoArray addObject:@"https://cryptonex.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-cryptonex/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/user/Cryptonex-CNX"];
+        // 6. Github
+        [infoArray addObject:@"/Cryptonex"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Cryptonex_CNX"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Swiss origins,small team led by Pavel Kalinin(Founder & Managing Director)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still plenty of work to be done before Cryptonex reaches its full potential"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"HitBTC"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"HitBTC,YoBit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://cryptonex.org/pdf/whitepaper.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ZIL"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"High throughput blockchain platform for thousands ​of transactions per second"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Enable decentralised apps in the areas of machine learning & financial algorithms"];
+        // 3. Website
+        [infoArray addObject:@"https://www.zilliqa.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/zilliqa-beginners-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/zilliqa/"];
+        // 6. Github
+        [infoArray addObject:@"/Zilliqa/Zilliqa"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"zilliqa"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Singapore based,highly technical team of Computer Scientists,Xinshu Dong(CEO)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early days,main product launching in Q3 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Huobi"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://docs.zilliqa.com/zilliqa-slides-updated.pdf"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
