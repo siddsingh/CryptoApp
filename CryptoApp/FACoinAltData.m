@@ -1912,6 +1912,306 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"MONA"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The first Japanese Cryptocurrency,a popular favorite altcoin there"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Form of payment especially at e commerce websites"];
+        // 3. Website
+        [infoArray addObject:@"https://monacoin.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://youtu.be/lIg0ub_VWjk"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/monacoin/"];
+        // 6. Github
+        [infoArray addObject:@"/monacoinproject/monacoin"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Not Available"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Gaining acceptance in Japan especially in stores like Ark Electronics"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Anonymous founder,no major financial backing or partnerships,vision unclear"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit,Zaif"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://docs.zilliqa.com/zilliqa-slides-updated.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"FCT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain based platform to preserve,ensure & validate digital assets"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Share,audit & exchange sensitive documents quickly via an API"];
+        // 3. Website
+        [infoArray addObject:@"https://www.factom.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/factom-beginner-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/factom/"];
+        // 6. Github
+        [infoArray addObject:@"/FactomProject"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"factom"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Austin based,partnerships with Department of Homeland Security,Gates Foundation"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Marketing hasn’t been the team’s focus,high profile competitor in NEM"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"AION"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"3rd gen blockchain network with superior scalability,privacy & interoperability"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Seamlessly integrate dissimilar blockchain systems e.g. an ethereum & AION system"];
+        // 3. Website
+        [infoArray addObject:@"https://www.factom.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincoaching.com/aion-crypto-invest-aion-coin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/AionNetwork/"];
+        // 6. Github
+        [infoArray addObject:@"/aionnetwork"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Aion_Network"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"20+ person team based out of Canada,Ontario Govt,Moog(Partners)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"High profile competitor in ARK,Complex business model will take time to play out"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://aion.network/whitepapers.html"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"LRC"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"A Decentralized Exchange & Open Protocol"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Crypto exchange with reduced risk & optimized results for traders"];
+        // 3. Website
+        [infoArray addObject:@"https://loopring.org/en/index.html"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-loopring/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/loopringorg/"];
+        // 6. Github
+        [infoArray addObject:@"/loopring"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"loopringorg"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Daniel Feng(Founder,Ex Google).Solid advisory team:Da Hongfei(NEO founder) & more"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days,remains to be seen if their vision will be realized"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://github.com/Loopring/whitepaper/raw/master/en_whitepaper.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ELF"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Customizable operating system (OS) for blockchains focused on scalability"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Create and run blockchain apps like ethereum that scale well"];
+        // 3. Website
+        [infoArray addObject:@"https://aelf.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/aelf-beginner-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"Not Available"];
+        // 6. Github
+        [infoArray addObject:@"/aelfProject"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"aelfblockchain"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Large VC firms like FGB Capital,Michael Arrington(TechCrunch founder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Being relatively new puts them further back than similar projects"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://grid.hoopox.com/aelf%20presentation-EN.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ELF"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Customizable operating system (OS) for blockchains focused on scalability"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Create and run blockchain apps like ethereum that scale well"];
+        // 3. Website
+        [infoArray addObject:@"https://aelf.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/aelf-beginner-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"Not Available"];
+        // 6. Github
+        [infoArray addObject:@"/aelfProject"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"aelfblockchain"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Large VC firms like FGB Capital,Michael Arrington(TechCrunch founder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Being relatively new puts them further back than similar projects"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://grid.hoopox.com/aelf%20presentation-EN.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"GBYTE"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The cryptocurrency with no blockchain"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Conditional crypto payments,send cryptocurrency to email or via chat,P2P Betting"];
+        // 3. Website
+        [infoArray addObject:@"https://byteball.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.coinbureau.com/education/what-is-byteball-cryptocurrency-with-no-blockchain/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/ByteBall/"];
+        // 6. Github
+        [infoArray addObject:@"/byteball"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"ByteballOrg"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Anton Churyumov(Founder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Information on team, vision, etc not available on the website"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://byteball.org/Byteball.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"QASH"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Aiming to bring liquidity to the cryptocurrency space"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Easily buy cryptocurrency with & cash out to fiat(i.e. currencies like USD)"];
+        // 3. Website
+        [infoArray addObject:@"https://liquid.plus/#home"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/qash-beginner-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/LiquidQASH/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"QUOINE_SG"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Mike Kayamori(CEO,ex SVP Softbank),Mario Lozada(CTO,ex CTO Merrill Lynch Japan)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Competing against popular exchanges like Binance,Coinbase/GDAX & more"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Huobi"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Huobi,Quoine"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://s3-ap-southeast-1.amazonaws.com/liquid-site/quoine-liquid_v1.9.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"SALT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Providing Blockchain Backed Loans"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Leverage your blockchain assets(cryptocurrencies) to secure cash loans"];
+        // 3. Website
+        [infoArray addObject:@"https://www.saltlending.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-salt/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/SaltCoin/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"SaltLending"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Very strong US based team,notable advisors like Erik Voorhees(Bitcoin influencer)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days with the lending platform having launched in Dec 2017"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://crushcrypto.com/wp-content/uploads/2017/08/SALT-abstract.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"NAS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Decentralized Search Framework,think Google but for Blockchain data"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Search engine for queries like which blockchain project is gaining traction"];
+        // 3. Website
+        [infoArray addObject:@"https://nebulas.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/nebulas-nas-beginners-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/nebulas/"];
+        // 6. Github
+        [infoArray addObject:@"/nebulasio"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"nebulasio"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Very strong team,Hitters Xu(CEO,Founder of NEO),Chris McCann(Advisor,Greylock)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days with the mainnet launching in Q1 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Huobi"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Huobi,OKEx"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://nebulas.io/docs/NebulasTechnicalWhitepaper.pdf"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
