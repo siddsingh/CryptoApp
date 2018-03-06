@@ -2212,6 +2212,186 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"FUN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain platform to make it easier for new entities to launch online casinos"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Decentralization removes single point of failure,Offer transparency"];
+        // 3. Website
+        [infoArray addObject:@"https://funfair.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-funfair/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/FunfairTech/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"FunFairTech"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Sizeable 25+ British team,Jez San(CEO,extensive gaming/online poker experience)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Very early,considered in beta,with major product launches in Q1 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://funfair.io/explore/whitepapers/"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"FUN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain platform to make it easier for new entities to launch online casinos"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Decentralization removes single point of failure,Offer transparency"];
+        // 3. Website
+        [infoArray addObject:@"https://funfair.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-funfair/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/FunfairTech/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"FunFairTech"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Sizeable 25+ British team,Jez San(CEO,extensive gaming/online poker experience)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Very early,considered in beta,with major product launches in Q1 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://funfair.io/explore/whitepapers/"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"PART"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform to build blockchain apps with enhanced privacy"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Built an anonymous marketplace for buyers & sellers to trade securely"];
+        // 3. Website
+        [infoArray addObject:@"https://particl.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://bitcoinexchangeguide.com/particl/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Particl/"];
+        // 6. Github
+        [infoArray addObject:@"/particl"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"ParticlProject"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"20+ international team,Ryno Mathee(Lead Developer,Ex Lead Dev ShadowCash)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early days as it was launched in March 2017"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"RDD"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Social digital currency for the general public"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Microtransactions in social networks e.g. tipping in Reddit,where it got it's name"];
+        // 3. Website
+        [infoArray addObject:@"https://www.reddcoin.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://youtu.be/KlYJ0sNVVpg"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/reddCoin/"];
+        // 6. Github
+        [infoArray addObject:@"/reddcoin-project/reddcoin"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"reddcoin"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"5+ international team,John McAfee(McAfee creator pumped it in a tweet in Dec 2017)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Rose almost too quickly when John McAfee tweeted about it"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"KNC"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Instant liquid exchange for cryptocurrencies"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Exchange cryptocurrencies & liquidate instantly(faster than regular exchanges)"];
+        // 3. Website
+        [infoArray addObject:@"https://kyber.network"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/kyber-network-beginner-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/kybernetwork/"];
+        // 6. Github
+        [infoArray addObject:@"/kybernetwork"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"KyberNetwork"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Impressive team,Loi Luu(CEO),Vitalik Buterin(Ethereum Founder,Advisor)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early days,live product launching in Q1 of 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://kyber.network/assets/KyberNetworkWhitepaper.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DENT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain based mobile data trading"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users can buy & sell their mobile data with each other using a mobile app"];
+        // 3. Website
+        [infoArray addObject:@"https://www.dentwireless.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.dentwireless.com/faq"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/kybernetwork/"];
+        // 6. Github
+        [infoArray addObject:@"/kybernetwork"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"dentcoin"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Strong Hong Kong based team,Tero Katajainen(CEO & Founder),PLDT Hong Kong(Partner)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Very ambitious,will need to get the large telcos on board"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://www.dentwireless.com/whitepaper"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
