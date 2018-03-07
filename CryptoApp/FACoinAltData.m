@@ -2604,9 +2604,9 @@ static FACoinAltData *sharedInstance;
     
     else if ([ticker caseInsensitiveCompare:@"ICN"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Enabling users to invest in and manage digital assets"];
+        [infoArray addObject:@"Platform for users to invest in and manage digital assets"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Building & investing in digital asset arrays e.g. an index fund of cryptocurrencies"];
+        [infoArray addObject:@"Create & invest in digital asset arrays e.g. an index fund of cryptocurrencies"];
         // 3. Website
         [infoArray addObject:@"https://www.iconomi.net"];
         // 4. Best Detailed Description Weblink
@@ -2719,6 +2719,96 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Binance,Bancor Network"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"https://about.bancor.network/Whitepaper"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"NXT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain platform with asset exchange & monetary systems capabilities"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Platform for people to build & launch their own cryptocurrencies"];
+        // 3. Website
+        [infoArray addObject:@"https://nxtplatform.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-nxt/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/NXT/"];
+        // 6. Github on bitbucket /JeanLucPicard/nxt/src
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"NxtCommunity"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Run by Jelurida B.V.(Same small Holland based company that runs Ardor as well)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Ardor is the new version of NXT,time will tell how active the NXT development is"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"PAY"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Spend virtual currencies — anytime,anywhere"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Provides a debit card to load your cryptos & use them for daily transcations"];
+        // 3. Website
+        [infoArray addObject:@"https://www.tenx.tech"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/interview-tenx/"];
+        // 5. Subreddit
+        [infoArray addObject:@"r/TenX/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"tenxwallet"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Strong team,Advisors:Vitalik Buterin(Ethereum Founder),Bo Shen(Fenbushi Capital)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early days in the development of this product"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://www.tenx.tech/whitepaper/tenx_whitepaper_final.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ENG"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Scalable privacy for every blockchain"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Platform to enable privacy of blockchain data & solve blockchain's scaling issues"];
+        // 3. Website
+        [infoArray addObject:@"https://enigma.co"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://youtu.be/qeJn8YgDIlw"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/enigmacatalyst/"];
+        // 6. Github
+        [infoArray addObject:@"/enigmampc"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"EnigmaMPC"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"10+ growing team,Guy Zyskind(Ex MIT Blockchain Researcher,CEO & Founder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Same challenge as other platforms,early days,will need adoption to succeed"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bittrex,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
         
     }
     

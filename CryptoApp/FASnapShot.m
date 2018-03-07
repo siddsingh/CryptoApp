@@ -507,6 +507,18 @@ static FASnapShot *sharedInstance;
         colorToReturn = [UIColor colorWithRed:16.0f/255.0f green:38.0f/255.0f blue:68.0f/255.0f alpha:1.0f];
     }
     
+    if ([ticker caseInsensitiveCompare:@"NXT"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:68.0f/255.0f green:160.0f/255.0f blue:198.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"PAY"] == NSOrderedSame) {
+        colorToReturn = [UIColor blackColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"ENG"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:18.0f/255.0f green:47.0f/255.0f blue:169.0f/255.0f alpha:1.0f];
+    }
+    
     return colorToReturn;
 }
 
@@ -876,6 +888,18 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"BNT"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"NXT"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"PAY"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"ENG"] == NSOrderedSame) {
         colorToReturn = [UIColor whiteColor];
     }
     
