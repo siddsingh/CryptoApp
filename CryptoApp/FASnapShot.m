@@ -455,6 +455,58 @@ static FASnapShot *sharedInstance;
         colorToReturn = [UIColor blackColor];
     }
     
+    if ([ticker caseInsensitiveCompare:@"DENT"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:174.0f/255.0f green:44.0f/255.0f blue:35.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"IOST"] == NSOrderedSame) {
+        colorToReturn = [UIColor blackColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"GXS"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:3.0f/255.0f blue:46.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"NEBL"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:52.0f/255.0f green:142.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"KIN"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:5.0f/255.0f green:57.0f/255.0f blue:187.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"XZC"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:185.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"BLOCK"] == NSOrderedSame) {
+        colorToReturn = [UIColor grayColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"POWR"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:91.0f/255.0f green:189.0f/255.0f blue:169.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"DCN"] == NSOrderedSame) {
+        colorToReturn = [UIColor blackColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"ICN"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:69.0f/255.0f green:103.0f/255.0f blue:130.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"LINK"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:74.0f/255.0f green:122.0f/255.0f blue:171.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"POLY"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:42.0f/255.0f green:63.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"BNT"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:16.0f/255.0f green:38.0f/255.0f blue:68.0f/255.0f alpha:1.0f];
+    }
+    
     return colorToReturn;
 }
 
@@ -773,6 +825,58 @@ static FASnapShot *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"RDD"] == NSOrderedSame) {
         colorToReturn = [UIColor redColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"DENT"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"IOST"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"GXS"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:102.0f/255.0f green:152.0f/255.0f blue:252.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"NEBL"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"KIN"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"XZC"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"BLOCK"] == NSOrderedSame) {
+        colorToReturn = [UIColor blackColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"POWR"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"DCN"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"ICN"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"LINK"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"POLY"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"BNT"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
     }
     
     return colorToReturn;

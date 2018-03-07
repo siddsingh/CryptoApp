@@ -2216,7 +2216,7 @@ static FACoinAltData *sharedInstance;
         // 1. Short Description
         [infoArray addObject:@"Blockchain platform to make it easier for new entities to launch online casinos"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Decentralization removes single point of failure,Offer transparency"];
+        [infoArray addObject:@"Decentralization removes single point of failure,Offers transparency"];
         // 3. Website
         [infoArray addObject:@"https://funfair.io"];
         // 4. Best Detailed Description Weblink
@@ -2242,33 +2242,33 @@ static FACoinAltData *sharedInstance;
         
     }
     
-    else if ([ticker caseInsensitiveCompare:@"FUN"] == NSOrderedSame) {
+    else if ([ticker caseInsensitiveCompare:@"XZC"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Blockchain platform to make it easier for new entities to launch online casinos"];
+        [infoArray addObject:@"Crypto for private transactions,enabled by the Zerocoin Protocol"];
         // 2. Real World Use Cases
-        [infoArray addObject:@"Decentralization removes single point of failure,Offer transparency"];
+        [infoArray addObject:@"Private financial transactions"];
         // 3. Website
-        [infoArray addObject:@"https://funfair.io"];
+        [infoArray addObject:@"https://zcoin.io"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://themerkle.com/what-is-funfair/"];
+        [infoArray addObject:@"https://youtu.be/aEbawhzhLqM"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/FunfairTech/"];
+        [infoArray addObject:@"/r/zcoin/"];
         // 6. Github
-        [infoArray addObject:@"Not Available"];
+        [infoArray addObject:@"/zcoin/"];
         // 7. Twitter Handle
-        [infoArray addObject:@"FunFairTech"];
+        [infoArray addObject:@"zcoinofficial"];
         // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Sizeable 25+ British team,Jez San(CEO,extensive gaming/online poker experience)"];
+        [infoArray addObject:@"15+ team,Poramin Insom(Founder,Lead Developer)"];
         // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Very early,considered in beta,with major product launches in Q1 2018"];
+        [infoArray addObject:@"Competing with other private currencies,especially the popular Monero"];
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
         [infoArray addObject:@"Binance"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,HitBTC"];
+        [infoArray addObject:@"Binance,Bittrex,Upbit"];
         // 13. Best News Coverage Site
-        [infoArray addObject:@"https://funfair.io/explore/whitepapers/"];
+        [infoArray addObject:@"https://zcoin.io/tech/"];
         
     }
     
@@ -2372,9 +2372,9 @@ static FACoinAltData *sharedInstance;
         // 4. Best Detailed Description Weblink
         [infoArray addObject:@"https://www.dentwireless.com/faq"];
         // 5. Subreddit
-        [infoArray addObject:@"/r/kybernetwork/"];
+        [infoArray addObject:@"/r/dentcoin/"];
         // 6. Github
-        [infoArray addObject:@"/kybernetwork"];
+        [infoArray addObject:@"Not Available"];
         // 7. Twitter Handle
         [infoArray addObject:@"dentcoin"];
         // 8. Backers (Countries, Institutions, People)
@@ -2384,11 +2384,341 @@ static FACoinAltData *sharedInstance;
         // 10. On the Fence (Countries, Institutions, People)
         [infoArray addObject:@"Not Available"];
         // 11. Best Exchange
-        [infoArray addObject:@"Binance"];
+        [infoArray addObject:@"Kucoin"];
         // 12. Known Exchanges
-        [infoArray addObject:@"Binance,Huobi,Kucoin"];
+        [infoArray addObject:@"Kucoin,HitBTC"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"https://www.dentwireless.com/whitepaper"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"IOST"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain platform that is targeting up to 100,000 transactions per second"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"For large organizations to build blockchain apps with high throughput needs"];
+        // 3. Website
+        [infoArray addObject:@"https://iost.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://cryptoslate.com/introduction-iostoken-blockchain-internet-services/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/IOStoken/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"IOStoken"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"15+ highly technical team,Ryan Bubinski(Advisor, Co founder of Code Academy)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early,difficult to understand their business model"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://docsend.com/view/ihwqcdg"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"GXS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Decentralized data exchange based on Blockchain"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Enabling data flows in things like online lending,consumer loans,banking"];
+        // 3. Website
+        [infoArray addObject:@"https://gxs.gxb.io/en/"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-gxshares/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/GXS/"];
+        // 6. Github
+        [infoArray addObject:@"/gxchain"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"gongxinbao"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"15+ China based team,Minqiang Huang(CEO,Founder)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Off to a good start but there's no public roadmap"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Gate.io"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://gxs.gxb.io/download/GXB_Blockchain_White_Paper_v1.2_EN.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"NEBL"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain platform to build enterprise applications & services"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Providing businesses easy to use tools to build distributed apps"];
+        // 3. Website
+        [infoArray addObject:@"https://nebl.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-neblio/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Neblio/"];
+        // 6. Github
+        [infoArray addObject:@"/NeblioTeam"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"NeblioTeam"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"5 person team,Eddy Smith(Co Founder & Lead Developer)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days with a marketing campaign launch scheduled for Q2 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://nebl.io/wp-content/uploads/2017/07/NeblioWhitepaper.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"KIN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Cryptocurrency from Kik,a popular Canadian social networking app"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Change traditional advertising models e.g. pay using Kin for exclusive content"];
+        // 3. Website
+        [infoArray addObject:@"https://kinecosystem.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://blokt.com/icos/kin-review"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/KinFoundation/"];
+        // 6. Github
+        [infoArray addObject:@"/kinfoundation"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"kin_foundation"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Ted Livingston(CEO,Kik),Fred Wilson(Union Square Ventures),Kik's 15 mn users"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Early days,not clear how well Kik,to which Kin is tied,itself is doing"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bancor Network"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bancor Network,Mercatox"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://kinecosystem.org/static/files/Kin_Whitepaper_V1_English.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BLOCK"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform to build apps that operate across different blockchains"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"1st app being released is a Decentralized exchange of different crypto assets"];
+        // 3. Website
+        [infoArray addObject:@"https://blocknet.co/index.html"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/blocknet-block-beginners-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/theblocknet/"];
+        // 6. Github
+        [infoArray addObject:@"/BlocknetDX/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"The_Blocknet"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Dan Metcalf & Arlyn Culwick(Co Founders),0x Protocol & Poloniex(Partners)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Limited information available on the team"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"POWR"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Peer to peer marketplace for renewable energy"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Enabling customers & businesses to sell their power without a middleman"];
+        // 3. Website
+        [infoArray addObject:@"https://powerledger.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://powerledger.io/#video-popup"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/PowerLedger/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"PowerLedger_io"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Super strong Australian team of 25+ people,Bill Tai(Advisor,High Profile VC)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Very ambitious & very early,marketing launch expected Q3 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://tge.powerledger.io/media/Power-Ledger-Whitepaper-v3.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"DCN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Blockchain solution for the global dental industry"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Create a marketplace directly between patients and dentists including trusted reviews"];
+        // 3. Website
+        [infoArray addObject:@"https://dentacoin.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://blockonomi.com/dentacoin-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Dentacoin/"];
+        // 6. Github
+        [infoArray addObject:@"/Dentacoin"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"dentacoin"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"20 person team out of Bulgaria,Prof Dr Dimitar Dimitrakiev,Philipp Grenzebach(Co founders)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Difficult to understand the value proposition from a blckchain perspective"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"HitBTC"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"HitBTC,Cryptopia"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://dentacoin.com/web/white-paper/Whitepaper-en1.pdf"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ICN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Enabling users to invest in and manage digital assets"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Building & investing in digital asset arrays e.g. an index fund of cryptocurrencies"];
+        // 3. Website
+        [infoArray addObject:@"https://www.iconomi.net"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://blockonomi.com/iconomi-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/ICONOMI/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"iconominet"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Small Slovenia based team,Tim M. Zagar(CEO) & Jani Valjavec(CTO) founded it in 2016"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early days,as the product is currently in beta mode"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kraken"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"LINK"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Bridging blockchain apps to off chain resources like data feeds or APIs"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Developers building Ethereum apps can incorporate APIs e.g. for bank accounts"];
+        // 3. Website
+        [infoArray addObject:@"https://www.smartcontract.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://blockonomi.com/chainlink-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"Not Available"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Smart_Contract"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"San Francisco based,Sergey Nazarov(CEO),Partnership with SWIFT(think Swift code)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Do not show a roadmap,general lack of marketing & concrete updates,still early"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"POLY"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The Securities Token platform"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Enables launching ICOs legally with KYC & more baked in"];
+        // 3. Website
+        [infoArray addObject:@"https://www.polymath.network"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-polymath/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/PolymathNetwork/"];
+        // 6. Github
+        [infoArray addObject:@"/PolymathNetwork"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"PolymathNetwork"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Trevor Koverko(CEO)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"The platform is still in its nascent stages"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://www.polymath.network/resources/whitepaper"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"BNT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Decentralized liquidity network for crypto tokens"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Exchange of crypto currencies at low cost"];
+        // 3. Website
+        [infoArray addObject:@"https://about.bancor.network"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://about.bancor.network/network"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Bancor/"];
+        // 6. Github
+        [infoArray addObject:@"/bancorprotocol/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Bancor"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Switzerland based 10+ people team,Tim Draper(Advisor,Venture Capitalist)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Founded in 2017 it's still early days for this venture"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Bancor Network"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://about.bancor.network/Whitepaper"];
         
     }
     
