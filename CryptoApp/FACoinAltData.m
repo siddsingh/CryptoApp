@@ -2812,6 +2812,156 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"NXS"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Quantum resistant 3D blockchain using communication satellites in space"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Creating a super secure,faster,reliable & truly decentralized cryptocurrency"];
+        // 3. Website
+        [infoArray addObject:@"https://nexusearth.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/nexus-nxs-beginners-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/nexusearth/"];
+        // 6. Github
+        [infoArray addObject:@"/Nexusoft/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"NxsEarth"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Colin Cantrell(Founder),Partners:Vector Space Systems,SingularityNET"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Super Ambitious,lot of future work to be done on building out the product pieces"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://nexusearth.com/white-paper/"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"REQ"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"A network built on Ethereum,which allows anyone,anywhere to request a payment"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Anyone can generate an invoice that the recipient can pay without a 3rd party"];
+        // 3. Website
+        [infoArray addObject:@"https://request.network/#/"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://blockonomi.com/request-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/RequestNetwork/"];
+        // 6. Github
+        [infoArray addObject:@"/RequestNetwork/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"RequestNetwork"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Very strong team that created MoneyTis,a money transfer service.YCombinator backed"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"While to go before the vision is fully realized"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://request.network/#"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"MAID"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"A decentralized autonomous internet"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Infrastructure to publish & consume data without human intervention"];
+        // 3. Website
+        [infoArray addObject:@"https://maidsafe.net"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://metaquestions.me/2017/08/12/the-impossible-network/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/safenetwork/"];
+        // 6. Github
+        [infoArray addObject:@"/maidsafe"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"maidsafe"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Started in 2006 by Scottish engineer David Irvine,Scotland based"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Trying to recreate the internet is super ambitious,adoption will be everything"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,HitBTC,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"MAID"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"A decentralized autonomous internet"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Infrastructure to publish & consume data without human intervention"];
+        // 3. Website
+        [infoArray addObject:@"https://maidsafe.net"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.investinblockchain.com/what-is-maidsafe/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/safenetwork/"];
+        // 6. Github
+        [infoArray addObject:@"/maidsafe"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"maidsafe"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Started in 2006 by Scottish engineer David Irvine,Scotland based"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Trying to recreate the internet is super ambitious,adoption will be everything"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,HitBTC,Poloniex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"CND"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Hybrid Intelligence platform for effective asset management"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Combines financial analysts & artificial intelligence to invest better"];
+        // 3. Website
+        [infoArray addObject:@"https://cindicator.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/cindicator-beginners-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/Cindicator/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Crowd_indicator"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Super strong Russian team,Mike Brusov(CEO),Charlie Shrem(Bitcoin Foundation,Advisor)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Not Available"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
