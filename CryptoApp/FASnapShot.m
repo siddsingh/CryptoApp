@@ -535,6 +535,14 @@ static FASnapShot *sharedInstance;
         colorToReturn = [UIColor colorWithRed:16.0f/255.0f green:3.0f/255.0f blue:20.0f/255.0f alpha:1.0f];
     }
     
+    if ([ticker caseInsensitiveCompare:@"EMC"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:175.0f/255.0f green:156.0f/255.0f blue:201.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"PLR"] == NSOrderedSame) {
+        colorToReturn = [UIColor blackColor];
+    }
+    
     return colorToReturn;
 }
 
@@ -933,6 +941,14 @@ static FASnapShot *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"CND"] == NSOrderedSame) {
         colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"EMC"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"PLR"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:79.0f/255.0f green:191.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
     }
     
     return colorToReturn;

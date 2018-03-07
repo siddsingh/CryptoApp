@@ -2962,6 +2962,66 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"EMC"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Built from Bitcoin code,it's a platform for exchange without a central authority"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Fast,safe & inexpensive exchange of money & information"];
+        // 3. Website
+        [infoArray addObject:@"https://emercoin.com/en"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://captainaltcoin.com/what-is-emercoin-coin/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/EmerCoin/"];
+        // 6. Github
+        [infoArray addObject:@"/emercoin/"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"emercoin_press"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Founded by 8 Russian developers,Eugene Shumilov(Founder,MD),Partners:Microsoft"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Highly technical value proposition,will need mass adoption"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,HitBTC"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"PLR"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Claims itself as the world’s best cryptocurrency & token wallet,"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Users store all their cryptos & data in one wallet,share with others as they please"];
+        // 3. Website
+        [infoArray addObject:@"https://pillarproject.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://themerkle.com/what-is-pillar-cryptocurrency/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/PillarProject/"];
+        // 6. Github
+        [infoArray addObject:@"/pillarwallet"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"pillarwallet"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"London based,25+ people team,David Siegel(CEO)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Slightly worrisome that the roadmap for Pillar appears a bit unclear"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"HitBTC"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"HitBTC,Cryptopia"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+
     // If not available set to default value of Not Available
     else {
         // 1. Short Description
