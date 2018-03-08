@@ -480,14 +480,20 @@
             // If Cap and not found means that it probably dropped out of the top 100
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
                  [[cell eventDescription] setText:@"NOT AVAILABLE"];
+                [cell.eventImpact setText:@" "];
+                [cell.eventImpact setTextColor:[UIColor whiteColor]];
             }
             // If Gainer and not found means it did not gain today.
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
                 [[cell eventDescription] setText:@"NOT A GAINER"];
+                [cell.eventImpact setText:@" "];
+                [cell.eventImpact setTextColor:[UIColor whiteColor]];
             }
             // If Gainer and not found means it did not gain today.
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
                 [[cell eventDescription] setText:@"NOT A LOSER"];
+                [cell.eventImpact setText:@" "];
+                [cell.eventImpact setTextColor:[UIColor whiteColor]];
             }
         }
         // Check to see if the News Main Nav is selected

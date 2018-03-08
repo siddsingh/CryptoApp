@@ -315,6 +315,7 @@
     #define infoRow11 10
     #define infoRow12 11
     #define infoRow13 12
+    #define infoRow14 13
     
     int rowNo = 0;
     
@@ -427,6 +428,12 @@
         }
             break;
             
+        case infoRow14:
+        {
+            cellHeight = 70.0;
+        }
+            break;
+            
         default:
             break;
     }
@@ -509,6 +516,7 @@
     #define infoRow11 10
     #define infoRow12 11
     #define infoRow13 12
+    #define infoRow14 13
     
     int rowNo = 0;
     
@@ -949,6 +957,26 @@
             [[cell descriptionArea] setText:githubTxt];
         }
         break;
+        
+        // Show data warning
+        case infoRow14:
+        {
+            // Set proper formatting
+            cell.detailsActionLbl.hidden = NO;
+            cell.detailsActionLbl.textColor = [UIColor grayColor];
+            cell.titleLabel.textColor = [UIColor grayColor];
+            cell.titleLabel.backgroundColor = [UIColor whiteColor];
+            [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+            [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:10]];
+            [cell.descriptionArea setTextColor:[UIColor grayColor]];
+            
+            NSString *dataTxt = [NSString stringWithFormat:@"©"];
+            NSString *dataDesc = @"About data by Litchi Labs.Contact us to reuse.";
+            
+            [[cell titleLabel] setText:dataTxt];
+            [[cell descriptionArea] setText:dataDesc];
+        }
+        break;
             
         default:
         break;
@@ -983,6 +1011,7 @@
     #define infoRow11 10
     #define infoRow12 11
     #define infoRow13 12
+    #define infoRow14 13
     
     int rowNo = 0;
     
@@ -1234,6 +1263,16 @@
                     [self presentViewController:externalInfoVC animated:YES completion:nil];
                 }
             }
+        }
+        break;
+            
+        // Show Support/contact us page
+        case infoRow14:
+        {
+            SFSafariViewController *supportVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"http://www.knotifi.com/p/contact.html"]];
+            supportVC.delegate = self;
+            supportVC.preferredControlTintColor = [UIColor blackColor];
+            [self presentViewController:supportVC animated:YES completion:nil];
         }
         break;
         
@@ -2111,7 +2150,7 @@
             numberOfPieces = 5;
         }
         if(sectionNo == 1) {
-            numberOfPieces = 8;
+            numberOfPieces = 9;
         }
     }
     // Else
@@ -2123,7 +2162,7 @@
             numberOfPieces = 5;
         }
         if(sectionNo == 2) {
-            numberOfPieces = 8;
+            numberOfPieces = 9;
         }
     }
         

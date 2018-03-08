@@ -1024,8 +1024,10 @@ bool eventsUpdated = NO;
 {
     NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
     
-    // Get today's date formatted to midnight last night
-    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    // Old: Get today's date formatted to midnight last night
+    //NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    // New:Get today's date set to x mins ago, so that you can get the latest picture of the top 100
+    NSDate *todaysDate = [self computeMinsAgoFrom:[NSDate date]];
     
     // Add 7 days
     //NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -2844,8 +2846,10 @@ bool eventsUpdated = NO;
         NSNumber *oneHrPercentChange = [[NSNumber alloc] initWithFloat:0.0];
         NSNumber *sevenDaysPercentChange = [[NSNumber alloc] initWithFloat:0.0];
         
-        // Set date to today at midnight
-        eventDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+        // Old:Set date to today at midnight
+        // eventDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+        // New:Set date to current date & time
+        eventDate = [NSDate date];
         
         // Iterate through the currencies prices array in the parsed response.
         for (NSDictionary *currencyDetails in parsedResponse) {
@@ -3501,8 +3505,10 @@ bool eventsUpdated = NO;
 {
     NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
     
-    // Get today's date formatted to midnight last night
-    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    // Old:Get today's date formatted to midnight last night
+    //NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    // New:Get today's date set to x mins ago, so that you can get the latest picture of the top 100
+    NSDate *todaysDate = [self computeMinsAgoFrom:[NSDate date]];
     
     // Get all future events with the upcoming ones first
     NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
@@ -3532,8 +3538,10 @@ bool eventsUpdated = NO;
 {
     NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
     
-    // Get today's date formatted to midnight last night
-    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    // Old: Get today's date formatted to midnight last night
+    //NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    // New:Get today's date set to x mins ago, so that you can get the latest picture of the top 100
+    NSDate *todaysDate = [self computeMinsAgoFrom:[NSDate date]];
     
     // Get all future events with the upcoming ones first
     NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
@@ -3562,7 +3570,9 @@ bool eventsUpdated = NO;
     NSManagedObjectContext *dataStoreContext = [self managedObjectContext];
     
     // Get today's date formatted to midnight last night
-    NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    //NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
+    // New:Get today's date set to x mins ago, so that you can get the latest picture of the top 100
+    NSDate *todaysDate = [self computeMinsAgoFrom:[NSDate date]];
     
     // Get all future events with the upcoming ones first
     NSFetchRequest *eventFetchRequest = [[NSFetchRequest alloc] init];
@@ -5213,6 +5223,18 @@ bool eventsUpdated = NO;
     NSDateComponents *differenceDayComponents = [[NSDateComponents alloc] init];
     differenceDayComponents.day = -30;
     NSDate *returnDate = [aGregorianCalendar dateByAddingComponents:differenceDayComponents toDate:startingDate options:0];
+    
+    return returnDate;
+}
+
+// Compute the date time that's minutes (currently 5) ago from given Date/Time
+- (NSDate *)computeMinsAgoFrom:(NSDate *)startingDate
+{
+    // Subtract 5 minute from start date
+    NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *differenceMinComponents = [[NSDateComponents alloc] init];
+    differenceMinComponents.minute = -5;
+    NSDate *returnDate = [aGregorianCalendar dateByAddingComponents:differenceMinComponents toDate:startingDate options:0];
     
     return returnDate;
 }

@@ -741,14 +741,6 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="CaE-Yb-Deb"/>
-                                <exclude reference="DLv-Uh-S5w"/>
-                                <exclude reference="Zgk-Ec-4Pl"/>
-                                <exclude reference="wrw-3H-8gn"/>
-                                <exclude reference="Er2-sj-70y"/>
-                                <exclude reference="HIK-YH-zRP"/>
-                                <exclude reference="dcM-vA-W2a"/>
-                                <exclude reference="s0a-9E-ZUJ"/>
                                 <exclude reference="8Rj-EZ-CZC"/>
                                 <exclude reference="8nW-fC-2Fp"/>
                                 <exclude reference="KKC-1v-aFM"/>
@@ -760,6 +752,14 @@
                                 <exclude reference="pyj-dF-3Rt"/>
                                 <exclude reference="vBP-zD-Jj2"/>
                                 <exclude reference="zoO-aD-LkP"/>
+                                <exclude reference="Er2-sj-70y"/>
+                                <exclude reference="HIK-YH-zRP"/>
+                                <exclude reference="dcM-vA-W2a"/>
+                                <exclude reference="s0a-9E-ZUJ"/>
+                                <exclude reference="CaE-Yb-Deb"/>
+                                <exclude reference="DLv-Uh-S5w"/>
+                                <exclude reference="Zgk-Ec-4Pl"/>
+                                <exclude reference="wrw-3H-8gn"/>
                                 <exclude reference="25s-CI-nqv"/>
                                 <exclude reference="3jv-bH-4Kk"/>
                                 <exclude reference="3sQ-Hb-nnL"/>
@@ -777,12 +777,12 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <include reference="DLv-Uh-S5w"/>
-                                <exclude reference="OM6-BZ-jxF"/>
-                                <exclude reference="P69-Sa-iBe"/>
-                                <exclude reference="UEg-55-txi"/>
-                                <include reference="Zgk-Ec-4Pl"/>
-                                <include reference="wrw-3H-8gn"/>
+                                <include reference="8Rj-EZ-CZC"/>
+                                <exclude reference="G2e-wn-ztN"/>
+                                <exclude reference="U2j-av-oJw"/>
+                                <exclude reference="XNB-Ek-4Ue"/>
+                                <include reference="hFR-jM-SnZ"/>
+                                <include reference="oJK-pZ-HQZ"/>
                                 <include reference="Er2-sj-70y"/>
                                 <include reference="HIK-YH-zRP"/>
                                 <include reference="dcM-vA-W2a"/>
@@ -790,12 +790,12 @@
                                 <exclude reference="ik9-ZR-mDP"/>
                                 <exclude reference="k1t-h6-7Xz"/>
                                 <exclude reference="vcE-PT-8Fh"/>
-                                <include reference="8Rj-EZ-CZC"/>
-                                <exclude reference="G2e-wn-ztN"/>
-                                <exclude reference="U2j-av-oJw"/>
-                                <exclude reference="XNB-Ek-4Ue"/>
-                                <include reference="hFR-jM-SnZ"/>
-                                <include reference="oJK-pZ-HQZ"/>
+                                <include reference="DLv-Uh-S5w"/>
+                                <exclude reference="OM6-BZ-jxF"/>
+                                <exclude reference="P69-Sa-iBe"/>
+                                <exclude reference="UEg-55-txi"/>
+                                <include reference="Zgk-Ec-4Pl"/>
+                                <include reference="wrw-3H-8gn"/>
                                 <exclude reference="25s-CI-nqv"/>
                                 <include reference="3jv-bH-4Kk"/>
                                 <exclude reference="CHt-RL-eLa"/>
