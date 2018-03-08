@@ -2992,9 +2992,39 @@ static FACoinAltData *sharedInstance;
         
     }
     
+    else if ([ticker caseInsensitiveCompare:@"AGI"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"The Decentralized Marketplace for Artificial Intelligence"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Lets anyone create,monetize & use AI at scale"];
+        // 3. Website
+        [infoArray addObject:@"https://singularitynet.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/singularitynet-beginner-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/SingularityNet/"];
+        // 6. Github
+        [infoArray addObject:@"/singnet/singnet"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"singularity_net"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Super strong team,50+ AI Developers,10+ PhDs,Dr. Ben Goertzel(CEO,Chief Scientist)"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early,in alpha,launching a public beta sometime in the middle of 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Kucoin"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://public.singularitynet.io/whitepaper.pdf"];
+        
+    }
+    
     else if ([ticker caseInsensitiveCompare:@"PLR"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Claims itself as the world’s best cryptocurrency & token wallet,"];
+        [infoArray addObject:@"Claims itself as the world’s best cryptocurrency & token wallet"];
         // 2. Real World Use Cases
         [infoArray addObject:@"Users store all their cryptos & data in one wallet,share with others as they please"];
         // 3. Website
@@ -3017,6 +3047,36 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"HitBTC"];
         // 12. Known Exchanges
         [infoArray addObject:@"HitBTC,Cryptopia"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"Not Available"];
+        
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"SMART"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Newer cryptocurrency with a rewards system for holding it"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Cryptocurrency that rewards you for holding it & also gives you voting rights"];
+        // 3. Website
+        [infoArray addObject:@"https://smartcash.cc/#top"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://globalcoinreport.com/smartcash-smart-smartcash-smart-hive-explained/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/smartcash/"];
+        // 6. Github
+        [infoArray addObject:@"/smartcash"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"scashofficial"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"20+ global team"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Not yet released,expected to launch 2018"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"HitBTC"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"HitBTC,CryptoBridge"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"Not Available"];
         
