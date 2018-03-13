@@ -3081,6 +3081,36 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Not Available"];
         
     }
+    
+    else if ([ticker caseInsensitiveCompare:@"SRN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Creating the first cyber-protected,blockchain-enabled smart phones & PCs"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Secure device to simplify the use of cryptocurrency across multiple applications"];
+        // 3. Website
+        [infoArray addObject:@"https://sirinlabs.com"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://www.coindesk.com/blockchain-pocket-phone-behind-sirins-157-million-ico/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/SirinLabs/"];
+        // 6. Github
+        [infoArray addObject:@"/sirin-labs"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"SIRINLABS"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Strong 30+ Switzerland based team,Moshe Hogeg(Founder),advisory ties to Ethereum"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still early,very ambitious,will need partnerships to get adoption"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Bittrex"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Bittrex,Upbit,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://sirinlabs.com/media/SIRINLABS_-_White_Paper.pdf"];
+        
+    }
 
     // If not available set to default value of Not Available
     else {

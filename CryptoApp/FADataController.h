@@ -221,6 +221,9 @@
 // Get all the product events and details from the data source APIs
 - (void)getAllProductEventsFromApi;
 
+// Get all the news from the API
+- (void)getAllNewsFromApi;
+
 // Check to see if 1) product events have been synced initially. 2) If there are new entries for product events on the server side. In either of these cases return true
 // NOTE: If there is a new type of product event like launch or conference is added, add that here as well
 - (BOOL)doProductEventsNeedToBeAddedRefreshed;

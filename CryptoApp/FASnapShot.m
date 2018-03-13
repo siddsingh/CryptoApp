@@ -551,6 +551,10 @@ static FASnapShot *sharedInstance;
         colorToReturn = [UIColor colorWithRed:244.0f/255.0f green:181.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
     }
     
+    if ([ticker caseInsensitiveCompare:@"SRN"] == NSOrderedSame) {
+        colorToReturn = [UIColor blackColor];
+    }
+    
     return colorToReturn;
 }
 
@@ -965,6 +969,10 @@ static FASnapShot *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"SMART"] == NSOrderedSame) {
         colorToReturn = [UIColor blackColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"SRN"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
     }
     
     return colorToReturn;

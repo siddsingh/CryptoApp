@@ -1281,6 +1281,14 @@
     }
 }
 
+// When a user scrolls on the detail view
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    // TRACKING EVENT:
+    // TO DO: Disabling to not track development events. Enable before shipping.
+    [FBSDKAppEvents logEvent:@"Viewed About"
+                  parameters:@{ @"About Ticker" : self.parentTicker} ];
+}
+
 #pragma mark - Reminder Related
 
 // Action to take when Reminder button is pressed, which is set a reminder if reminder hasn't already been created, else display a message that reminder has aleady been set.

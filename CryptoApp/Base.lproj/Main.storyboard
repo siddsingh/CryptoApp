@@ -29,11 +29,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cj-9c-Flh">
-                                <rect key="frame" x="0.0" y="672" width="414" height="0.0"/>
+                                <rect key="frame" x="0.0" y="631" width="414" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" id="2tk-vn-qCw"/>
+                                    <constraint firstAttribute="height" constant="1" id="2tk-vn-qCw"/>
                                     <constraint firstAttribute="height" constant="2" id="4Am-2R-zAb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -93,11 +93,11 @@
                                     <action selector="eventTypeSelectAction:" destination="WNQ-2i-B77" eventType="valueChanged" id="1kr-Zo-Gfo"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iRe-G1-Ld7">
-                                <rect key="frame" x="0.0" y="672" width="414" height="1"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iRe-G1-Ld7">
+                                <rect key="frame" x="0.0" y="632" width="414" height="41"/>
                                 <color key="backgroundColor" red="0.94368587270000004" green="0.95293769500000003" blue="0.95293769500000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" id="ZhG-3k-FqW"/>
+                                    <constraint firstAttribute="height" constant="40" id="ZhG-3k-FqW"/>
                                 </constraints>
                                 <segments>
                                     <segment title="PRICE"/>
@@ -109,7 +109,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KbY-6m-WGH">
-                                <rect key="frame" x="0.0" y="71" width="414" height="601"/>
+                                <rect key="frame" x="0.0" y="71" width="414" height="560"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.85309709194538152" green="0.85309709194538152" blue="0.85309709194538152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -119,7 +119,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GMC-5M-9zB" id="EdO-do-03K">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bank Of America" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1x-IM-BDA">
@@ -416,7 +416,7 @@
                                 <color key="backgroundColor" red="0.94368587270000004" green="0.95293769500000003" blue="0.95293769500000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="25y-HC-PcL"/>
-                                    <constraint firstAttribute="height" constant="30" id="2hs-P0-qRp"/>
+                                    <constraint firstAttribute="height" id="2hs-P0-qRp"/>
                                     <constraint firstAttribute="height" id="R0i-ES-T0y">
                                         <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                     </constraint>
@@ -442,7 +442,7 @@
                                 <color key="backgroundColor" red="0.94368587270000004" green="0.95293769500000003" blue="0.95293769500000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="Jiz-v5-Ete"/>
-                                    <constraint firstAttribute="height" constant="23" id="XIW-TA-nnx"/>
+                                    <constraint firstAttribute="height" id="XIW-TA-nnx"/>
                                     <constraint firstAttribute="height" id="qLN-AK-i3p">
                                         <variation key="heightClass=regular-widthClass=regular" constant="23"/>
                                     </constraint>
@@ -470,7 +470,7 @@
                                     <constraint firstAttribute="width" constant="335" id="8Mw-0J-PVx">
                                         <variation key="heightClass=regular-widthClass=regular" constant="800"/>
                                     </constraint>
-                                    <constraint firstAttribute="height" constant="35" id="Toi-Rr-c5L"/>
+                                    <constraint firstAttribute="height" id="Toi-Rr-c5L"/>
                                     <constraint firstAttribute="height" id="Ze8-4c-9Ud">
                                         <variation key="heightClass=regular-widthClass=regular" constant="35"/>
                                     </constraint>

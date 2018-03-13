@@ -747,7 +747,10 @@ bool eventsUpdated = NO;
     NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:dataStoreContext];
     [eventFetchRequest setEntity:eventEntity];
     // Set the filter for date and event type
-    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@ OR type contains[cd] %@", @"Launch", @"Conference"];
+    // Old is for launch events
+    //NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@ OR type contains[cd] %@", @"Launch", @"Conference"];
+    // New is for news events, consider making this a separate method
+    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@", @"CryptofiNews:"];
     [eventFetchRequest setPredicate:datePredicate];
     NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedDate" ascending:NO];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
@@ -2705,6 +2708,147 @@ bool eventsUpdated = NO;
     }
 }
 
+// Get all the news from the API
+- (void)getAllNewsFromApi
+{
+    NSString *endpointURL = @"https://sheets.googleapis.com/v4/spreadsheets/1wWKzwFvNTRqkOPQvm7vyWPmd1AOYHfboySxdh7A2PcA/values/News?key=AIzaSyACTkyh2u1hSKeL6-gv1GQd5Yeq1oMBsdQ";
+    NSError * error = nil;
+    NSURLResponse *response = nil;
+    
+    // Make the call synchronously
+    NSMutableURLRequest *eventsRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:endpointURL]];
+    NSData *responseData = [self sendSynchronousRequest:eventsRequest returningResponse:&response error:&error];
+    
+    /* This is the format of the response
+    "values":[
+              [
+               "Subject",
+               "Body",
+               "DateTime"
+               ],
+              [
+               "Goldman Sachs: Bitcoin 'Has Potential' To Drop Below February Low Of $5,922",
+               "https://cointelegraph.com/news/goldman-sachs-bitcoin-has-potential-to-drop-below-february-low-of-5922",
+               "2018-03-12 14:16:16"
+               ],
+              [
+               "Dutch Finance Minister Urges Multi-National Regulation Of Cryptocurrencies",
+               "https://www.ccn.com/dutch-finance-minister-urges-multi-national-regulation-of-cryptocurrencies/",
+               "2018-03-12 15:14:50"
+               ], */
+    
+    // Process the response
+    if (error == nil)
+    {
+        // TO DO: Delete Later, for testing
+        NSLog(@"The endpoint being called for getting news events information is:%@",endpointURL);
+        NSLog(@"The API response for getting news events information is:%@",[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]);
+        
+        NSString *parentTicker = nil;
+        NSMutableString *eventName = nil;
+        NSString *eventType = @"CryptofiNews:";
+       // NSArray *typeComponents = nil;
+        NSMutableString *eventDateStr = nil;
+        NSDateFormatter *eventDateFormatter = [[NSDateFormatter alloc] init];
+        [eventDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *eventDate = nil;
+        //NSString *timeLabel = nil;
+        NSMutableString *eventAddtlInfo = nil;
+        NSMutableString *updatedOnDateStr = nil;
+        NSDate *updatedOnDate = nil;
+        NSString *confidenceStr = @"Confirmed";
+        //BOOL approved = NO;
+        NSDate *lastSyncDate = nil;
+        NSDate *syncedMinus1Date = nil;
+        NSDate *maxFutureYear = nil;
+        NSDateComponents *differenceDayComponents = [[NSDateComponents alloc] init];
+        NSDateComponents *differenceYrComponents = [[NSDateComponents alloc] init];
+        NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDate *todaysDate = [NSDate date];
+        NSDateComponents *syncDateDiffComponents = nil;
+        NSInteger daysBetweenSyncDates;
+        NSDateComponents *maxFutureDiffComponents = nil;
+        NSInteger daysTillMaxFuture;
+        
+        // Process the response that contains the events for the company.
+        // Get the response into a parsed object
+        NSDictionary *parsedResponse = [NSJSONSerialization JSONObjectWithData:responseData
+                                                                       options:kNilOptions
+                                                                         error:&error];
+        
+        // Loop through the parsed object to get the various product events and their details
+        // Get the list of events first
+        NSArray *parsedEvents = [parsedResponse objectForKey:@"values"];
+        int i = 0;
+        
+        for (NSArray *event in parsedEvents) {
+            
+            ++i;
+            // Do nothing for the first array of values as that is the spreadsheet row
+            if (i == 1) {
+                
+            }
+            // Save each news item
+            else
+            {
+                // Get the ticker for the currency for this news. Currently its all BTC
+                parentTicker = @"BTC";
+                // Currently everything is BTC
+                if([self doesTickerExist:parentTicker])  {
+                    // Sync only those events that are at least a day older than the last synced date
+                    // Get the updated on date for the event
+                    updatedOnDateStr = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:2]];
+                    [updatedOnDateStr replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [updatedOnDateStr length])];
+                    updatedOnDate = [eventDateFormatter dateFromString:updatedOnDateStr];
+                    // Get the event date
+                    eventDateStr =  [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:2]];
+                    [eventDateStr replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventDateStr length])];
+                    eventDate = [eventDateFormatter dateFromString:eventDateStr];
+                    // Get the last event sync date
+                    lastSyncDate = [self setTimeToMidnightLastNightOnDate:[self getEventSyncDate]];
+                    // Subract 1 day from it
+                    differenceDayComponents.day = -1;
+                    syncedMinus1Date = [self setTimeToMidnightLastNightOnDate:[aGregorianCalendar dateByAddingComponents:differenceDayComponents toDate:lastSyncDate options:0]];
+                    differenceYrComponents.year = 5;
+                    // Show only events a max of 5 years from now on out. Currently using the year 2030 to set cancelled events.
+                    maxFutureYear = [aGregorianCalendar dateByAddingComponents:differenceYrComponents toDate:todaysDate options:0];
+                    
+                    syncDateDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:syncedMinus1Date toDate:updatedOnDate options:0];
+                    daysBetweenSyncDates = [syncDateDiffComponents day];
+                    maxFutureDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:eventDate toDate:maxFutureYear options:0];
+                    daysTillMaxFuture = [maxFutureDiffComponents day];
+                    
+                    // If event has been added/updated since a day before the latest sync and is within the next 5 years, resync it.
+                    if(((int)daysBetweenSyncDates >= 0) && ((int)daysTillMaxFuture > 0)) {
+                        // Get the news event raw name e.g. iPhone 7
+                        eventName = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:0]];
+                        // Construct the formatted event name from raw name and event type e.g. iPhone 7 Launch
+                        [eventName replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventName length])];
+                        eventType = [eventType stringByAppendingString:eventName];
+                        // TO DO: Delete Later
+                        NSLog(@"The news formatted title is: %@", eventType);
+                        eventAddtlInfo = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:1]];
+                        [eventAddtlInfo replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventAddtlInfo length])];
+                        // TO DO: Delete Later
+                        NSLog(@"The More Info Url is: %@", eventAddtlInfo);
+                        // TO DO: Delete Later
+                        NSLog(@"The updated on date formatted as a Date: %@ and event date is: %@",updatedOnDate,eventDate);
+                        // Check if this event is approved or not. Only if approved it will be added to local data store.
+                        // Insert each instance into the events datastore
+                        [self upsertEventWithDate:eventDate relatedDetails:eventAddtlInfo relatedDate:updatedOnDate type:eventType certainty:confidenceStr listedCompany:parentTicker estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
+                    }
+                }
+            }
+        }
+    } else {
+        // Log error to console
+        NSLog(@"ERROR: Could not get news events data from the API Data Source. Error description: %@",error.description);
+    }
+}
+
+
+
+
 // Check to see if 1) product events have been synced initially. 2) If there are new entries for product events on the server side. In either of these cases return true
 // NOTE: If there is a new type of product event like launch or conference is added, add that here as well
 // *****NOTE*****Currently always returning true since we have not implemented update logic
@@ -2764,13 +2908,16 @@ bool eventsUpdated = NO;
     
     
     // TO DO: Sync every 2 hours.
-    if(((int)hoursBetween >= 2)) {
+    if(((int)hoursBetween >= 0)) {
         // Show busy
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
         });
         
-        [self getAllProductEventsFromApi];
+        // Get News instead of product events
+        //[self getAllProductEventsFromApi];
+        [self getAllNewsFromApi];
+        
         // Set events sync status to "RefreshCheckDone" means a check to see if refreshed events data is available is done. This also sets the event sync date to today.
         [self updateUserWithEventSyncStatus:@"RefreshCheckDone"];
         
@@ -4812,7 +4959,7 @@ bool eventsUpdated = NO;
     
     // If the user exists
     else {
-        NSLog(@"ERROR: User record already exists when trying to initialize it: %@",error.description);
+        NSLog(@"NOTE: User record already exists when trying to initialize it.Doing nothing.");
     }
     
     // Update the user
@@ -5227,13 +5374,13 @@ bool eventsUpdated = NO;
     return returnDate;
 }
 
-// Compute the date time that's minutes (currently 5) ago from given Date/Time
+// Compute the date time that's minutes (currently 60) ago from given Date/Time
 - (NSDate *)computeMinsAgoFrom:(NSDate *)startingDate
 {
     // Subtract 5 minute from start date
     NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *differenceMinComponents = [[NSDateComponents alloc] init];
-    differenceMinComponents.minute = -5;
+    differenceMinComponents.minute = -60;
     NSDate *returnDate = [aGregorianCalendar dateByAddingComponents:differenceMinComponents toDate:startingDate options:0];
     
     return returnDate;
