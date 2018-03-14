@@ -750,7 +750,7 @@ bool eventsUpdated = NO;
     // Old is for launch events
     //NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@ OR type contains[cd] %@", @"Launch", @"Conference"];
     // New is for news events, consider making this a separate method
-    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@", @"CryptofiNews>"];
+    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@", @"cryptofinews::"];
     [eventFetchRequest setPredicate:datePredicate];
     NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedDate" ascending:NO];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
@@ -2750,7 +2750,7 @@ bool eventsUpdated = NO;
         
         NSString *parentTicker = nil;
         NSMutableString *eventName = nil;
-        NSString *eventType = @"CryptofiNews>";
+        NSString *eventType = @"cryptofinews::";
         NSMutableString *eventDateStr = nil;
         NSDateFormatter *eventDateFormatter = [[NSDateFormatter alloc] init];
         [eventDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -2820,7 +2820,7 @@ bool eventsUpdated = NO;
                 // If event has been added/updated since a day before the latest sync and is within the next 5 years, resync it.
                 if(((int)daysBetweenSyncDates >= 0) && ((int)daysTillMaxFuture > 0)) {
                     
-                    eventType = @"CryptofiNews>";
+                    eventType = @"cryptofinews::";
                     eventType = [eventType stringByAppendingString:eventName];
                     // TO DO: Delete Later
                     //NSLog(@"The news formatted title to be entered : %@", eventType);
@@ -5443,15 +5443,15 @@ bool eventsUpdated = NO;
     NSArray *typeComponents = nil;
     
     // For semi automatic events
-    if ([formattedTitle containsString:@"CryptofiNews>"]) {
+    if ([formattedTitle containsString:@"cryptofinews::"]) {
         
-        typeComponents = [formattedTitle componentsSeparatedByString:@">"];
+        typeComponents = [formattedTitle componentsSeparatedByString:@"::"];
         formattedTitle = [(NSString *)[typeComponents objectAtIndex:2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        newsTicker = [(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        newsTicker = [[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] uppercaseString];
     }
     
     // TO DO: Delete Later
-    NSLog(@"The news event formatted title is:%@ and formatted TICKER is:%@", formattedTitle, newsTicker);
+    // NSLog(@"The news event formatted title is:%@ and formatted TICKER is:%@", formattedTitle, newsTicker);
     
     [infoArray insertObject:formattedTitle atIndex:0];
     [infoArray insertObject:newsTicker atIndex:1];
