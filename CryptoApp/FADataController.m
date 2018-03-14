@@ -750,7 +750,7 @@ bool eventsUpdated = NO;
     // Old is for launch events
     //NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@ OR type contains[cd] %@", @"Launch", @"Conference"];
     // New is for news events, consider making this a separate method
-    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@", @"CryptofiNews:"];
+    NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@", @"CryptofiNews>"];
     [eventFetchRequest setPredicate:datePredicate];
     NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedDate" ascending:NO];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
@@ -2711,7 +2711,11 @@ bool eventsUpdated = NO;
 // Get all the news from the API
 - (void)getAllNewsFromApi
 {
-    NSString *endpointURL = @"https://sheets.googleapis.com/v4/spreadsheets/1wWKzwFvNTRqkOPQvm7vyWPmd1AOYHfboySxdh7A2PcA/values/News?key=AIzaSyACTkyh2u1hSKeL6-gv1GQd5Yeq1oMBsdQ";
+    // This gets the entire sheet inlcuding the Subject Body etc row
+    //NSString *endpointURL = @"https://sheets.googleapis.com/v4/spreadsheets/1wWKzwFvNTRqkOPQvm7vyWPmd1AOYHfboySxdh7A2PcA/values/News?key=AIzaSyACTkyh2u1hSKeL6-gv1GQd5Yeq1oMBsdQ";
+    // This one gets second row onwards, everything till column C
+    NSString *endpointURL = @"https://sheets.googleapis.com/v4/spreadsheets/1wWKzwFvNTRqkOPQvm7vyWPmd1AOYHfboySxdh7A2PcA/values/News!A2:C?key=AIzaSyACTkyh2u1hSKeL6-gv1GQd5Yeq1oMBsdQ";
+    
     NSError * error = nil;
     NSURLResponse *response = nil;
     
@@ -2741,23 +2745,20 @@ bool eventsUpdated = NO;
     if (error == nil)
     {
         // TO DO: Delete Later, for testing
-        NSLog(@"The endpoint being called for getting news events information is:%@",endpointURL);
-        NSLog(@"The API response for getting news events information is:%@",[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]);
+        //NSLog(@"The endpoint being called for getting news events information is:%@",endpointURL);
+        //NSLog(@"The API response for getting news events information is:%@",[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]);
         
         NSString *parentTicker = nil;
         NSMutableString *eventName = nil;
-        NSString *eventType = @"CryptofiNews:";
-       // NSArray *typeComponents = nil;
+        NSString *eventType = @"CryptofiNews>";
         NSMutableString *eventDateStr = nil;
         NSDateFormatter *eventDateFormatter = [[NSDateFormatter alloc] init];
         [eventDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *eventDate = nil;
-        //NSString *timeLabel = nil;
         NSMutableString *eventAddtlInfo = nil;
         NSMutableString *updatedOnDateStr = nil;
         NSDate *updatedOnDate = nil;
         NSString *confidenceStr = @"Confirmed";
-        //BOOL approved = NO;
         NSDate *lastSyncDate = nil;
         NSDate *syncedMinus1Date = nil;
         NSDate *maxFutureYear = nil;
@@ -2769,6 +2770,7 @@ bool eventsUpdated = NO;
         NSInteger daysBetweenSyncDates;
         NSDateComponents *maxFutureDiffComponents = nil;
         NSInteger daysTillMaxFuture;
+        NSArray *formattedVals = nil;
         
         // Process the response that contains the events for the company.
         // Get the response into a parsed object
@@ -2779,64 +2781,58 @@ bool eventsUpdated = NO;
         // Loop through the parsed object to get the various product events and their details
         // Get the list of events first
         NSArray *parsedEvents = [parsedResponse objectForKey:@"values"];
-        int i = 0;
         
         for (NSArray *event in parsedEvents) {
             
-            ++i;
-            // Do nothing for the first array of values as that is the spreadsheet row
-            if (i == 1) {
+            // Get the ticker for the currency for this news. Currently its all BTC
+            // Get the news event raw name e.g. iPhone 7
+            eventName = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:0]];
+            // Construct the formatted event name from raw name and event type e.g. iPhone 7 Launch
+            [eventName replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventName length])];
+            // Extract the formatted name and ticker from the event.
+            formattedVals = [self getFormattedTitleAndTickerFromRawTitle:eventName];
+            eventName = [formattedVals objectAtIndex:0];
+            parentTicker = [formattedVals objectAtIndex:1];
+            if([self doesTickerExist:parentTicker])  {
+                // Sync only those events that are at least a day older than the last synced date
+                // Get the updated on date for the event
+                updatedOnDateStr = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:2]];
+                [updatedOnDateStr replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [updatedOnDateStr length])];
+                updatedOnDate = [eventDateFormatter dateFromString:updatedOnDateStr];
+                // Get the event date
+                eventDateStr =  [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:2]];
+                [eventDateStr replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventDateStr length])];
+                eventDate = [eventDateFormatter dateFromString:eventDateStr];
+                // Get the last event sync date
+                lastSyncDate = [self setTimeToMidnightLastNightOnDate:[self getEventSyncDate]];
+                // Subract 1 day from it
+                differenceDayComponents.day = -1;
+                syncedMinus1Date = [self setTimeToMidnightLastNightOnDate:[aGregorianCalendar dateByAddingComponents:differenceDayComponents toDate:lastSyncDate options:0]];
+                differenceYrComponents.year = 5;
+                // Show only events a max of 5 years from now on out. Currently using the year 2030 to set cancelled events.
+                maxFutureYear = [aGregorianCalendar dateByAddingComponents:differenceYrComponents toDate:todaysDate options:0];
                 
-            }
-            // Save each news item
-            else
-            {
-                // Get the ticker for the currency for this news. Currently its all BTC
-                parentTicker = @"BTC";
-                // Currently everything is BTC
-                if([self doesTickerExist:parentTicker])  {
-                    // Sync only those events that are at least a day older than the last synced date
-                    // Get the updated on date for the event
-                    updatedOnDateStr = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:2]];
-                    [updatedOnDateStr replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [updatedOnDateStr length])];
-                    updatedOnDate = [eventDateFormatter dateFromString:updatedOnDateStr];
-                    // Get the event date
-                    eventDateStr =  [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:2]];
-                    [eventDateStr replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventDateStr length])];
-                    eventDate = [eventDateFormatter dateFromString:eventDateStr];
-                    // Get the last event sync date
-                    lastSyncDate = [self setTimeToMidnightLastNightOnDate:[self getEventSyncDate]];
-                    // Subract 1 day from it
-                    differenceDayComponents.day = -1;
-                    syncedMinus1Date = [self setTimeToMidnightLastNightOnDate:[aGregorianCalendar dateByAddingComponents:differenceDayComponents toDate:lastSyncDate options:0]];
-                    differenceYrComponents.year = 5;
-                    // Show only events a max of 5 years from now on out. Currently using the year 2030 to set cancelled events.
-                    maxFutureYear = [aGregorianCalendar dateByAddingComponents:differenceYrComponents toDate:todaysDate options:0];
+                syncDateDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:syncedMinus1Date toDate:updatedOnDate options:0];
+                daysBetweenSyncDates = [syncDateDiffComponents day];
+                maxFutureDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:eventDate toDate:maxFutureYear options:0];
+                daysTillMaxFuture = [maxFutureDiffComponents day];
+                
+                // If event has been added/updated since a day before the latest sync and is within the next 5 years, resync it.
+                if(((int)daysBetweenSyncDates >= 0) && ((int)daysTillMaxFuture > 0)) {
                     
-                    syncDateDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:syncedMinus1Date toDate:updatedOnDate options:0];
-                    daysBetweenSyncDates = [syncDateDiffComponents day];
-                    maxFutureDiffComponents = [aGregorianCalendar components:NSCalendarUnitDay fromDate:eventDate toDate:maxFutureYear options:0];
-                    daysTillMaxFuture = [maxFutureDiffComponents day];
-                    
-                    // If event has been added/updated since a day before the latest sync and is within the next 5 years, resync it.
-                    if(((int)daysBetweenSyncDates >= 0) && ((int)daysTillMaxFuture > 0)) {
-                        // Get the news event raw name e.g. iPhone 7
-                        eventName = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:0]];
-                        // Construct the formatted event name from raw name and event type e.g. iPhone 7 Launch
-                        [eventName replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventName length])];
-                        eventType = [eventType stringByAppendingString:eventName];
-                        // TO DO: Delete Later
-                        NSLog(@"The news formatted title is: %@", eventType);
-                        eventAddtlInfo = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:1]];
-                        [eventAddtlInfo replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventAddtlInfo length])];
-                        // TO DO: Delete Later
-                        NSLog(@"The More Info Url is: %@", eventAddtlInfo);
-                        // TO DO: Delete Later
-                        NSLog(@"The updated on date formatted as a Date: %@ and event date is: %@",updatedOnDate,eventDate);
-                        // Check if this event is approved or not. Only if approved it will be added to local data store.
-                        // Insert each instance into the events datastore
-                        [self upsertEventWithDate:eventDate relatedDetails:eventAddtlInfo relatedDate:updatedOnDate type:eventType certainty:confidenceStr listedCompany:parentTicker estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
-                    }
+                    eventType = @"CryptofiNews>";
+                    eventType = [eventType stringByAppendingString:eventName];
+                    // TO DO: Delete Later
+                    //NSLog(@"The news formatted title to be entered : %@", eventType);
+                    eventAddtlInfo = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:1]];
+                    [eventAddtlInfo replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventAddtlInfo length])];
+                    // TO DO: Delete Later
+                    //NSLog(@"The More Info Url is: %@", eventAddtlInfo);
+                    // TO DO: Delete Later
+                    //NSLog(@"The updated on date formatted as a Date: %@ and event date is: %@",updatedOnDate,eventDate);
+                    // Check if this event is approved or not. Only if approved it will be added to local data store.
+                    // Insert each instance into the events datastore
+                    [self upsertEventWithDate:eventDate relatedDetails:eventAddtlInfo relatedDate:updatedOnDate type:eventType certainty:confidenceStr listedCompany:parentTicker estimatedEps:nil priorEndDate:nil actualEpsPrior:nil];
                 }
             }
         }
@@ -5433,6 +5429,33 @@ bool eventsUpdated = NO;
     returnDate = [aGregorianCalendar dateByAddingComponents:differenceDayComponents toDate:returnDate options:0];
     
     return returnDate;
+}
+
+// Check if the ticker other than a normal ticker e.g. for economic event
+- (NSArray *)getFormattedTitleAndTickerFromRawTitle:(NSString *)titleToFormat
+{
+    NSMutableArray *infoArray = [NSMutableArray arrayWithCapacity:2];
+    
+    // For the automatic events default iss BTC and the title is already formatted
+    NSString *formattedTitle = [titleToFormat stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *newsTicker = @"BTC";
+    
+    NSArray *typeComponents = nil;
+    
+    // For semi automatic events
+    if ([formattedTitle containsString:@"CryptofiNews>"]) {
+        
+        typeComponents = [formattedTitle componentsSeparatedByString:@">"];
+        formattedTitle = [(NSString *)[typeComponents objectAtIndex:2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        newsTicker = [(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    
+    // TO DO: Delete Later
+    NSLog(@"The news event formatted title is:%@ and formatted TICKER is:%@", formattedTitle, newsTicker);
+    
+    [infoArray insertObject:formattedTitle atIndex:0];
+    [infoArray insertObject:newsTicker atIndex:1];
+    return infoArray;
 }
 
 @end
