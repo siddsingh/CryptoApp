@@ -396,8 +396,6 @@
     // Reset backgrnd and text colors for Ticker and news button to white and dark blackish respectively, in case it's been altered.
     cell.companyTicker.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
     cell.companyTicker.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
-    cell.newsButon.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
-    [cell.newsButon setTitleColor:[self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text] forState:UIControlStateNormal];
     
     // Show the event date in case it's been hidden for news.
     cell.eventDate.hidden = NO;
@@ -407,12 +405,6 @@
     
     // Unhide the company ticker in case it was hidden during a product timeline view
     [[cell  companyTicker] setHidden:NO];
-    
-    // Hide the timeline label in case it was shown in the timeline view
-    cell.timelineLbl.hidden = YES;
-    
-    // Reset color for timeline label, in case it's been set to dark color for current events.
-    cell.timelineLbl.backgroundColor = [UIColor colorWithRed:150.0f/255.0f green:150.0f/255.0f blue:150.0f/255.0f alpha:1.0f];
     
     // Get event or company  to display
     Event *eventAtIndex;
@@ -464,9 +456,6 @@
         [[cell  companyName] setText:companyAtIndex.name];
         // Show the company Name as this information is needed to be displayed to the user when searching
         [[cell companyName] setHidden:NO];
-        // Disable and hide the news button representing the event as this information is not needed when the user searches
-        [[cell newsButon] setEnabled:NO];
-        [[cell newsButon] setHidden:YES];
         
         // Check to see if the Events Main Nav is selected
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
@@ -551,15 +540,6 @@
         [cell.companyTicker addGestureRecognizer:tickerTap];
         cell.companyTicker.tag = indexPath.row;
         
-        // Enable, Show and Set News Button text color
-        [[cell newsButon] setHidden:NO];
-        cell.newsButon.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
-        [cell.newsButon setTitleColor:[self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text] forState:UIControlStateNormal];
-        [[cell newsButon] setEnabled:YES];
-        cell.newsButon.tag = indexPath.row;
-        // Also add the button press action
-        [cell.newsButon addTarget:self action:@selector(newsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        
         // Format the company ticker just like above
         cell.companyTicker.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
         cell.companyTicker.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
@@ -578,12 +558,6 @@
             // Format the ticker and news section with the correct brand colors. Looks hot!
             cell.companyTicker.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
             cell.companyTicker.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
-            cell.newsButon.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
-            [cell.newsButon setTitleColor:[self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text] forState:UIControlStateNormal];
-            // Show the timeline label in case it was hidden
-            cell.timelineLbl.hidden = NO;
-            // Set color for timeline label based on event distance
-            cell.timelineLbl.backgroundColor = [self getColorForDistanceFromEventDate:eventAtIndex.date];
         }
         
         // Set the fetch state of the event cell to false
@@ -593,22 +567,38 @@
         
         // Show the event type. Format it for display. Currently map "Quarterly Earnings" to "Earnings", "Jan Fed Meeting" to "Fed Meeting", "Jan Jobs Report" to "Jobs Report" and so on.
         // TO DO LATER: !!!!!!!!!!IMPORTANT!!!!!!!!!!!!! If you are making a change here, reconcile with prepareForSegue in addition to the methods mentioned above.
-        [[cell  eventDescription] setText:[self formatEventType:eventAtIndex.type]];
-        // Currently not changing the color of the text based on anything.
-        //[cell.eventDescription setTextColor:[self getColorForCellLabelsBasedOnEventType:eventAtIndex.type]];
+        // If News event put the right info in the right place
+        if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
+            // Set the source for attribution
+            [[cell  eventDescription] setText:[self getNewsSource:eventAtIndex]];
+            
+            // Show the news title
+            [[cell eventDate] setText:[self formatEventType:eventAtIndex]];
+            
+            // Show the event distance
+            //[[cell eventDistance] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
+            [[cell eventDistance] setText:@"2h ago"];
+        }
+        // else do the same for non news event
+        else {
+            [[cell  eventDescription] setText:[self formatEventType:eventAtIndex]];
+            // Currently not changing the color of the text based on anything.
+            //[cell.eventDescription setTextColor:[self getColorForCellLabelsBasedOnEventType:eventAtIndex.type]];
+
+            // Show the event date
+            [[cell eventDate] setText:[self formatDateBasedOnEventType:eventAtIndex.type withDate:eventAtIndex.date withRelatedDetails:eventAtIndex.relatedDetails withStatus:eventAtIndex.certainty]];
+            
+            // Set the appropriate event date text color
+            [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
+            
+            // Show the event distance
+            [[cell eventDistance] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
+            
+            // Set event distance to the appropriate color using a reddish scheme.
+            [[cell eventDistance] setTextColor:[self getColorForDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
+        }
         
-        // Show the event date
-        [[cell eventDate] setText:[self formatDateBasedOnEventType:eventAtIndex.type withDate:eventAtIndex.date withRelatedDetails:eventAtIndex.relatedDetails withStatus:eventAtIndex.certainty]];
-        
-        // Set the appropriate event date text color
-        [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
-        
-        // Show the event distance
-        [[cell eventDistance] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
-        
-        // Set event distance to the appropriate color using a reddish scheme.
-        [[cell eventDistance] setTextColor:[self getColorForDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
-        
+        // Further updating/formatting of price change events
         // Add an up or down arrow if price event else set it to show nothing. Also format the string appropriately with colors
         if ([eventAtIndex.type containsString:@"% up"])
         {
@@ -2596,93 +2586,6 @@
     } */
 }
 
-// News Button on cell press
-- (void)newsButtonPressed:(UIButton *)sender
-{
-    // Get the event description corresponding to the pressed button
-    NSIndexPath *tappedIndexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    FAEventsTableViewCell *tappedButtonCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:tappedIndexPath];
-    
-    // Currently just transitioning to the detail view as the shortcut was confusing to users. Uncomment if you need to bring it back.
-    [self performSegueWithIdentifier:@"ShowEventDetails1" sender:tappedButtonCell];
-    
-   /* NSString *formattedEventType = tappedButtonCell.eventDescription.text;
-    NSString *ticker = tappedButtonCell.companyTicker.text;
-    
-    // Open the corresponding News in mobile Safari
-    NSString *moreInfoURL = nil;
-    NSString *searchTerm = nil;
-    NSURL *targetURL = nil;
-    
-    // Send them to different sites with different queries based on which site has the best informtion for that event type
-    
-    // TO DO: If you want to revert to using Bing
-    // Bing News is the default we are going with for now
-    //moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.bing.com/news/search?q="];
-    // searchTerm = [NSString stringWithFormat:@"%@",@"stocks"];
-    
-    // Google news is default for now
-    moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.google.com/m/search?tbm=nws&q="];
-    searchTerm = [NSString stringWithFormat:@"%@",@"stocks"];
-    
-    // For Quarterly Earnings, search query term is ticker and Earnings e.g. BOX earnings
-    if ([formattedEventType isEqualToString:@"Earnings"]) {
-        searchTerm = [NSString stringWithFormat:@"%@ %@",ticker,@"earnings"];
-    }
-    
-    // For Product events, search query term is the product name i.e. iPhone 7 or WWWDC 2016
-    if ([formattedEventType containsString:@"Launch"]) {
-        searchTerm = [formattedEventType stringByReplacingOccurrencesOfString:@" Launch" withString:@""];
-    }
-    // E.g. Naples Epyc Sales Launch becomes Naples Epyc
-    if ([formattedEventType containsString:@"Sales Launch"]) {
-        searchTerm = [formattedEventType stringByReplacingOccurrencesOfString:@" Sales Launch" withString:@""];
-    }
-    // For conference you want to use the raw event type as it contains the word conference and formatted does not
-    if ([[self formatBackToEventType:tappedButtonCell.eventDescription.text withAddedInfo:tappedButtonCell.eventCertainty.text] containsString:@"Conference"]) {
-        searchTerm = [formattedEventType stringByReplacingOccurrencesOfString:@" Conference" withString:@""];
-    }
-    
-    // For economic events, search query term is customized for each type
-    if ([formattedEventType containsString:@"GDP Release"]) {
-        searchTerm = @"us gdp growth";
-    }
-    if ([formattedEventType containsString:@"Consumer Confidence"]) {
-        searchTerm = @"us consumer confidence";
-    }
-    if ([formattedEventType containsString:@"Fed Meeting"]) {
-        searchTerm = @"fomc meeting";
-    }
-    if ([formattedEventType containsString:@"Jobs Report"]) {
-        searchTerm = @"jobs report us";
-    }
-    if ([formattedEventType containsString:@"% up"]||[formattedEventType containsString:@"% down"]) {
-        searchTerm = [NSString stringWithFormat:@"%@ %@",ticker,@"stock"];
-    }
-    
-    // Remove any spaces in the URL query string params
-    searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    moreInfoURL = [moreInfoURL stringByAppendingString:searchTerm];
-    
-    targetURL = [NSURL URLWithString:moreInfoURL];
-    
-    if (targetURL) {
-        
-        // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"See External News Shortcut"
-                      parameters:@{ @"News Source" : @"Google",
-                                    @"Action Query" : searchTerm,
-                                    @"Action URL" : [targetURL absoluteString]} ];
-        
-        SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-        externalInfoVC.delegate = self;
-        // Just use whatever is the default color for the Safari View Controller
-        //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedButtonCell.eventDescription.text withAddedInfo:tappedButtonCell.eventCertainty.text] withCompanyTicker:ticker];
-        [self presentViewController:externalInfoVC animated:YES completion:nil];
-    } */
-}
-
 #pragma mark - Support Related
 
 // Initiate support experience when button is clicked. Currently open http://www.knotifi.com/p/contact.html
@@ -3057,28 +2960,16 @@
 }
 
 // Format the event type for appropriate display. Currently the formatting looks like the following: Quarterly Earnings -> Earnings. Jan Fed Meeting -> Fed Meeting. Jan Jobs Report -> Jobs Report and so on. For product events strip out conference keyword WWDC 2016 Conference -> WWDC 2016
-- (NSString *)formatEventType:(NSString *)rawEventType
+- (NSString *)formatEventType:(Event *)rawEvent
 {
+    NSString *rawEventType = rawEvent.type;
     NSString *formattedEventType = rawEventType;
+    NSArray *typeComponents = nil;
     
-    if ([rawEventType isEqualToString:@"Quarterly Earnings"]) {
-        formattedEventType = @"Earnings";
-    }
-    
-    if ([rawEventType containsString:@"Fed Meeting"]) {
-        formattedEventType = @"Fed Meeting";
-    }
-    
-    if ([rawEventType containsString:@"Jobs Report"]) {
-        formattedEventType = @"Jobs Report";
-    }
-    
-    if ([rawEventType containsString:@"Consumer Confidence"]) {
-        formattedEventType = @"Consumer Confidence";
-    }
-    
-    if ([rawEventType containsString:@"GDP Release"]) {
-        formattedEventType = @"GDP Release";
+    // For news event, strip out the cryptofinews:: from the beginning
+    if ([rawEventType containsString:@"cryptofinews::"]) {
+        typeComponents = [rawEventType componentsSeparatedByString:@"::"];
+        formattedEventType = [typeComponents objectAtIndex:1];
     }
     
     if ([rawEventType containsString:@"Conference"]) {
@@ -3086,6 +2977,35 @@
     }
     
     return formattedEventType;
+}
+
+// Get the event source based on the event type.
+- (NSString *)getNewsSource:(Event *)rawEvent
+{
+    NSString *learnMoreURL = rawEvent.relatedDetails;
+    NSString *newsSrc = @"Other";
+    
+    // For news event, strip out the cryptofinews:: from the beginning
+    if ([learnMoreURL containsString:@"cointelegraph.com"]) {
+        newsSrc = @"Cointelegraph";
+    }
+    else if ([learnMoreURL containsString:@"ccn.com"]){
+        newsSrc = @"CCN";
+    }
+    else if ([learnMoreURL containsString:@"ccn.com"]){
+        newsSrc = @"Bitcoinist";
+    }
+    else if ([learnMoreURL containsString:@"bitcoinwarrior.net"]){
+        newsSrc = @"Bitcoin Warrior";
+    }
+    else if ([learnMoreURL containsString:@"businessinsider.com"]){
+        newsSrc = @"Business Insider";
+    }
+    else {
+        newsSrc = @"Other";
+    }
+    
+    return newsSrc;
 }
 
 // Take the event displayed and format it back to the event type stored in the db. Currently the formatting looks like the following: Earnings -> Quarterly Earnings. Fed Meeting -> Jan Fed Meeting. Jobs Report -> Jan Jobs Report and so on. For product events, only the conference keyword needs to be added back. So WWDC 2016 -> WWDC 2016 Conference. NOTE: When a new product event type other than launch or conference is added, reconcile here as well.
@@ -3159,30 +3079,6 @@
             }
             eventDateString = [NSString stringWithFormat:@"%@ %@ ",eventDateString,eventTimeString];
         }
-    }
-    
-    if ([rawEventType containsString:@"Fed Meeting"]) {
-        
-        eventTimeString = @"2 p.m. ET";
-        eventDateString = [NSString stringWithFormat:@"%@ %@",eventDateString,eventTimeString];
-    }
-    
-    if ([rawEventType containsString:@"Jobs Report"]) {
-        
-        eventTimeString = @"8:30 a.m. ET";
-        eventDateString = [NSString stringWithFormat:@"%@ %@",eventDateString,eventTimeString];
-    }
-    
-    if ([rawEventType containsString:@"Consumer Confidence"]) {
-        
-        eventTimeString = @"10 a.m. ET";
-        eventDateString = [NSString stringWithFormat:@"%@ %@",eventDateString,eventTimeString];
-    }
-    
-    if ([rawEventType containsString:@"GDP Release"]) {
-        
-        eventTimeString = @"8:30 a.m. ET";
-        eventDateString = [NSString stringWithFormat:@"%@ %@",eventDateString,eventTimeString];
     }
     
     if ([rawEventType containsString:@"Launch"]||[rawEventType containsString:@"Conference"]) {

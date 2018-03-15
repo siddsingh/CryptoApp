@@ -2826,8 +2826,9 @@ bool eventsUpdated = NO;
                     //NSLog(@"The news formatted title to be entered : %@", eventType);
                     eventAddtlInfo = [NSMutableString stringWithFormat:@"%@",[event objectAtIndex:1]];
                     [eventAddtlInfo replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [eventAddtlInfo length])];
+                    eventAddtlInfo = (NSMutableString *)[eventAddtlInfo stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     // TO DO: Delete Later
-                    //NSLog(@"The More Info Url is: %@", eventAddtlInfo);
+                    NSLog(@"The More Info Url is:%@END", eventAddtlInfo);
                     // TO DO: Delete Later
                     //NSLog(@"The updated on date formatted as a Date: %@ and event date is: %@",updatedOnDate,eventDate);
                     // Check if this event is approved or not. Only if approved it will be added to local data store.

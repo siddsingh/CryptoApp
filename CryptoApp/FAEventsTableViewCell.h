@@ -18,9 +18,6 @@
 // Label that represents the company name whose event we are showing.
 @property (weak, nonatomic) IBOutlet UILabel *companyName;
 
-// Button to show news
-@property (weak, nonatomic) IBOutlet UIButton *newsButon;
-
 // Label that represents the event description
 @property (weak, nonatomic) IBOutlet UILabel *eventDescription;
 
@@ -38,8 +35,5 @@
 
 // Label representing the event impact.
 @property (weak, nonatomic) IBOutlet UILabel *eventImpact;
-
-// Timeline Label
-@property (weak, nonatomic) IBOutlet UILabel *timelineLbl;
 
 @end
