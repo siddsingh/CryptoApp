@@ -18,9 +18,11 @@
     [super awakeFromNib];
     
     // Set top left and right corners to rounded for ticker label
-    
     self.companyTicker.clipsToBounds = YES;
     self.companyTicker.layer.cornerRadius = 25;
+    // To make sure text is top aligned. Do this in combo with setting number of lines to 0 in the storybuilder
+    //[self.eventDate setNumberOfLines:0];
+    //[self.eventDate sizeToFit];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

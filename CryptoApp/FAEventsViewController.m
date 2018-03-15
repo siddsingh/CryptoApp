@@ -445,11 +445,9 @@
         
         // Show the company ticker associated with the event
         [[cell  companyTicker] setText:companyAtIndex.ticker];
-        // Left align the ticker for visual consistency with this view
-        [[cell  companyTicker] setTextAlignment:NSTextAlignmentLeft];
         
         // Set ticker colors to default black and white
-        cell.companyTicker.backgroundColor = [UIColor whiteColor];
+        cell.companyTicker.backgroundColor = [UIColor lightGrayColor];
         cell.companyTicker.textColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
         
         // Set the company name associated with the event
@@ -525,7 +523,6 @@
         // Set all other fields to empty
         [[cell eventDate] setText:@" "];
         [[cell eventCertainty] setText:@" "];
-        [[cell eventDistance] setText:@" "];
     }
     else {
         
@@ -548,8 +545,6 @@
         [[cell companyName] setHidden:YES];
         // Set the company name associated with the event as this is needed in places like getting the earnings.
         [[cell  companyName] setText:eventAtIndex.listedCompany.name];
-        // Center align the ticker for visual consistency with this view
-        [[cell  companyTicker] setTextAlignment:NSTextAlignmentCenter];
         
         // If the product timeline view is selected, show timeline label
         // Check to see if the Product Main Nav is selected
@@ -574,10 +569,6 @@
             
             // Show the news title
             [[cell eventDate] setText:[self formatEventType:eventAtIndex]];
-            
-            // Show the event distance
-            //[[cell eventDistance] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
-            [[cell eventDistance] setText:@"2h ago"];
         }
         // else do the same for non news event
         else {
@@ -590,12 +581,6 @@
             
             // Set the appropriate event date text color
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
-            
-            // Show the event distance
-            [[cell eventDistance] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
-            
-            // Set event distance to the appropriate color using a reddish scheme.
-            [[cell eventDistance] setTextColor:[self getColorForDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
         }
         
         // Further updating/formatting of price change events
