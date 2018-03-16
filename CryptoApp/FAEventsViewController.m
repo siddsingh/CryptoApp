@@ -393,10 +393,6 @@
     // Make the cell user interaction enabled in case it's been turned off for 52 week events.
     cell.userInteractionEnabled = YES;
     
-    // Reset backgrnd and text colors for Ticker and news button to white and dark blackish respectively, in case it's been altered.
-    cell.companyTicker.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
-    cell.companyTicker.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
-    
     // Show the event date in case it's been hidden for news.
     cell.eventDate.hidden = NO;
     
@@ -445,10 +441,6 @@
         
         // Show the company ticker associated with the event
         [[cell  companyTicker] setText:companyAtIndex.ticker];
-        
-        // Set ticker colors to default black and white
-        cell.companyTicker.backgroundColor = [UIColor lightGrayColor];
-        cell.companyTicker.textColor = [UIColor whiteColor];
         
         // Set the company name associated with the event
         [[cell  companyName] setText:companyAtIndex.name];
@@ -528,8 +520,7 @@
         
         // TO DO LATER: !!!!!!!!!!IMPORTANT!!!!!!!!!!!!!: Any change to the formatting here could affect reminder creation (processReminderForEventInCell:,editActionsForRowAtIndexPath) since the reminder values are taken from the cell. Additionally changes here need to be reconciled with changes in the getEvents for ticker's queued reminder creation. Also reconcile in didSelectRowAtIndexPath.
         
-        // Set the company ticker text and Add a tap gesture recognizer to the event ticker
-        [[cell companyTicker] setText:[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker]];
+        // Add a tap gesture recognizer to the event ticker
         UITapGestureRecognizer *tickerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processTypeIconTap:)];
         tickerTap.cancelsTouchesInView = YES;
         tickerTap.numberOfTapsRequired = 1;
@@ -537,9 +528,6 @@
         [cell.companyTicker addGestureRecognizer:tickerTap];
         cell.companyTicker.tag = indexPath.row;
         
-        // Format the company ticker just like above
-        cell.companyTicker.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
-        cell.companyTicker.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
         
         // Set the company name associated with the event as this is needed in places like getting the earnings.
         [[cell  companyName] setText:eventAtIndex.listedCompany.name];
@@ -551,15 +539,6 @@
         else
         {
             [[cell companyName] setHidden:YES];
-        }
-        
-        // If the product timeline view is selected, show timeline label
-        // Check to see if the Product Main Nav is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:self.mainNavProductOption] == NSOrderedSame) {
-    
-            // Format the ticker and news section with the correct brand colors. Looks hot!
-            cell.companyTicker.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
-            cell.companyTicker.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
         }
         
         // Set the fetch state of the event cell to false
@@ -574,8 +553,15 @@
         // If News event put the right info in the right place
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             
-            // Move the text down for better formatting
-            [cell.topSpaceForEventDesc setConstant:2];
+            // Set the company ticker text
+            [[cell companyTicker] setText:@"1"];
+            // Format the company ticker
+            cell.companyTicker.backgroundColor = [UIColor whiteColor];
+            cell.companyTicker.textColor = [UIColor blackColor];
+            cell.companyTicker.textAlignment = NSTextAlignmentLeft;
+            
+            // Reset top space for title to the default 4
+            [cell.topSpaceForEventDesc setConstant:4];
             
             // Set the source for attribution
             [[cell  eventDescription] setText:[self getNewsSource:eventAtIndex]];
@@ -591,7 +577,25 @@
             [[cell eventCertainty] setText:eventAtIndex.relatedDetails];
         }
         // else do the same for non news event
-        else {
+        else
+        {
+            // Set the company ticker text
+            [[cell companyTicker] setText:[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker]];
+            cell.companyTicker.textAlignment = NSTextAlignmentCenter;
+            
+            // Set the list icon
+            // If you want to use the BTC icons
+            if ([[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker] caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
+                cell.listIconLbl.text = @"";
+                cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCLabel"]];
+            }
+            // or else format it in the coin colors if icon doesn't exist
+            else {
+                [[cell listIconLbl] setText:[[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker] substringToIndex:1]];
+                cell.listIconLbl.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
+                cell.listIconLbl.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
+            }
+            
             [[cell  eventDescription] setText:[self formatEventType:eventAtIndex]];
             // Currently not changing the color of the text based on anything.
             //[cell.eventDescription setTextColor:[self getColorForCellLabelsBasedOnEventType:eventAtIndex.type]];
@@ -612,7 +616,7 @@
         if ([eventAtIndex.type containsString:@"% up"])
         {
             // Move the text down for better formatting
-            [cell.topSpaceForEventDesc setConstant:18];
+            [cell.topSpaceForEventDesc setConstant:19];
             
             // The green is one pixel bigger than the red for better contrast.
             [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:18]];
@@ -645,7 +649,7 @@
         else if ([eventAtIndex.type containsString:@"% down"])
         {
             // Move the text down for better formatting
-            [cell.topSpaceForEventDesc setConstant:18];
+            [cell.topSpaceForEventDesc setConstant:19];
             
             [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:17]];
             [cell.eventImpact setText:@"▼"];
@@ -3687,296 +3691,5 @@
         [refreshTblControl endRefreshing];
     }
 }
-
-/*
-#pragma mark - Code to use later
- 
-// Set bright colors randomly if needed in the future
- 
- // Set the company ticker and name labels to one of 8 colors randomly
- int randomColor = arc4random_uniform(8);
- 
- // Purple
- if (randomColor == 0) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:175.0f/255.0f green:94.0f/255.0f blue:156.0f/255.0f alpha:1.0f];
- }
- 
- // Orangish Pink
- if (randomColor == 1) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:233.0f/255.0f green:141.0f/255.0f blue:112.0f/255.0f alpha:1.0f];
- }
- 
- // Bright Blue
- if (randomColor == 2) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:35.0f/255.0f green:127.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
- }
- 
- // Bright Pink
- if (randomColor == 3) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:224.0f/255.0f green:46.0f/255.0f blue:134.0f/255.0f alpha:1.0f];
- }
- 
- // Light Purple
- if (randomColor == 4) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:123.0f/255.0f green:79.0f/255.0f blue:166.0f/255.0f alpha:1.0f];
- }
- 
- // Carrotish Orange
- if (randomColor == 5) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:222.0f/255.0f green:105.0f/255.0f blue:38.0f/255.0f alpha:1.0f];
- }
- 
- // Yellow
- if (randomColor == 6) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:236.0f/255.0f green:186.0f/255.0f blue:38.0f/255.0f alpha:1.0f];
- }
- 
- // Another Blue
- if (randomColor == 7) {
- 
- cell.companyTicker.backgroundColor = [UIColor colorWithRed:40.0f/255.0f green:114.0f/255.0f blue:81.0f/255.0f alpha:1.0f];
- }
- 
- // Reuse when displaying today's date. Also change the hidden state of the section header bar.
- // Make sure the section header bar is visible
- self.headerBar.alpha = 1.0;
- // Fade out the header bar message
- [UIView animateWithDuration:20 animations:^{
- self.headerBar.alpha = 0;
- }];
- 
- // Bring in the App Icon
- [UIView animateWithDuration:20 delay:14 options:UIViewAnimationOptionBeginFromCurrentState animations:^{self.appIconBar.alpha = 1.0;} completion:^(BOOL finished){}]; 
-
- // Make Sure the table row, if it should be, is editable
- // TO DO: Check to see that the row has event information. Only then, make it editable
- // TO DO: Move to unused once reminder creation is ported to details screen.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- return YES;
- }
-
-// TO DO: Understand this method better. Basically need this to be able to use the custom UITableViewRowAction
-// TO DO: Move to unused once reminder creation is ported to details screen.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- }
-
-// TO DO: Move to unused once reminder creation is ported to details screen.
-// Add the following actions on swiping each event row: 1) "Set Reminder" if reminder hasn't already been created, else
-// display a message that reminder has aleady been set.
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- // Get the cell for the row on which the action is being exercised
- FAEventsTableViewCell *cell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:indexPath];
- 
- // NOTE: Formatting Event Type to be "Quarterly Earnings" based on "Quarterly" that comes from the UI.
- // If the formatting changes, it needs to be changed here to accomodate as well.
- NSString *cellEventType = [NSString stringWithFormat:@"%@ Earnings", cell.eventDescription.text];
- 
- UITableViewRowAction *setReminderAction;
- 
- // Check to see if a reminder action has already been created for the event represented by the cell.
- // If yes, show a appropriately formatted status action.
- if ([self.primaryDataController doesReminderActionExistForEventWithTicker:cell.companyTicker.text eventType:cellEventType])
- {
- // Create the "Reimder Already Set" Action and handle it being exercised.
- setReminderAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Reminder Set" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
- 
- // Slide the row back over the action.
- // TO DO: See if you can animate the slide back.
- [self.eventsListTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
- 
- // Let the user know a reminder is already set for this ticker.
- [self sendUserMessageCreatedNotificationWithMessage:@"Already set to be reminded of this event a day before."];
- }];
- 
- // Format the Action UI to be the correct color and everything
- setReminderAction.backgroundColor = [UIColor grayColor];
- }
- // If not, create the set reminder action
- else
- {
- // Create the "Set Reminder" Action and handle it being exercised.
- setReminderAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Set Reminder" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
- 
- // Get the cell for the row on which the action is being exercised
- FAEventsTableViewCell *cell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:indexPath];
- NSLog(@"Clicked the Set Reminder Action with ticker %@",cell.companyTicker.text);
- 
- // Present the user with an access request to their reminders if it's not already been done. Once that is done or access is already provided, create the reminder.
- // TO DO: Decide if you want to close the slid out action, before the user has provided
- // access. Currently it's weird where the action closes and then the access popup is shown.
- [self requestAccessToUserEventStoreAndProcessReminderFromCell:cell];
- 
- // Slide the row back over the action.
- // TO DO: See if you can animate the slide back.
- [self.eventsListTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
- }];
- 
- // Format the Action UI to be the correct color and everything
- setReminderAction.backgroundColor = [UIColor colorWithRed:35.0f/255.0f green:127.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
- }
- 
- return @[setReminderAction];
- }
- 
- // TO DO: Move to unused once reminder creation is ported to details screen.
-  #pragma mark - Calendar and Event Related
- 
- // Set the getter for the user event store property so that only one event store object gets created
- - (EKEventStore *)userEventStore {
- if (!_userEventStore) {
- _userEventStore = [[EKEventStore alloc] init];
- }
- return _userEventStore;
- }
- 
- // Present the user with an access request to their reminders if it's not already been done. Once that is done
- // or access is already provided, create the reminder.
- // TO DO: Change the name FinApp to whatever the real name will be.
- - (void)requestAccessToUserEventStoreAndProcessReminderFromCell:(FAEventsTableViewCell *)eventCell {
- 
- // Get the current access status to the user's event store for event type reminder.
- EKAuthorizationStatus accessStatus = [EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder];
- 
- // Depending on the current access status, choose what to do. Idea is to request access from a user
- // only if he hasn't granted it before.
- switch (accessStatus) {
- 
- // If the user hasn't provided access, show an appropriate error message.
- case EKAuthorizationStatusDenied:
- case EKAuthorizationStatusRestricted: {
- NSLog(@"Authorization Status for Reminders is Denied or Restricted");
- [self sendUserMessageCreatedNotificationWithMessage:@"Enable Reminders under Settings>Knotifi and try again!"];
- break;
- }
- 
- // If the user has already provided access, create the reminder.
- case EKAuthorizationStatusAuthorized: {
- NSLog(@"Authorization Status for Reminders is Provided. About to create the reminder");
- [self processReminderForEventInCell:eventCell withDataController:self.primaryDataController];
- break;
- }
- 
- // If the app hasn't requested access or the user hasn't decided yet, present the user with the
- // authorization dialog. If the user approves create the reminder. If user rejects, show error message.
- case EKAuthorizationStatusNotDetermined: {
- 
- // create a weak reference to the controller, since you want to create the reminder, in
- // a non main thread where the authorization dialog is presented.
- __weak FAEventsViewController *weakPtrToSelf = self;
- [self.userEventStore requestAccessToEntityType:EKEntityTypeReminder
- completion:^(BOOL grantedByUser, NSError *error) {
- dispatch_async(dispatch_get_main_queue(), ^{
- if (grantedByUser) {
- NSLog(@"Authorization Status for Reminders was enabled by user. About to create the reminder");
- // Create a new Data Controller so that this thread has it's own MOC
- FADataController *afterAccessDataController = [[FADataController alloc] init];
- [weakPtrToSelf processReminderForEventInCell:eventCell withDataController:afterAccessDataController];
- } else {
- NSLog(@"Authorization Status for Reminderswas rejected by user.");
- [weakPtrToSelf sendUserMessageCreatedNotificationWithMessage:@"Enable Reminders under Settings>Knotifi and try again!"];
- }
- });
- }];
- break;
- }
- }
- }
- 
- // Process the "Remind Me" action for the event represented by the cell on which the action was taken. If the event is confirmed, create the reminder immediately and make an appropriate entry in the Action data store. If it's estimated, then don't create the reminder, only make an appropriate entry in the action data store for later processing.
- - (void)processReminderForEventInCell:(FAEventsTableViewCell *)eventCell withDataController:(FADataController *)appropriateDataController {
- 
- // NOTE: Formatting Event Type to be "Quarterly Earnings" based on "Quarterly" that comes from the UI.
- // If the formatting changes, it needs to be changed here to accomodate as well.
- NSString *cellEventType = [NSString stringWithFormat:@"%@ Earnings", eventCell.eventDescription.text];
- NSString *cellCompanyTicker = eventCell.companyTicker.text;
- NSString *cellEventDateText = eventCell.eventDate.text;
- NSString *cellEventCertainty = eventCell.eventCertainty.text;
- 
- NSLog(@"Event Cell type is:%@ Ticker is:%@ DateText is:%@ and Certainty is:%@", cellEventType, cellCompanyTicker, cellEventDateText, cellEventCertainty);
- 
- // Check to see if the event represented by the cell is estimated or confirmed ?
- // If confirmed create and save to action data store
- if ([eventCell.eventCertainty.text isEqualToString:@"Confirmed"]) {
- 
- NSLog(@"About to create a reminder, since this event is confirmed");
- 
- // Create the reminder and show user the appropriate message
- BOOL success = [self createReminderForEventOfType:cellEventType withTicker:cellCompanyTicker dateText:cellEventDateText andDataController:appropriateDataController];
- if (success) {
- NSLog(@"Successfully created the reminder");
- [self sendUserMessageCreatedNotificationWithMessage:@"All Set! You'll be reminded of this event a day before."];
- // Add action to the action data store with status created
- [appropriateDataController insertActionOfType:@"OSReminder" status:@"Created" eventTicker:cellCompanyTicker eventType:cellEventType];
- } else {
- NSLog(@"Actual Reminder Creation failed");
- [self sendUserMessageCreatedNotificationWithMessage:@"Oops! Unable to create a reminder for this event."];
- }
- }
- // If estimated add to action data store for later processing
- else if ([eventCell.eventCertainty.text isEqualToString:@"Estimated"]) {
- 
- NSLog(@"About to queue a reminder for later creation, since this event is not confirmed");
- 
- // Make an appropriate entry for this action in the action data store for later processing. The action type is: "OSReminder" and status is: "Queued" - meaning the reminder is queued to be created and will be once the actual date for the event is confirmed.
- [appropriateDataController insertActionOfType:@"OSReminder" status:@"Queued" eventTicker:cellCompanyTicker eventType:cellEventType];
- [self sendUserMessageCreatedNotificationWithMessage:@"All Set! You'll be reminded of this event a day before."];
- }
- }
- 
- // Actually create the reminder in the user's default calendar and return success or failure depending on the outcome.
- - (BOOL)createReminderForEventOfType:(NSString *)eventType withTicker:(NSString *)companyTicker dateText:(NSString *)eventDateText andDataController:(FADataController *)reminderDataController  {
- 
- BOOL creationSuccess = NO;
- 
- // Set title of the reminder to the reminder text.
- EKReminder *eventReminder = [EKReminder reminderWithEventStore:self.userEventStore];
- NSString *reminderText = [NSString stringWithFormat:@"%@ %@ tomorrow %@", companyTicker,eventType,eventDateText];
- eventReminder.title = reminderText;
- NSLog(@"The Reminder title is: %@",reminderText);
- 
- // For now, create the reminder in the default calendar for new reminders as specified in settings
- eventReminder.calendar = [self.userEventStore defaultCalendarForNewReminders];
- 
- // Get the date for the event represented by the cell
- NSDate *eventDate = [reminderDataController getDateForEventOfType:eventType eventTicker:companyTicker];
- 
- // Subtract a day as we want to remind the user a day prior and then set the reminder time to noon of the previous day
- // and set reminder due date to that.
- NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
- NSDateComponents *differenceDayComponents = [[NSDateComponents alloc] init];
- differenceDayComponents.day = -1;
- NSDate *reminderDateTime = [aGregorianCalendar dateByAddingComponents:differenceDayComponents toDate:eventDate options:0];
- NSUInteger unitFlags = NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
- NSDateComponents *reminderDateTimeComponents = [aGregorianCalendar components:unitFlags fromDate:reminderDateTime];
- reminderDateTimeComponents.hour = 12;
- reminderDateTimeComponents.minute = 0;
- reminderDateTimeComponents.second = 0;
- eventReminder.dueDateComponents = reminderDateTimeComponents;
- // Additionally add an alarm for the same time as due date/time so that the reminder actually pops up.
- NSDate *alarmDateTime = [aGregorianCalendar dateFromComponents:reminderDateTimeComponents];
- [eventReminder addAlarm:[EKAlarm alarmWithAbsoluteDate:alarmDateTime]];
- 
- // TO DO: For debugging. Delete later.
- NSDateFormatter *eventDateFormatter = [[NSDateFormatter alloc] init];
- [eventDateFormatter setDateFormat:@"yyyy-MM-dd 'at' HH:mm:ss"];
- NSString *eventDueDateDebugString = [eventDateFormatter stringFromDate:alarmDateTime];
- NSLog(@"Event Reminder Date Time is:%@",eventDueDateDebugString);
- 
- // Save the Reminder and return success or failure
- NSError *error = nil;
- creationSuccess = [self.userEventStore saveReminder:eventReminder commit:YES error:&error];
- 
- return creationSuccess;
- } */
 
 @end
