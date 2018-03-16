@@ -33,4 +33,7 @@
 // Label representing the event impact.
 @property (weak, nonatomic) IBOutlet UILabel *eventImpact;
 
+// Layout constraint specifying top space from Event description to container. Set to 2 in IB.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceForEventDesc;
+
 @end

@@ -448,7 +448,7 @@
         
         // Set ticker colors to default black and white
         cell.companyTicker.backgroundColor = [UIColor lightGrayColor];
-        cell.companyTicker.textColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+        cell.companyTicker.textColor = [UIColor whiteColor];
         
         // Set the company name associated with the event
         [[cell  companyName] setText:companyAtIndex.name];
@@ -541,10 +541,17 @@
         cell.companyTicker.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
         cell.companyTicker.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
         
-        // Hide the company Name as this information is not needed to be displayed to the user.
-        [[cell companyName] setHidden:YES];
         // Set the company name associated with the event as this is needed in places like getting the earnings.
         [[cell  companyName] setText:eventAtIndex.listedCompany.name];
+        
+        // If the filter type is Match_Companies_Events, meaning a search is in progress, show coin name else hide it
+        if ([self.filterType isEqualToString:@"Match_Companies_Events"]) {
+            [[cell companyName] setHidden:NO];
+        }
+        else
+        {
+            [[cell companyName] setHidden:YES];
+        }
         
         // If the product timeline view is selected, show timeline label
         // Check to see if the Product Main Nav is selected
@@ -559,16 +566,29 @@
         // TO DO: Should you really be holding logic state at the cell level or should there
         // be a unique identifier for each event ?
         cell.eventRemoteFetch = NO;
+        // Hide the event certainty as this information is not needed to be displayed to the user.
+        [[cell eventCertainty] setHidden:YES];
         
         // Show the event type. Format it for display. Currently map "Quarterly Earnings" to "Earnings", "Jan Fed Meeting" to "Fed Meeting", "Jan Jobs Report" to "Jobs Report" and so on.
         // TO DO LATER: !!!!!!!!!!IMPORTANT!!!!!!!!!!!!! If you are making a change here, reconcile with prepareForSegue in addition to the methods mentioned above.
         // If News event put the right info in the right place
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
+            
+            // Move the text down for better formatting
+            [cell.topSpaceForEventDesc setConstant:2];
+            
             // Set the source for attribution
             [[cell  eventDescription] setText:[self getNewsSource:eventAtIndex]];
             
             // Show the news title
             [[cell eventDate] setText:[self formatEventType:eventAtIndex]];
+            
+            // Set the date of the article to the eventImpact. Set here but formatting is done later after the price if statements
+            [[cell eventImpact] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
+            
+            // Set event certainty though since it's needed by reminder creation.
+            // For news type events, using this field to store the URL as need access to this on click
+            [[cell eventCertainty] setText:eventAtIndex.relatedDetails];
         }
         // else do the same for non news event
         else {
@@ -581,12 +601,19 @@
             
             // Set the appropriate event date text color
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
+            
+            // Set event certainty though since it's needed by reminder creation.
+            // For news type events, using this field to store the URL as need access to this on click
+            [[cell eventCertainty] setText:eventAtIndex.certainty];
         }
         
         // Further updating/formatting of price change events
         // Add an up or down arrow if price event else set it to show nothing. Also format the string appropriately with colors
         if ([eventAtIndex.type containsString:@"% up"])
         {
+            // Move the text down for better formatting
+            [cell.topSpaceForEventDesc setConstant:18];
+            
             // The green is one pixel bigger than the red for better contrast.
             [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:18]];
             [cell.eventImpact setText:@"▲"];
@@ -600,7 +627,7 @@
                                                  };
             NSMutableAttributedString *formattedTxt = [[NSMutableAttributedString alloc] initWithString:cell.eventDescription.text attributes:greenTxtAttributes];
             UIColor *defaultDarkColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
-            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"up today" options:NSCaseInsensitiveSearch];
+            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"today" options:NSCaseInsensitiveSearch];
             [formattedTxt setAttributes:@{NSForegroundColorAttributeName:defaultDarkColor, NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:upDownTxtRange];
             
             NSRange percentSignRange = [cell.eventDescription.text rangeOfString:@"%" options:NSCaseInsensitiveSearch];
@@ -617,6 +644,9 @@
         }
         else if ([eventAtIndex.type containsString:@"% down"])
         {
+            // Move the text down for better formatting
+            [cell.topSpaceForEventDesc setConstant:18];
+            
             [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:17]];
             [cell.eventImpact setText:@"▼"];
             // Crypto Down Red
@@ -629,7 +659,7 @@
                                                  };
             NSMutableAttributedString *formattedTxt = [[NSMutableAttributedString alloc] initWithString:cell.eventDescription.text attributes:redTxtAttributes];
             UIColor *defaultDarkColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
-            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"down today" options:NSCaseInsensitiveSearch];
+            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"today" options:NSCaseInsensitiveSearch];
             [formattedTxt setAttributes:@{NSForegroundColorAttributeName:defaultDarkColor, NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:upDownTxtRange];
             
             NSRange percentSignRange = [cell.eventDescription.text rangeOfString:@"%" options:NSCaseInsensitiveSearch];
@@ -644,6 +674,10 @@
             // Set event description text to formatted string
             [cell.eventDescription setAttributedText:formattedTxt];
         }
+        else if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
+            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:10]];
+            [cell.eventImpact setTextColor:[UIColor lightGrayColor]];
+        }
         // Else show High Impact Label if needed. Taking this out currently to not self design a proper symbol later.
         else if ([self.dataSnapShot isEventHighImpact:eventAtIndex.type eventParent:eventAtIndex.listedCompany.ticker]) {
             [cell.eventImpact setFont:[UIFont systemFontOfSize:12]];
@@ -657,11 +691,6 @@
             // White color same as cell
             [cell.eventImpact setTextColor:[UIColor whiteColor]];
         }
-        
-        // Hide the event certainty as this information is not needed to be displayed to the user.
-        [[cell eventCertainty] setHidden:YES];
-        // Set event certainty though since it's needed by reminder creation.
-        [[cell eventCertainty] setText:eventAtIndex.certainty];
     }
     
     return cell;
@@ -730,10 +759,36 @@
     else {
         
         // Get Details to pass off to detailed view.
-        NSIndexPath *selectedRowIndexPath = [self.eventsListTable indexPathForSelectedRow];
-        FAEventsTableViewCell *selectedCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:selectedRowIndexPath];
+       /* NSIndexPath *selectedRowIndexPath = [self.eventsListTable indexPathForSelectedRow];
+        FAEventsTableViewCell *selectedCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:selectedRowIndexPath]; */
+       
         
-        [self performSegueWithIdentifier:@"ShowEventDetails1" sender:selectedCell];
+        // If price change event
+        if ([cell.eventDescription.text containsString:@"% today"])
+        {
+          [self performSegueWithIdentifier:@"ShowEventDetails1" sender:cell];
+        }
+        // Else it's a news event
+        else
+        {
+            NSURL *targetURL = [NSURL URLWithString:cell.eventCertainty.text];
+            
+            if (targetURL) {
+                
+                // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
+                // TO DO: Disabling to not track development events. Enable before shipping.
+                [FBSDKAppEvents logEvent:@"See External News Article"
+                              parameters:@{ @"News Source" : cell.eventDescription.text,
+                                            @"News Title" : cell.eventDate.text,
+                                            @"External URL" : [targetURL absoluteString]} ];
+                
+                SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                externalInfoVC.delegate = self;
+                // Just use whatever is the default color for the Safari View Controller
+                //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] withCompanyTicker:ticker];
+                [self presentViewController:externalInfoVC animated:YES completion:nil];
+            }
+        }
     }
     
     // If search bar is in edit mode but the user has not entered any character to search (i.e. a search filter has not been applied), clear out of the search context when a user clicks on a row
@@ -2492,83 +2547,33 @@
     NSIndexPath *tappedIndexPath = [NSIndexPath indexPathForRow:eventIcon.tag inSection:0];
     FAEventsTableViewCell *tappedIconCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:tappedIndexPath];
     
-    // Currently just transitioning to the detail view as the shortcut was confusing to users. Uncomment if you need to bring it back.
-    [self performSegueWithIdentifier:@"ShowEventDetails1" sender:tappedIconCell];
-    
-   /* NSString *formattedEventType = tappedIconCell.eventDescription.text;
-    NSString *ticker = tappedIconCell.companyTicker.text;
-    
-    // Open the corresponding News in mobile Safari
-    NSString *moreInfoURL = nil;
-    NSString *searchTerm = nil;
-    NSURL *targetURL = nil;
-    
-    // Send them to different sites with different queries based on which site has the best informtion for that event type
-    
-    // TO DO: If you want to revert to using Bing
-    // Bing News is the default we are going with for now
-    //moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.bing.com/news/search?q="];
-    // searchTerm = [NSString stringWithFormat:@"%@",@"stocks"];
-    
-    // Google news is default for now
-    moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.google.com/m/search?tbm=nws&q="];
-    searchTerm = [NSString stringWithFormat:@"%@",@"stocks"];
-    
-    // For Quarterly Earnings, search query term is ticker and Earnings e.g. BOX earnings
-    if ([formattedEventType isEqualToString:@"Earnings"]) {
-        searchTerm = [NSString stringWithFormat:@"%@ %@",ticker,@"earnings"];
+    // If price change event
+    if ([tappedIconCell.eventDescription.text containsString:@"% today"])
+    {
+        // Currently just transitioning to the detail view as the shortcut was confusing to users. Uncomment if you need to bring it back.
+        [self performSegueWithIdentifier:@"ShowEventDetails1" sender:tappedIconCell];
     }
-    
-    // For Product events, search query term is the product name i.e. iPhone 7 or WWWDC 2016
-    if ([formattedEventType containsString:@"Launch"]) {
-        searchTerm = [formattedEventType stringByReplacingOccurrencesOfString:@" Launch" withString:@""];
-    }
-    // E.g. Naples Epyc Sales Launch becomes Naples Epyc
-    if ([formattedEventType containsString:@"Sales Launch"]) {
-        searchTerm = [formattedEventType stringByReplacingOccurrencesOfString:@" Sales Launch" withString:@""];
-    }
-    // For conference you want to use the raw event type as it contains the word conference and formatted does not
-    if ([[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] containsString:@"Conference"]) {
-        searchTerm = [formattedEventType stringByReplacingOccurrencesOfString:@" Conference" withString:@""];
-    }
-    // For economic events, search query term is customized for each type
-    if ([formattedEventType containsString:@"GDP Release"]) {
-        searchTerm = @"us gdp growth";
-    }
-    if ([formattedEventType containsString:@"Consumer Confidence"]) {
-        searchTerm = @"us consumer confidence";
-    }
-    if ([formattedEventType containsString:@"Fed Meeting"]) {
-        searchTerm = @"fomc meeting";
-    }
-    if ([formattedEventType containsString:@"Jobs Report"]) {
-        searchTerm = @"jobs report us";
-    }
-    if ([formattedEventType containsString:@"% up"]||[formattedEventType containsString:@"% down"]) {
-        searchTerm = [NSString stringWithFormat:@"%@ %@",ticker,@"stock"];
-    }
-    
-    // Remove any spaces in the URL query string params
-    searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    moreInfoURL = [moreInfoURL stringByAppendingString:searchTerm];
-    
-    targetURL = [NSURL URLWithString:moreInfoURL];
-    
-    if (targetURL) {
+    // Else it's a news event
+    else
+    {
+        NSURL *targetURL = [NSURL URLWithString:tappedIconCell.eventCertainty.text];
         
-        // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"See External News Shortcut"
-                      parameters:@{ @"News Source" : @"Google",
-                                    @"Action Query" : searchTerm,
-                                    @"Action URL" : [targetURL absoluteString]} ];
-        
-        SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-        externalInfoVC.delegate = self;
-        // Just use whatever is the default color for the Safari View Controller
-        //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] withCompanyTicker:ticker];
-        [self presentViewController:externalInfoVC animated:YES completion:nil];
-    } */
+        if (targetURL) {
+            
+            // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
+            // TO DO: Disabling to not track development events. Enable before shipping.
+            [FBSDKAppEvents logEvent:@"See External News Article"
+                          parameters:@{ @"News Source" : tappedIconCell.eventDescription.text,
+                                        @"News Title" : tappedIconCell.eventDate.text,
+                                        @"External URL" : [targetURL absoluteString]} ];
+            
+            SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+            externalInfoVC.delegate = self;
+            // Just use whatever is the default color for the Safari View Controller
+            //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] withCompanyTicker:ticker];
+            [self presentViewController:externalInfoVC animated:YES completion:nil];
+        }
+    }
 }
 
 #pragma mark - Support Related
@@ -2949,15 +2954,26 @@
 {
     NSString *rawEventType = rawEvent.type;
     NSString *formattedEventType = rawEventType;
+    NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@",formattedEventType];
     NSArray *typeComponents = nil;
     
+    // For price events strip out the up and down
+    if ([rawEventType containsString:@"% up"])
+    {
+        [tempString replaceOccurrencesOfString:@"% up" withString:@"%" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
+        formattedEventType = (NSString *)tempString;
+    }
+    else if ([rawEventType containsString:@"% down"])
+    {
+        [tempString replaceOccurrencesOfString:@"% down" withString:@"%" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
+        formattedEventType = (NSString *)tempString;
+    }
     // For news event, strip out the cryptofinews:: from the beginning
-    if ([rawEventType containsString:@"cryptofinews::"]) {
+    else if ([rawEventType containsString:@"cryptofinews::"]) {
         typeComponents = [rawEventType componentsSeparatedByString:@"::"];
         formattedEventType = [typeComponents objectAtIndex:1];
     }
-    
-    if ([rawEventType containsString:@"Conference"]) {
+    else if ([rawEventType containsString:@"Conference"]) {
         formattedEventType = [rawEventType stringByReplacingOccurrencesOfString:@" Conference" withString:@""];
     }
     
@@ -2997,8 +3013,20 @@
 - (NSString *)formatBackToEventType:(NSString *)rawEventType withAddedInfo:(NSString *)addtlInfo
 {
     NSString *formattedEventType = rawEventType;
+    NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@",formattedEventType];
     
-    if ([rawEventType isEqualToString:@"Earnings"]) {
+    // For price events strip out the up and dow
+    if (([rawEventType containsString:@"%"])&&([rawEventType containsString:@"+"]))
+    {
+        [tempString replaceOccurrencesOfString:@"%" withString:@"% up" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
+        formattedEventType = (NSString *)tempString;
+    }
+    else if (([rawEventType containsString:@"%"])&&([rawEventType containsString:@"-"]))
+    {
+        [tempString replaceOccurrencesOfString:@"%" withString:@"% down" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
+        formattedEventType = (NSString *)tempString;
+    }
+    else if ([rawEventType isEqualToString:@"Earnings"]) {
         formattedEventType = @"Quarterly Earnings";
     } else if (([addtlInfo isEqualToString:@"Confirmed"]||[addtlInfo isEqualToString:@"Estimated"])&&(![rawEventType containsString:@"Launch"])){
         formattedEventType = [NSString stringWithFormat:@"%@ %@",rawEventType,@"Conference"];
@@ -3130,19 +3158,19 @@
     }
     else {
         if ((difference < 0)&&(difference > -2)) {
-            formattedDistance = @"Yesterday ";
+            formattedDistance = @"1d ago >";
         } else if ((difference <= -2)&&(difference > -4)) {
-            formattedDistance = @"Day Before ";
+            formattedDistance = @"2d ago >";
         } else if ((difference <= -4)&&(difference > -31)) {
-            formattedDistance = [NSString stringWithFormat:@"%@d ago ",[@(ABS(difference)) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@d ago >",[@(ABS(difference)) stringValue]];
         } else if ((difference <= -31)&&(difference > -366)) {
-            formattedDistance = [NSString stringWithFormat:@"%@mos ago ",[@(ABS(difference/30)) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@m ago >",[@(ABS(difference/30)) stringValue]];
         } else if (difference <= -366) {
-            formattedDistance = @"Over 1yr ago ";
+            formattedDistance = @">1y ago >";
         } else if (difference == 0) {
-            formattedDistance = @"Today ";
+            formattedDistance = @"Today >";
         } else if (difference == 1) {
-            formattedDistance = @"Tomorrow ";
+            formattedDistance = @"Tomorrow >";
         } else if ((difference > 1)&&(difference < 31)) {
             formattedDistance = [NSString stringWithFormat:@"In %@d ",[@(difference) stringValue]];
         } else if ((difference >= 31)&&(difference < 366)) {
