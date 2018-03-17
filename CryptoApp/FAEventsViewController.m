@@ -447,13 +447,22 @@
         // Show the company Name as this information is needed to be displayed to the user when searching
         [[cell companyName] setHidden:NO];
         
+        // Set the list icon
+        // If you want to use the BTC icons
+        if ([companyAtIndex.ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
+            cell.listIconLbl.text = @"";
+            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCLabel"]];
+        }
+        // or else format it in the coin colors if icon doesn't exist
+        else {
+            [[cell listIconLbl] setText:[companyAtIndex.ticker substringToIndex:1]];
+            cell.listIconLbl.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
+            cell.listIconLbl.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
+        }
+        
         // Check to see if the Events Main Nav is selected
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-            // Show the "Get Events" text in the event display area.
-            //[[cell eventDescription] setText:@"GET EVENTS"];
-            // Set color to a link blue to provide a visual cue to click
-            //cell.eventDescription.textColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
-            // Currently just format to show proper error message
+            
             // Set color to a light gray.
             cell.eventDescription.textColor = [UIColor lightGrayColor];
             // If Cap and not found means that it probably dropped out of the top 100
@@ -520,15 +529,6 @@
         
         // TO DO LATER: !!!!!!!!!!IMPORTANT!!!!!!!!!!!!!: Any change to the formatting here could affect reminder creation (processReminderForEventInCell:,editActionsForRowAtIndexPath) since the reminder values are taken from the cell. Additionally changes here need to be reconciled with changes in the getEvents for ticker's queued reminder creation. Also reconcile in didSelectRowAtIndexPath.
         
-        // Add a tap gesture recognizer to the event ticker
-        UITapGestureRecognizer *tickerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processTypeIconTap:)];
-        tickerTap.cancelsTouchesInView = YES;
-        tickerTap.numberOfTapsRequired = 1;
-        tickerTap.numberOfTouchesRequired = 1;
-        [cell.companyTicker addGestureRecognizer:tickerTap];
-        cell.companyTicker.tag = indexPath.row;
-        
-        
         // Set the company name associated with the event as this is needed in places like getting the earnings.
         [[cell  companyName] setText:eventAtIndex.listedCompany.name];
         
@@ -553,15 +553,20 @@
         // If News event put the right info in the right place
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             
-            // Set the company ticker text
-            [[cell companyTicker] setText:@"1"];
-            // Format the company ticker
-            cell.companyTicker.backgroundColor = [UIColor whiteColor];
-            cell.companyTicker.textColor = [UIColor blackColor];
-            cell.companyTicker.textAlignment = NSTextAlignmentLeft;
+            // Shift the cell contents to the left to make more space
+            [cell.leadingSpaceForEventTicker setConstant:4];
+            [cell.leadingSpaceForEventDesc setConstant:0];
+            
+            // Hide the company ticker
+            [[cell companyTicker] setHidden:YES];
             
             // Reset top space for title to the default 4
             [cell.topSpaceForEventDesc setConstant:4];
+            
+            // Show numbering
+            [[cell listIconLbl] setText:@"1"];
+            cell.listIconLbl.backgroundColor = [UIColor lightGrayColor];
+            cell.listIconLbl.textColor = [UIColor whiteColor];
             
             // Set the source for attribution
             [[cell  eventDescription] setText:[self getNewsSource:eventAtIndex]];
@@ -579,19 +584,28 @@
         // else do the same for non news event
         else
         {
+            // Reset the cell contents to the proper position
+            [cell.leadingSpaceForEventTicker setConstant:15];
+            [cell.leadingSpaceForEventDesc setConstant:10];
+            
             // Set the company ticker text
-            [[cell companyTicker] setText:[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker]];
-            cell.companyTicker.textAlignment = NSTextAlignmentCenter;
+            [[cell companyTicker] setText:eventAtIndex.listedCompany.ticker];
+            // Show the company ticker
+            [[cell companyTicker] setHidden:NO];
             
             // Set the list icon
             // If you want to use the BTC icons
-            if ([[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker] caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
+            if ([eventAtIndex.listedCompany.ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
                 cell.listIconLbl.text = @"";
                 cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCLabel"]];
             }
+            else if ([eventAtIndex.listedCompany.ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
+                cell.listIconLbl.text = @"";
+                cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"XRPLabel"]];
+            }
             // or else format it in the coin colors if icon doesn't exist
             else {
-                [[cell listIconLbl] setText:[[self formatTickerBasedOnEventType:eventAtIndex.listedCompany.ticker] substringToIndex:1]];
+                [[cell listIconLbl] setText:[eventAtIndex.listedCompany.ticker substringToIndex:1]];
                 cell.listIconLbl.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
                 cell.listIconLbl.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
             }
@@ -2541,45 +2555,6 @@
                   parameters:@{ @"Option" :  [self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]} ];
 }
 
-#pragma mark - Event Type Icon Action
-
-// Process clicking of event type icon
-- (void)processTypeIconTap:(UIGestureRecognizer *)gestureRecognizer
-{
-    // Get the event description corresponding to the tapped icon/ticker
-    UIImageView *eventIcon = (UIImageView *)gestureRecognizer.view;
-    NSIndexPath *tappedIndexPath = [NSIndexPath indexPathForRow:eventIcon.tag inSection:0];
-    FAEventsTableViewCell *tappedIconCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:tappedIndexPath];
-    
-    // If price change event
-    if ([tappedIconCell.eventDescription.text containsString:@"% today"])
-    {
-        // Currently just transitioning to the detail view as the shortcut was confusing to users. Uncomment if you need to bring it back.
-        [self performSegueWithIdentifier:@"ShowEventDetails1" sender:tappedIconCell];
-    }
-    // Else it's a news event
-    else
-    {
-        NSURL *targetURL = [NSURL URLWithString:tappedIconCell.eventCertainty.text];
-        
-        if (targetURL) {
-            
-            // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
-            // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"See External News Article"
-                          parameters:@{ @"News Source" : tappedIconCell.eventDescription.text,
-                                        @"News Title" : tappedIconCell.eventDate.text,
-                                        @"External URL" : [targetURL absoluteString]} ];
-            
-            SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-            externalInfoVC.delegate = self;
-            // Just use whatever is the default color for the Safari View Controller
-            //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] withCompanyTicker:ticker];
-            [self presentViewController:externalInfoVC animated:YES completion:nil];
-        }
-    }
-}
-
 #pragma mark - Support Related
 
 // Initiate support experience when button is clicked. Currently open http://www.knotifi.com/p/contact.html
@@ -2937,20 +2912,6 @@
     }
     
     return scrubbedDate;
-}
-
-// Check if the ticker other than a normal ticker e.g. for economic event
-// ticker will be of the format ECONOMY_FOMC. In that case format it to say ECONOMY.
-- (NSString *)formatTickerBasedOnEventType:(NSString *)tickerToFormat
-{
-    NSString *formattedTicker = tickerToFormat;
-    
-    if ([tickerToFormat containsString:@"ECONOMY_"]) {
-        
-        formattedTicker = @"ECON";
-    }
-    
-    return formattedTicker;
 }
 
 // Format the event type for appropriate display. Currently the formatting looks like the following: Quarterly Earnings -> Earnings. Jan Fed Meeting -> Fed Meeting. Jan Jobs Report -> Jobs Report and so on. For product events strip out conference keyword WWDC 2016 Conference -> WWDC 2016
