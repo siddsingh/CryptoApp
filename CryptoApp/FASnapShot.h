@@ -25,7 +25,12 @@
 - (UIColor *)getBrandBkgrndColorForCompany:(NSString *)ticker;
 
 // Get the brand text color for given ticker
-// Get the brand text color for given ticker
 - (UIColor *)getBrandTextColorForCompany:(NSString *)ticker;
+
+// Does small icon Exist
+- (BOOL)doesSmallIconExist:(NSString *)ticker;
+
+// Get the small icon as a background color
+- (UIColor *)getSmallIconAsBkgrndColorForCompany:(NSString *)ticker;
 
 @end

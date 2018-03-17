@@ -405,6 +405,7 @@
     // Get event or company  to display
     Event *eventAtIndex;
     Company *companyAtIndex;
+    NSInteger rowNo = 0;
     
     // If a search filter has been applied, GET the matching companies with events or companies with the fetch events message
     // depending on the type of filter applied
@@ -563,8 +564,9 @@
             // Reset top space for title to the default 4
             [cell.topSpaceForEventDesc setConstant:4];
             
-            // Show numbering
-            [[cell listIconLbl] setText:@"1"];
+            // Show numbering [NSString stringWithFormat:@"%d-%d",self.section,self.row];
+            rowNo = (indexPath.row + 1);
+            [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
             cell.listIconLbl.backgroundColor = [UIColor lightGrayColor];
             cell.listIconLbl.textColor = [UIColor whiteColor];
             
@@ -593,26 +595,23 @@
             // Show the company ticker
             [[cell companyTicker] setHidden:NO];
             
-            // Set the list icon
-            // If you want to use the BTC icons
-            if ([eventAtIndex.listedCompany.ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
+            // Set the list icon if it exists
+            if ([self.dataSnapShot doesSmallIconExist:cell.companyTicker.text]) {
+                cell.listIconLbl.clipsToBounds = YES;
+                cell.listIconLbl.layer.cornerRadius = 0;
                 cell.listIconLbl.text = @"";
-                cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCLabel"]];
-            }
-            else if ([eventAtIndex.listedCompany.ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
-                cell.listIconLbl.text = @"";
-                cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"XRPLabel"]];
+                cell.listIconLbl.backgroundColor = [self.dataSnapShot getSmallIconAsBkgrndColorForCompany:cell.companyTicker.text];
             }
             // or else format it in the coin colors if icon doesn't exist
             else {
+                cell.listIconLbl.clipsToBounds = YES;
+                cell.listIconLbl.layer.cornerRadius = 16;
                 [[cell listIconLbl] setText:[eventAtIndex.listedCompany.ticker substringToIndex:1]];
                 cell.listIconLbl.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
                 cell.listIconLbl.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
             }
             
             [[cell  eventDescription] setText:[self formatEventType:eventAtIndex]];
-            // Currently not changing the color of the text based on anything.
-            //[cell.eventDescription setTextColor:[self getColorForCellLabelsBasedOnEventType:eventAtIndex.type]];
 
             // Show the event date
             [[cell eventDate] setText:[self formatDateBasedOnEventType:eventAtIndex.type withDate:eventAtIndex.date withRelatedDetails:eventAtIndex.relatedDetails withStatus:eventAtIndex.certainty]];

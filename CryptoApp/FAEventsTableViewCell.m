@@ -17,9 +17,6 @@
     // Initialization code
     [super awakeFromNib];
     
-    // Set top left and right corners to rounded for icon label
-    self.listIconLbl.clipsToBounds = YES;
-    self.listIconLbl.layer.cornerRadius = 16;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -978,4 +978,40 @@ static FASnapShot *sharedInstance;
     return colorToReturn;
 }
 
+// Does small icon Exist
+- (BOOL)doesSmallIconExist:(NSString *)ticker
+{
+    BOOL iconExists = NO;
+    
+    if ([ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"ETH"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"XMR"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    
+    return iconExists;
+}
+
+// Get the small icon as a background color
+- (UIColor *)getSmallIconAsBkgrndColorForCompany:(NSString *)ticker {
+    
+    //Default Darkish whitish gray
+    UIColor *colorToReturn = [UIColor colorWithRed:177.0f/255.0f green:177.0f/255.0f blue:177.0f/255.0f alpha:1.0f];
+    NSString *imageSetName = [NSString stringWithFormat:@"%@Label",ticker];
+    
+    colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:imageSetName]];
+    
+    return colorToReturn;
+}
+
 @end
