@@ -3607,7 +3607,7 @@
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
             
             // Synchronous refresh
-            [refreshDataController getAllProductEventsFromApi];
+            [refreshDataController getAllNewsFromApi];
             
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
                 self.eventResultsController = [refreshDataController getLatestCryptoEvents];
