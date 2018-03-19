@@ -364,6 +364,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="eventSelectorHtConstra" destination="Pqq-Rw-HAS" id="eRy-Pq-rc9"/>
                         <outlet property="eventTypeSelector" destination="Urn-fH-Oqh" id="GuK-oV-9qh"/>
                         <outlet property="eventsListTable" destination="KbY-6m-WGH" id="U1B-qA-4Xm"/>
                         <outlet property="eventsSearchBar" destination="nfw-0u-xss" id="pfV-29-mXe"/>

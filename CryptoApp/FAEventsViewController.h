@@ -75,4 +75,6 @@
 // Store name for Product Main Nav Option.
 @property (strong,nonatomic) NSString *mainNavProductOption;
 
+// Height constraint for event type selector. Originally set to 30 in IB
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventSelectorHtConstra;
 @end

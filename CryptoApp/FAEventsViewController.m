@@ -2535,7 +2535,9 @@
     // If Events is selected, set the correct search bar placeholder text enable and show the event selection bar and format event segments.
     else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
         [self.eventTypeSelector setEnabled:YES];
+        [self.eventSelectorHtConstra setConstant:30];
         [self.eventTypeSelector setHidden:NO];
+        
         // Set correct search bar placeholder text
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
         // Format the event selectors
@@ -2545,8 +2547,9 @@
     }
     // If Events is selected, set the correct search bar placeholder text enable and format the event segments
     else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
-        [self.eventTypeSelector setEnabled:YES];
-        [self.eventTypeSelector setHidden:NO];
+        [self.eventSelectorHtConstra setConstant:5];
+        [self.eventTypeSelector setEnabled:NO];
+        [self.eventTypeSelector setHidden:YES];
         // Set correct search bar placeholder text
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
         // Format the event selectors
