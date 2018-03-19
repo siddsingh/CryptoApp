@@ -564,17 +564,29 @@
             // Reset top space for title to the default 4
             [cell.topSpaceForEventDesc setConstant:4];
             
-            // Show numbering [NSString stringWithFormat:@"%d-%d",self.section,self.row];
+            // Show numbering
+            cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 0;
+            cell.listIconLbl.backgroundColor = [UIColor whiteColor];
+            cell.listIconLbl.textColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
             rowNo = (indexPath.row + 1);
-            [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
-            cell.listIconLbl.backgroundColor = [UIColor lightGrayColor];
-            cell.listIconLbl.textColor = [UIColor whiteColor];
+            if (rowNo <= 99)
+            {
+                [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+            }
+            else
+            {
+                [[cell listIconLbl] setText:[NSString stringWithFormat:@"%@",@"..."]];
+            }
             
             // Set the source for attribution
-            [[cell  eventDescription] setText:[self getNewsSource:eventAtIndex]];
+            [[cell  eventDescription] setText:[self.dataSnapShot getNewsSource:eventAtIndex]];
+            [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedSource:[self.dataSnapShot getNewsSource:eventAtIndex]]];
             
             // Show the news title
             [[cell eventDate] setText:[self formatEventType:eventAtIndex]];
+            // Set the appropriate event date text color
+            [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
             // Set the date of the article to the eventImpact. Set here but formatting is done later after the price if statements
             [[cell eventImpact] setText:[self calculateDistanceFromEventDate:eventAtIndex.date withEventType:eventAtIndex.type]];
@@ -2944,35 +2956,6 @@
     return formattedEventType;
 }
 
-// Get the event source based on the event type.
-- (NSString *)getNewsSource:(Event *)rawEvent
-{
-    NSString *learnMoreURL = rawEvent.relatedDetails;
-    NSString *newsSrc = @"Other";
-    
-    // For news event, strip out the cryptofinews:: from the beginning
-    if ([learnMoreURL containsString:@"cointelegraph.com"]) {
-        newsSrc = @"Cointelegraph";
-    }
-    else if ([learnMoreURL containsString:@"ccn.com"]){
-        newsSrc = @"CCN";
-    }
-    else if ([learnMoreURL containsString:@"ccn.com"]){
-        newsSrc = @"Bitcoinist";
-    }
-    else if ([learnMoreURL containsString:@"bitcoinwarrior.net"]){
-        newsSrc = @"Bitcoin Warrior";
-    }
-    else if ([learnMoreURL containsString:@"businessinsider.com"]){
-        newsSrc = @"Business Insider";
-    }
-    else {
-        newsSrc = @"Other";
-    }
-    
-    return newsSrc;
-}
-
 // Take the event displayed and format it back to the event type stored in the db. Currently the formatting looks like the following: Earnings -> Quarterly Earnings. Fed Meeting -> Jan Fed Meeting. Jobs Report -> Jan Jobs Report and so on. For product events, only the conference keyword needs to be added back. So WWDC 2016 -> WWDC 2016 Conference. NOTE: When a new product event type other than launch or conference is added, reconcile here as well.
 - (NSString *)formatBackToEventType:(NSString *)rawEventType withAddedInfo:(NSString *)addtlInfo
 {
@@ -3098,8 +3081,8 @@
     UIColor *colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
     
    if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame)) {
-        // White to hide
-        colorToReturn = [UIColor whiteColor];
+        // Black for news title
+        colorToReturn = [UIColor blackColor];
     }
     
     return colorToReturn;

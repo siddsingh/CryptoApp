@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 @class FADataController;
 @class EventHistory;
+@class Event;
 
 @interface FASnapShot : NSObject
 
@@ -32,5 +33,11 @@
 
 // Get the small icon as a background color
 - (UIColor *)getSmallIconAsBkgrndColorForCompany:(NSString *)ticker;
+
+// Get the event source based on the event type.
+- (NSString *)getNewsSource:(Event *)rawEvent;
+
+// Get formatted news source strings
+- (NSMutableAttributedString *)getFormattedSource:(NSString *)src;
 
 @end
