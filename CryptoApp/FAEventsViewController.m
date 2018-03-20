@@ -2344,7 +2344,7 @@
         [self searchBar:self.eventsSearchBar textDidChange:@""];
         
         // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
+        self.eventsSearchBar.placeholder = @"NEWS";
         
         // Query all future economic events or following economic events, including today.
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
@@ -2551,7 +2551,7 @@
         [self.eventTypeSelector setEnabled:NO];
         [self.eventTypeSelector setHidden:YES];
         // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
+        self.eventsSearchBar.placeholder = @"NEWS";
         // Format the event selectors
         [self.eventTypeSelector setTitle:@"LATEST" forSegmentAtIndex:0];
         [self.eventTypeSelector setTitle:@"UPCOMING" forSegmentAtIndex:1];

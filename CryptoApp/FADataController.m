@@ -1085,7 +1085,7 @@ bool eventsUpdated = NO;
     if ([eventType caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
         
         searchPredicate = [NSPredicate predicateWithFormat:@"(listedCompany.name contains[cd] %@ OR listedCompany.ticker contains[cd] %@ OR type contains[cd] %@) AND (NOT ((type contains[cd] %@) OR (type contains[cd] %@)))", searchText, searchText, searchText, @"% up today", @"% down today"];
-        sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedDate" ascending:NO];
+        sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
     }
     
     // Check to see if the event type is "News->Latest". Search on "ticker" or "name" fields for the listed Currency or the "type" field on the event for all news events
