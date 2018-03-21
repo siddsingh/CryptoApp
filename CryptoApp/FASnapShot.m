@@ -1028,11 +1028,14 @@ static FASnapShot *sharedInstance;
     else if ([learnMoreURL containsString:@"ccn.com"]){
         newsSrc = @"CCN";
     }
-    else if ([learnMoreURL containsString:@"ccn.com"]){
+    else if ([learnMoreURL containsString:@"bitcoinist.com"]){
         newsSrc = @"Bitcoinist";
     }
     else if ([learnMoreURL containsString:@"bitcoinwarrior.net"]){
         newsSrc = @"Bitcoin Warrior";
+    }
+    else if ([learnMoreURL containsString:@"ambcrypto.com"]){
+        newsSrc = @"Amb Crypto";
     }
     else if ([learnMoreURL containsString:@"businessinsider.com"]){
         newsSrc = @"Business Insider";
@@ -1079,6 +1082,13 @@ static FASnapShot *sharedInstance;
                           NSFontAttributeName:[UIFont fontWithName:@"Arial" size:16]
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
+    }
+    else if ([src caseInsensitiveCompare:@"Amb Crypto"] == NSOrderedSame) {
+        txtAttributes = @{
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:233.0f/255.0f green:67.0f/255.0f blue:97.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:14]
+                          };
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:[src uppercaseString] attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Business Insider"] == NSOrderedSame) {
         txtAttributes = @{

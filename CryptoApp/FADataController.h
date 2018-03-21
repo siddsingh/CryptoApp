@@ -236,8 +236,8 @@
 // Get 24 hr price changes for all the cryptocurrencies
 - (void)getAllCryptoPriceChangeEventsFromApi;
 
-// Wrapper method to get crypto events from the API. Takes care of busy spinner start/stop along with events refresh.
-- (void)getCryptoPriceEventsWrapper;
+// Wrapper method to get crypto events from the API. Takes care of spinner showing not showing depnding on the triggering action which is either "App Activated" or "Other"
+- (void)getCryptoPriceEventsWrapperWithAction:(NSString *)triggeringAction;
 
 // Get all the price change events and details from the data source APIs. This is the new version that uses the same data source as used for getting prices elsewhere.
 - (void)getAllPriceChangeEventsFromApiNew;

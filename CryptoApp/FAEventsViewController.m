@@ -2697,18 +2697,41 @@
     }
 }
 
-// Respond to the notification to start the busy spinner
+// Respond to the notification to start the busy spinner.Notification object contains info on what action triggered it. Values are "App Activated" and "Other"
 - (void)startBusySpinner:(NSNotification *)notification {
     
-    // Set the busy spinner to spin.
-    [self showBusyMessage];
+    NSString *refreshAction = [notification object];
+    
+    NSLog(@"Refresh Action is:%@ and main Nav is:%@",refreshAction,[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]);
+    
+    //If trigger is app became active and main nav selected is news, don't show the spinner.
+    if (([refreshAction caseInsensitiveCompare:@"App Activated"] == NSOrderedSame)&&([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame)) {
+        NSLog(@"DOING NOTHING");
+    }
+    // else show the busy message
+    else
+    {
+        NSLog(@"SHOWING MESSAGE");
+        // Set the busy spinner to spin.
+        [self showBusyMessage];
+    }
 }
 
-// Respond to the notification to stop the busy spinner
+// Respond to the notification to stop the busy spinner.Notification object contains info on what action triggered it. Values are "App Activated" and "Other".
 - (void)stopBusySpinner:(NSNotification *)notification {
     
-    // Set the busy spinner to stop spinning.
-    [self removeBusyMessage];
+     NSString *refreshAction = [notification object];
+    
+    //If trigger is app became active and main nav selected is news, don't show the spinner.
+    if (([refreshAction caseInsensitiveCompare:@"App Activated"] == NSOrderedSame)&&([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame)) {
+        
+    }
+    // else show the busy message
+    else
+    {
+        // Set the busy spinner to stop spinning.
+        [self removeBusyMessage];
+    }
 }
 
 #pragma mark - Connectivity Methods

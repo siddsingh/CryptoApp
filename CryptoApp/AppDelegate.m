@@ -113,7 +113,7 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
                 
                 // TO DO:V 1.0: Testing. Delete before shipping v4.3
-                //NSLog(@"Kicking off refresh of events in app became active");
+                //NSLog(@"Currently active VC ");
                 
                 // Create a new FADataController so that this thread has its own MOC
                 FADataController *eventDataController = [[FADataController alloc] init];

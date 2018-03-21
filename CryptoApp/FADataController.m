@@ -2908,9 +2908,9 @@ bool eventsUpdated = NO;
     
     // TO DO: Sync every 2 hours.
     if(((int)hoursBetween >= 0)) {
-        // Show busy
+        // Show busy. Logic in notification takes care of whether to show busy message based on triggering action on the notification which can be App Activated or Other.
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:@"Other"];
         });
         
         // Get News instead of product events
@@ -2920,10 +2920,10 @@ bool eventsUpdated = NO;
         // Set events sync status to "RefreshCheckDone" means a check to see if refreshed events data is available is done. This also sets the event sync date to today.
         [self updateUserWithEventSyncStatus:@"RefreshCheckDone"];
         
-        // Stop Busy
+        // Stop Busy. Logic in notification takes care of whether to remove busy message based on triggering action on the notification which can be App Activated or Other.
         dispatch_async(dispatch_get_main_queue(), ^{
             [self sendEventsChangeNotification];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:@"Other"];
         });
     }
 }
@@ -3085,20 +3085,21 @@ bool eventsUpdated = NO;
     }
 }
 
-// Wrapper method to get crypto events from the API. Takes care of busy spinner start/stop along with events refresh.
-- (void)getCryptoPriceEventsWrapper {
+// Wrapper method to get crypto events from the API. Takes care of spinner showing not showing depnding on the triggering action which is either "App Activated" or "Other"
+- (void)getCryptoPriceEventsWrapperWithAction:(NSString *)triggeringAction {
     
     // Show busy
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:self];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:triggeringAction];
     });
+    
     
     [self getAllCryptoPriceChangeEventsFromApi];
     
     // Stop Busy
     dispatch_async(dispatch_get_main_queue(), ^{
         [self sendEventsChangeNotification];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:self];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"StopBusySpinner" object:triggeringAction];
     });
 }
 
@@ -4663,8 +4664,8 @@ bool eventsUpdated = NO;
 // CURRENTLY: Getting only the price change events to start with.
 - (void)updateEventsFromRemoteIfNeeded {
     
-    // Get All Crypto price events wrapper that takes care of busy spinner, table refresh etc.
-    [self getCryptoPriceEventsWrapper];
+    // Get All Crypto price events wrapper that takes care of busy spinner, table refresh etc, dpending on the triggering action which is either App Activated or Other
+    [self getCryptoPriceEventsWrapperWithAction:@"App Activated"];
 }
 
 #pragma mark - User State Related
