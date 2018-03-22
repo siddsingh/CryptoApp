@@ -149,19 +149,30 @@ static FASnapShot *sharedInstance;
     if ([ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
        // colorToReturn = [UIColor colorWithRed:16.0f/255.0f green:43.0f/255.0f blue:62.0f/255.0f alpha:1.0f];
        // Better color for the detail view scheme. Upper one is the original
-       colorToReturn = [UIColor colorWithRed:24.0f/255.0f green:33.0f/255.0f blue:104.0f/255.0f alpha:1.0f];
+       //colorToReturn = [UIColor colorWithRed:24.0f/255.0f green:33.0f/255.0f blue:104.0f/255.0f alpha:1.0f];
+        // Blue more in line with icon
+        colorToReturn = [UIColor colorWithRed:64.0f/255.0f green:162.0f/255.0f blue:221.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:81.0f/255.0f green:157.0f/255.0f blue:11.0f/255.0f alpha:1.0f];
+        // Old green
+        //colorToReturn = [UIColor colorWithRed:81.0f/255.0f green:157.0f/255.0f blue:11.0f/255.0f alpha:1.0f];
+        // Orange more in line with icon
+        colorToReturn = [UIColor colorWithRed:240.0f/255.0f green:140.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"ADA"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:33.0f/255.0f green:110.0f/255.0f blue:216.0f/255.0f alpha:1.0f];
+        // Old
+        //colorToReturn = [UIColor colorWithRed:33.0f/255.0f green:110.0f/255.0f blue:216.0f/255.0f alpha:1.0f];
+        // New
+        colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:200.0f/255.0f blue:201.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"LTC"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+        // Old
+        //colorToReturn = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+        // New
+        colorToReturn = [UIColor blackColor];
     }
     
     if ([ticker caseInsensitiveCompare:@"NEO"] == NSOrderedSame) {
@@ -176,7 +187,10 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"EOS"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:57.0f/255.0f green:38.0f/255.0f blue:23.0f/255.0f alpha:1.0f];
+        //Old
+        //colorToReturn = [UIColor colorWithRed:57.0f/255.0f green:38.0f/255.0f blue:23.0f/255.0f alpha:1.0f];
+        //New
+        colorToReturn = [UIColor colorWithRed:38.0f/255.0f green:37.0f/255.0f blue:37.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"MIOTA"] == NSOrderedSame) {
@@ -575,7 +589,10 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"XRP"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:71.0f/255.0f green:175.0f/255.0f blue:233.0f/255.0f alpha:1.0f];
+        // Old
+        //colorToReturn = [UIColor colorWithRed:71.0f/255.0f green:175.0f/255.0f blue:233.0f/255.0f alpha:1.0f];
+        // New more in line with icon
+        colorToReturn = [UIColor whiteColor];
     }
     
     if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
@@ -599,7 +616,10 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"EOS"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:233.0f/255.0f green:173.0f/255.0f blue:101.0f/255.0f alpha:1.0f];
+        //Old
+        //colorToReturn = [UIColor colorWithRed:233.0f/255.0f green:173.0f/255.0f blue:101.0f/255.0f alpha:1.0f];
+        // New
+        colorToReturn = [UIColor whiteColor];
     }
     
     if ([ticker caseInsensitiveCompare:@"MIOTA"] == NSOrderedSame) {
@@ -997,6 +1017,15 @@ static FASnapShot *sharedInstance;
         iconExists = YES;
     }
     else if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"ADA"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"LTC"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"EOS"] == NSOrderedSame) {
         iconExists = YES;
     }
     
