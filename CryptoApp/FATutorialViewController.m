@@ -19,6 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tutorialDoneButton.clipsToBounds = YES;
+    self.tutorialDoneButton.layer.cornerRadius = 5;
+    
 }
 
 - (void)didReceiveMemoryWarning {

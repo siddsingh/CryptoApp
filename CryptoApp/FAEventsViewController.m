@@ -99,6 +99,8 @@
     UITextField *eventSearchBarInputFld = [self.eventsSearchBar valueForKey:@"_searchField"];
     [eventSearchBarInputFld setValue:[UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f] forKeyPath:@"_placeholderLabel.textColor"];
     eventSearchBarInputFld.textColor = [UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f];
+    eventSearchBarInputFld.clipsToBounds = YES;
+    eventSearchBarInputFld.layer.cornerRadius = 5;
     
     // Set search bar background color to a very light gray so that it stands out a little from the background.
     eventSearchBarInputFld.backgroundColor = [UIColor colorWithRed:225.0f/255.0f green:225.0f/255.0f blue:225.0f/255.0f alpha:1.0f];
@@ -129,16 +131,30 @@
     }
     
     // Format the main nav type selector
-    // Set text color of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
-    [self.mainNavSelector setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]} forState:UIControlStateNormal];
+    // Set Background color and tint to a very light almost white gray
+    [self.mainNavSelector setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    [self.mainNavSelector setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
+    NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont systemFontOfSize:16], NSFontAttributeName,
+                                    [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
+                                    nil];
+    [self.mainNavSelector setTitleTextAttributes:unselectedAttributes forState:UIControlStateNormal];
+    // Set text and size for selected segment
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont boldSystemFontOfSize:16], NSFontAttributeName,
+                                    [UIColor blackColor], NSForegroundColorAttributeName,
+                                    nil];
+    [self.mainNavSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
+    //[self.mainNavSelector setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]} forState:UIControlStateNormal];
     // Set text color for the segment selected for the very first time which is Black for ALL events type. Also set focus bar to draw focus to the search bar to the same color.
-    if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
+   /* if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
         NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                    [UIFont boldSystemFontOfSize:16], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
         [self.mainNavSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-    }
+    } */
 
     // Get a primary data controller that you will use later
     self.primaryDataController = [[FADataController alloc] init];
@@ -2515,8 +2531,15 @@
                                              nil];
     [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
     
+    // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
+    NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont systemFontOfSize:16], NSFontAttributeName,
+                                          [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
+                                          nil];
+    [self.mainNavSelector setTitleTextAttributes:unselectedAttributes forState:UIControlStateNormal];
+    // Set text and size for selected segment
     NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                    [UIFont boldSystemFontOfSize:16], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
     [self.mainNavSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
@@ -2702,16 +2725,16 @@
     
     NSString *refreshAction = [notification object];
     
-    NSLog(@"Refresh Action is:%@ and main Nav is:%@",refreshAction,[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]);
+    //NSLog(@"Refresh Action is:%@ and main Nav is:%@",refreshAction,[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]);
     
     //If trigger is app became active and main nav selected is news, don't show the spinner.
     if (([refreshAction caseInsensitiveCompare:@"App Activated"] == NSOrderedSame)&&([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame)) {
-        NSLog(@"DOING NOTHING");
+        //NSLog(@"DOING NOTHING");
     }
     // else show the busy message
     else
     {
-        NSLog(@"SHOWING MESSAGE");
+        //NSLog(@"SHOWING MESSAGE");
         // Set the busy spinner to spin.
         [self showBusyMessage];
     }

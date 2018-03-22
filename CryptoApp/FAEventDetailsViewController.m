@@ -1605,7 +1605,9 @@
 // Send the user to the appropriate news site when they click the news button 3. Currently cointelegraph.
 - (IBAction)seeNewsAction3:(id)sender {
     
-    NSString *moreInfoURL = nil;
+    [self.navigationController popViewControllerAnimated:YES];
+    
+   /* NSString *moreInfoURL = nil;
     NSURL *targetURL = nil;
     NSString *searchTerm = nil;
     
@@ -1652,7 +1654,7 @@
         // Just use whatever is the default color for the Safari View Controller
         //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
         [self presentViewController:externalInfoVC animated:YES completion:nil];
-    } 
+    } */
 }
 
 

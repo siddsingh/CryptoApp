@@ -15,4 +15,7 @@
 // User presses the Done with the Tutorial button
 - (IBAction)tutorialDonePressed:(id)sender;
 
+// Got It button
+@property (weak, nonatomic) IBOutlet UIButton *tutorialDoneButton;
+
 @end

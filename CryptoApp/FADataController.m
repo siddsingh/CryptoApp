@@ -752,7 +752,7 @@ bool eventsUpdated = NO;
     // New is for news events, consider making this a separate method
     NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"type contains[cd] %@", @"cryptofinews::"];
     [eventFetchRequest setPredicate:datePredicate];
-    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"relatedDate" ascending:NO];
+    NSSortDescriptor *sortField = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
     [eventFetchRequest setSortDescriptors:[NSArray arrayWithObject:sortField]];
     [eventFetchRequest setFetchBatchSize:15];
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:eventFetchRequest
@@ -760,7 +760,7 @@ bool eventsUpdated = NO;
                                                                             cacheName:nil];
     NSError *error;
     if (![self.resultsController performFetch:&error]) {
-        NSLog(@"ERROR: Getting all future events from data store failed: %@",error.description);
+        NSLog(@"ERROR: Getting latest news from data store failed: %@",error.description);
     }
     
     return self.resultsController;
