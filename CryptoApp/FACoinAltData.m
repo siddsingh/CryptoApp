@@ -720,7 +720,7 @@ static FACoinAltData *sharedInstance;
         // 2. Real World Use Cases
         [infoArray addObject:@"Facilitate operations between different industries e.g. medical & insurance"];
         // 3. Website
-        [infoArray addObject:@"https://www.icon.foundation/?lang=en"];
+        [infoArray addObject:@"https://icon.foundation/?lang=en"];
         // 4. Best Detailed Description Weblink
         [infoArray addObject:@"https://www.investinblockchain.com/what-is-icon-icx/"];
         // 5. Subreddit
