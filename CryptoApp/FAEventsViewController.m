@@ -683,7 +683,9 @@
             [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:plusSignRange];
             
             // Set event description text to formatted string
-            [cell.eventDescription setAttributedText:formattedTxt];
+            //[cell.eventDescription setAttributedText:formattedTxt]; getFormattedPriceStr:
+            
+            [cell.eventDescription setAttributedText:[self getFormattedPriceStrFromEvent:cell.eventDescription.text withCoinName:cell.companyName.text]];
         }
         else if ([eventAtIndex.type containsString:@"% down"])
         {
@@ -693,6 +695,9 @@
             // Set change string and indicator.
             [cell.eventImpact setText:@"▼"];
             [cell.eventImpact setAttributedText:[self getFormattedChangeStr:cell.eventDescription.text]];
+            
+            // Set the Name and current price string
+            
             
             // Create the event description formatted string
             NSDictionary *redTxtAttributes = @{
@@ -714,7 +719,8 @@
             [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:minusSignRange];
             
             // Set event description text to formatted string
-            [cell.eventDescription setAttributedText:formattedTxt];
+            //[cell.eventDescription setAttributedText:formattedTxt];
+            [cell.eventDescription setAttributedText:[self getFormattedPriceStrFromEvent:cell.eventDescription.text withCoinName:cell.companyName.text]];
         }
         else if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:10]];
@@ -806,7 +812,7 @@
        
         
         // If price change event
-        if ([cell.eventDescription.text containsString:@"% today"])
+        if (([cell.eventDescription.text containsString:@"% up today"])||([cell.eventDescription.text containsString:@"% down today"]))
         {
           [self performSegueWithIdentifier:@"ShowEventDetails1" sender:cell];
         }
@@ -2976,11 +2982,11 @@
 {
     NSString *rawEventType = rawEvent.type;
     NSString *formattedEventType = rawEventType;
-    NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@",formattedEventType];
+    //NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@",formattedEventType];
     NSArray *typeComponents = nil;
     
     // For price events strip out the up and down
-    if ([rawEventType containsString:@"% up"])
+   /* if ([rawEventType containsString:@"% up"])
     {
         [tempString replaceOccurrencesOfString:@"% up" withString:@"%" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
         formattedEventType = (NSString *)tempString;
@@ -2989,9 +2995,9 @@
     {
         [tempString replaceOccurrencesOfString:@"% down" withString:@"%" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
         formattedEventType = (NSString *)tempString;
-    }
+    } */
     // For news event, strip out the cryptofinews:: from the beginning
-    else if ([rawEventType containsString:@"cryptofinews::"]) {
+    if ([rawEventType containsString:@"cryptofinews::"]) {
         typeComponents = [rawEventType componentsSeparatedByString:@"::"];
         formattedEventType = [typeComponents objectAtIndex:1];
     }
@@ -3013,9 +3019,10 @@
     NSRange plusMinusSignRange;
     NSRange changeIndicatorRange;
     
-    typeComponents = [rawEvent componentsSeparatedByString:@"today"];
-    if ([rawEvent containsString:@"+"])
+    if ([rawEvent containsString:@"up today"])
     {
+        typeComponents = [rawEvent componentsSeparatedByString:@"up today"];
+        
         // Create the base change string
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f],
@@ -3034,8 +3041,10 @@
         changeIndicatorRange = [rawTxt rangeOfString:@"▲" options:NSCaseInsensitiveSearch];
         [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]} range:changeIndicatorRange];
     }
-    else if ([rawEvent containsString:@"-"])
+    else if ([rawEvent containsString:@"down today"])
     {
+        typeComponents = [rawEvent componentsSeparatedByString:@"down today"];
+        
         // Create the base change string
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
@@ -3062,24 +3071,93 @@
     return formattedTxt;
 }
 
+// Get formatted name and price string
+- (NSMutableAttributedString *)getFormattedPriceStrFromEvent:(NSString *)rawEvent withCoinName:(NSString *)nameStr {
+    
+    NSString *rawTxt = nil;
+    NSMutableAttributedString *formattedTxt = nil;
+    NSDictionary *txtAttributes = nil;
+    NSArray *typeComponents = nil;
+    NSRange nameRange;
+   /* NSRange percentSignRange;
+    NSRange plusMinusSignRange;
+    NSRange changeIndicatorRange; */
+    
+    if ([rawEvent containsString:@"up today"])
+    {
+        typeComponents = [rawEvent componentsSeparatedByString:@"up today"];
+        
+        // Create the base change string
+        // Almost Black 63 63 63
+        txtAttributes = @{
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
+                          };
+        rawTxt = [NSString stringWithFormat:@"%@ %@",[nameStr capitalizedString],[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
+        
+        nameRange = [rawTxt rangeOfString:[nameStr capitalizedString] options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:nameRange];
+        
+        // Make the + and % sign bold and the indicator a little larger
+        /*percentSignRange = [rawTxt rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:percentSignRange];
+        
+        plusMinusSignRange = [rawTxt rangeOfString:@"+" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:plusMinusSignRange];
+        
+        changeIndicatorRange = [rawTxt rangeOfString:@"▲" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]} range:changeIndicatorRange];*/
+    }
+    else if ([rawEvent containsString:@"down today"])
+    {
+        typeComponents = [rawEvent componentsSeparatedByString:@"down today"];
+        
+        // Almost Black 63 63 63
+        txtAttributes = @{
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:14]
+                          };
+        rawTxt = [NSString stringWithFormat:@"%@ %@",[nameStr capitalizedString],[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
+        
+        // Make the + and % sign bold and the indicator a little larger
+       /* percentSignRange = [rawTxt rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:percentSignRange];
+        
+        plusMinusSignRange = [rawTxt rangeOfString:@"-" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:plusMinusSignRange];
+        
+        changeIndicatorRange = [rawTxt rangeOfString:@"▼" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} range:changeIndicatorRange];*/
+    }
+    else {
+        rawTxt = [NSString stringWithFormat:@"NA"];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt];
+    }
+    
+    return formattedTxt;
+}
+
 // Take the event displayed and format it back to the event type stored in the db. Currently the formatting looks like the following: Earnings -> Quarterly Earnings. Fed Meeting -> Jan Fed Meeting. Jobs Report -> Jan Jobs Report and so on. For product events, only the conference keyword needs to be added back. So WWDC 2016 -> WWDC 2016 Conference. NOTE: When a new product event type other than launch or conference is added, reconcile here as well.
 - (NSString *)formatBackToEventType:(NSString *)rawEventType withAddedInfo:(NSString *)addtlInfo
 {
     NSString *formattedEventType = rawEventType;
-    NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@",formattedEventType];
+    //NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@",formattedEventType];
     
-    // For price events strip out the up and dow
-    if (([rawEventType containsString:@"%"])&&([rawEventType containsString:@"+"]))
+    // For price events the original format is correct
+    if ([rawEventType containsString:@"%"])
     {
-        [tempString replaceOccurrencesOfString:@"%" withString:@"% up" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
-        formattedEventType = (NSString *)tempString;
+        /*[tempString replaceOccurrencesOfString:@"%" withString:@"% up" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
+        formattedEventType = (NSString *)tempString;*/
+        formattedEventType = [NSString stringWithFormat:@"%@",rawEventType];
     }
-    else if (([rawEventType containsString:@"%"])&&([rawEventType containsString:@"-"]))
+    /*else if (([rawEventType containsString:@"%"])&&([rawEventType containsString:@"-"]))
     {
         [tempString replaceOccurrencesOfString:@"%" withString:@"% down" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
         formattedEventType = (NSString *)tempString;
-    }
-    else if ([rawEventType isEqualToString:@"Earnings"]) {
+    }*/
+    if ([rawEventType isEqualToString:@"Earnings"]) {
         formattedEventType = @"Quarterly Earnings";
     } else if (([addtlInfo isEqualToString:@"Confirmed"]||[addtlInfo isEqualToString:@"Estimated"])&&(![rawEventType containsString:@"Launch"])){
         formattedEventType = [NSString stringWithFormat:@"%@ %@",rawEventType,@"Conference"];
