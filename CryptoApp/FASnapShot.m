@@ -1129,8 +1129,6 @@ static FASnapShot *sharedInstance;
     NSMutableAttributedString *formattedTxt = nil;
     NSDictionary *txtAttributes = nil;
     
-    formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
-    
     if ([src caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:247.0f/255.0f green:191.0f/255.0f blue:51.0f/255.0f alpha:1.0f],

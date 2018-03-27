@@ -659,11 +659,9 @@
             // Move the text down for better formatting
             [cell.topSpaceForEventDesc setConstant:19];
             
-            // The green is one pixel bigger than the red for better contrast.
-            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:18]];
+            // Set change string and indicator.
             [cell.eventImpact setText:@"▲"];
-            // Crypto Up Green
-            [cell.eventImpact setTextColor:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f]];
+            [cell.eventImpact setAttributedText:[self getFormattedChangeStr:cell.eventDescription.text]];
             
             // Create the event description formatted string
             NSDictionary *greenTxtAttributes = @{
@@ -692,10 +690,9 @@
             // Move the text down for better formatting
             [cell.topSpaceForEventDesc setConstant:19];
             
-            [cell.eventImpact setFont:[UIFont boldSystemFontOfSize:17]];
+            // Set change string and indicator.
             [cell.eventImpact setText:@"▼"];
-            // Crypto Down Red
-            [cell.eventImpact setTextColor:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f]];
+            [cell.eventImpact setAttributedText:[self getFormattedChangeStr:cell.eventDescription.text]];
             
             // Create the event description formatted string
             NSDictionary *redTxtAttributes = @{
@@ -3003,6 +3000,66 @@
     }
     
     return formattedEventType;
+}
+
+// Get formatted change string including up down symbol
+- (NSMutableAttributedString *)getFormattedChangeStr:(NSString *)rawEvent {
+    
+    NSString *rawTxt = nil;
+    NSMutableAttributedString *formattedTxt = nil;
+    NSDictionary *txtAttributes = nil;
+    NSArray *typeComponents = nil;
+    NSRange percentSignRange;
+    NSRange plusMinusSignRange;
+    NSRange changeIndicatorRange;
+    
+    typeComponents = [rawEvent componentsSeparatedByString:@"today"];
+    if ([rawEvent containsString:@"+"])
+    {
+        // Create the base change string
+        txtAttributes = @{
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
+                        };
+        rawTxt = [NSString stringWithFormat:@"%@ ▲",[(NSString *)[typeComponents objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
+        
+        // Make the + and % sign bold and the indicator a little larger
+        percentSignRange = [rawTxt rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:percentSignRange];
+        
+        plusMinusSignRange = [rawTxt rangeOfString:@"+" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:plusMinusSignRange];
+        
+        changeIndicatorRange = [rawTxt rangeOfString:@"▲" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]} range:changeIndicatorRange];
+    }
+    else if ([rawEvent containsString:@"-"])
+    {
+        // Create the base change string
+        txtAttributes = @{
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]
+                        };
+        rawTxt = [NSString stringWithFormat:@"%@ ▼",[(NSString *)[typeComponents objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
+        
+        // Make the + and % sign bold and the indicator a little larger
+        percentSignRange = [rawTxt rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:percentSignRange];
+        
+        plusMinusSignRange = [rawTxt rangeOfString:@"-" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:plusMinusSignRange];
+        
+        changeIndicatorRange = [rawTxt rangeOfString:@"▼" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} range:changeIndicatorRange];
+    }
+    else {
+        rawTxt = [NSString stringWithFormat:@"NA"];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt];
+    }
+    
+    return formattedTxt;
 }
 
 // Take the event displayed and format it back to the event type stored in the db. Currently the formatting looks like the following: Earnings -> Quarterly Earnings. Fed Meeting -> Jan Fed Meeting. Jobs Report -> Jan Jobs Report and so on. For product events, only the conference keyword needs to be added back. So WWDC 2016 -> WWDC 2016 Conference. NOTE: When a new product event type other than launch or conference is added, reconcile here as well.
