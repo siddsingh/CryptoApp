@@ -461,8 +461,8 @@
         
         // Set the company name associated with the event
         [[cell  companyName] setText:companyAtIndex.name];
-        // Show the company Name as this information is needed to be displayed to the user when searching
-        [[cell companyName] setHidden:NO];
+        // Hide the company Name label
+        [[cell companyName] setHidden:YES];
         
         // Set the list icon
         // Set the list icon if it exists
@@ -553,14 +553,8 @@
         // Set the company name associated with the event as this is needed in places like getting the earnings.
         [[cell  companyName] setText:eventAtIndex.listedCompany.name];
         
-        // If the filter type is Match_Companies_Events, meaning a search is in progress, show coin name else hide it
-        if ([self.filterType isEqualToString:@"Match_Companies_Events"]) {
-            [[cell companyName] setHidden:NO];
-        }
-        else
-        {
-            [[cell companyName] setHidden:YES];
-        }
+        // Hide the company Name label
+        [[cell companyName] setHidden:YES];
         
         // Set the fetch state of the event cell to false
         // TO DO: Should you really be holding logic state at the cell level or should there
@@ -575,7 +569,7 @@
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             
             // Shift the cell contents to the left to make more space
-            [cell.leadingSpaceForEventDesc setConstant:0];
+           // [cell.leadingSpaceForEventDesc setConstant:0];
             
             // Hide the company ticker
             [[cell companyTicker] setHidden:YES];
@@ -618,7 +612,7 @@
         else
         {
             // Reset the cell contents to the proper position
-            [cell.leadingSpaceForEventDesc setConstant:6];
+           // [cell.leadingSpaceForEventDesc setConstant:6];
             
             // Set the company ticker text
             [[cell companyTicker] setText:eventAtIndex.listedCompany.ticker];
@@ -2974,9 +2968,9 @@
         }
         
         // Create the base change string
-        // Almost Black 63 63 63
+        // Up green
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
                           };
         rawTxt = [NSString stringWithFormat:@"%@ %@",tempString,[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
@@ -2987,7 +2981,7 @@
         
         // Make the $ sign bold
         dollarSignRange = [rawTxt rangeOfString:@"$" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:dollarSignRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:dollarSignRange];
     }
     else if ([rawEvent containsString:@"down today"])
     {
@@ -3000,10 +2994,10 @@
         }
         
         // Create the base change string
-        // Almost Black 63 63 63
+        // Down Red - Slightly smaller
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]
                           };
         rawTxt = [NSString stringWithFormat:@"%@ %@",tempString,[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
@@ -3013,7 +3007,7 @@
         
         // Make the $ sign bold
         dollarSignRange = [rawTxt rangeOfString:@"$" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:dollarSignRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:dollarSignRange];
     }
     else {
         rawTxt = [NSString stringWithFormat:@"NA"];

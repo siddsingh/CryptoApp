@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "XemRounded1x.png",
+      "filename" : "bnb.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "XemRounded2x.png",
+      "filename" : "bnb@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "XemRounded3x.png",
+      "filename" : "bnb3x.png",
       "scale" : "3x"
     }
   ],
