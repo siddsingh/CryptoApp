@@ -36,12 +36,8 @@
 // Layout constraint specifying top space from Event description to container. Set to 4 in IB.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceForEventDesc;
 
-// Layout constraint for leading space for Event Desc. Set to 10 in IB.
+// Layout constraint for leading space for Event Desc. Set to 6 in IB.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingSpaceForEventDesc;
-
-// Layout constraint for leading space for Event Ticker. Set to 15 in IB.
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingSpaceForEventTicker;
-
 
 // For the appropriate icon in the list view.
 @property (weak, nonatomic) IBOutlet UILabel *listIconLbl;

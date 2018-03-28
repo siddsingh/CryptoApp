@@ -465,16 +465,20 @@
         [[cell companyName] setHidden:NO];
         
         // Set the list icon
-        // If you want to use the BTC icons
-        if ([companyAtIndex.ticker caseInsensitiveCompare:@"BTC"] == NSOrderedSame) {
+        // Set the list icon if it exists
+        if ([self.dataSnapShot doesSmallIconExist:companyAtIndex.ticker]) {
+            cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 0;
             cell.listIconLbl.text = @"";
-            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCLabel"]];
+            cell.listIconLbl.backgroundColor = [self.dataSnapShot getSmallIconAsBkgrndColorForCompany:companyAtIndex.ticker];
         }
         // or else format it in the coin colors if icon doesn't exist
         else {
+            cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 16;
             [[cell listIconLbl] setText:[companyAtIndex.ticker substringToIndex:1]];
-            cell.listIconLbl.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:cell.companyTicker.text];
-            cell.listIconLbl.textColor = [self.dataSnapShot getBrandTextColorForCompany:cell.companyTicker.text];
+            cell.listIconLbl.backgroundColor = [self.dataSnapShot getBrandBkgrndColorForCompany:companyAtIndex.ticker];
+            cell.listIconLbl.textColor = [self.dataSnapShot getBrandTextColorForCompany:companyAtIndex.ticker];
         }
         
         // Check to see if the Events Main Nav is selected
@@ -571,7 +575,6 @@
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             
             // Shift the cell contents to the left to make more space
-            [cell.leadingSpaceForEventTicker setConstant:4];
             [cell.leadingSpaceForEventDesc setConstant:0];
             
             // Hide the company ticker
@@ -615,8 +618,7 @@
         else
         {
             // Reset the cell contents to the proper position
-            [cell.leadingSpaceForEventTicker setConstant:15];
-            [cell.leadingSpaceForEventDesc setConstant:10];
+            [cell.leadingSpaceForEventDesc setConstant:6];
             
             // Set the company ticker text
             [[cell companyTicker] setText:eventAtIndex.listedCompany.ticker];
@@ -654,72 +656,13 @@
         
         // Further updating/formatting of price change events
         // Add an up or down arrow if price event else set it to show nothing. Also format the string appropriately with colors
-        if ([eventAtIndex.type containsString:@"% up"])
+        if (([eventAtIndex.type containsString:@"% up"])||([eventAtIndex.type containsString:@"% down"]))
         {
             // Move the text down for better formatting
             [cell.topSpaceForEventDesc setConstant:19];
             
             // Set change string and indicator.
-            [cell.eventImpact setText:@"▲"];
             [cell.eventImpact setAttributedText:[self getFormattedChangeStr:cell.eventDescription.text]];
-            
-            // Create the event description formatted string
-            NSDictionary *greenTxtAttributes = @{
-                                                 NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f],
-                                                 NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
-                                                 };
-            NSMutableAttributedString *formattedTxt = [[NSMutableAttributedString alloc] initWithString:cell.eventDescription.text attributes:greenTxtAttributes];
-            UIColor *defaultDarkColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
-            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"today" options:NSCaseInsensitiveSearch];
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:defaultDarkColor, NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:upDownTxtRange];
-            
-            NSRange percentSignRange = [cell.eventDescription.text rangeOfString:@"%" options:NSCaseInsensitiveSearch];
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:percentSignRange];
-            
-            NSRange dollarSignRange = [cell.eventDescription.text rangeOfString:@"$" options:NSCaseInsensitiveSearch];
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:dollarSignRange];
-            NSRange plusSignRange = [cell.eventDescription.text rangeOfString:@"+" options:NSCaseInsensitiveSearch];
-            
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:plusSignRange];
-            
-            // Set event description text to formatted string
-            //[cell.eventDescription setAttributedText:formattedTxt]; getFormattedPriceStr:
-            
-            [cell.eventDescription setAttributedText:[self getFormattedPriceStrFromEvent:cell.eventDescription.text withCoinName:cell.companyName.text]];
-        }
-        else if ([eventAtIndex.type containsString:@"% down"])
-        {
-            // Move the text down for better formatting
-            [cell.topSpaceForEventDesc setConstant:19];
-            
-            // Set change string and indicator.
-            [cell.eventImpact setText:@"▼"];
-            [cell.eventImpact setAttributedText:[self getFormattedChangeStr:cell.eventDescription.text]];
-            
-            // Set the Name and current price string
-            
-            
-            // Create the event description formatted string
-            NSDictionary *redTxtAttributes = @{
-                                                 NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
-                                                 NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]
-                                                 };
-            NSMutableAttributedString *formattedTxt = [[NSMutableAttributedString alloc] initWithString:cell.eventDescription.text attributes:redTxtAttributes];
-            UIColor *defaultDarkColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
-            NSRange upDownTxtRange = [cell.eventDescription.text rangeOfString:@"today" options:NSCaseInsensitiveSearch];
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:defaultDarkColor, NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:upDownTxtRange];
-            
-            NSRange percentSignRange = [cell.eventDescription.text rangeOfString:@"%" options:NSCaseInsensitiveSearch];
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:percentSignRange];
-            
-            NSRange dollarSignRange = [cell.eventDescription.text rangeOfString:@"$" options:NSCaseInsensitiveSearch];
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:dollarSignRange];
-            
-            NSRange minusSignRange = [cell.eventDescription.text rangeOfString:@"-" options:NSCaseInsensitiveSearch];
-            [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:minusSignRange];
-            
-            // Set event description text to formatted string
-            //[cell.eventDescription setAttributedText:formattedTxt];
             [cell.eventDescription setAttributedText:[self getFormattedPriceStrFromEvent:cell.eventDescription.text withCoinName:cell.companyName.text]];
         }
         else if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
@@ -748,73 +691,38 @@
 // set to true, meaning the event needs to be fetched from the remote Data Source. Additionally clear out the search context.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // Check to see if the row selected has an event cell with remote fetch status set to true
+    // Get the cell
     FAEventsTableViewCell *cell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:indexPath];
     
-    if (cell.eventRemoteFetch) {
-        
-        // Check to see if the Events Main Nav is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-            
-            // FOR BTC or ETHR or BCH$ or XRP, don't fetch event from API as that's not needed
-            if (!(([cell.companyTicker.text caseInsensitiveCompare:@"BTC"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"ETHR"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"BCH$"] == NSOrderedSame)||([cell.companyTicker.text caseInsensitiveCompare:@"XRP"] == NSOrderedSame))) {
-                // Check for connectivity. If yes, process the fetch
-                if ([self checkForInternetConnectivity]) {
-                    
-                    // Set the remote fetch spinner to animating to show a fetch is in progress
-                    [self showBusyMessage];
-                    
-                    // Fetch the event for the related parent company in the background
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self getAllEventsFromApiInBackgroundWithTicker:(cell.companyTicker).text];
-                    });
-                    
-                    // TRACKING EVENT: Get Earnings: User clicked the get earnings link for a company/ticker.
-                    // TO DO: Disabling to not track development events. Enable before shipping.
-                    [FBSDKAppEvents logEvent:@"Get Earnings"
-                                  parameters:@{ @"Ticker" : (cell.companyTicker).text,
-                                                @"Name" : (cell.companyName).text } ];
-                }
-                // If not, show error message
-                else {
-                    
-                    [self sendUserMessageCreatedNotificationWithMessage:@"Unable to get data. Check Connection."];
-                }
-            }
-        }
-        // Check to see if the Following Main Nav is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
-            
-            // TO DO: In the future: trigger the follow action from here.
-        }
-        // Check to see if the Product Main Nav is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:self.mainNavProductOption] == NSOrderedSame) {
-            
-            self.filteredResultsController = [self.primaryDataController getAllProductEventsForTicker:(cell.companyTicker).text since:[self computeDate4MosAgoFrom:[NSDate date]]];
-            self.filterType = [NSString stringWithFormat:@"Match_Companies_Events"];
-            // Set the Filter Specified flag to true, indicating that a search filter has been specified
-            self.filterSpecified = YES;
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"PRODUCT TIMELINE"];
-            // Reload messages table
-            [self.eventsListTable reloadData];
-            // Remove the search context that removes the keyboard
-            [self.eventsSearchBar performSelector: @selector(resignFirstResponder) withObject: nil afterDelay: 0.1];
+    //Get the event as well
+    Event *eventSelected = nil;
+    if (self.filterSpecified) {
+        // If the filter type is Match_Companies_Events, meaning a filter of matching companies with existing events
+        // has been specified.
+        if ([self.filterType isEqualToString:@"Match_Companies_Events"]) {
+            // Use filtered events results set
+            eventSelected = [self.filteredResultsController objectAtIndexPath:indexPath];
         }
     }
-    // If not then, fetch event details, if the event is of type quarterly earnings before segueing to the details view.
-    // CURRENTLY simplified this to just go to details with a description. Commenting out a price fetch.
+    // If no search filter
     else {
+        eventSelected = [self.eventResultsController objectAtIndexPath:indexPath];
+    }
+    
+    // If remote fetch that means it's not available, so do nothing.
+    if (cell.eventRemoteFetch) {
         
-        // Get Details to pass off to detailed view.
-       /* NSIndexPath *selectedRowIndexPath = [self.eventsListTable indexPathForSelectedRow];
-        FAEventsTableViewCell *selectedCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:selectedRowIndexPath]; */
+    }
+    // If not then, fetch event details.
+    else {
        
+        // TO DO: Delete Later
+        //NSLog(@"EVENT SELECTED IS:%@",eventSelected.type);
         
         // If price change event
-        if (([cell.eventDescription.text containsString:@"% up today"])||([cell.eventDescription.text containsString:@"% down today"]))
+        if (([eventSelected.type containsString:@"% up today"])||([eventSelected.type containsString:@"% down today"]))
         {
-          [self performSegueWithIdentifier:@"ShowEventDetails1" sender:cell];
+          [self performSegueWithIdentifier:@"ShowEventDetails1" sender:eventSelected];
         }
         // Else it's a news event
         else
@@ -2786,7 +2694,7 @@
     
     BOOL returnVal = YES;
     
-    if ([identifier isEqualToString:@"ShowEventDetails1"]) {
+   /* if ([identifier isEqualToString:@"ShowEventDetails1"]) {
         // If the cell is the "Get Earnings" cell identified by if Remote Fetch indicator is true, set return value to false indicating no segue should be performed
         NSIndexPath *selectedRowIndexPath = [self.eventsListTable indexPathForSelectedRow];
         FAEventsTableViewCell *selectedCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:selectedRowIndexPath];
@@ -2797,7 +2705,7 @@
     
     if ([identifier isEqualToString:@"ShowEventDetails"]) {
         returnVal = NO;
-    }
+    } */
 
     return returnVal;
 }
@@ -2805,62 +2713,37 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-   // if ([[segue identifier] isEqualToString:@"ShowEventDetails"]) {
     if ([[segue identifier] isEqualToString:@"ShowEventDetails1"]) {
         FAEventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         
         // Get the currently selected cell and set details for the destination.
         // IMPORTANT: If the format here or in the events UI is changed, reminder creation in the details screen will break.
-        FADataController *segueDataController = [[FADataController alloc] init];
-        //NSIndexPath *selectedRowIndexPath = [self.eventsListTable indexPathForSelectedRow];
-        //FAEventsTableViewCell *selectedCell = (FAEventsTableViewCell *)[self.eventsListTable cellForRowAtIndexPath:selectedRowIndexPath];
-        // Table Cell is being sent in as the sender, instead of the old way commented above.
-        FAEventsTableViewCell *selectedCell = sender;
-        NSString *eventCompany = selectedCell.companyName.text;
-        
-        // Format event display name back to event type for logic in the destination
-        NSString *eventType = [self formatBackToEventType:selectedCell.eventDescription.text withAddedInfo:selectedCell.eventCertainty.text];
+        Event *sentEvent = sender;
+    
         // Set the full name of the Event Parent Ticker for processing in destination
-        [eventDetailsViewController setParentTicker:[segueDataController getTickerForName:selectedCell.companyName.text]];
+        [eventDetailsViewController setParentTicker:sentEvent.listedCompany.ticker];
         // Set Event Type for processing in destination
-        [eventDetailsViewController setEventType: eventType];
+        [eventDetailsViewController setEventType:sentEvent.type];
         // Set Event Schedule as text for processing in destination
-        [eventDetailsViewController setEventDateText:selectedCell.eventDate.text];
+        [eventDetailsViewController setEventDateText:[self formatDateBasedOnEventType:sentEvent.type withDate:sentEvent.date withRelatedDetails:sentEvent.relatedDetails withStatus:sentEvent.certainty]];
         // Set Event certainty status for processing in destination
-        [eventDetailsViewController setEventCertainty:selectedCell.eventCertainty.text];
+        [eventDetailsViewController setEventCertainty:sentEvent.certainty];
         // Set Event Parent Company Name for processing in destination
-        [eventDetailsViewController setParentCompany:eventCompany];
+        [eventDetailsViewController setParentCompany:sentEvent.listedCompany.name];
         
         // Set Event Title for display in destination
-        [eventDetailsViewController setEventTitleStr:eventCompany];
+        [eventDetailsViewController setEventTitleStr:sentEvent.listedCompany.name];
         // Set current price and change string in the destination
-        [eventDetailsViewController setCurrentPriceAndChange:[self formatCurrPriceAndChange:self.currPriceAndChange]];
+        [eventDetailsViewController setCurrentPriceAndChange:@"NA"];
         // Set Event Schedule for display in destination
-        // For Product Events that are estimated, prepend the estimated keyword
-        // When new product event types are added, change here as well
-        if (([eventType containsString:@"Launch"]||[eventType containsString:@"Conference"])&&[selectedCell.eventCertainty.text isEqualToString:@"Estimated"]) {
-            // If the cell's date is empty (e.g. For Latest News) make the whole thing empty
-            if ([selectedCell.eventDate.text caseInsensitiveCompare:@" "] == NSOrderedSame) {
-                [eventDetailsViewController setEventScheduleStr:@" "];
-            }
-            else {
-                [eventDetailsViewController setEventScheduleStr:[NSString stringWithFormat:@"%@ %@",selectedCell.eventCertainty.text,selectedCell.eventDate.text]];
-            }
-        }
-        // For price change events, there's no schedule
-        else if ([eventType containsString:@"% up"]||[eventType containsString:@"% down"]) {
-            [eventDetailsViewController setEventScheduleStr:@" "];
-        }
-        else {
-            [eventDetailsViewController setEventScheduleStr:selectedCell.eventDate.text];
-        }
+        [eventDetailsViewController setEventScheduleStr:@"NA"];
         
         // TRACKING EVENT: Go To Details: User clicked the event in the events list to go to the details screen.
         // TO DO: Disabling to not track development events. Enable before shipping.
         [FBSDKAppEvents logEvent:@"Go To Details"
-                      parameters:@{ @"Ticker" : [segueDataController getTickerForName:selectedCell.companyName.text],
-                                    @"Event Type" : eventType,
-                                    @"Name" : (selectedCell.companyName).text } ];
+                      parameters:@{ @"Ticker" : sentEvent.listedCompany.ticker,
+                                    @"Event Type" : sentEvent.type,
+                                    @"Name" : sentEvent.listedCompany.name } ];
     }
 }
 
@@ -2986,18 +2869,16 @@
     NSArray *typeComponents = nil;
     
     // For price events strip out the up and down
-   /* if ([rawEventType containsString:@"% up"])
+    if ([rawEventType containsString:@"% up"])
     {
-        [tempString replaceOccurrencesOfString:@"% up" withString:@"%" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
-        formattedEventType = (NSString *)tempString;
+       
     }
     else if ([rawEventType containsString:@"% down"])
     {
-        [tempString replaceOccurrencesOfString:@"% down" withString:@"%" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [tempString length])];
-        formattedEventType = (NSString *)tempString;
-    } */
+        
+    }
     // For news event, strip out the cryptofinews:: from the beginning
-    if ([rawEventType containsString:@"cryptofinews::"]) {
+    else if ([rawEventType containsString:@"cryptofinews::"]) {
         typeComponents = [rawEventType componentsSeparatedByString:@"::"];
         formattedEventType = [typeComponents objectAtIndex:1];
     }
@@ -3079,13 +2960,18 @@
     NSDictionary *txtAttributes = nil;
     NSArray *typeComponents = nil;
     NSRange nameRange;
-   /* NSRange percentSignRange;
-    NSRange plusMinusSignRange;
-    NSRange changeIndicatorRange; */
+    NSRange dollarSignRange;
+    NSMutableString *tempString = nil;
     
     if ([rawEvent containsString:@"up today"])
     {
         typeComponents = [rawEvent componentsSeparatedByString:@"up today"];
+        tempString = [NSMutableString stringWithFormat:@"%@",[nameStr capitalizedString]];
+        // Truncate any name longer than Ethereum Classic
+        if ([tempString length] >= 19)
+        {
+            tempString = [NSMutableString stringWithFormat:@"%@...",[tempString substringToIndex:16]];
+        }
         
         // Create the base change string
         // Almost Black 63 63 63
@@ -3093,43 +2979,41 @@
                           NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
                           };
-        rawTxt = [NSString stringWithFormat:@"%@ %@",[nameStr capitalizedString],[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+        rawTxt = [NSString stringWithFormat:@"%@ %@",tempString,[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
         
-        nameRange = [rawTxt rangeOfString:[nameStr capitalizedString] options:NSCaseInsensitiveSearch];
+        nameRange = [rawTxt rangeOfString:tempString options:NSCaseInsensitiveSearch];
         [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:nameRange];
         
-        // Make the + and % sign bold and the indicator a little larger
-        /*percentSignRange = [rawTxt rangeOfString:@"%" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:percentSignRange];
-        
-        plusMinusSignRange = [rawTxt rangeOfString:@"+" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:plusMinusSignRange];
-        
-        changeIndicatorRange = [rawTxt rangeOfString:@"▲" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]} range:changeIndicatorRange];*/
+        // Make the $ sign bold
+        dollarSignRange = [rawTxt rangeOfString:@"$" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:dollarSignRange];
     }
     else if ([rawEvent containsString:@"down today"])
     {
         typeComponents = [rawEvent componentsSeparatedByString:@"down today"];
+        tempString = [NSMutableString stringWithFormat:@"%@",[nameStr capitalizedString]];
+        // Truncate any name longer than Ethereum Classic
+        if ([tempString length] >= 19)
+        {
+            tempString = [NSMutableString stringWithFormat:@"%@...",[tempString substringToIndex:16]];
+        }
         
+        // Create the base change string
         // Almost Black 63 63 63
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:14]
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17]
                           };
-        rawTxt = [NSString stringWithFormat:@"%@ %@",[nameStr capitalizedString],[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+        rawTxt = [NSString stringWithFormat:@"%@ %@",tempString,[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
         
-        // Make the + and % sign bold and the indicator a little larger
-       /* percentSignRange = [rawTxt rangeOfString:@"%" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:percentSignRange];
+        nameRange = [rawTxt rangeOfString:tempString options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:nameRange];
         
-        plusMinusSignRange = [rawTxt rangeOfString:@"-" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:plusMinusSignRange];
-        
-        changeIndicatorRange = [rawTxt rangeOfString:@"▼" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} range:changeIndicatorRange];*/
+        // Make the $ sign bold
+        dollarSignRange = [rawTxt rangeOfString:@"$" options:NSCaseInsensitiveSearch];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:17]} range:dollarSignRange];
     }
     else {
         rawTxt = [NSString stringWithFormat:@"NA"];
