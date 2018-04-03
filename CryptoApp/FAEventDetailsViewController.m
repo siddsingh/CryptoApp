@@ -71,13 +71,13 @@
     [self.detailsInfoSelector setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
     // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
+                                          [UIFont systemFontOfSize:16], NSFontAttributeName,
                                           [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
                                           nil];
     [self.detailsInfoSelector setTitleTextAttributes:unselectedAttributes forState:UIControlStateNormal];
     // Set text and size for selected segment
     NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                    [UIFont boldSystemFontOfSize:16], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
     [self.detailsInfoSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
@@ -238,59 +238,59 @@
     
     // ipad needed special treatment in the past. If no longer needed you can probably consolidate this code
    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        [customHeaderView setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
-       customHeaderView.textColor = [UIColor blackColor];
-       //[customHeaderView setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
-       [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+       [customHeaderView setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+       customHeaderView.textColor = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
+       customHeaderView.textAlignment = NSTextAlignmentCenter;
+       [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
        
        // If it's a currency price event there are 2 sections
        if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
            if(section == 0) {
-               [customHeaderView setText:@"   STATS"];
+               [customHeaderView setText:@"STATS"];
            }
            if(section == 1) {
-               [customHeaderView setText:@"   ABOUT"];
+               [customHeaderView setText:@"ABOUT"];
            }
        }
        // Else 3 sections
        else {
            if(section == 0) {
-               [customHeaderView setText:@"   SUMMARY"];
+               [customHeaderView setText:@"SUMMARY"];
            }
            if(section == 1) {
-               [customHeaderView setText:@"   STATS"];
+               [customHeaderView setText:@"STATS"];
            }
            if(section == 2) {
-               [customHeaderView setText:@"   ABOUT"];
+               [customHeaderView setText:@"ABOUT"];
            }
        }
     }
     // For all other devices
     else {
         [customHeaderView setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
-        customHeaderView.textColor = [UIColor blackColor];
-        //[customHeaderView setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
-        [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+        customHeaderView.textColor = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
+        customHeaderView.textAlignment = NSTextAlignmentCenter;
+        [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
         
         // If it's a currency price event there are 2 sections
         if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
             if(section == 0) {
-                [customHeaderView setText:@"   STATS"];
+                [customHeaderView setText:@"STATS"];
             }
             if(section == 1) {
-                [customHeaderView setText:@"   ABOUT"];
+                [customHeaderView setText:@"ABOUT"];
             }
         }
         // Else 3 sections
         else {
             if(section == 0) {
-                [customHeaderView setText:@"   SUMMARY"];
+                [customHeaderView setText:@"SUMMARY"];
             }
             if(section == 1) {
-                [customHeaderView setText:@"   STATS"];
+                [customHeaderView setText:@"STATS"];
             }
             if(section == 2) {
-                [customHeaderView setText:@"   ABOUT"];
+                [customHeaderView setText:@"ABOUT"];
             }
         }
     }
@@ -474,7 +474,7 @@
     return cellHeight;
 }
 
-// Set the table header to 25.0 height
+// Set the table header to 20.0 height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     CGFloat headerSize = 25.0;
@@ -485,7 +485,7 @@
             headerSize = 25.0;
         }
         if(section == 1) {
-            headerSize = 30.0;
+            headerSize = 25.0;
         }
     }
     return headerSize;
