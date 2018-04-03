@@ -9,6 +9,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 @class FADataController;
 @class FASnapShot;
 @class FACoinAltData;
@@ -87,7 +88,7 @@
 // Select the different kinds of data
 @property (weak, nonatomic) IBOutlet UISegmentedControl *detailsInfoSelector;
 
-// Take action when 
+// Take action when a details info type is selected
 - (IBAction)detailsInfoTypeSelected:(id)sender;
 
 // Divider Label 2
@@ -95,4 +96,8 @@
 
 // Divider Label 1
 @property (weak, nonatomic) IBOutlet UILabel *bottomBorderLbl1;
+
+// Controller containing results of queries to Core Data store
+@property (strong, nonatomic) NSFetchedResultsController *infoResultsController;
+
 @end

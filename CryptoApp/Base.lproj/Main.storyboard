@@ -608,7 +608,7 @@
                                     <constraint firstAttribute="height" constant="30" id="my1-sm-C26"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="GENERAL"/>
+                                    <segment title="INFO"/>
                                     <segment title="NEWS"/>
                                 </segments>
                                 <color key="tintColor" red="0.94368587270000004" green="0.95293769500000003" blue="0.95293769500000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -616,8 +616,8 @@
                                     <action selector="detailsInfoTypeSelected:" destination="4jH-eb-uDY" eventType="valueChanged" id="Zl1-za-bMc"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzj-4p-Kq1">
-                                <rect key="frame" x="2" y="30" width="207" height="1"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzj-4p-Kq1">
+                                <rect key="frame" x="0.0" y="30" width="207" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
