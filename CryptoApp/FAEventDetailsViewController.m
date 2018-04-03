@@ -65,6 +65,39 @@
     [self.eventTitle setText:[self.eventType uppercaseString]];
     [self.eventSchedule setText:[self.eventScheduleStr uppercaseString]];
     
+    // Format the details Info type selector and bottom border labels
+    // Set Background color and tint to a very light almost white gray
+    [self.detailsInfoSelector setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    [self.detailsInfoSelector setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
+    NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
+                                          [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
+                                          nil];
+    [self.detailsInfoSelector setTitleTextAttributes:unselectedAttributes forState:UIControlStateNormal];
+    // Set text and size for selected segment
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                    [UIColor blackColor], NSForegroundColorAttributeName,
+                                    nil];
+    [self.detailsInfoSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
+    // Bottom border label
+    if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"General"] == NSOrderedSame) {
+        [self.bottomBorderLbl1 setBackgroundColor:[UIColor blackColor]];
+        [self.bottomBorderLbl1 setTintColor:[UIColor blackColor]];
+        [self.bottomBorderLbl1 setTextColor:[UIColor blackColor]];
+        [self.bottomBorderLbl2 setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+        [self.bottomBorderLbl2 setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+        [self.bottomBorderLbl2 setTextColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    } else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
+        [self.bottomBorderLbl2 setBackgroundColor:[UIColor blackColor]];
+        [self.bottomBorderLbl2 setTintColor:[UIColor blackColor]];
+        [self.bottomBorderLbl2 setTextColor:[UIColor blackColor]];
+        [self.bottomBorderLbl1 setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+        [self.bottomBorderLbl1 setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+        [self.bottomBorderLbl1 setTextColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    }
+    
     // Set status of button to Follow or Following (for all events except econ events) and to Set Reminder or Reminder Set (for econ events)
     
     // String to hold the action name
@@ -2846,4 +2879,6 @@ case infoRow3:
 break;
 */
 
+- (IBAction)detailsInfoTypeSelected:(id)sender {
+}
 @end

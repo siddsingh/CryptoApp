@@ -84,4 +84,15 @@
 // Corresponding Action
 - (IBAction)seeNewsAction3:(id)sender;
 
+// Select the different kinds of data
+@property (weak, nonatomic) IBOutlet UISegmentedControl *detailsInfoSelector;
+
+// Take action when 
+- (IBAction)detailsInfoTypeSelected:(id)sender;
+
+// Divider Label 2
+@property (weak, nonatomic) IBOutlet UILabel *bottomBorderLbl2;
+
+// Divider Label 1
+@property (weak, nonatomic) IBOutlet UILabel *bottomBorderLbl1;
 @end
