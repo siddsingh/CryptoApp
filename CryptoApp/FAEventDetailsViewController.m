@@ -355,142 +355,152 @@
     //Default height is 93.0
     CGFloat cellHeight = 93.0;
     
-    // Assign a row no to the type of event detail row.
-    #define infoRow0  -1
-    #define infoRow1  0
-    #define infoRow2  1
-    #define infoRow3  2
-    #define infoRow4  3
-    #define infoRow5  4
-    #define infoRow6  5
-    #define infoRow7  6
-    #define infoRow8  7
-    #define infoRow9  8
-    #define infoRow10  9
-    #define infoRow11 10
-    #define infoRow12 11
-    #define infoRow13 12
-    #define infoRow14 13
-    
-    int rowNo = 0;
-    
-    // If it's a currency price event, start at Row 1
-    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        if (indexPath.section == 0) {
-            rowNo = (int)indexPath.row;
+    // If info type details is selected
+    if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
+        
+        // Assign a row no to the type of event detail row.
+        #define infoRow0  -1
+        #define infoRow1  0
+        #define infoRow2  1
+        #define infoRow3  2
+        #define infoRow4  3
+        #define infoRow5  4
+        #define infoRow6  5
+        #define infoRow7  6
+        #define infoRow8  7
+        #define infoRow9  8
+        #define infoRow10  9
+        #define infoRow11 10
+        #define infoRow12 11
+        #define infoRow13 12
+        #define infoRow14 13
+        
+        int rowNo = 0;
+        
+        // If it's a currency price event, start at Row 1
+        if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+            if (indexPath.section == 0) {
+                rowNo = (int)indexPath.row;
+            }
+            if (indexPath.section == 1) {
+                rowNo = ((int)indexPath.row + 5);
+            }
         }
-        if (indexPath.section == 1) {
-            rowNo = ((int)indexPath.row + 5);
+        // If it's a news event, start at Row 0, which includes a description of the event.
+        else {
+            if (indexPath.section == 0) {
+                rowNo = ((int)indexPath.row - 1);
+            }
+            if (indexPath.section == 1) {
+                rowNo = (int)indexPath.row;
+            }
+            if (indexPath.section == 2) {
+                rowNo = ((int)indexPath.row + 5);
+            }
+        }
+        
+        // Display the appropriate details based on the row no
+        switch (rowNo) {
+                
+            case infoRow0:
+            {
+                cellHeight = 93.0;
+            }
+                break;
+                
+            case infoRow1:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow2:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow3:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow4:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow5:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow6:
+            {
+                cellHeight = 93.0;
+            }
+                break;
+                
+            case infoRow7:
+            {
+                cellHeight = 93.0;
+            }
+                break;
+                
+            case infoRow8:
+            {
+                cellHeight = 93.0;
+            }
+                break;
+                
+            case infoRow9:
+            {
+                cellHeight = 93.0;
+            }
+                break;
+                
+            case infoRow10:
+            {
+                cellHeight = 93.0;
+            }
+                break;
+                
+            case infoRow11:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow12:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow13:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            case infoRow14:
+            {
+                cellHeight = 70.0;
+            }
+                break;
+                
+            default:
+                break;
         }
     }
-    // If it's a news event, start at Row 0, which includes a description of the event.
-    else {
-        if (indexPath.section == 0) {
-            rowNo = ((int)indexPath.row - 1);
-        }
-        if (indexPath.section == 1) {
-            rowNo = (int)indexPath.row;
-        }
-        if (indexPath.section == 2) {
-            rowNo = ((int)indexPath.row + 5);
-        }
-    }
     
-    // Display the appropriate details based on the row no
-    switch (rowNo) {
-            
-        case infoRow0:
-        {
-            cellHeight = 93.0;
-        }
-            break;
-            
-        case infoRow1:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow2:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow3:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow4:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow5:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow6:
-        {
-            cellHeight = 93.0;
-        }
-            break;
-            
-        case infoRow7:
-        {
-            cellHeight = 93.0;
-        }
-            break;
-            
-        case infoRow8:
-        {
-            cellHeight = 93.0;
-        }
-            break;
-            
-        case infoRow9:
-        {
-            cellHeight = 93.0;
-        }
-            break;
-            
-        case infoRow10:
-        {
-            cellHeight = 93.0;
-        }
-            break;
-            
-        case infoRow11:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow12:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow13:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        case infoRow14:
-        {
-            cellHeight = 70.0;
-        }
-            break;
-            
-        default:
-            break;
+    // If News type detail is selected
+    else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
+        
+        cellHeight = 93.0;
     }
     
     return cellHeight;
@@ -810,6 +820,7 @@
                 
                 [[cell titleLabel] setText:whatIsString];
                 [[cell descriptionArea] setText:descString];
+                [[cell detailsActionLbl] setText:@"Website >"];
             }
                 break;
                 
@@ -843,6 +854,7 @@
                 
                 [[cell titleLabel] setText:usedForString];
                 [[cell descriptionArea] setText:usedForDescString];
+                [[cell detailsActionLbl] setText:@"Details >"];
             }
                 break;
                 
@@ -850,6 +862,8 @@
             case infoRow8:
             {
                 // Set proper formatting
+                cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                cell.detailsActionLbl.hidden = YES;
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
                 [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
@@ -869,6 +883,8 @@
             case infoRow9:
             {
                 // Set proper formatting
+                cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                cell.detailsActionLbl.hidden = YES;
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
                 [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
@@ -883,10 +899,12 @@
             }
                 break;
                 
-                // Show Exchanges
+            // Show Exchanges
             case infoRow10:
             {
                 // Set proper formatting
+                cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                cell.detailsActionLbl.hidden = YES;
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
                 [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
@@ -933,6 +951,7 @@
                 
                 [[cell titleLabel] setText:subRedditExt];
                 [[cell descriptionArea] setText:redditTxt];
+                [[cell detailsActionLbl] setText:@">"];
             }
                 break;
                 
@@ -970,6 +989,7 @@
                 
                 [[cell titleLabel] setText:twitterHandle];
                 [[cell descriptionArea] setText:twitterTxt];
+                [[cell detailsActionLbl] setText:@">"];
             }
                 break;
                 
@@ -1004,10 +1024,11 @@
                 
                 [[cell titleLabel] setText:githubRepo];
                 [[cell descriptionArea] setText:githubTxt];
+                [[cell detailsActionLbl] setText:@">"];
             }
                 break;
                 
-                // Show data warning
+            // Show data warning
             case infoRow14:
             {
                 // Set proper formatting
@@ -1024,6 +1045,7 @@
                 
                 [[cell titleLabel] setText:dataTxt];
                 [[cell descriptionArea] setText:dataDesc];
+                [[cell detailsActionLbl] setText:@">"];
             }
                 break;
                 
@@ -1037,7 +1059,12 @@
         
         eventData = [self.infoResultsController objectAtIndexPath:indexPath];
         
-        [[cell descriptionArea] setText:eventData.type];
+        // Proper formatting
+        [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+        [cell.descriptionArea setTextColor:[UIColor blackColor]];
+        cell.detailsActionLbl.hidden = NO;
+        cell.detailsActionLbl.textColor = [UIColor lightGrayColor];
+        
         // Set the source for attribution
         [[cell  titleLabel] setText:[self.dataSnapShot2 getNewsSource:eventData]];
         [[cell titleLabel] setAttributedText:[self.dataSnapShot2 getFormattedSource:[self.dataSnapShot2 getNewsSource:eventData]]];
@@ -1046,8 +1073,6 @@
         [[cell descriptionArea] setText:[self formatEventType:eventData]];
         
         // Set the date of the article to the eventImpact.
-        cell.detailsActionLbl.hidden = NO;
-        cell.detailsActionLbl.textColor = [UIColor grayColor];
         [[cell detailsActionLbl] setText:[self calculateDistanceFromEventDate:eventData.date withEventType:eventData.type]];
     }
     
