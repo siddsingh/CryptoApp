@@ -1036,8 +1036,19 @@
     else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
         
         eventData = [self.infoResultsController objectAtIndexPath:indexPath];
-        [[cell titleLabel] setText:@"Source"];
+        
         [[cell descriptionArea] setText:eventData.type];
+        // Set the source for attribution
+        [[cell  titleLabel] setText:[self.dataSnapShot2 getNewsSource:eventData]];
+        [[cell titleLabel] setAttributedText:[self.dataSnapShot2 getFormattedSource:[self.dataSnapShot2 getNewsSource:eventData]]];
+        
+        // Show the news title
+        [[cell descriptionArea] setText:[self formatEventType:eventData]];
+        
+        // Set the date of the article to the eventImpact.
+        cell.detailsActionLbl.hidden = NO;
+        cell.detailsActionLbl.textColor = [UIColor grayColor];
+        [[cell detailsActionLbl] setText:[self calculateDistanceFromEventDate:eventData.date withEventType:eventData.type]];
     }
     
     return cell;
@@ -2959,6 +2970,73 @@
     NSDate *formattedDate = [aGregorianCalendar dateFromComponents:dateComponents];
     
     return formattedDate;
+}
+
+// Format the event type for appropriate display. Currently the formatting looks like the following: Quarterly Earnings -> Earnings. Jan Fed Meeting -> Fed Meeting. Jan Jobs Report -> Jobs Report and so on. For product events strip out conference keyword WWDC 2016 Conference -> WWDC 2016
+- (NSString *)formatEventType:(Event *)rawEvent
+{
+    NSString *rawEventType = rawEvent.type;
+    NSString *formattedEventType = rawEventType;
+    //NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@",formattedEventType];
+    NSArray *typeComponents = nil;
+    
+    // For price events strip out the up and down
+    if ([rawEventType containsString:@"% up"])
+    {
+        
+    }
+    else if ([rawEventType containsString:@"% down"])
+    {
+        
+    }
+    // For news event, strip out the cryptofinews:: from the beginning
+    else if ([rawEventType containsString:@"cryptofinews::"]) {
+        typeComponents = [rawEventType componentsSeparatedByString:@"::"];
+        formattedEventType = [typeComponents objectAtIndex:1];
+    }
+    else if ([rawEventType containsString:@"Conference"]) {
+        formattedEventType = [rawEventType stringByReplacingOccurrencesOfString:@" Conference" withString:@""];
+    }
+    
+    return formattedEventType;
+}
+
+// Calculate how far the event is from today. Typical values are Past,Today, Tomorrow, 2d, 3d and so on.
+- (NSString *)calculateDistanceFromEventDate:(NSDate *)eventDate withEventType:(NSString *)rawEventType
+{
+    NSString *formattedDistance = @" ";
+    
+    // Calculate the number of days between event date and today's date
+    NSCalendar *aGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSUInteger unitFlags =  NSCalendarUnitDay;
+    NSDateComponents *diffDateComponents = [aGregorianCalendar components:unitFlags fromDate:[self setTimeToMidnightLastNightOnDate:[NSDate date]] toDate:[self setTimeToMidnightLastNightOnDate:eventDate] options:0];
+    NSInteger difference = [diffDateComponents day];
+    
+    if ((difference < 0)&&(difference > -2)) {
+        formattedDistance = @"1d ago >";
+    } else if ((difference <= -2)&&(difference > -4)) {
+        formattedDistance = @"2d ago >";
+    } else if ((difference <= -4)&&(difference > -31)) {
+        formattedDistance = [NSString stringWithFormat:@"%@d ago >",[@(ABS(difference)) stringValue]];
+    } else if ((difference <= -31)&&(difference > -366)) {
+        formattedDistance = [NSString stringWithFormat:@"%@m ago >",[@(ABS(difference/30)) stringValue]];
+    } else if (difference <= -366) {
+        formattedDistance = @">1y ago >";
+    } else if (difference == 0) {
+        formattedDistance = @"Today >";
+    } else if (difference == 1) {
+        formattedDistance = @"Tomorrow >";
+    } else if ((difference > 1)&&(difference < 31)) {
+        formattedDistance = [NSString stringWithFormat:@"In %@d ",[@(difference) stringValue]];
+    } else if ((difference >= 31)&&(difference < 366)) {
+        formattedDistance = [NSString stringWithFormat:@"In %@mos ",[@(difference/30) stringValue]];
+    } else if (difference >= 366) {
+        formattedDistance = @"Beyond 1yr ";
+    } else {
+        formattedDistance = [NSString stringWithFormat:@"%@d ",[@(difference) stringValue]];
+    }
+    
+    return formattedDistance;
 }
 
 #pragma mark - unused code
