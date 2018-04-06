@@ -1085,293 +1085,321 @@
     
     // Check to see if the row selected has an event cell with remote fetch status set to true
     FAEventDetailsTableViewCell *cell = (FAEventDetailsTableViewCell *)[self.eventDetailsTable cellForRowAtIndexPath:indexPath];
+    Event *eventData = nil;
     
     NSString *actionLocation = nil;
     NSString *actionURL = nil;
     NSURL *targetURL = nil;
     
-    // Assign a row no to the type of event detail row.
-    #define infoRow0  -1
-    #define infoRow1  0
-    #define infoRow2  1
-    #define infoRow3  2
-    #define infoRow4  3
-    #define infoRow5  4
-    #define infoRow6  5
-    #define infoRow7  6
-    #define infoRow8  7
-    #define infoRow9  8
-    #define infoRow10  9
-    #define infoRow11 10
-    #define infoRow12 11
-    #define infoRow13 12
-    #define infoRow14 13
-    
-    int rowNo = 0;
-    
-    // If it's a currency price event, start at Row 1
-    if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
-        if (indexPath.section == 0) {
-            rowNo = (int)indexPath.row;
+    // If info type details is selected
+    if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
+        
+        // Assign a row no to the type of event detail row.
+        #define infoRow0  -1
+        #define infoRow1  0
+        #define infoRow2  1
+        #define infoRow3  2
+        #define infoRow4  3
+        #define infoRow5  4
+        #define infoRow6  5
+        #define infoRow7  6
+        #define infoRow8  7
+        #define infoRow9  8
+        #define infoRow10  9
+        #define infoRow11 10
+        #define infoRow12 11
+        #define infoRow13 12
+        #define infoRow14 13
+        
+        int rowNo = 0;
+        
+        // If it's a currency price event, start at Row 1
+        if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
+            if (indexPath.section == 0) {
+                rowNo = (int)indexPath.row;
+            }
+            if (indexPath.section == 1) {
+                rowNo = ((int)indexPath.row + 5);
+            }
         }
-        if (indexPath.section == 1) {
-            rowNo = ((int)indexPath.row + 5);
+        // If it's a news event, start at Row 0, which includes a description of the event.
+        else {
+            if (indexPath.section == 0) {
+                rowNo = ((int)indexPath.row - 1);
+            }
+            if (indexPath.section == 1) {
+                rowNo = (int)indexPath.row;
+            }
+            if (indexPath.section == 2) {
+                rowNo = ((int)indexPath.row + 5);
+            }
+        }
+        
+        // Display the appropriate details based on the section and row no
+        switch (rowNo) {
+                
+                // For event summary Do nothing
+            case infoRow0:
+            {
+                
+            }
+                break;
+                
+                // For Market Cap Rank Do nothing
+            case infoRow1:
+            {
+                
+            }
+                break;
+                
+                // Show Current Price Do nothing
+            case infoRow2:
+            {
+                
+            }
+                break;
+                
+                // Show 1 Hr Price Change Do nothing
+            case infoRow3:
+            {
+                
+            }
+                break;
+                
+                // Show 24 Hr Price Change Do nothing
+            case infoRow4:
+            {
+                
+            }
+                break;
+                
+                // Show 7 Days Price Change Do nothing
+            case infoRow5:
+            {
+                
+            }
+                break;
+                
+                // Show What is ? and link to website for the ticker
+            case infoRow6:
+            {
+                actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:2]];
+                
+                if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+                {
+                    
+                }
+                else
+                {
+                    targetURL = [NSURL URLWithString:actionLocation];
+                    if (targetURL) {
+                        
+                        // TRACKING EVENT:
+                        // TO DO: Disabling to not track development events. Enable before shipping.
+                        [FBSDKAppEvents logEvent:@"See External About Information"
+                                      parameters:@{ @"About Ticker" : self.parentTicker,
+                                                    @"About Field" : @"What is > Website",
+                                                    @"Action URL" : [targetURL absoluteString]} ];
+                        
+                        SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                        externalInfoVC.delegate = self;
+                        // Just use whatever is the default color for the Safari View Controller
+                        //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                        [self presentViewController:externalInfoVC animated:YES completion:nil];
+                    }
+                }
+            }
+                break;
+                
+                // Show Use Cases and link to more detailed description
+            case infoRow7:
+            {
+                actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:3]];
+                
+                if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+                {
+                    
+                }
+                else
+                {
+                    cell.detailsActionLbl.textColor = [UIColor blackColor];
+                    cell.detailsActionLbl.hidden = NO;
+                    targetURL = [NSURL URLWithString:actionLocation];
+                    if (targetURL) {
+                        
+                        // TRACKING EVENT:
+                        // TO DO: Disabling to not track development events. Enable before shipping.
+                        [FBSDKAppEvents logEvent:@"See External About Information"
+                                      parameters:@{ @"About Ticker" : self.parentTicker,
+                                                    @"About Field" : @"Uses > Detailed Description Site",
+                                                    @"Action URL" : [targetURL absoluteString]} ];
+                        
+                        SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                        externalInfoVC.delegate = self;
+                        // Just use whatever is the default color for the Safari View Controller
+                        //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                        [self presentViewController:externalInfoVC animated:YES completion:nil];
+                    }
+                }
+            }
+                break;
+                
+                // Show Backed By Do nothing
+            case infoRow8:
+            {
+                
+            }
+                break;
+                
+                // Show Concerns Do nothing
+            case infoRow9:
+            {
+                
+            }
+                break;
+                
+                // Do nothingHide the detail action label
+            case infoRow10:
+            {
+                
+            }
+                break;
+                
+                // Show Reddit
+            case infoRow11:
+            {
+                actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:4]];
+                
+                if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+                {
+                    
+                }
+                else
+                {
+                    actionURL = [NSString stringWithFormat:@"https://www.reddit.com%@",actionLocation];
+                    targetURL = [NSURL URLWithString:actionURL];
+                    
+                    if (targetURL) {
+                        
+                        // TRACKING EVENT:
+                        // TO DO: Disabling to not track development events. Enable before shipping.
+                        [FBSDKAppEvents logEvent:@"See External About Information"
+                                      parameters:@{ @"About Ticker" : self.parentTicker,
+                                                    @"About Field" : @"See Reddit",
+                                                    @"Action URL" : [targetURL absoluteString]} ];
+                        
+                        SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                        externalInfoVC.delegate = self;
+                        // Just use whatever is the default color for the Safari View Controller
+                        //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                        [self presentViewController:externalInfoVC animated:YES completion:nil];
+                    }
+                }
+            }
+                break;
+                
+                // Show Twitter
+            case infoRow12:
+            {
+                actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:6]];
+                
+                if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+                {
+                    
+                }
+                else
+                {
+                    actionURL = [NSString stringWithFormat:@"https://twitter.com/%@",actionLocation];
+                    targetURL = [NSURL URLWithString:actionURL];
+                    
+                    if (targetURL) {
+                        
+                        // TRACKING EVENT:
+                        // TO DO: Disabling to not track development events. Enable before shipping.
+                        [FBSDKAppEvents logEvent:@"See External About Information"
+                                      parameters:@{ @"About Ticker" : self.parentTicker,
+                                                    @"About Field" : @"See Twitter",
+                                                    @"Action URL" : [targetURL absoluteString]} ];
+                        
+                        SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                        externalInfoVC.delegate = self;
+                        // Just use whatever is the default color for the Safari View Controller
+                        //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                        [self presentViewController:externalInfoVC animated:YES completion:nil];
+                    }
+                }
+            }
+                break;
+                
+                // Show Github
+            case infoRow13:
+            {
+                actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
+                
+                if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
+                {
+                    
+                }
+                else
+                {
+                    actionURL = [NSString stringWithFormat:@"https://github.com%@",actionLocation];
+                    targetURL = [NSURL URLWithString:actionURL];
+                    
+                    if (targetURL) {
+                        
+                        // TRACKING EVENT:
+                        // TO DO: Disabling to not track development events. Enable before shipping.
+                        [FBSDKAppEvents logEvent:@"See External About Information"
+                                      parameters:@{ @"About Ticker" : self.parentTicker,
+                                                    @"About Field" : @"See Github",
+                                                    @"Action URL" : [targetURL absoluteString]} ];
+                        
+                        SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                        externalInfoVC.delegate = self;
+                        // Just use whatever is the default color for the Safari View Controller
+                        //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                        [self presentViewController:externalInfoVC animated:YES completion:nil];
+                    }
+                }
+            }
+                break;
+                
+                // Show Support/contact us page
+            case infoRow14:
+            {
+                SFSafariViewController *supportVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"http://www.knotifi.com/p/contact.html"]];
+                supportVC.delegate = self;
+                supportVC.preferredControlTintColor = [UIColor blackColor];
+                [self presentViewController:supportVC animated:YES completion:nil];
+            }
+                break;
+                
+            default:
+                break;
         }
     }
-    // If it's a news event, start at Row 0, which includes a description of the event.
-    else {
-        if (indexPath.section == 0) {
-            rowNo = ((int)indexPath.row - 1);
-        }
-        if (indexPath.section == 1) {
-            rowNo = (int)indexPath.row;
-        }
-        if (indexPath.section == 2) {
-            rowNo = ((int)indexPath.row + 5);
-        }
-    }
     
-    // Display the appropriate details based on the section and row no
-    switch (rowNo) {
-            
-        // For event summary Do nothing
-        case infoRow0:
-        {
-            
-        }
-        break;
-            
-        // For Market Cap Rank Do nothing
-        case infoRow1:
-        {
-            
-        }
-        break;
-            
-        // Show Current Price Do nothing
-        case infoRow2:
-        {
-            
-        }
-        break;
-            
-        // Show 1 Hr Price Change Do nothing
-        case infoRow3:
-        {
-           
-        }
-        break;
-            
-        // Show 24 Hr Price Change Do nothing
-        case infoRow4:
-        {
-            
-        }
-        break;
-            
-        // Show 7 Days Price Change Do nothing
-        case infoRow5:
-        {
-            
-        }
-        break;
-            
-        // Show What is ? and link to website for the ticker
-        case infoRow6:
-        {
-            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:2]];
-            
-            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
-            {
-            
-            }
-            else
-            {
-                targetURL = [NSURL URLWithString:actionLocation];
-                if (targetURL) {
-                    
-                    // TRACKING EVENT:
-                    // TO DO: Disabling to not track development events. Enable before shipping.
-                    [FBSDKAppEvents logEvent:@"See External About Information"
-                                  parameters:@{ @"About Ticker" : self.parentTicker,
-                                                @"About Field" : @"What is > Website",
-                                                @"Action URL" : [targetURL absoluteString]} ];
-                    
-                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-                    externalInfoVC.delegate = self;
-                    // Just use whatever is the default color for the Safari View Controller
-                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
-                    [self presentViewController:externalInfoVC animated:YES completion:nil];
-                }
-            }
-        }
-        break;
-            
-        // Show Use Cases and link to more detailed description
-        case infoRow7:
-        {
-            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:3]];
-            
-            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
-            {
-                
-            }
-            else
-            {
-                cell.detailsActionLbl.textColor = [UIColor blackColor];
-                cell.detailsActionLbl.hidden = NO;
-                targetURL = [NSURL URLWithString:actionLocation];
-                if (targetURL) {
-                    
-                    // TRACKING EVENT:
-                    // TO DO: Disabling to not track development events. Enable before shipping.
-                    [FBSDKAppEvents logEvent:@"See External About Information"
-                                  parameters:@{ @"About Ticker" : self.parentTicker,
-                                                @"About Field" : @"Uses > Detailed Description Site",
-                                                @"Action URL" : [targetURL absoluteString]} ];
-                    
-                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-                    externalInfoVC.delegate = self;
-                    // Just use whatever is the default color for the Safari View Controller
-                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
-                    [self presentViewController:externalInfoVC animated:YES completion:nil];
-                }
-            }
-        }
-        break;
-            
-        // Show Backed By Do nothing
-        case infoRow8:
-        {
-            
-        }
-        break;
-            
-        // Show Concerns Do nothing
-        case infoRow9:
-        {
-            
-        }
-        break;
-           
-        // Do nothingHide the detail action label
-        case infoRow10:
-        {
-            
-        }
-        break;
+    // If News type detail is selected
+    else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
         
-        // Show Reddit
-        case infoRow11:
-        {
-            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:4]];
-            
-            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
-            {
-                
-            }
-            else
-            {
-                actionURL = [NSString stringWithFormat:@"https://www.reddit.com%@",actionLocation];
-                targetURL = [NSURL URLWithString:actionURL];
-                
-                if (targetURL) {
-                    
-                    // TRACKING EVENT:
-                    // TO DO: Disabling to not track development events. Enable before shipping.
-                    [FBSDKAppEvents logEvent:@"See External About Information"
-                                  parameters:@{ @"About Ticker" : self.parentTicker,
-                                                @"About Field" : @"See Reddit",
-                                                @"Action URL" : [targetURL absoluteString]} ];
-                    
-                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-                    externalInfoVC.delegate = self;
-                    // Just use whatever is the default color for the Safari View Controller
-                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
-                    [self presentViewController:externalInfoVC animated:YES completion:nil];
-                }
-            }
-        }
-        break;
-            
-        // Show Twitter
-        case infoRow12:
-        {
-            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:6]];
-            
-            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
-            {
-                
-            }
-            else
-            {
-                actionURL = [NSString stringWithFormat:@"https://twitter.com/%@",actionLocation];
-                targetURL = [NSURL URLWithString:actionURL];
-                
-                if (targetURL) {
-                    
-                    // TRACKING EVENT:
-                    // TO DO: Disabling to not track development events. Enable before shipping.
-                    [FBSDKAppEvents logEvent:@"See External About Information"
-                                  parameters:@{ @"About Ticker" : self.parentTicker,
-                                                @"About Field" : @"See Twitter",
-                                                @"Action URL" : [targetURL absoluteString]} ];
-                    
-                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-                    externalInfoVC.delegate = self;
-                    // Just use whatever is the default color for the Safari View Controller
-                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
-                    [self presentViewController:externalInfoVC animated:YES completion:nil];
-                }
-            }
-        }
-        break;
-            
-        // Show Github
-        case infoRow13:
-        {
-            actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
-            
-            if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
-            {
-                
-            }
-            else
-            {
-                actionURL = [NSString stringWithFormat:@"https://github.com%@",actionLocation];
-                targetURL = [NSURL URLWithString:actionURL];
-                
-                if (targetURL) {
-                    
-                    // TRACKING EVENT:
-                    // TO DO: Disabling to not track development events. Enable before shipping.
-                    [FBSDKAppEvents logEvent:@"See External About Information"
-                                  parameters:@{ @"About Ticker" : self.parentTicker,
-                                                @"About Field" : @"See Github",
-                                                @"Action URL" : [targetURL absoluteString]} ];
-                    
-                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
-                    externalInfoVC.delegate = self;
-                    // Just use whatever is the default color for the Safari View Controller
-                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
-                    [self presentViewController:externalInfoVC animated:YES completion:nil];
-                }
-            }
-        }
-        break;
-            
-        // Show Support/contact us page
-        case infoRow14:
-        {
-            SFSafariViewController *supportVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"http://www.knotifi.com/p/contact.html"]];
-            supportVC.delegate = self;
-            supportVC.preferredControlTintColor = [UIColor blackColor];
-            [self presentViewController:supportVC animated:YES completion:nil];
-        }
-        break;
+        eventData = [self.infoResultsController objectAtIndexPath:indexPath];
+        NSURL *targetURL = [NSURL URLWithString:eventData.relatedDetails];
         
-        default:
-        break;
+        if (targetURL) {
+            
+            // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
+            // TO DO: Disabling to not track development events. Enable before shipping.
+            [FBSDKAppEvents logEvent:@"See External News Article"
+                          parameters:@{ @"News Source" : cell.titleLabel.text,
+                                        @"News Title" : cell.descriptionArea.text,
+                                        @"External URL" : [targetURL absoluteString]} ];
+            
+            SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+            externalInfoVC.delegate = self;
+            // Just use whatever is the default color for the Safari View Controller
+            //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] withCompanyTicker:ticker];
+            [self presentViewController:externalInfoVC animated:YES completion:nil];
+        }
     }
 }
 
