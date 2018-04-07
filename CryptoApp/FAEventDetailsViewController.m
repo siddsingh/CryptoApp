@@ -98,6 +98,12 @@
         [self.bottomBorderLbl1 setTextColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
     }
     
+    //Adding a pull to refresh action on the table.
+    self.deetsTblRefreshControl = [[UIRefreshControl alloc] init];
+    // tblRefreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Please Wait..."];
+    [self.deetsTblRefreshControl addTarget:self action:@selector(deetsRefreshTbl:) forControlEvents:UIControlEventValueChanged];
+    [self.eventDetailsTable addSubview:self.deetsTblRefreshControl];
+    
     // Set status of button to Follow or Following (for all events except econ events) and to Set Reminder or Reminder Set (for econ events)
     
     // String to hold the action name
@@ -170,7 +176,7 @@
         }
     } */
     
-    self.newsButton2.clipsToBounds = YES;
+   /* self.newsButton2.clipsToBounds = YES;
     self.newsButton2.layer.cornerRadius = 5;
     self.newsButton3.clipsToBounds = YES;
     self.newsButton3.layer.cornerRadius = 5;
@@ -186,7 +192,7 @@
     } else {
         [self.newsButton2 setTitle:[NSString stringWithFormat:@"Best Info"] forState:UIControlStateNormal];
         [self.newsButton3 setTitle:[NSString stringWithFormat:@"More Info"] forState:UIControlStateNormal];
-    }
+    } */
     
     // Set color of back navigation item based on event type
     self.navigationController.navigationBar.tintColor = [self getColorForEventTypeForBackNav:self.eventType];
@@ -1416,12 +1422,15 @@
 // Take action when a details info type is selected
 - (IBAction)detailsInfoTypeSelected:(id)sender {
     
+    
     // Reset the navigation bar header text color to black
-    /*NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                              [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                              [UIColor blackColor], NSForegroundColorAttributeName,
                                              nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];*/
+    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+    // Reset the company name in the navigation bar header.
+    self.navigationItem.title = [self.eventTitleStr uppercaseString];
     
     // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1436,55 +1445,62 @@
                                     nil];
     [self.detailsInfoSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
     
-    // Bottom border label
+    // If Info
     if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
+        // Format
         [self.bottomBorderLbl1 setBackgroundColor:[UIColor blackColor]];
         [self.bottomBorderLbl1 setTintColor:[UIColor blackColor]];
         [self.bottomBorderLbl1 setTextColor:[UIColor blackColor]];
         [self.bottomBorderLbl2 setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
         [self.bottomBorderLbl2 setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
         [self.bottomBorderLbl2 setTextColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
-    } else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
+        
+        //Action
+        [self.eventDetailsTable reloadData];
+        
+        // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
+        // TO DO: Disabling to not track development events. Enable before shipping.
+        [FBSDKAppEvents logEvent:@"Event Type Selected"
+                      parameters:@{ @"Event Type" : @"Price Info in Details" } ];
+    }
+    // If News
+    else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
+        // Format
         [self.bottomBorderLbl2 setBackgroundColor:[UIColor blackColor]];
         [self.bottomBorderLbl2 setTintColor:[UIColor blackColor]];
         [self.bottomBorderLbl2 setTextColor:[UIColor blackColor]];
         [self.bottomBorderLbl1 setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
         [self.bottomBorderLbl1 setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
         [self.bottomBorderLbl1 setTextColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
-    }
-    
-    // If Info is selected.
-    if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
         
+        // Action
+        // Reload the details table with the news.
+        self.infoResultsController = [self.primaryDetailsDataController getLatestCryptoEvents];
         [self.eventDetailsTable reloadData];
-    }
-    // If News is selected
-    else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
         
-            // Reload the details table with the news.
-            self.infoResultsController = [self.primaryDetailsDataController getLatestCryptoEvents];
-            [self.eventDetailsTable reloadData];
+        // Set navigation bar header to an attention orange color
+        NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                   [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                                   [UIColor colorWithRed:205.0f/255.0f green:151.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
+                                                   nil];
+        [self.navigationController.navigationBar setTitleTextAttributes:attentionHeaderAttributes];
+        //[self.navigationController.navigationBar.topItem setTitle:[notification object]];
+        self.navigationItem.title = @"Fetching...";
         
-        // Get all price change events for followed stocks asynchronously
-       /* dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
-            // Create a new FADataController so that this thread has its own MOC
-            FADataController *prodEventsDataController = [[FADataController alloc] init];
-            
-            [prodEventsDataController syncProductEventsWrapper];
+        // Force a pull down to refresh asynchronously
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // This line is what actually triggers the refresh action/selector
+                [self.deetsTblRefreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+            });
         });
+        
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Latest" } ]; */
-        
+        [FBSDKAppEvents logEvent:@"In App News Viewed"
+                      parameters:@{ @"Event Type" : @"Latest News in Details" } ];
     }
-    
-    
-    // TRACKING EVENT: EventsNav Selected: User clicked the "Reminder Set" button, most likely to unset the reminder.
-    // TO DO: Disabling to not track development events. Enable before shipping.
-    /*[FBSDKAppEvents logEvent:@"MainNav Selected"
-                  parameters:@{ @"Option" :  [self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]} ];*/
 }
 
 #pragma mark - Reminder Related
@@ -2316,15 +2332,13 @@
 // TO DO: Currently set to 20 seconds. Change as you see fit.
 - (void)userGuidanceGenerated:(NSNotification *)notification {
     
-    // Make sure the message bar is empty and visible to the user
-    self.messagesArea.text = @"";
-    self.messagesArea.alpha = 1.0;
-    
-    // Show the message that's generated for a period of 20 seconds
-    [UIView animateWithDuration:20 animations:^{
-        self.messagesArea.text = [notification object];
-        self.messagesArea.alpha = 0;
-    }];
+    // Set navigation bar header to an attention orange color
+    NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                               [UIColor colorWithRed:205.0f/255.0f green:151.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
+                                               nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attentionHeaderAttributes];
+    [self.navigationController.navigationBar.topItem setTitle:[notification object]];
 }
 
 #pragma mark - Connectivity Methods
@@ -3090,6 +3104,59 @@
     }
     
     return formattedDistance;
+}
+
+
+// Refresh table view per the main nav action selected.
+- (void)deetsRefreshTbl:(UIRefreshControl *)refreshTblControl
+{
+    // Check for connectivity. If yes, sync data from remote data source
+    if ([self checkForInternetConnectivity]) {
+        // Create a new FADataController so that this thread has its own MOC
+        FADataController *refreshDataController = [[FADataController alloc] init];
+        
+        // If Info is selected, do nothing for now, consider syncing the price later
+        if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
+            [refreshDataController getAllCryptoPriceChangeEventsFromApi];
+            [self.eventDetailsTable reloadData];
+            [refreshTblControl endRefreshing];
+            
+            // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
+            // TO DO: Disabling to not track development events. Enable before shipping.
+            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
+                          parameters:@{ @"Event Type" : @"Price Info in Details" } ];
+        }
+        // If News is selected, fetch the news and refresh
+        else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
+            
+            // Synchronous refresh
+            [refreshDataController getAllNewsFromApi];
+            self.infoResultsController = [refreshDataController getLatestCryptoEvents];
+            [self.eventDetailsTable reloadData];
+            [refreshTblControl endRefreshing];
+            
+            // Reset the header
+            // Reset the navigation bar header text color to black
+            NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                     [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                                     [UIColor blackColor], NSForegroundColorAttributeName,
+                                                     nil];
+            [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+            // Reset the company name in the navigation bar header.
+            self.navigationItem.title = [self.eventTitleStr uppercaseString];
+            
+            // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
+            // TO DO: Disabling to not track development events. Enable before shipping.
+            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
+                          parameters:@{ @"Event Type" : @"Latest News in Details" } ];
+        }
+    }
+    // If not, show error message
+    else {
+        
+        [self sendUserGuidanceCreatedNotificationWithMessage:@"No Connection. Limited functionality."];
+        [refreshTblControl endRefreshing];
+    }
 }
 
 #pragma mark - unused code

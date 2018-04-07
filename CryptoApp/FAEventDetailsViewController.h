@@ -100,4 +100,7 @@
 // Controller containing results of queries to Core Data store
 @property (strong, nonatomic) NSFetchedResultsController *infoResultsController;
 
+// Pull to refresh control
+@property (strong,nonatomic) UIRefreshControl *deetsTblRefreshControl;
+
 @end

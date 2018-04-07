@@ -2484,6 +2484,9 @@
         [self.eventTypeSelector setTitle:@"LATEST" forSegmentAtIndex:0];
         [self.eventTypeSelector setTitle:@"UPCOMING" forSegmentAtIndex:1];
         [self.eventTypeSelector setTitle:@"RECENT" forSegmentAtIndex:2];
+         // TRACKING EVENT:
+        [FBSDKAppEvents logEvent:@"In App News Viewed"
+                      parameters:@{ @"Event Type" : @"Latest News from Main" } ];
     }
     
     // Set events selector to All Events
