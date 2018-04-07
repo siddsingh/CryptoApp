@@ -3635,14 +3635,35 @@
 {
     // Check for connectivity. If yes, sync data from remote data source
     if ([self checkForInternetConnectivity]) {
-        // Create a new FADataController so that this thread has its own MOC
-        FADataController *refreshDataController = [[FADataController alloc] init];
         
         // If Price is selected.
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
             
+            // Asynchronous refresh
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    FADataController *priceListRefreshDataController = [[FADataController alloc] init];
+                    [priceListRefreshDataController getAllCryptoPriceChangeEventsFromApi];
+                    
+                    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
+                        self.eventResultsController = [priceListRefreshDataController getAllCurrencyPriceChangeEvents];
+                    }
+                    
+                    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
+                        self.eventResultsController = [priceListRefreshDataController getTopGainersCurrencyPriceChangeEvents];
+                    }
+                    
+                    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
+                        self.eventResultsController = [priceListRefreshDataController getTopLosersCurrencyPriceChangeEvents];
+                    }
+                    
+                    [self.eventsListTable reloadData];
+                    [refreshTblControl endRefreshing];
+                });
+            });
+            
             // Synchronous refresh
-            [refreshDataController getAllCryptoPriceChangeEventsFromApi];
+      /*      [refreshDataController getAllCryptoPriceChangeEventsFromApi];
             
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
                 self.eventResultsController = [refreshDataController getAllCurrencyPriceChangeEvents];
@@ -3657,19 +3678,37 @@
             }
             
             [self.eventsListTable reloadData];
-            [refreshTblControl endRefreshing];
-            
-            // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
-            // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
-                          parameters:@{ @"Event Type" : [self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] } ];
+            [refreshTblControl endRefreshing]; */
         }
         
         // If News is selected.
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
             
+            // Asynchronous refresh
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    FADataController *newsListRefreshDataController = [[FADataController alloc] init];
+                    [newsListRefreshDataController getAllNewsFromApi];
+                    
+                    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
+                        self.eventResultsController = [newsListRefreshDataController getLatestCryptoEvents];
+                    }
+                    
+                    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
+                        self.eventResultsController = [newsListRefreshDataController getAllFutureCryptoEvents];
+                    }
+                    
+                    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
+                        self.eventResultsController = [newsListRefreshDataController getAllPastCryptoEvents];
+                    }
+                    
+                    [self.eventsListTable reloadData];
+                    [refreshTblControl endRefreshing];
+                });
+            });
+            
             // Synchronous refresh
-            [refreshDataController getAllNewsFromApi];
+        /*    [refreshDataController getAllNewsFromApi];
             
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
                 self.eventResultsController = [refreshDataController getLatestCryptoEvents];
@@ -3684,13 +3723,13 @@
             }
             
             [self.eventsListTable reloadData];
-            [refreshTblControl endRefreshing];
-            
-            // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
-            // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
-                          parameters:@{ @"Event Type" : [self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] } ];
+            [refreshTblControl endRefreshing]; */
         }
+        
+        // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
+        // TO DO: Disabling to not track development events. Enable before shipping.
+        [FBSDKAppEvents logEvent:@"Pull Down Refresh"
+                      parameters:@{ @"Event Type" : [self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] } ];
     }
     // If not, show error message
     else {

@@ -253,7 +253,7 @@
        [customHeaderView setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
        customHeaderView.textColor = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
        customHeaderView.textAlignment = NSTextAlignmentCenter;
-       [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+       [customHeaderView setFont:[UIFont systemFontOfSize:14]];
        
        // If it's a currency price event there are 2 sections
        if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
@@ -290,7 +290,7 @@
         [customHeaderView setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
         customHeaderView.textColor = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
         customHeaderView.textAlignment = NSTextAlignmentCenter;
-        [customHeaderView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+        [customHeaderView setFont:[UIFont systemFontOfSize:14]];
         
         // If it's a currency price event there are 2 sections
         if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
@@ -1422,15 +1422,13 @@
 // Take action when a details info type is selected
 - (IBAction)detailsInfoTypeSelected:(id)sender {
     
-    
     // Reset the navigation bar header text color to black
     NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                              [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                              [UIColor blackColor], NSForegroundColorAttributeName,
                                              nil];
     [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
-    // Reset the company name in the navigation bar header.
-    self.navigationItem.title = [self.eventTitleStr uppercaseString];
+    
     
     // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1447,6 +1445,10 @@
     
     // If Info
     if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
+        
+        // Reset the company name in the navigation bar header.
+        self.navigationItem.title = [self.eventTitleStr uppercaseString];
+        
         // Format
         [self.bottomBorderLbl1 setBackgroundColor:[UIColor blackColor]];
         [self.bottomBorderLbl1 setTintColor:[UIColor blackColor]];
@@ -1465,6 +1467,10 @@
     }
     // If News
     else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
+        
+        // Reset crypto in the navigation bar header.
+        self.navigationItem.title = @"CRYPTO";
+        
         // Format
         [self.bottomBorderLbl2 setBackgroundColor:[UIColor blackColor]];
         [self.bottomBorderLbl2 setTintColor:[UIColor blackColor]];
@@ -1490,7 +1496,7 @@
         // Force a pull down to refresh asynchronously
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                // This line is what actually triggers the refresh action/selector
+                // Trigger the table refresh
                 [self.deetsTblRefreshControl sendActionsForControlEvents:UIControlEventValueChanged];
             });
         });
@@ -3112,14 +3118,30 @@
 {
     // Check for connectivity. If yes, sync data from remote data source
     if ([self checkForInternetConnectivity]) {
-        // Create a new FADataController so that this thread has its own MOC
-        FADataController *refreshDataController = [[FADataController alloc] init];
         
-        // If Info is selected, do nothing for now, consider syncing the price later
+        // If Info is selected, sync the price
         if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
-            [refreshDataController getAllCryptoPriceChangeEventsFromApi];
-            [self.eventDetailsTable reloadData];
-            [refreshTblControl endRefreshing];
+            
+            // Asynchronous refresh
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    FADataController *priceRefreshDataController = [[FADataController alloc] init];
+                    [priceRefreshDataController getAllCryptoPriceChangeEventsFromApi];
+                    [self.eventDetailsTable reloadData];
+                    [refreshTblControl endRefreshing];
+                    // Reset the navigation bar header text color to black
+                    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                             [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                                             [UIColor blackColor], NSForegroundColorAttributeName,
+                                                             nil];
+                    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+                    // Reset the company name in the navigation bar header.
+                    self.navigationItem.title = [self.eventTitleStr uppercaseString];
+                });
+                // Make sure the price list is refreshed as well.
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"EventStoreUpdated" object:self];
+            });
+            
             
             // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
             // TO DO: Disabling to not track development events. Enable before shipping.
@@ -3129,21 +3151,24 @@
         // If News is selected, fetch the news and refresh
         else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
             
-            // Synchronous refresh
-            [refreshDataController getAllNewsFromApi];
-            self.infoResultsController = [refreshDataController getLatestCryptoEvents];
-            [self.eventDetailsTable reloadData];
-            [refreshTblControl endRefreshing];
-            
-            // Reset the header
-            // Reset the navigation bar header text color to black
-            NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                     [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                                     [UIColor blackColor], NSForegroundColorAttributeName,
-                                                     nil];
-            [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
-            // Reset the company name in the navigation bar header.
-            self.navigationItem.title = [self.eventTitleStr uppercaseString];
+            // Asynchronous refresh
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    FADataController *newsRefreshDataController = [[FADataController alloc] init];
+                    [newsRefreshDataController getAllNewsFromApi];
+                    self.infoResultsController = [newsRefreshDataController getLatestCryptoEvents];
+                    [self.eventDetailsTable reloadData];
+                    [refreshTblControl endRefreshing];
+                    // Reset the navigation bar header text color to black
+                    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                             [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                                             [UIColor blackColor], NSForegroundColorAttributeName,
+                                                             nil];
+                    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+                    // Reset the company name in the navigation bar header.
+                    self.navigationItem.title = @"CRYPTO";
+                });
+            });
             
             // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
             // TO DO: Disabling to not track development events. Enable before shipping.
