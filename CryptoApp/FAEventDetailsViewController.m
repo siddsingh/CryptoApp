@@ -3137,9 +3137,9 @@
                     [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
                     // Reset the company name in the navigation bar header.
                     self.navigationItem.title = [self.eventTitleStr uppercaseString];
+                    // Make sure the price list is refreshed as well.
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"EventStoreUpdated" object:self];
                 });
-                // Make sure the price list is refreshed as well.
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"EventStoreUpdated" object:self];
             });
             
             
