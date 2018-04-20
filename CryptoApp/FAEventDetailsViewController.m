@@ -2371,7 +2371,7 @@
 - (NSInteger)getNoOfInfoPiecesForEventTypeForSection:(NSInteger)sectionNo
 {
     NSInteger numberOfPieces = 0;
-    FADataController *piecesDC = piecesDC = [[FADataController alloc] init];
+    FADataController *piecesDC = [[FADataController alloc] init];
     
     // If it's a currency price event
     if ([self.eventType containsString:@"% up"]||[self.eventType containsString:@"% down"]) {
@@ -2432,7 +2432,7 @@
         description = @"GDP is a measure of the country's economic health.";
     }
     
-    if ([self.eventType containsString:@"Launch"]||[self.eventType containsString:@"Conference"]) {
+    if ([eventType containsString:@"Launch"]||[self.eventType containsString:@"Conference"]) {
         description = [NSString stringWithFormat:@"Related to products or services offered by %@",companyName];
     }
     
