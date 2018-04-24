@@ -580,7 +580,8 @@
             // Show numbering
             cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 0;
-            cell.listIconLbl.backgroundColor = [UIColor whiteColor];
+            // cell.listIconLbl.backgroundColor = [UIColor whiteColor];
+            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
             cell.listIconLbl.textColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
             rowNo = (indexPath.row + 1);
             if (rowNo <= 99)
@@ -591,6 +592,12 @@
             {
                 [[cell listIconLbl] setText:[NSString stringWithFormat:@"%@",@"..."]];
             }
+            
+            // Show news src icon
+           /* cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 0;
+            cell.listIconLbl.text = @"";
+            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TestNewsSrc"]];*/
             
             // Set the source for attribution
             [[cell  eventDescription] setText:[self.dataSnapShot getNewsSource:eventAtIndex]];
@@ -661,7 +668,8 @@
         }
         else if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:10]];
-            [cell.eventImpact setTextColor:[UIColor lightGrayColor]];
+            //[cell.eventImpact setTextColor:[UIColor lightGrayColor]];
+            [cell.eventImpact setTextColor:[UIColor blackColor]];
         }
         // Else show High Impact Label if needed. Taking this out currently to not self design a proper symbol later.
         else if ([self.dataSnapShot isEventHighImpact:eventAtIndex.type eventParent:eventAtIndex.listedCompany.ticker]) {
@@ -3147,7 +3155,9 @@
     
    if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame)) {
         // Black for news title
-        colorToReturn = [UIColor blackColor];
+        //colorToReturn = [UIColor blackColor];
+       // Use the gray color for text
+       colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
     }
     
     return colorToReturn;
@@ -3170,27 +3180,27 @@
     }
     else {
         if ((difference < 0)&&(difference > -2)) {
-            formattedDistance = @"1d ago >";
+            formattedDistance = @"1d ago";
         } else if ((difference <= -2)&&(difference > -4)) {
-            formattedDistance = @"2d ago >";
+            formattedDistance = @"2d ago";
         } else if ((difference <= -4)&&(difference > -31)) {
-            formattedDistance = [NSString stringWithFormat:@"%@d ago >",[@(ABS(difference)) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@d ago",[@(ABS(difference)) stringValue]];
         } else if ((difference <= -31)&&(difference > -366)) {
-            formattedDistance = [NSString stringWithFormat:@"%@m ago >",[@(ABS(difference/30)) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@m ago",[@(ABS(difference/30)) stringValue]];
         } else if (difference <= -366) {
-            formattedDistance = @">1y ago >";
+            formattedDistance = @">1y ago";
         } else if (difference == 0) {
-            formattedDistance = @"Today >";
+            formattedDistance = @"Today";
         } else if (difference == 1) {
-            formattedDistance = @"Tomorrow >";
+            formattedDistance = @"Tomorrow";
         } else if ((difference > 1)&&(difference < 31)) {
-            formattedDistance = [NSString stringWithFormat:@"In %@d ",[@(difference) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"In %@d",[@(difference) stringValue]];
         } else if ((difference >= 31)&&(difference < 366)) {
-            formattedDistance = [NSString stringWithFormat:@"In %@mos ",[@(difference/30) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"In %@mos",[@(difference/30) stringValue]];
         } else if (difference >= 366) {
-            formattedDistance = @"Beyond 1yr ";
+            formattedDistance = @"Beyond 1yr";
         } else {
-            formattedDistance = [NSString stringWithFormat:@"%@d ",[@(difference) stringValue]];
+            formattedDistance = [NSString stringWithFormat:@"%@d",[@(difference) stringValue]];
         }
     }
     

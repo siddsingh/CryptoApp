@@ -1139,54 +1139,61 @@ static FASnapShot *sharedInstance;
     NSMutableAttributedString *formattedTxt = nil;
     NSDictionary *txtAttributes = nil;
     
+    // Default formatting in black
+    /*txtAttributes = @{
+                      NSForegroundColorAttributeName:[UIColor blackColor],
+                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
+                      };
+    formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];*/
+    
     if ([src caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:247.0f/255.0f green:191.0f/255.0f blue:51.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:14]
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:137.0f/255.0f blue:0.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:[src uppercaseString] attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"CCN"] == NSOrderedSame) {
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:217.0f/255.0f green:122.0f/255.0f blue:47.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:18]
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:101.0f/255.0f blue:51.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:[src uppercaseString] attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Bitcoinist"] == NSOrderedSame) {
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:48.0f/255.0f green:153.0f/255.0f blue:251.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:15]
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:[src uppercaseString] attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Bitcoin Warrior"] == NSOrderedSame) {
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:35.0f/255.0f green:92.0f/255.0f blue:165.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:16]
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Amb Crypto"] == NSOrderedSame) {
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:233.0f/255.0f green:67.0f/255.0f blue:97.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:14]
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:[src uppercaseString] attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Business Insider"] == NSOrderedSame) {
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:36.0f/255.0f green:95.0f/255.0f blue:125.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:16]
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:[src uppercaseString] attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else {
         txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:217.0f/255.0f green:122.0f/255.0f blue:47.0f/255.0f alpha:1.0f],
-                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:[src uppercaseString] attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     
     return formattedTxt;
