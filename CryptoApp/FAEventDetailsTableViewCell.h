@@ -20,5 +20,9 @@
 
 // The label that shows the detail action indicator
 @property (weak, nonatomic) IBOutlet UILabel *detailsActionLbl;
+
+// Label for an icon if needed
+@property (weak, nonatomic) IBOutlet UILabel *detailsIcon;
+
 @end
 

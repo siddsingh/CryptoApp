@@ -582,7 +582,7 @@
             cell.listIconLbl.layer.cornerRadius = 0;
             // cell.listIconLbl.backgroundColor = [UIColor whiteColor];
             cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
-            cell.listIconLbl.textColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
+            cell.listIconLbl.textColor = [UIColor blackColor];
             rowNo = (indexPath.row + 1);
             if (rowNo <= 99)
             {

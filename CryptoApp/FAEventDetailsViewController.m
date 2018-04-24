@@ -532,9 +532,17 @@
     // Get a custom cell to display details and reset states/colors of cell elements to avoid carryover
     FAEventDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventDetailsCell" forIndexPath:indexPath];
     Event *eventData = nil;
+    NSInteger rowNo = 0;
     
     // If info type details is selected
     if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
+        
+        // Generic formatting for Info section
+        // Center align stuff
+        cell.descriptionArea.textAlignment = NSTextAlignmentCenter;
+        cell.titleLabel.textAlignment = NSTextAlignmentCenter;
+        // Hide news number icon
+        cell.detailsIcon.hidden = YES;
         
         NSString *actionLocation = nil;
         
@@ -1066,10 +1074,34 @@
         eventData = [self.infoResultsController objectAtIndexPath:indexPath];
         
         // Proper formatting
+        // Left align stuff
+        cell.descriptionArea.textAlignment = NSTextAlignmentLeft;
+        cell.titleLabel.textAlignment = NSTextAlignmentLeft;
+        
+        // Set number icon
+        cell.detailsIcon.hidden = NO;
+        cell.detailsIcon.clipsToBounds = YES;
+        cell.detailsIcon.layer.cornerRadius = 0;
+        // cell.listIconLbl.backgroundColor = [UIColor whiteColor];
+        cell.detailsIcon.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabelSmall"]];
+        cell.detailsIcon.textColor = [UIColor blackColor];
+        rowNo = (indexPath.row + 1);
+        if (rowNo <= 99)
+        {
+            [[cell detailsIcon] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+        }
+        else
+        {
+            [[cell detailsIcon] setText:[NSString stringWithFormat:@"%@",@"..."]];
+        }
+        
         [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
-        [cell.descriptionArea setTextColor:[UIColor blackColor]];
+        // Use the same gray color for text as is used in the main news tab
+        [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
+        
         cell.detailsActionLbl.hidden = NO;
-        cell.detailsActionLbl.textColor = [UIColor lightGrayColor];
+        // Set to same color as in the main news tab
+        cell.detailsActionLbl.textColor = [UIColor blackColor];
         
         // Set the source for attribution
         [[cell  titleLabel] setText:[self.dataSnapShot2 getNewsSource:eventData]];
@@ -3086,27 +3118,27 @@
     NSInteger difference = [diffDateComponents day];
     
     if ((difference < 0)&&(difference > -2)) {
-        formattedDistance = @"1d ago >";
+        formattedDistance = @"1d ago";
     } else if ((difference <= -2)&&(difference > -4)) {
-        formattedDistance = @"2d ago >";
+        formattedDistance = @"2d ago";
     } else if ((difference <= -4)&&(difference > -31)) {
-        formattedDistance = [NSString stringWithFormat:@"%@d ago >",[@(ABS(difference)) stringValue]];
+        formattedDistance = [NSString stringWithFormat:@"%@d ago",[@(ABS(difference)) stringValue]];
     } else if ((difference <= -31)&&(difference > -366)) {
-        formattedDistance = [NSString stringWithFormat:@"%@m ago >",[@(ABS(difference/30)) stringValue]];
+        formattedDistance = [NSString stringWithFormat:@"%@m ago",[@(ABS(difference/30)) stringValue]];
     } else if (difference <= -366) {
-        formattedDistance = @">1y ago >";
+        formattedDistance = @">1y ago";
     } else if (difference == 0) {
-        formattedDistance = @"Today >";
+        formattedDistance = @"Today";
     } else if (difference == 1) {
-        formattedDistance = @"Tomorrow >";
+        formattedDistance = @"Tomorrow";
     } else if ((difference > 1)&&(difference < 31)) {
-        formattedDistance = [NSString stringWithFormat:@"In %@d ",[@(difference) stringValue]];
+        formattedDistance = [NSString stringWithFormat:@"In %@d",[@(difference) stringValue]];
     } else if ((difference >= 31)&&(difference < 366)) {
-        formattedDistance = [NSString stringWithFormat:@"In %@mos ",[@(difference/30) stringValue]];
+        formattedDistance = [NSString stringWithFormat:@"In %@mos",[@(difference/30) stringValue]];
     } else if (difference >= 366) {
-        formattedDistance = @"Beyond 1yr ";
+        formattedDistance = @"Beyond 1yr";
     } else {
-        formattedDistance = [NSString stringWithFormat:@"%@d ",[@(difference) stringValue]];
+        formattedDistance = [NSString stringWithFormat:@"%@d",[@(difference) stringValue]];
     }
     
     return formattedDistance;
