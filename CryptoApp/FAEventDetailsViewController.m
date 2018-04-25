@@ -71,13 +71,13 @@
     [self.detailsInfoSelector setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
     // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:16], NSFontAttributeName,
+                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
                                           [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
                                           nil];
     [self.detailsInfoSelector setTitleTextAttributes:unselectedAttributes forState:UIControlStateNormal];
     // Set text and size for selected segment
     NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:16], NSFontAttributeName,
+                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
     [self.detailsInfoSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
@@ -246,7 +246,7 @@
 // To style the header appropriately
 -(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    UILabel *customHeaderView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 25)];
+    UILabel *customHeaderView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
     
     // ipad needed special treatment in the past. If no longer needed you can probably consolidate this code
    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -512,10 +512,10 @@
     return cellHeight;
 }
 
-// Set the table header to 25.0 height
+// Set the table header to 35.0 height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    CGFloat headerSize = 25.0;
+    CGFloat headerSize = 35.0;
     
     return headerSize;
 }
@@ -568,7 +568,7 @@
         NSNumberFormatter *currencyFormatter2 = [[NSNumberFormatter alloc] init];
         [currencyFormatter2 setNumberStyle:NSNumberFormatterCurrencyStyle];
         currencyFormatter2.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
-        [currencyFormatter2 setMaximumFractionDigits:4];
+        [currencyFormatter2 setMaximumFractionDigits:2];
         
         NSNumberFormatter *twoDecNumberFormatter = [[NSNumberFormatter alloc] init];
         twoDecNumberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -622,7 +622,7 @@
         // Display the appropriate details based on the row no
         switch (rowNo) {
                 
-                // Show impact and desscription for product events right now.
+            // Show impact and desscription for product events right now.
             case infoRow0:
             {
                 // Hide detail action label
@@ -665,7 +665,7 @@
             }
                 break;
                 
-                // Show Market Cap Rank and Total
+            // Show Market Cap Rank and Total
             case infoRow1:
             {
                 // Hide detail action label
@@ -675,8 +675,8 @@
                 // Correct Font and Colors
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
                 // Total Cap String
@@ -689,14 +689,14 @@
             }
                 break;
                 
-                // Show Current Price
+            // Show Current Price
             case infoRow2:
             {
                 // Hide detail action label
                 cell.detailsActionLbl.textColor = [UIColor whiteColor];
                 cell.detailsActionLbl.hidden = YES;
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
                 // Default State Colors
@@ -704,10 +704,10 @@
                 // If 24 hr price change is 0 or positive set green else red
                 if ([eventHistoryData.previous1RelatedPrice floatValue] >= 0.0f) {
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
                     cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
                 // Curr Price String
@@ -718,14 +718,14 @@
             }
                 break;
                 
-                // Show 1 Hr Price Change
+            // Show 1 Hr Price Change
             case infoRow3:
             {
                 // Hide detail action label
                 cell.detailsActionLbl.textColor = [UIColor whiteColor];
                 cell.detailsActionLbl.hidden = YES;
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
                 // Default State Colors
@@ -733,10 +733,10 @@
                 // If 1 hr price change is 0 or positive set green else red
                 if ([eventData.actualEpsPrior floatValue] >=  0.0f) {
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
                     cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
                 NSString *oneChangeString = [NSString stringWithFormat:@"%@%%", [twoDecNumberFormatter stringFromNumber:eventData.actualEpsPrior]];
@@ -746,14 +746,14 @@
             }
                 break;
                 
-                // Show 24 Hr Price Change
+            // Show 24 Hr Price Change
             case infoRow4:
             {
                 // Hide detail action label
                 cell.detailsActionLbl.textColor = [UIColor whiteColor];
                 cell.detailsActionLbl.hidden = YES;
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
                 // Default State Colors
@@ -761,10 +761,10 @@
                 // If 24 hr price change is 0 or positive set green else red
                 if ([eventHistoryData.previous1RelatedPrice floatValue] >= 0.0f) {
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
                     cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
                 // Curr Price String
@@ -775,14 +775,14 @@
             }
                 break;
                 
-                // Show 7 Days Price Change
+            // Show 7 Days Price Change
             case infoRow5:
             {
                 // Hide detail action label
                 cell.detailsActionLbl.textColor = [UIColor whiteColor];
                 cell.detailsActionLbl.hidden = YES;
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:19]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
                 // Default State Colors
@@ -790,10 +790,10 @@
                 // If 24 hr price change is 0 or positive set green else red
                 if ([eventHistoryData.previous1Price floatValue] >= 0.0f) {
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
                     cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+                    [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
                 // Curr Price String
@@ -804,43 +804,52 @@
             }
                 break;
                 
-                // Show What is ?
+            // Show What is ?
             case infoRow6:
             {
+                NSString *whatIsString = nil;
+                
                 // Show action detail label if the data exists
                 actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:2]];
                 
                 // Set proper formatting
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor =[self getColorForEventType:self.eventType];
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+                // Same color as news text everywhere
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
-                // What is <coin name>
-                NSString *whatIsString = [NSString stringWithFormat:@"%@",[self.parentCompany uppercaseString]];
                 NSString *descString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:0]];
                 
                 if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
                 {
                     cell.detailsActionLbl.textColor = [UIColor whiteColor];
                     cell.detailsActionLbl.hidden = YES;
+                    // What is <coin name>
+                    whatIsString = [NSString stringWithFormat:@"%@",[self.parentCompany capitalizedString]];
                 }
                 else
                 {
-                    cell.detailsActionLbl.textColor = [self getColorForEventType:self.eventType];
-                    cell.detailsActionLbl.hidden = NO;
+                    //cell.detailsActionLbl.textColor = [self getColorForEventType:self.eventType];
+                    //cell.detailsActionLbl.hidden = NO;
+                    cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                    cell.detailsActionLbl.hidden = YES;
+                    // What is <coin name>
+                    whatIsString = [NSString stringWithFormat:@"%@ ▸",[self.parentCompany capitalizedString]];
                 }
                 
                 [[cell titleLabel] setText:whatIsString];
                 [[cell descriptionArea] setText:descString];
-                [[cell detailsActionLbl] setText:@"Website >"];
+                [[cell detailsActionLbl] setText:@"Site >"];
             }
                 break;
                 
-                // Show Use Cases
+            // Show Use Cases
             case infoRow7:
             {
+                NSString *usedForString = nil;
+                
                 // Show action detail label if the data exists
                 actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:3]];
                 
@@ -848,22 +857,26 @@
                 {
                     cell.detailsActionLbl.textColor = [UIColor whiteColor];
                     cell.detailsActionLbl.hidden = YES;
+                    // Used For
+                    usedForString = [NSString stringWithFormat:@"Uses"];
                 }
                 else
                 {
-                    cell.detailsActionLbl.textColor = [UIColor blackColor];
-                    cell.detailsActionLbl.hidden = NO;
+                    //cell.detailsActionLbl.textColor = [UIColor blackColor];
+                    //cell.detailsActionLbl.hidden = NO;
+                    cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                    cell.detailsActionLbl.hidden = YES;
+                    // Used For
+                    usedForString = [NSString stringWithFormat:@"Uses ▸"];
                 }
                 
                 // Set proper formatting
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
-                // Used For
-                NSString *usedForString = [NSString stringWithFormat:@"USES"];
                 NSString *usedForDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:1]];
                 
                 [[cell titleLabel] setText:usedForString];
@@ -872,7 +885,7 @@
             }
                 break;
                 
-                // Show Backed By
+            // Show Backed By
             case infoRow8:
             {
                 // Set proper formatting
@@ -880,12 +893,12 @@
                 cell.detailsActionLbl.hidden = YES;
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
                 // Backed By
-                NSString *backedByString = [NSString stringWithFormat:@"BACKERS"];
+                NSString *backedByString = [NSString stringWithFormat:@"Backers"];
                 NSString *backedByDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:7]];
                 
                 [[cell titleLabel] setText:backedByString];
@@ -893,7 +906,7 @@
             }
                 break;
                 
-                // Show Concerns
+            // Show Concerns
             case infoRow9:
             {
                 // Set proper formatting
@@ -901,11 +914,11 @@
                 cell.detailsActionLbl.hidden = YES;
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
-                NSString *concernsString = [NSString stringWithFormat:@"CONCERNS"];
+                NSString *concernsString = [NSString stringWithFormat:@"Concerns"];
                 NSString *concernsDescString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:8]];
                 
                 [[cell titleLabel] setText:concernsString];
@@ -921,11 +934,11 @@
                 cell.detailsActionLbl.hidden = YES;
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 cell.titleLabel.textColor = [UIColor blackColor];
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
                 [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
                 
-                NSString *exchangesString = [NSString stringWithFormat:@"EXCHANGES"];
+                NSString *exchangesString = [NSString stringWithFormat:@"Exchanges"];
                 NSString *exchangesListString = [NSString stringWithFormat:@"%@.",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:11]];
                 
                 [[cell titleLabel] setText:exchangesString];
@@ -933,7 +946,7 @@
             }
                 break;
                 
-                // Show Reddit
+            // Show Reddit
             case infoRow11:
             {
                 // Show action detail label if the data exists
@@ -1464,13 +1477,13 @@
     
     // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:16], NSFontAttributeName,
+                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
                                           [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
                                           nil];
     [self.detailsInfoSelector setTitleTextAttributes:unselectedAttributes forState:UIControlStateNormal];
     // Set text and size for selected segment
     NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:16], NSFontAttributeName,
+                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
     [self.detailsInfoSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
