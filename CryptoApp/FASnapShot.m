@@ -157,9 +157,9 @@ static FASnapShot *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"BCH"] == NSOrderedSame) {
         // Old green
-        //colorToReturn = [UIColor colorWithRed:81.0f/255.0f green:157.0f/255.0f blue:11.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:213.0f/255.0f blue:74.0f/255.0f alpha:1.0f];
         // Orange more in line with icon
-        colorToReturn = [UIColor colorWithRed:240.0f/255.0f green:140.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:240.0f/255.0f green:140.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"ADA"] == NSOrderedSame) {
@@ -580,6 +580,14 @@ static FASnapShot *sharedInstance;
     
     if ([ticker caseInsensitiveCompare:@"SRN"] == NSOrderedSame) {
         colorToReturn = [UIColor blackColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"BTCP"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:44.0f/255.0f green:36.0f/255.0f blue:100.0f/255.0f alpha:1.0f];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"BCD"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:235.0f/255.0f green:182.0f/255.0f blue:17.0f/255.0f alpha:1.0f];
     }
     
     return colorToReturn;
@@ -1014,6 +1022,14 @@ static FASnapShot *sharedInstance;
         colorToReturn = [UIColor whiteColor];
     }
     
+    if ([ticker caseInsensitiveCompare:@"BTCP"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
+    if ([ticker caseInsensitiveCompare:@"BCD"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
+    
     return colorToReturn;
 }
 
@@ -1085,6 +1101,12 @@ static FASnapShot *sharedInstance;
     else if ([ticker caseInsensitiveCompare:@"BNB"] == NSOrderedSame) {
         iconExists = YES;
     }
+    else if ([ticker caseInsensitiveCompare:@"BTCP"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"BCD"] == NSOrderedSame) {
+        iconExists = YES;
+    }
     
     return iconExists;
 }
@@ -1124,7 +1146,7 @@ static FASnapShot *sharedInstance;
         newsSrc = @"Amb Crypto";
     }
     else {
-        newsSrc = @"EDITOR'S PICK";
+        newsSrc = @"Editor's Pick";
     }
     
     return newsSrc;
@@ -1144,8 +1166,9 @@ static FASnapShot *sharedInstance;
     formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];*/
     
     if ([src caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
+        // Alternate color is 255,137,0
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:137.0f/255.0f blue:0.0f/255.0f alpha:1.0f],
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:49.0f/255.0f green:70.0f/255.0f blue:80.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
@@ -1178,9 +1201,9 @@ static FASnapShot *sharedInstance;
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
-    else if ([src caseInsensitiveCompare:@"EDITOR'S PICK"] == NSOrderedSame) {
+    else if ([src caseInsensitiveCompare:@"Editor's Pick"] == NSOrderedSame) {
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor blackColor],
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];

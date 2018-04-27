@@ -2933,7 +2933,7 @@
         
         // Create the base change string
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]
                         };
         rawTxt = [NSString stringWithFormat:@"%@ ▼",[(NSString *)[typeComponents objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
@@ -2941,13 +2941,13 @@
         
         // Make the + and % sign bold and the indicator a little larger
         percentSignRange = [rawTxt rangeOfString:@"%" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:percentSignRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:percentSignRange];
         
         plusMinusSignRange = [rawTxt rangeOfString:@"-" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:plusMinusSignRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:plusMinusSignRange];
         
         changeIndicatorRange = [rawTxt rangeOfString:@"▼" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} range:changeIndicatorRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} range:changeIndicatorRange];
     }
     else {
         rawTxt = [NSString stringWithFormat:@"NA"];
@@ -2988,7 +2988,7 @@
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
         
         nameRange = [rawTxt rangeOfString:tempString options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:nameRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:nameRange];
         
         // Make the $ sign bold
         dollarSignRange = [rawTxt rangeOfString:@"$" options:NSCaseInsensitiveSearch];
@@ -3007,18 +3007,18 @@
         // Create the base change string
         // Down Red - Slightly smaller
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]
                           };
         rawTxt = [NSString stringWithFormat:@"%@ %@",tempString,[(NSString *)[typeComponents objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:rawTxt attributes:txtAttributes];
         
         nameRange = [rawTxt rangeOfString:tempString options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:nameRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:16]} range:nameRange];
         
         // Make the $ sign bold
         dollarSignRange = [rawTxt rangeOfString:@"$" options:NSCaseInsensitiveSearch];
-        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:dollarSignRange];
+        [formattedTxt setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]} range:dollarSignRange];
     }
     else {
         rawTxt = [NSString stringWithFormat:@"NA"];

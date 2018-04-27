@@ -706,7 +706,7 @@
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
-                    cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                    cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
@@ -735,7 +735,7 @@
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
-                    cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                    cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
@@ -763,7 +763,7 @@
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
-                    cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                    cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
@@ -792,7 +792,7 @@
                     cell.titleLabel.textColor = [UIColor colorWithRed:41.0f/255.0f green:151.0f/255.0f blue:127.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]];
                 } else {
-                    cell.titleLabel.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+                    cell.titleLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
                     [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
                 }
                 
@@ -3033,12 +3033,13 @@
     {
         // Kinda Green
         //colorToReturn = [UIColor colorWithRed:56.0f/255.0f green:197.0f/255.0f blue:4.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:4.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor blackColor];
     }
     if ([self.eventType containsString:@"% down"])
     {
         // Kinda Red
-        colorToReturn = [UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:255.0f/255.0f green:63.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor blackColor];
     }
     
     return colorToReturn;

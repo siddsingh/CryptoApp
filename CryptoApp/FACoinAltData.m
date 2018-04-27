@@ -2880,36 +2880,6 @@ static FACoinAltData *sharedInstance;
         // 3. Website
         [infoArray addObject:@"https://maidsafe.net"];
         // 4. Best Detailed Description Weblink
-        [infoArray addObject:@"https://metaquestions.me/2017/08/12/the-impossible-network/"];
-        // 5. Subreddit
-        [infoArray addObject:@"/r/safenetwork/"];
-        // 6. Github
-        [infoArray addObject:@"/maidsafe"];
-        // 7. Twitter Handle
-        [infoArray addObject:@"maidsafe"];
-        // 8. Backers (Countries, Institutions, People)
-        [infoArray addObject:@"Started in 2006 by Scottish engineer David Irvine,Scotland based"];
-        // 9. Detractors (Countries, Institutions, People, Argument)
-        [infoArray addObject:@"Trying to recreate the internet is super ambitious,adoption will be everything"];
-        // 10. On the Fence (Countries, Institutions, People)
-        [infoArray addObject:@"Not Available"];
-        // 11. Best Exchange
-        [infoArray addObject:@"Bittrex"];
-        // 12. Known Exchanges
-        [infoArray addObject:@"Bittrex,HitBTC,Poloniex"];
-        // 13. Best News Coverage Site
-        [infoArray addObject:@"Not Available"];
-        
-    }
-    
-    else if ([ticker caseInsensitiveCompare:@"MAID"] == NSOrderedSame) {
-        // 1. Short Description
-        [infoArray addObject:@"A decentralized autonomous internet"];
-        // 2. Real World Use Cases
-        [infoArray addObject:@"Infrastructure to publish & consume data without human intervention"];
-        // 3. Website
-        [infoArray addObject:@"https://maidsafe.net"];
-        // 4. Best Detailed Description Weblink
         [infoArray addObject:@"https://www.investinblockchain.com/what-is-maidsafe/"];
         // 5. Subreddit
         [infoArray addObject:@"/r/safenetwork/"];
@@ -3110,6 +3080,64 @@ static FACoinAltData *sharedInstance;
         // 13. Best News Coverage Site
         [infoArray addObject:@"https://sirinlabs.com/media/SIRINLABS_-_White_Paper.pdf"];
         
+    }
+    // Github is accurate from this point on. New descriptions to enter into sups db.
+    else if ([ticker caseInsensitiveCompare:@"BTCP"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Bitcoin fork that bills itself as more anonymous and secure than Bitcoin"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Taking private cryptocurrency transactions mainstream"];
+        // 3. Website
+        [infoArray addObject:@"https://btcprivate.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://coincentral.com/bitcoin-private-beginner-guide/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/BitcoinPrivate/"];
+        // 6. Github
+        [infoArray addObject:@"/BTCPrivate/BitcoinPrivate"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"bitcoinprivate"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"20 engineers,200 contributors,fast moving.Led by Rhett Creighton,Zclassic founder"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Zclassic,Bitcoin Private’s predecessor,has a sketchy past embroiled in controversy"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Trade Satoshi"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Trade Satoshi,Nanex"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://btcprivate.org/whitepaper.pdf"];
+    }
+    //
+    else if ([ticker caseInsensitiveCompare:@"BCD"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Another privacy & anonymity focused Bitcoin fork"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Encrypt the amounts & balances of transactions,making them private"];
+        // 3. Website
+        [infoArray addObject:@"http://btcd.io/#/"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://cointelegraph.com/news/is-bitcoin-diamond-a-better-bitcoin"];
+        // 5. Subreddit
+        [infoArray addObject:@"Not Available"];
+        // 6. Github
+        [infoArray addObject:@"/eveybcd/BitcoinDiamond"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"Not Available"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Anonymous development team,Linke Yang(Advisor,Founder of China's 1st crypto exchange"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Similar to Monero,but it is doubtful their implementation is equally competent"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"http://btcd.io/#/faq"];
     }
 
     // If not available set to default value of Not Available
