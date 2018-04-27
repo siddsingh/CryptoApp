@@ -1123,11 +1123,8 @@ static FASnapShot *sharedInstance;
     else if ([learnMoreURL containsString:@"ambcrypto.com"]){
         newsSrc = @"Amb Crypto";
     }
-    else if ([learnMoreURL containsString:@"businessinsider.com"]){
-        newsSrc = @"Business Insider";
-    }
     else {
-        newsSrc = @"Other";
+        newsSrc = @"EDITOR'S PICK";
     }
     
     return newsSrc;
@@ -1181,16 +1178,16 @@ static FASnapShot *sharedInstance;
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
-    else if ([src caseInsensitiveCompare:@"Business Insider"] == NSOrderedSame) {
+    else if ([src caseInsensitiveCompare:@"EDITOR'S PICK"] == NSOrderedSame) {
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:36.0f/255.0f green:95.0f/255.0f blue:125.0f/255.0f alpha:1.0f],
+                          NSForegroundColorAttributeName:[UIColor blackColor],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else {
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor colorWithRed:217.0f/255.0f green:122.0f/255.0f blue:47.0f/255.0f alpha:1.0f],
+                          NSForegroundColorAttributeName:[UIColor blackColor],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];

@@ -951,30 +951,34 @@
             {
                 // Show action detail label if the data exists
                 actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:4]];
+                NSString *subRedditExt = nil;
                 
                 if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
                 {
                     cell.detailsActionLbl.textColor = [UIColor whiteColor];
                     cell.detailsActionLbl.hidden = YES;
                     cell.titleLabel.textColor = [UIColor blackColor];
+                    subRedditExt = [NSString stringWithFormat:@"%@",actionLocation];
                 }
                 else
                 {
+                    //cell.detailsActionLbl.textColor = [UIColor colorWithRed:233.0f/255.0f green:63.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                    //cell.detailsActionLbl.hidden = NO;
+                    cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                    cell.detailsActionLbl.hidden = YES;
                     // Reddit Orangish Red
-                    cell.detailsActionLbl.textColor = [UIColor colorWithRed:233.0f/255.0f green:63.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
-                    cell.detailsActionLbl.hidden = NO;
                     cell.titleLabel.textColor = [UIColor colorWithRed:233.0f/255.0f green:63.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                    subRedditExt = @"▶︎";
                 }
                 
                 // Set proper formatting
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
                 
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
                 [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-                [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
+                [cell.descriptionArea setTextColor:[UIColor blackColor]];
                 
                 NSString *redditTxt = [NSString stringWithFormat:@"SEE REDDIT DISCUSSION"];
-                NSString *subRedditExt = [NSString stringWithFormat:@"%@",actionLocation];
                 
                 [[cell titleLabel] setText:subRedditExt];
                 [[cell descriptionArea] setText:redditTxt];
@@ -982,7 +986,7 @@
             }
                 break;
                 
-                // Show Twitter
+            // Show Twitter
             case infoRow12:
             {
                 NSString *twitterHandle = nil;
@@ -999,18 +1003,20 @@
                 }
                 else
                 {
+                    //cell.detailsActionLbl.textColor = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
+                    //cell.detailsActionLbl.hidden = NO;
+                    cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                    cell.detailsActionLbl.hidden = YES;
                     // Twitter Blue
-                    cell.detailsActionLbl.textColor = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
-                    cell.detailsActionLbl.hidden = NO;
                     cell.titleLabel.textColor = [UIColor colorWithRed:34.0f/255.0f green:125.0f/255.0f blue:251.0f/255.0f alpha:1.0f];
-                    twitterHandle = [NSString stringWithFormat:@"@%@",actionLocation];
+                    twitterHandle = [NSString stringWithFormat:@"▶︎"];
                 }
                 
                 // Set proper formatting
                 cell.titleLabel.backgroundColor = [UIColor whiteColor];
-                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
                 [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-                [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
+                [cell.descriptionArea setTextColor:[UIColor blackColor]];
                 
                 NSString *twitterTxt = [NSString stringWithFormat:@"SEE TWEETS"];
                 
@@ -1020,11 +1026,12 @@
             }
                 break;
                 
-                // Show Github
+            // Show Github. Replace this with See Google News for now till you can get the correct repos.
             case infoRow13:
             {
+                // This is for Github
                 // Show action detail label if the data exists
-                actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
+               /* actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
                 
                 if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
                 {
@@ -1051,6 +1058,19 @@
                 
                 [[cell titleLabel] setText:githubRepo];
                 [[cell descriptionArea] setText:githubTxt];
+                [[cell detailsActionLbl] setText:@">"]; */
+                
+                // For Google News
+                // Set proper formatting
+                cell.detailsActionLbl.textColor = [UIColor whiteColor];
+                cell.detailsActionLbl.hidden = YES;
+                cell.titleLabel.backgroundColor = [UIColor whiteColor];
+                cell.titleLabel.textColor = [UIColor colorWithRed:0.0f/255.0f green:165.0f/255.0f blue:81.0f/255.0f alpha:1.0f];
+                [cell.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
+                [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:15]];
+                [cell.descriptionArea setTextColor:[UIColor blackColor]];
+                [[cell titleLabel] setText:@"▶︎"];
+                [[cell descriptionArea] setText:@"SEE MAINSTREAM NEWS"];
                 [[cell detailsActionLbl] setText:@">"];
             }
                 break;
@@ -1316,7 +1336,7 @@
             }
                 break;
                 
-                // Show Reddit
+            // Show Reddit
             case infoRow11:
             {
                 actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:4]];
@@ -1349,7 +1369,7 @@
             }
                 break;
                 
-                // Show Twitter
+            // Show Twitter
             case infoRow12:
             {
                 actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:6]];
@@ -1382,10 +1402,11 @@
             }
                 break;
                 
-                // Show Github
+            // Show Github. Show google news for now.
             case infoRow13:
             {
-                actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
+               // This is for Github action
+                /* actionLocation = [NSString stringWithFormat:@"%@",[[self.altDataSnapShot getProfileInfoForCoin:self.parentTicker] objectAtIndex:5]];
                 
                 if ([actionLocation caseInsensitiveCompare:@"Not Available"] == NSOrderedSame)
                 {
@@ -1411,6 +1432,34 @@
                         //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
                         [self presentViewController:externalInfoVC animated:YES completion:nil];
                     }
+                } */
+                
+                // See Google news action
+                NSString *moreInfoURL = nil;
+                NSString *searchTerm = nil;
+                NSURL *targetURL = nil;
+                
+                // Google news default
+                moreInfoURL = [NSString stringWithFormat:@"%@",@"https://www.google.com/m/search?tbm=nws&q="];
+                searchTerm = [NSString stringWithFormat:@"%@ %@ crypto news",self.parentTicker,self.parentCompany];
+                searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+                moreInfoURL = [moreInfoURL stringByAppendingString:searchTerm];
+                targetURL = [NSURL URLWithString:moreInfoURL];
+                
+                if (targetURL) {
+                    
+                    // TRACKING EVENT:
+                    // TO DO: Disabling to not track development events. Enable before shipping.
+                    [FBSDKAppEvents logEvent:@"See External About Information"
+                                  parameters:@{ @"About Ticker" : self.parentTicker,
+                                                @"About Field" : @"See Google News",
+                                                @"Action URL" : [targetURL absoluteString]} ];
+                    
+                    SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
+                    externalInfoVC.delegate = self;
+                    // Just use whatever is the default color for the Safari View Controller
+                    //externalInfoVC.preferredControlTintColor = [UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+                    [self presentViewController:externalInfoVC animated:YES completion:nil];
                 }
             }
                 break;
