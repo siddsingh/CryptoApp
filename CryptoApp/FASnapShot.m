@@ -247,7 +247,7 @@ static FASnapShot *sharedInstance;
     }
     
     if ([ticker caseInsensitiveCompare:@"BTG"] == NSOrderedSame) {
-        colorToReturn = [UIColor colorWithRed:251.0f/255.0f green:211.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithRed:246.0f/255.0f green:165.0f/255.0f blue:12.0f/255.0f alpha:1.0f];
     }
     
     if ([ticker caseInsensitiveCompare:@"ICX"] == NSOrderedSame) {
@@ -1115,6 +1115,13 @@ static FASnapShot *sharedInstance;
     else if ([ticker caseInsensitiveCompare:@"ONT"] == NSOrderedSame) {
         iconExists = YES;
     }
+    else if ([ticker caseInsensitiveCompare:@"OMG"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    else if ([ticker caseInsensitiveCompare:@"BTG"] == NSOrderedSame) {
+        iconExists = YES;
+    }
+    
     return iconExists;
 }
 
