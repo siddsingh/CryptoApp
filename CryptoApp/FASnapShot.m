@@ -589,7 +589,9 @@ static FASnapShot *sharedInstance;
     if ([ticker caseInsensitiveCompare:@"BCD"] == NSOrderedSame) {
         colorToReturn = [UIColor colorWithRed:235.0f/255.0f green:182.0f/255.0f blue:17.0f/255.0f alpha:1.0f];
     }
-    
+    if ([ticker caseInsensitiveCompare:@"ONT"] == NSOrderedSame) {
+        colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:166.0f/255.0f blue:193.0f/255.0f alpha:1.0f];
+    }
     return colorToReturn;
 }
 
@@ -1030,6 +1032,9 @@ static FASnapShot *sharedInstance;
         colorToReturn = [UIColor whiteColor];
     }
     
+    if ([ticker caseInsensitiveCompare:@"ONT"] == NSOrderedSame) {
+        colorToReturn = [UIColor whiteColor];
+    }
     return colorToReturn;
 }
 
@@ -1107,7 +1112,9 @@ static FASnapShot *sharedInstance;
     else if ([ticker caseInsensitiveCompare:@"BCD"] == NSOrderedSame) {
         iconExists = YES;
     }
-    
+    else if ([ticker caseInsensitiveCompare:@"ONT"] == NSOrderedSame) {
+        iconExists = YES;
+    }
     return iconExists;
 }
 

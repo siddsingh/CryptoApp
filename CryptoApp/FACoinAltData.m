@@ -3081,7 +3081,7 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"https://sirinlabs.com/media/SIRINLABS_-_White_Paper.pdf"];
         
     }
-    // Github is accurate from this point on. New descriptions to enter into sups db.
+    //******************** Github is accurate from this point on. New descriptions to enter into sups db.************
     else if ([ticker caseInsensitiveCompare:@"BTCP"] == NSOrderedSame) {
         // 1. Short Description
         [infoArray addObject:@"Bitcoin fork that bills itself as more anonymous and secure than Bitcoin"];
@@ -3110,7 +3110,7 @@ static FACoinAltData *sharedInstance;
         // 13. Best News Coverage Site
         [infoArray addObject:@"https://btcprivate.org/whitepaper.pdf"];
     }
-    //
+    
     else if ([ticker caseInsensitiveCompare:@"BCD"] == NSOrderedSame) {
         // 1. Short Description
         [infoArray addObject:@"Another privacy & anonymity focused Bitcoin fork"];
@@ -3138,6 +3138,35 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Binance,Kucoin,Huobi"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"http://btcd.io/#/faq"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"ONT"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform for busineeses to build high performance blockchain applications"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Augment traditional businesses with low friction blockchain capabilities"];
+        // 3. Website
+        [infoArray addObject:@"https://ont.io"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://globalcoinreport.com/ontology-ont-is-building-a-better-blockchain-business/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/OntologyNetwork/"];
+        // 6. Github
+        [infoArray addObject:@"Not Available"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"OntologyNetwork"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Built on NEO,backed by Onchain(large Chinese corp),large dev team behind the scenes"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"China has displayed a negative stance towards the overall crypto space"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin,Huobi"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://ont.io/documents"];
     }
 
     // If not available set to default value of Not Available
