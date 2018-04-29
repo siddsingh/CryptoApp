@@ -107,7 +107,7 @@ static FACoinAltData *sharedInstance;
         // 6. Github
         [infoArray addObject:@"/ethereum"];
         // 7. Twitter Handle
-        [infoArray addObject:@"ethereumproject"];
+        [infoArray addObject:@"ethereum"];
         // 8. Backers (Countries, Institutions, People)
         [infoArray addObject:@"Japan,Russia,Germany,JP Morgan,Intel,Microsoft,Vitalik Buterin(Creator)"];
         // 9. Detractors (Countries, Institutions, People)
@@ -3081,7 +3081,7 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"https://sirinlabs.com/media/SIRINLABS_-_White_Paper.pdf"];
         
     }
-    //******************** Github is accurate from this point on. New descriptions to enter into sups db.************
+    //******************** New descriptions to enter into sups db.************
     else if ([ticker caseInsensitiveCompare:@"BTCP"] == NSOrderedSame) {
         // 1. Short Description
         [infoArray addObject:@"Bitcoin fork that bills itself as more anonymous and secure than Bitcoin"];
@@ -3142,7 +3142,7 @@ static FACoinAltData *sharedInstance;
     
     else if ([ticker caseInsensitiveCompare:@"ONT"] == NSOrderedSame) {
         // 1. Short Description
-        [infoArray addObject:@"Platform for busineeses to build high performance blockchain applications"];
+        [infoArray addObject:@"Platform for businesses to build high performance blockchain applications"];
         // 2. Real World Use Cases
         [infoArray addObject:@"Augment traditional businesses with low friction blockchain capabilities"];
         // 3. Website
@@ -3167,6 +3167,64 @@ static FACoinAltData *sharedInstance;
         [infoArray addObject:@"Binance,Kucoin,Huobi"];
         // 13. Best News Coverage Site
         [infoArray addObject:@"https://ont.io/documents"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"WAN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Platform for exchanging digitized assets between different blockchains"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Single place to transfer & exchange from one cryptocurrency to another"];
+        // 3. Website
+        [infoArray addObject:@"https://wanchain.org"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://cryptoiscoming.com/what-is-wanchain/"];
+        // 5. Subreddit
+        [infoArray addObject:@"/r/wanchain/"];
+        // 6. Github
+        [infoArray addObject:@"/wanchain"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"wanchain_org"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Founded by Factom(top 100 crypto) co-founder Jack Lu,skilled 29 people+ team"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"Still very early days for the vision of this project to be realized"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"Binance"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"Binance,Kucoin"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://wanchain.org/files/Wanchain-Whitepaper-EN-version.pdf"];
+    }
+    
+    else if ([ticker caseInsensitiveCompare:@"XIN"] == NSOrderedSame) {
+        // 1. Short Description
+        [infoArray addObject:@"Mobile messaging app to transfer cryptocurencies to anyone"];
+        // 2. Real World Use Cases
+        [infoArray addObject:@"Securely transfer any cryptocurrency to anyone with their phone number"];
+        // 3. Website
+        [infoArray addObject:@"https://mixin.one"];
+        // 4. Best Detailed Description Weblink
+        [infoArray addObject:@"https://bitcoinexchangeguide.com/mixin-ico-xin-token/"];
+        // 5. Subreddit
+        [infoArray addObject:@"Not Available"];
+        // 6. Github
+        [infoArray addObject:@"/MixinMessenger"];
+        // 7. Twitter Handle
+        [infoArray addObject:@"MixinMessenger"];
+        // 8. Backers (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 9. Detractors (Countries, Institutions, People, Argument)
+        [infoArray addObject:@"No information on the team.No information on the location of the company"];
+        // 10. On the Fence (Countries, Institutions, People)
+        [infoArray addObject:@"Not Available"];
+        // 11. Best Exchange
+        [infoArray addObject:@"BigONE"];
+        // 12. Known Exchanges
+        [infoArray addObject:@"BigONE"];
+        // 13. Best News Coverage Site
+        [infoArray addObject:@"https://mixin.one/assets/Mixin-Draft-2017-12-25.pdf"];
     }
 
     // If not available set to default value of Not Available
