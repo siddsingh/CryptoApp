@@ -388,12 +388,17 @@
             numberOfRows = [filteredCompaniesSection numberOfObjects];
         }
     }
-    
-    // If not, show all events or following events based on navigation filter
+    // If not, show events or learning
     else {
-        // Use all events results set
-        id eventSection = [[self.eventResultsController sections] objectAtIndex:section];
-        numberOfRows = [eventSection numberOfObjects];
+            // For learning show hardcoded number of videos
+            if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
+                numberOfRows = 8;
+            }
+            else {
+                // Use all events results set
+                id eventSection = [[self.eventResultsController sections] objectAtIndex:section];
+                numberOfRows = [eventSection numberOfObjects];
+            }
     }
 
     return numberOfRows;
@@ -683,6 +688,37 @@
             [cell.eventImpact setText:@" "];
             // White color same as cell
             [cell.eventImpact setTextColor:[UIColor whiteColor]];
+        }
+        
+        // For learning show video specific information
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
+            
+            // Hide the company ticker
+            [[cell companyTicker] setHidden:YES];
+
+            // Reset top space for title to the default 4
+            [cell.topSpaceForEventDesc setConstant:4];
+            
+            // Show numbering
+            cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 0;
+            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
+            cell.listIconLbl.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+            rowNo = (indexPath.row + 1);
+            [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+            
+            // Set the learning item title
+            [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath]];
+            
+            // Show the learning item description
+            [[cell eventDate] setText:[self.dataSnapShot getLearningDescription:indexPath]];
+            // Set the appropriate event date text color
+            [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
+            
+            // Show the play label
+            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:10]];
+            [cell.eventImpact setTextColor:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f]];
+            [[cell eventImpact] setText:@"PLAY ▸"];
         }
     }
     
@@ -2431,6 +2467,48 @@
         [FBSDKAppEvents logEvent:@"Event Type Selected"
                       parameters:@{ @"Event Type" : @"Stock Price" } ];
     }
+    
+    // LEARN - Black
+    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+        
+        // Black
+        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
+                                        [UIColor blackColor], NSForegroundColorAttributeName,
+                                        nil];
+        
+        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
+        
+        // Query all future product events, including today.
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
+            
+            // Set correct header text
+            [self.navigationController.navigationBar.topItem setTitle:@"LEARN THE BASICS"];
+            // Clear out the search context
+            [self.eventsSearchBar setText:@""];
+            [self searchBar:self.eventsSearchBar textDidChange:@""];
+            // Set correct search bar placeholder text
+            self.eventsSearchBar.placeholder = @"COMPANY/TICKER/EVENT";
+            
+            //self.eventResultsController = [self.primaryDataController getAllFutureProductEvents];
+            [self.eventsListTable reloadData];
+            
+            // Refresh all product events asynchronously
+            // Don't need to do this anymore as we are syncing on startup every 6 hours.
+            /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
+             // Create a new FADataController so that this thread has its own MOC
+             FADataController *newsDataController = [[FADataController alloc] init];
+             [newsDataController syncProductEventsWrapper];
+             });*/
+            
+        }
+        
+        // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
+        // TO DO: Disabling to not track development events. Enable before shipping.
+        [FBSDKAppEvents logEvent:@"Event Type Selected"
+                      parameters:@{ @"Event Type" : @"Learn" } ];
+    }
+    
 }
 
 #pragma mark - Main Nav Selection
@@ -2473,7 +2551,8 @@
         [self.eventTypeSelector setEnabled:YES];
         [self.eventSelectorHtConstra setConstant:30];
         [self.eventTypeSelector setHidden:NO];
-        
+        [self.eventSearchBarHtConstra setConstant:32];
+        [self.eventsSearchBar setHidden:NO];
         // Set correct search bar placeholder text
         self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
         // Format the event selectors
@@ -2486,6 +2565,8 @@
         [self.eventSelectorHtConstra setConstant:5];
         [self.eventTypeSelector setEnabled:NO];
         [self.eventTypeSelector setHidden:YES];
+        [self.eventSearchBarHtConstra setConstant:32];
+        [self.eventsSearchBar setHidden:NO];
         // Set correct search bar placeholder text
         self.eventsSearchBar.placeholder = @"NEWS";
         // Format the event selectors
@@ -2495,6 +2576,23 @@
          // TRACKING EVENT:
         [FBSDKAppEvents logEvent:@"In App News Viewed"
                       parameters:@{ @"Event Type" : @"Latest News from Main" } ];
+    }
+    // If Learn is selected, disable and hide the search bar and event type selector
+    else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Learn"] == NSOrderedSame) {
+        [self.eventSelectorHtConstra setConstant:0];
+        [self.eventTypeSelector setEnabled:NO];
+        [self.eventTypeSelector setHidden:YES];
+        [self.eventSearchBarHtConstra setConstant:0];
+        [self.eventsSearchBar setHidden:YES];
+        // Set correct search bar placeholder text
+        self.eventsSearchBar.placeholder = @"LEARNING TRAIL";
+        // Format the event selectors
+        [self.eventTypeSelector setTitle:@"BASICS" forSegmentAtIndex:0];
+        [self.eventTypeSelector setTitle:@"INVESTING" forSegmentAtIndex:1];
+        [self.eventTypeSelector setTitle:@"PRO" forSegmentAtIndex:2];
+        // TRACKING EVENT:
+        [FBSDKAppEvents logEvent:@"Learning Trail Viewed"
+                      parameters:@{ @"Event Type" : @"Learning tab from Main" } ];
     }
     
     // Set events selector to All Events

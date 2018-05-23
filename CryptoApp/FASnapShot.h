@@ -40,4 +40,10 @@
 // Get formatted news source strings
 - (NSMutableAttributedString *)getFormattedSource:(NSString *)src;
 
+// Get formatted title of learning article
+- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath;
+
+// Get formatted title of learning article
+- (NSString *)getLearningDescription:(NSIndexPath *)rowPath;
+
 @end

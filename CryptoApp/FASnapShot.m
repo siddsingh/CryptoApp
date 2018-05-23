@@ -1258,4 +1258,85 @@ static FASnapShot *sharedInstance;
     return formattedTxt;
 }
 
+// Get formatted title of learning article
+- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath {
+    
+    NSMutableAttributedString *formattedTxt = nil;
+    NSDictionary *txtAttributes = nil;
+    NSInteger rowNo = (rowPath.row + 1);
+    
+    // Default formatting in black
+    txtAttributes = @{
+     NSForegroundColorAttributeName:[UIColor blackColor],
+     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
+     };
+    
+    if (rowNo == 1) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"INTRODUCTION" attributes:txtAttributes];
+    }
+    else if (rowNo == 2) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BLOCKCHAIN BASICS" attributes:txtAttributes];
+    }
+    else if (rowNo == 3) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BITCOIN BASICS" attributes:txtAttributes];
+    }
+    else if (rowNo == 4) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"ETHEREUM BASICS" attributes:txtAttributes];
+    }
+    else if (rowNo == 5) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"INVESTING TENETS" attributes:txtAttributes];
+    }
+    else if (rowNo == 6) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"WHICH EXCHANGES" attributes:txtAttributes];
+    }
+    else if (rowNo == 7) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"GET STARTED" attributes:txtAttributes];
+    }
+    else if (rowNo == 8) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"CONTACT US" attributes:txtAttributes];
+    }
+    else {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
+    }
+    
+    return formattedTxt;
+}
+
+// Get formatted title of learning article
+- (NSString *)getLearningDescription:(NSIndexPath *)rowPath {
+    
+    NSString *nonFormattedTxt = nil;
+    NSInteger rowNo = (rowPath.row + 1);
+    
+    if (rowNo == 1) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 2 mins";
+    }
+    else if (rowNo == 2) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 3 mins";
+    }
+    else if (rowNo == 3) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 4 mins";
+    }
+    else if (rowNo == 4) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 5 mins";
+    }
+    else if (rowNo == 5) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 6 mins";
+    }
+    else if (rowNo == 6) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 7 mins";
+    }
+    else if (rowNo == 7) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: \n 8 mins";
+    }
+    else if (rowNo == 8) {
+        nonFormattedTxt = @"Introduction to the CryptoFi Founder: \n 9 mins";
+    }
+    else {
+       nonFormattedTxt = @"Introduction to the CryptoFi Founder: 2 mins";
+    }
+    
+    return nonFormattedTxt;
+}
+
 @end

@@ -33,7 +33,7 @@
 - (IBAction)tutorialDonePressed:(id)sender {
     
     // Set that the user has used the app at least once
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"V1_0_3_UsedOnce"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"V1_0_4_UsedOnce"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

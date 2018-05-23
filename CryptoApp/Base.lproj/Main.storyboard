@@ -87,13 +87,14 @@
                                     <action selector="eventTypeSelectAction:" destination="WNQ-2i-B77" eventType="valueChanged" id="1kr-Zo-Gfo"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iRe-G1-Ld7">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="iRe-G1-Ld7">
                                 <rect key="frame" x="0.0" y="626" width="414" height="47"/>
                                 <color key="backgroundColor" red="0.94368587270000004" green="0.95293769500000003" blue="0.95293769500000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="ZhG-3k-FqW"/>
                                 </constraints>
                                 <segments>
+                                    <segment title="LEARN"/>
                                     <segment title="PRICE"/>
                                     <segment title="NEWS"/>
                                 </segments>
@@ -358,6 +359,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="eventSearchBarHtConstra" destination="pV3-8V-vCK" id="eWF-C1-91n"/>
                         <outlet property="eventSelectorHtConstra" destination="Pqq-Rw-HAS" id="eRy-Pq-rc9"/>
                         <outlet property="eventTypeSelector" destination="Urn-fH-Oqh" id="GuK-oV-9qh"/>
                         <outlet property="eventsListTable" destination="KbY-6m-WGH" id="U1B-qA-4Xm"/>

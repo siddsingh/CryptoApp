@@ -77,4 +77,7 @@
 
 // Height constraint for event type selector. Originally set to 30 in IB
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventSelectorHtConstra;
+
+// Height constraint for search bar. Originally set to 32 in search bar.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventSearchBarHtConstra;
 @end
