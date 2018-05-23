@@ -1309,34 +1309,80 @@ static FASnapShot *sharedInstance;
     NSInteger rowNo = (rowPath.row + 1);
     
     if (rowNo == 1) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 2 mins";
+        nonFormattedTxt = @"Introduction,CryptoFi Founder\n- 2 min";
     }
     else if (rowNo == 2) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 3 mins";
+        nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies - xy min";
     }
     else if (rowNo == 3) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 4 mins";
+        nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency - ab min";
     }
     else if (rowNo == 4) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 5 mins";
+        nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform” - cd min";
     }
     else if (rowNo == 5) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 6 mins";
+        nonFormattedTxt = @"See the assumptions being made in Crypto Investing - ef min";
     }
     else if (rowNo == 6) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: 7 mins";
+        nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges - gh mins";
     }
     else if (rowNo == 7) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: \n 8 mins";
+        nonFormattedTxt = @"How I would get started with Crypto Investing - ij mins";
     }
     else if (rowNo == 8) {
-        nonFormattedTxt = @"Introduction to the CryptoFi Founder: \n 9 mins";
+        nonFormattedTxt = @"Contact us to request coverage of a specific topic - kl mins";
     }
     else {
-       nonFormattedTxt = @"Introduction to the CryptoFi Founder: 2 mins";
+       nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
     }
     
     return nonFormattedTxt;
+}
+
+// Get the learning item color
+- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath {
+    
+    //Default black color
+    UIColor *colorToReturn = [UIColor blackColor];
+    
+    NSInteger rowNo = (rowPath.row + 1);
+    
+    if (rowNo == 1) {
+        // Pinkish Red
+        colorToReturn = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 2) {
+        // Blockchain Blue
+        colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 3) {
+        // Bitcoin Yellow color
+        colorToReturn = [UIColor colorWithRed:239.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 4) {
+        // Ethereum Violet
+        colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:117.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 5) {
+        // Brick Color
+        colorToReturn = [UIColor colorWithRed:95.0f/255.0f green:17.0f/255.0f blue:6.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 6) {
+        // Coinbase Blue
+        colorToReturn = [UIColor colorWithRed:57.0f/255.0f green:118.0f/255.0f blue:254.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 7) {
+        // Up Green
+        colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:151.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 8) {
+        colorToReturn = [UIColor blackColor];
+    }
+    else {
+        colorToReturn = [UIColor blackColor];
+    }
+    
+    return colorToReturn;
 }
 
 @end
