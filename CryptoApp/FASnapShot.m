@@ -1362,7 +1362,7 @@ static FASnapShot *sharedInstance;
             nonFormattedTxt = @"How I would get started with Crypto Investing ~ij min";
         }
         else if (rowNo == 8) {
-            nonFormattedTxt = @"Contact us to request coverage of a specific topic ~kl min";
+            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Contact us";
         }
         else {
             nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";

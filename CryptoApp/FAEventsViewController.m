@@ -706,7 +706,12 @@
             //cell.listIconLbl.textColor = [self.dataSnapShot getLearningItemColor:indexPath];
             cell.listIconLbl.textColor = [UIColor blackColor];
             rowNo = (indexPath.row + 1);
-            [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+            if(rowNo == 8) {
+                [[cell listIconLbl] setText:@"?"];
+            }
+            else {
+                [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+            }
             
             // Set the learning item title
             [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath]];
