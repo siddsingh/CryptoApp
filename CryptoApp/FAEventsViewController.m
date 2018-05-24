@@ -703,7 +703,8 @@
             cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 0;
             cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
-            cell.listIconLbl.textColor = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+            //cell.listIconLbl.textColor = [self.dataSnapShot getLearningItemColor:indexPath];
+            cell.listIconLbl.textColor = [UIColor blackColor];
             rowNo = (indexPath.row + 1);
             [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
             
@@ -716,9 +717,9 @@
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
             // Show the play label
-            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:10]];
-            [cell.eventImpact setTextColor:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f]];
-            [[cell eventImpact] setText:@"PLAY ▸"];
+            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13]];
+            [cell.eventImpact setTextColor:[self.dataSnapShot getLearningItemColor:indexPath]];
+            [[cell eventImpact] setText:@"▶︎"];
         }
     }
     
@@ -2483,7 +2484,7 @@
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
             
             // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"LEARN THE BASICS"];
+            [self.navigationController.navigationBar.topItem setTitle:@"LEARNING VIDEOS"];
             // Clear out the search context
             [self.eventsSearchBar setText:@""];
             [self searchBar:self.eventsSearchBar textDidChange:@""];
@@ -2579,7 +2580,7 @@
     }
     // If Learn is selected, disable and hide the search bar and event type selector
     else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Learn"] == NSOrderedSame) {
-        [self.eventSelectorHtConstra setConstant:0];
+        [self.eventSelectorHtConstra setConstant:2];
         [self.eventTypeSelector setEnabled:NO];
         [self.eventTypeSelector setHidden:YES];
         [self.eventSearchBarHtConstra setConstant:0];

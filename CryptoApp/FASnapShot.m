@@ -1265,9 +1265,9 @@ static FASnapShot *sharedInstance;
     NSDictionary *txtAttributes = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
-    // Default formatting in black
+    // Item specific coloring
     txtAttributes = @{
-     NSForegroundColorAttributeName:[UIColor blackColor],
+     NSForegroundColorAttributeName:[self getLearningItemColor:rowPath],
      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
      };
     
@@ -1308,32 +1308,65 @@ static FASnapShot *sharedInstance;
     NSString *nonFormattedTxt = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
-    if (rowNo == 1) {
-        nonFormattedTxt = @"Introduction,CryptoFi Founder\n- 2 min";
+    // If device is ipad, format for more space
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        if (rowNo == 1) {
+            nonFormattedTxt = @"Introduction,CryptoFi Founder\n~ 2 min";
+        }
+        else if (rowNo == 2) {
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies\n~xy min";
+        }
+        else if (rowNo == 3) {
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency\n~ab min";
+        }
+        else if (rowNo == 4) {
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”\n~cd min";
+        }
+        else if (rowNo == 5) {
+            nonFormattedTxt = @"See the assumptions being made in Crypto Investing\n~ef min";
+        }
+        else if (rowNo == 6) {
+            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges\n~gh min";
+        }
+        else if (rowNo == 7) {
+            nonFormattedTxt = @"How I would get started with Crypto Investing\n~ij min";
+        }
+        else if (rowNo == 8) {
+            nonFormattedTxt = @"Contact us to request coverage of a specific topic\n~kl min";
+        }
+        else {
+            nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
+        }
     }
-    else if (rowNo == 2) {
-        nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies - xy min";
-    }
-    else if (rowNo == 3) {
-        nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency - ab min";
-    }
-    else if (rowNo == 4) {
-        nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform” - cd min";
-    }
-    else if (rowNo == 5) {
-        nonFormattedTxt = @"See the assumptions being made in Crypto Investing - ef min";
-    }
-    else if (rowNo == 6) {
-        nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges - gh mins";
-    }
-    else if (rowNo == 7) {
-        nonFormattedTxt = @"How I would get started with Crypto Investing - ij mins";
-    }
-    else if (rowNo == 8) {
-        nonFormattedTxt = @"Contact us to request coverage of a specific topic - kl mins";
-    }
+    // Format for lesser space
     else {
-       nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
+        if (rowNo == 1) {
+            nonFormattedTxt = @"Introduction,CryptoFi Founder\n~ 2 min";
+        }
+        else if (rowNo == 2) {
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies ~xy min";
+        }
+        else if (rowNo == 3) {
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency ~ab min";
+        }
+        else if (rowNo == 4) {
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform” ~cd min";
+        }
+        else if (rowNo == 5) {
+            nonFormattedTxt = @"See the assumptions being made in Crypto Investing ~ef min";
+        }
+        else if (rowNo == 6) {
+            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges ~gh min";
+        }
+        else if (rowNo == 7) {
+            nonFormattedTxt = @"How I would get started with Crypto Investing ~ij min";
+        }
+        else if (rowNo == 8) {
+            nonFormattedTxt = @"Contact us to request coverage of a specific topic ~kl min";
+        }
+        else {
+            nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
+        }
     }
     
     return nonFormattedTxt;

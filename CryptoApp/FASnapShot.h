@@ -46,4 +46,7 @@
 // Get formatted title of learning article
 - (NSString *)getLearningDescription:(NSIndexPath *)rowPath;
 
+// Get the learning item color
+- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath;
+
 @end
