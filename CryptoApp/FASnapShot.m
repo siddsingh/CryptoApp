@@ -1278,21 +1278,24 @@ static FASnapShot *sharedInstance;
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BLOCKCHAIN BASICS" attributes:txtAttributes];
     }
     else if (rowNo == 3) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BITCOIN BASICS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BLOCKCHAIN MECHANICS" attributes:txtAttributes];
     }
     else if (rowNo == 4) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"ETHEREUM BASICS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BITCOIN BASICS" attributes:txtAttributes];
     }
     else if (rowNo == 5) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"INVESTING TENETS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"ETHEREUM BASICS" attributes:txtAttributes];
     }
     else if (rowNo == 6) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"WHICH EXCHANGES" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"INVESTING TENETS" attributes:txtAttributes];
     }
     else if (rowNo == 7) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"GET STARTED" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"WHICH EXCHANGES" attributes:txtAttributes];
     }
     else if (rowNo == 8) {
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"GET STARTED" attributes:txtAttributes];
+    }
+    else if (rowNo == 9) {
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"CONTACT US" attributes:txtAttributes];
     }
     else {
@@ -1311,28 +1314,31 @@ static FASnapShot *sharedInstance;
     // If device is ipad, format for more space
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction,CryptoFi Founder\n~ 2 min";
+            nonFormattedTxt = @"Introduction, CryptoFi Founder.\n1 min";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies\n~xy min";
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.\n2 min";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency\n~ab min";
+            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.\n18 min";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”\n~cd min";
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency\nab min";
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"See the assumptions being made in Crypto Investing\n~ef min";
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.\ncd min";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges\n~gh min";
+            nonFormattedTxt = @"See the assumptions being made in Crypto Investing.\nef min";
         }
         else if (rowNo == 7) {
-            nonFormattedTxt = @"How I would get started with Crypto Investing\n~ij min";
+            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges.\ngh min";
         }
         else if (rowNo == 8) {
-            nonFormattedTxt = @"Contact us to request coverage of a specific topic\n~kl min";
+            nonFormattedTxt = @"How I would get started with Crypto Investing.\nij min";
+        }
+        else if (rowNo == 9) {
+            nonFormattedTxt = @"Questions? Want us to cover a specific topic?\nContact us.";
         }
         else {
             nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
@@ -1341,28 +1347,31 @@ static FASnapShot *sharedInstance;
     // Format for lesser space
     else {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction,CryptoFi Founder\n~ 2 min";
+            nonFormattedTxt = @"Introduction, CryptoFi Founder.\n1 min";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies ~xy min";
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies. 2 min";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency ~ab min";
+            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth. 18 min";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform” ~cd min";
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency. ab min";
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"See the assumptions being made in Crypto Investing ~ef min";
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”. cd min";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges ~gh min";
+            nonFormattedTxt = @"See the assumptions being made in Crypto Investing. ef min";
         }
         else if (rowNo == 7) {
-            nonFormattedTxt = @"How I would get started with Crypto Investing ~ij min";
+            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges. gh min";
         }
         else if (rowNo == 8) {
-            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Contact us";
+            nonFormattedTxt = @"How I would get started with Crypto Investing. ij min";
+        }
+        else if (rowNo == 9) {
+            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Contact us.";
         }
         else {
             nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
@@ -1370,6 +1379,46 @@ static FASnapShot *sharedInstance;
     }
     
     return nonFormattedTxt;
+}
+
+// Get formatted title of learning article
+- (NSString *)getLearningURL:(NSIndexPath *)rowPath {
+    
+    NSString *externalURLStr = nil;
+    NSInteger rowNo = (rowPath.row + 1);
+    
+    if (rowNo == 1) {
+        externalURLStr = @"https://youtu.be/GYQNNfDs_bk";
+    }
+    else if (rowNo == 2) {
+        externalURLStr = @"https://youtu.be/Q32NcEH_uHM";
+    }
+    else if (rowNo == 3) {
+        externalURLStr = @"https://youtu.be/_160oMzblY8";
+    }
+    else if (rowNo == 4) {
+        externalURLStr = @"http://www.knotifi.com/p/home.html";
+    }
+    else if (rowNo == 5) {
+        externalURLStr = @"http://www.knotifi.com/p/home.html";
+    }
+    else if (rowNo == 6) {
+        externalURLStr = @"http://www.knotifi.com/p/home.html";
+    }
+    else if (rowNo == 7) {
+        externalURLStr = @"http://www.knotifi.com/p/home.html";
+    }
+    else if (rowNo == 8) {
+        externalURLStr = @"http://www.knotifi.com/p/home.html";
+    }
+    else if (rowNo == 9) {
+        externalURLStr = @"http://www.knotifi.com/p/contact.html";
+    }
+    else {
+        externalURLStr = @"http://www.knotifi.com/p/contact.html";
+    }
+    
+    return externalURLStr;
 }
 
 // Get the learning item color
@@ -1389,26 +1438,30 @@ static FASnapShot *sharedInstance;
         colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
     }
     else if (rowNo == 3) {
+        // Blockchain Blue
+        colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+    }
+    else if (rowNo == 4) {
         // Bitcoin Yellow color
         colorToReturn = [UIColor colorWithRed:239.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
     }
-    else if (rowNo == 4) {
+    else if (rowNo == 5) {
         // Ethereum Violet
         colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:117.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
     }
-    else if (rowNo == 5) {
+    else if (rowNo == 6) {
         // Brick Color
         colorToReturn = [UIColor colorWithRed:95.0f/255.0f green:17.0f/255.0f blue:6.0f/255.0f alpha:1.0f];
     }
-    else if (rowNo == 6) {
+    else if (rowNo == 7) {
         // Coinbase Blue
         colorToReturn = [UIColor colorWithRed:57.0f/255.0f green:118.0f/255.0f blue:254.0f/255.0f alpha:1.0f];
     }
-    else if (rowNo == 7) {
+    else if (rowNo == 8) {
         // Up Green
         colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:151.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
     }
-    else if (rowNo == 8) {
+    else if (rowNo == 9) {
         colorToReturn = [UIColor blackColor];
     }
     else {

@@ -392,7 +392,7 @@
     else {
             // For learning show hardcoded number of videos
             if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
-                numberOfRows = 8;
+                numberOfRows = 9;
             }
             else {
                 // Use all events results set
@@ -703,10 +703,12 @@
             cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 0;
             cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
+            cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 16;
             //cell.listIconLbl.textColor = [self.dataSnapShot getLearningItemColor:indexPath];
             cell.listIconLbl.textColor = [UIColor blackColor];
             rowNo = (indexPath.row + 1);
-            if(rowNo == 8) {
+            if(rowNo == 9) {
                 [[cell listIconLbl] setText:@"?"];
             }
             else {
@@ -756,6 +758,27 @@
     // If remote fetch that means it's not available, so do nothing.
     if (cell.eventRemoteFetch) {
         
+    }
+    // If Learning video
+    else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
+        
+        NSURL *targetURL0 = [NSURL URLWithString:[self.dataSnapShot getLearningURL:indexPath]];
+        
+        if (targetURL0) {
+            
+            // TRACKING EVENT: Learning Action Clicked: User clicked a link to do something outside Knotifi.
+            // TO DO: Disabling to not track development events. Enable before shipping.
+            [FBSDKAppEvents logEvent:@"See Learning"
+                          parameters:@{ @"Learning Title" : cell.eventDescription.text,
+                                        @"Learning Description" : cell.eventDate.text,
+                                        @"External URL" : [targetURL0 absoluteString]} ];
+            
+            SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL0];
+            externalInfoVC.delegate = self;
+            // Just use whatever is the default color for the Safari View Controller
+            //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] withCompanyTicker:ticker];
+            [self presentViewController:externalInfoVC animated:YES completion:nil];
+        }
     }
     // If not then, fetch event details.
     else {
@@ -3838,6 +3861,11 @@
             
             [self.eventsListTable reloadData];
             [refreshTblControl endRefreshing]; */
+        }
+        
+        // If Learn is selected. Do nothing. Just stop the spinner.
+        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Learn"] == NSOrderedSame) {
+            [refreshTblControl endRefreshing];
         }
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
