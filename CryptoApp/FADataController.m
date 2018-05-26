@@ -3093,7 +3093,6 @@ bool eventsUpdated = NO;
         [[NSNotificationCenter defaultCenter]postNotificationName:@"StartBusySpinner" object:triggeringAction];
     });
     
-    
     [self getAllCryptoPriceChangeEventsFromApi];
     
     // Stop Busy

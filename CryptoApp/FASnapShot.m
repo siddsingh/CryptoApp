@@ -1393,6 +1393,7 @@ static FASnapShot *sharedInstance;
     NSInteger rowNo = (rowPath.row + 1);
     
     if (rowNo == 1) {
+        //externalURLStr = @"https://www.youtube.com/embed/GYQNNfDs_bk?autoplay=1";
         externalURLStr = @"https://youtu.be/GYQNNfDs_bk";
     }
     else if (rowNo == 2) {

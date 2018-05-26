@@ -717,6 +717,7 @@
             // Show play button
             cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 0;
+            cell.listIconLbl.text = @"";
             cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
             
             // Set the learning item title
@@ -2785,7 +2786,7 @@
     //NSLog(@"Refresh Action is:%@ and main Nav is:%@",refreshAction,[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]);
     
     //If trigger is app became active and main nav selected is news, don't show the spinner.
-    if (([refreshAction caseInsensitiveCompare:@"App Activated"] == NSOrderedSame)&&([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame)) {
+    if (([refreshAction caseInsensitiveCompare:@"App Activated"] == NSOrderedSame)&&(([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame)||([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Learn"] == NSOrderedSame))) {
         //NSLog(@"DOING NOTHING");
     }
     // else show the busy message
