@@ -1266,37 +1266,42 @@ static FASnapShot *sharedInstance;
     NSInteger rowNo = (rowPath.row + 1);
     
     // Item specific coloring
-    txtAttributes = @{
+    /*txtAttributes = @{
      NSForegroundColorAttributeName:[self getLearningItemColor:rowPath],
      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-     };
+     };*/
+    // Black Color
+    txtAttributes = @{
+                      NSForegroundColorAttributeName:[UIColor blackColor],
+                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:14]
+                      };
     
     if (rowNo == 1) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"INTRODUCTION" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Introduction" attributes:txtAttributes];
     }
     else if (rowNo == 2) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BLOCKCHAIN BASICS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Basics" attributes:txtAttributes];
     }
     else if (rowNo == 3) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BLOCKCHAIN MECHANICS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Mechanics" attributes:txtAttributes];
     }
     else if (rowNo == 4) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"BITCOIN BASICS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Bitcoin Basics" attributes:txtAttributes];
     }
     else if (rowNo == 5) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"ETHEREUM BASICS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Ethereum Basics" attributes:txtAttributes];
     }
     else if (rowNo == 6) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"INVESTING TENETS" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Investing Tenets" attributes:txtAttributes];
     }
     else if (rowNo == 7) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"WHICH EXCHANGES" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Crypto Exchanges" attributes:txtAttributes];
     }
     else if (rowNo == 8) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"GET STARTED" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Get Started" attributes:txtAttributes];
     }
     else if (rowNo == 9) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"CONTACT US" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact Us" attributes:txtAttributes];
     }
     else {
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
@@ -1425,47 +1430,55 @@ static FASnapShot *sharedInstance;
 - (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath {
     
     //Default black color
-    UIColor *colorToReturn = [UIColor blackColor];
+    UIColor *colorToReturn = [UIColor whiteColor];
     
     NSInteger rowNo = (rowPath.row + 1);
     
     if (rowNo == 1) {
         // Pinkish Red
-        colorToReturn = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PinkRedPlay"]];
     }
     else if (rowNo == 2) {
         // Blockchain Blue
-        colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlockBluePlay"]];
     }
     else if (rowNo == 3) {
-        // Blockchain Blue
-        colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlockBluePlay"]];
     }
     else if (rowNo == 4) {
         // Bitcoin Yellow color
-        colorToReturn = [UIColor colorWithRed:239.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:239.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BtcYellowPlay"]];
     }
     else if (rowNo == 5) {
         // Ethereum Violet
-        colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:117.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:117.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"EthVioletPlay"]];
     }
     else if (rowNo == 6) {
         // Brick Color
-        colorToReturn = [UIColor colorWithRed:95.0f/255.0f green:17.0f/255.0f blue:6.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:95.0f/255.0f green:17.0f/255.0f blue:6.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"FoundBrickPlay"]];
     }
     else if (rowNo == 7) {
         // Coinbase Blue
-        colorToReturn = [UIColor colorWithRed:57.0f/255.0f green:118.0f/255.0f blue:254.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:57.0f/255.0f green:118.0f/255.0f blue:254.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"CbBluePlay"]];
     }
     else if (rowNo == 8) {
         // Up Green
-        colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:151.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
+        //colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:151.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
     }
     else if (rowNo == 9) {
-        colorToReturn = [UIColor blackColor];
+        //colorToReturn = [UIColor blackColor];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlackSupport"]];
     }
     else {
-        colorToReturn = [UIColor blackColor];
+        colorToReturn = [UIColor whiteColor];
     }
     
     return colorToReturn;

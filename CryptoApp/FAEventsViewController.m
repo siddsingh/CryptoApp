@@ -700,7 +700,7 @@
             [cell.topSpaceForEventDesc setConstant:4];
             
             // Show numbering
-            cell.listIconLbl.clipsToBounds = YES;
+            /*cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 0;
             cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
             cell.listIconLbl.clipsToBounds = YES;
@@ -713,7 +713,11 @@
             }
             else {
                 [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
-            }
+            }*/
+            // Show play button
+            cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 0;
+            cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
             
             // Set the learning item title
             [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath]];
@@ -724,9 +728,19 @@
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
             // Show the play label
-            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13]];
+            /*[cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13]];
             [cell.eventImpact setTextColor:[self.dataSnapShot getLearningItemColor:indexPath]];
-            [[cell eventImpact] setText:@"▶︎"];
+            [[cell eventImpact] setText:@"▶︎"];*/
+            // Show Numbering
+            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+            [cell.eventImpact setTextColor:[self formatColorForEventDateBasedOnSelection]];
+            rowNo = (indexPath.row + 1);
+            if(rowNo == 9) {
+                [[cell eventImpact] setText:@">"];
+            }
+            else {
+                [[cell eventImpact] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+            }
         }
     }
     
