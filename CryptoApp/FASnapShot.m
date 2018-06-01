@@ -1277,7 +1277,7 @@ static FASnapShot *sharedInstance;
                       };
     
     if (rowNo == 1) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Introduction" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Intro" attributes:txtAttributes];
     }
     else if (rowNo == 2) {
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Basics" attributes:txtAttributes];
@@ -1292,13 +1292,13 @@ static FASnapShot *sharedInstance;
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Ethereum Basics" attributes:txtAttributes];
     }
     else if (rowNo == 6) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Investing Tenets" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Crypto Types" attributes:txtAttributes];
     }
     else if (rowNo == 7) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Crypto Exchanges" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Cryptonomics" attributes:txtAttributes];
     }
     else if (rowNo == 8) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Get Started" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"View Slides" attributes:txtAttributes];
     }
     else if (rowNo == 9) {
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact Us" attributes:txtAttributes];
@@ -1319,67 +1319,67 @@ static FASnapShot *sharedInstance;
     // If device is ipad, format for more space
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction, CryptoFi Founder.\n1 min";
+            nonFormattedTxt = @"Introduction to the series.\nStep 1.";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.\n2 min";
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.\nStep 2.";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.\n18 min";
+            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.\nStep 3.";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency\nab min";
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency\nStep 4.";
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.\ncd min";
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.\nStep 5.";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"See the assumptions being made in Crypto Investing.\nef min";
+            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies\nStep 6.";
         }
         else if (rowNo == 7) {
-            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges.\ngh min";
+            nonFormattedTxt = @"See what gives cryptocurrencies value?\nStep 7.";
         }
         else if (rowNo == 8) {
-            nonFormattedTxt = @"How I would get started with Crypto Investing.\nij min";
+            nonFormattedTxt = @"View entire presentation.\n33 slides.";
         }
         else if (rowNo == 9) {
-            nonFormattedTxt = @"Questions? Want us to cover a specific topic?\nContact us.";
+            nonFormattedTxt = @"Questions? Want us to cover a specific topic?\nWrite to us.";
         }
         else {
-            nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
+            nonFormattedTxt = @"Hmm! There is nothing here.";
         }
     }
     // Format for lesser space
     else {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction, CryptoFi Founder.\n1 min";
+            nonFormattedTxt = @"Introduction to the series.\nStep 1.";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies. 2 min";
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies. Step 2.";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth. 18 min";
+            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth. Step 3.";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency. ab min";
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency. Step 4.";
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”. cd min";
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”. Step 5.";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"See the assumptions being made in Crypto Investing. ef min";
+            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies. Step 6.";
         }
         else if (rowNo == 7) {
-            nonFormattedTxt = @"Get a crash course in Cryptocurrency Exchanges. gh min";
+            nonFormattedTxt = @"See what gives cryptocurrencies value? Step 7.";
         }
         else if (rowNo == 8) {
-            nonFormattedTxt = @"How I would get started with Crypto Investing. ij min";
+            nonFormattedTxt = @"View entire presentation. 33 slides.";
         }
         else if (rowNo == 9) {
-            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Contact us.";
+            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Write to us.";
         }
         else {
-            nonFormattedTxt = @"Hmm! There is nothing here. Check out other sections of our app.";
+            nonFormattedTxt = @"Hmm! There is nothing here.";
         }
     }
     
@@ -1483,6 +1483,46 @@ static FASnapShot *sharedInstance;
     }
     
     return colorToReturn;
+}
+
+// Get the length of the video string
+- (NSString *)getVideoLength:(NSIndexPath *)rowPath {
+    
+    NSString *externalURLStr = nil;
+    NSInteger rowNo = (rowPath.row + 1);
+    
+    if (rowNo == 1) {
+        externalURLStr = @"1 min";
+    }
+    else if (rowNo == 2) {
+        externalURLStr = @"2 min";
+    }
+    else if (rowNo == 3) {
+        externalURLStr = @"17 min";
+    }
+    else if (rowNo == 4) {
+        externalURLStr = @"00 min";
+    }
+    else if (rowNo == 5) {
+        externalURLStr = @"00 min";
+    }
+    else if (rowNo == 6) {
+        externalURLStr = @"00 min";
+    }
+    else if (rowNo == 7) {
+        externalURLStr = @"00 min";
+    }
+    else if (rowNo == 8) {
+        externalURLStr = @"";
+    }
+    else if (rowNo == 9) {
+        externalURLStr = @"";
+    }
+    else {
+        externalURLStr = @"";
+    }
+    
+    return externalURLStr;
 }
 
 @end

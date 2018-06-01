@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "PinkishRedBkgrndWithPlay32_32.png",
+      "filename" : "IntroSquare32_32.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "PinkishRedBkgrndWithPlay64_64.png",
+      "filename" : "IntroSquare64_64.png",
       "scale" : "2x"
     },
     {

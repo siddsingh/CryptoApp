@@ -693,8 +693,8 @@
         // For learning show video specific information
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
             
-            // Hide the company ticker
-            [[cell companyTicker] setHidden:YES];
+            // Show the company ticker
+            [[cell companyTicker] setHidden:NO];
 
             // Reset top space for title to the default 4
             [cell.topSpaceForEventDesc setConstant:4];
@@ -716,7 +716,7 @@
             }*/
             // Show play button
             cell.listIconLbl.clipsToBounds = YES;
-            cell.listIconLbl.layer.cornerRadius = 0;
+            cell.listIconLbl.layer.cornerRadius = 5;
             cell.listIconLbl.text = @"";
             cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
             
@@ -735,12 +735,19 @@
             // Show Numbering
             [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
             [cell.eventImpact setTextColor:[self formatColorForEventDateBasedOnSelection]];
+            [cell.eventImpact setText:@""];
             rowNo = (indexPath.row + 1);
+            // Show video length where the ticker is
+            [cell.companyTicker setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+            [cell.companyTicker setTextColor:[self formatColorForEventDateBasedOnSelection]];
             if(rowNo == 9) {
-                [[cell eventImpact] setText:@">"];
+                //[[cell eventImpact] setText:@">"];
+                [[cell companyTicker] setText:@""];
             }
             else {
-                [[cell eventImpact] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+                //[[cell eventImpact] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+                //[[cell companyTicker] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+                [[cell companyTicker] setText:@"1 min"];
             }
         }
     }
