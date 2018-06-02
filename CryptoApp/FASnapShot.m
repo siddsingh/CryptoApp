@@ -1319,31 +1319,31 @@ static FASnapShot *sharedInstance;
     // If device is ipad, format for more space
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction to the series.\nStep 1.";
+            nonFormattedTxt = @"Introduction to the series.";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.\nStep 2.";
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.\nStep 3.";
+            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency\nStep 4.";
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency.";
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.\nStep 5.";
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies\nStep 6.";
+            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies.";
         }
         else if (rowNo == 7) {
-            nonFormattedTxt = @"See what gives cryptocurrencies value?\nStep 7.";
+            nonFormattedTxt = @"See what gives cryptocurrencies value.";
         }
         else if (rowNo == 8) {
-            nonFormattedTxt = @"View entire presentation.\n33 slides.";
+            nonFormattedTxt = @"View entire presentation.";
         }
         else if (rowNo == 9) {
-            nonFormattedTxt = @"Questions? Want us to cover a specific topic?\nWrite to us.";
+            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Write to us.";
         }
         else {
             nonFormattedTxt = @"Hmm! There is nothing here.";
@@ -1352,28 +1352,28 @@ static FASnapShot *sharedInstance;
     // Format for lesser space
     else {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction to the series.\nStep 1.";
+            nonFormattedTxt = @"Introduction to the series.";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies. Step 2.";
+            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth. Step 3.";
+            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency. Step 4.";
+            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency.";
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”. Step 5.";
+            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies. Step 6.";
+            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies.";
         }
         else if (rowNo == 7) {
-            nonFormattedTxt = @"See what gives cryptocurrencies value? Step 7.";
+            nonFormattedTxt = @"See what gives cryptocurrencies value.";
         }
         else if (rowNo == 8) {
-            nonFormattedTxt = @"View entire presentation. 33 slides.";
+            nonFormattedTxt = @"View entire presentation.";
         }
         else if (rowNo == 9) {
             nonFormattedTxt = @"Questions? Want us to cover a specific topic? Write to us.";
@@ -1403,16 +1403,16 @@ static FASnapShot *sharedInstance;
         externalURLStr = @"https://youtu.be/_160oMzblY8";
     }
     else if (rowNo == 4) {
-        externalURLStr = @"http://www.knotifi.com/p/home.html";
+        externalURLStr = @"https://youtu.be/gfZEVGN_KlY";
     }
     else if (rowNo == 5) {
-        externalURLStr = @"http://www.knotifi.com/p/home.html";
+        externalURLStr = @"https://youtu.be/_Y71wrngQ3k";
     }
     else if (rowNo == 6) {
-        externalURLStr = @"http://www.knotifi.com/p/home.html";
+        externalURLStr = @"https://youtu.be/ASl0Um1FcuE";
     }
     else if (rowNo == 7) {
-        externalURLStr = @"http://www.knotifi.com/p/home.html";
+        externalURLStr = @"https://youtu.be/1olbtC2djy4";
     }
     else if (rowNo == 8) {
         externalURLStr = @"http://www.knotifi.com/p/home.html";
@@ -1447,7 +1447,7 @@ static FASnapShot *sharedInstance;
     }
     else if (rowNo == 3) {
         //colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlockBluePlay"]];
+        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MechanicsPlay"]];
     }
     else if (rowNo == 4) {
         // Bitcoin Yellow color
@@ -1492,25 +1492,25 @@ static FASnapShot *sharedInstance;
     NSInteger rowNo = (rowPath.row + 1);
     
     if (rowNo == 1) {
-        externalURLStr = @"1 min";
+        externalURLStr = @"1:12";
     }
     else if (rowNo == 2) {
-        externalURLStr = @"2 min";
+        externalURLStr = @"2:08";
     }
     else if (rowNo == 3) {
-        externalURLStr = @"17 min";
+        externalURLStr = @"17:50";
     }
     else if (rowNo == 4) {
-        externalURLStr = @"00 min";
+        externalURLStr = @"5:36";
     }
     else if (rowNo == 5) {
-        externalURLStr = @"00 min";
+        externalURLStr = @"3:44";
     }
     else if (rowNo == 6) {
-        externalURLStr = @"00 min";
+        externalURLStr = @"1:30";
     }
     else if (rowNo == 7) {
-        externalURLStr = @"00 min";
+        externalURLStr = @"3:45";
     }
     else if (rowNo == 8) {
         externalURLStr = @"";

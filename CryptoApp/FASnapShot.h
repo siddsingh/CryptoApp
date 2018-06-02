@@ -52,4 +52,7 @@
 // Get the learning item color
 - (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath;
 
+// Get the length of the video string
+- (NSString *)getVideoLength:(NSIndexPath *)rowPath;
+
 @end

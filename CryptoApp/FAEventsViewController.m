@@ -422,6 +422,9 @@
     
     // Unhide the company ticker in case it was hidden during a product timeline view
     [[cell  companyTicker] setHidden:NO];
+    // Reset formatting in case it was changed during Learning View
+    [cell.companyTicker setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
+    [cell.companyTicker setTextColor:[UIColor blackColor]];
     
     // Get event or company  to display
     Event *eventAtIndex;
@@ -716,7 +719,7 @@
             }*/
             // Show play button
             cell.listIconLbl.clipsToBounds = YES;
-            cell.listIconLbl.layer.cornerRadius = 5;
+            cell.listIconLbl.layer.cornerRadius = 4;
             cell.listIconLbl.text = @"";
             cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
             
@@ -728,27 +731,21 @@
             // Set the appropriate event date text color
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
-            // Show the play label
-            /*[cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13]];
-            [cell.eventImpact setTextColor:[self.dataSnapShot getLearningItemColor:indexPath]];
-            [[cell eventImpact] setText:@"▶︎"];*/
             // Show Numbering
-            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:14]];
             [cell.eventImpact setTextColor:[self formatColorForEventDateBasedOnSelection]];
-            [cell.eventImpact setText:@""];
             rowNo = (indexPath.row + 1);
+            if((rowNo == 9)||(rowNo == 8)) {
+                [cell.eventImpact setText:@"▸"];
+            }
+            else {
+                [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+            }
+            
             // Show video length where the ticker is
             [cell.companyTicker setFont:[UIFont fontWithName:@"Helvetica" size:14]];
             [cell.companyTicker setTextColor:[self formatColorForEventDateBasedOnSelection]];
-            if(rowNo == 9) {
-                //[[cell eventImpact] setText:@">"];
-                [[cell companyTicker] setText:@""];
-            }
-            else {
-                //[[cell eventImpact] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
-                //[[cell companyTicker] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
-                [[cell companyTicker] setText:@"1 min"];
-            }
+            [[cell companyTicker] setText:[self.dataSnapShot getVideoLength:indexPath]];
         }
     }
     
