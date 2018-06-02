@@ -1415,7 +1415,7 @@ static FASnapShot *sharedInstance;
         externalURLStr = @"https://youtu.be/1olbtC2djy4";
     }
     else if (rowNo == 8) {
-        externalURLStr = @"http://www.knotifi.com/p/home.html";
+        externalURLStr = @"https://docs.google.com/presentation/d/1csWbrHybgL8I8a76c8AfgBMmL8NcTB1TGuFzwCEJS6Y";
     }
     else if (rowNo == 9) {
         externalURLStr = @"http://www.knotifi.com/p/contact.html";
