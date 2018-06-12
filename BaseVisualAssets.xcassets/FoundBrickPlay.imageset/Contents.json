@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "CryptoTypes32_32.png",
+      "filename" : "CryTypes1X.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "CryptoTypes64_64.png",
+      "filename" : "CryTypes2X.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "CryptoTypes96_96.png",
+      "filename" : "CryTypes3X.png",
       "scale" : "3x"
     }
   ],

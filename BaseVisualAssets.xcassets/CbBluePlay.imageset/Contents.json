@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Cryptonomics32_32.png",
+      "filename" : "CryNomics1X.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Cryptonomics64_64.png",
+      "filename" : "CryNomics2X.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Cryptonomics96_96.png",
+      "filename" : "CryNomics3X.png",
       "scale" : "3x"
     }
   ],
