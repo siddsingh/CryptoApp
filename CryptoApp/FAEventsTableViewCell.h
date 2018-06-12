@@ -42,5 +42,7 @@
 // For the appropriate icon in the list view.
 @property (weak, nonatomic) IBOutlet UILabel *listIconLbl;
 
+// For the video and news images
+@property (weak, nonatomic) IBOutlet UILabel *listImageLbl;
 
 @end

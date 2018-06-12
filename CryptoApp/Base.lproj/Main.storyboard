@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0h3-IF-CPY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0h3-IF-CPY">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -202,14 +202,26 @@
                                                     <color key="textColor" red="0.44326073230000002" green="0.44326073230000002" blue="0.44326073230000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BTC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIl-4Q-vYN">
+                                                    <rect key="frame" x="6" y="7" width="112" height="63"/>
+                                                    <color key="backgroundColor" red="0.2666666667" green="0.85882352939999995" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="112" id="WBr-2T-qKh"/>
+                                                        <constraint firstAttribute="height" constant="63" id="e0Q-xF-3dn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.91551125050000004" green="0.25127336379999998" blue="0.2010710537" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="Jou-oj-rjb" firstAttribute="top" secondItem="r65-ua-5Pc" secondAttribute="bottom" constant="2" id="0Tu-X7-FI5"/>
                                                 <constraint firstItem="r65-ua-5Pc" firstAttribute="leading" secondItem="Jou-oj-rjb" secondAttribute="leading" id="3r5-ac-2rB"/>
                                                 <constraint firstItem="r65-ua-5Pc" firstAttribute="centerY" secondItem="1Cc-6r-XL8" secondAttribute="centerY" id="73J-o6-GLJ"/>
+                                                <constraint firstItem="vIl-4Q-vYN" firstAttribute="leading" secondItem="EdO-do-03K" secondAttribute="leading" constant="6" id="9q4-MT-8nT"/>
                                                 <constraint firstItem="1Cc-6r-XL8" firstAttribute="leading" secondItem="r65-ua-5Pc" secondAttribute="trailing" constant="3" id="AKW-CW-Z15"/>
-                                                <constraint firstItem="r65-ua-5Pc" firstAttribute="leading" secondItem="Bou-Yt-hGl" secondAttribute="trailing" constant="6" id="JH7-80-piD"/>
+                                                <constraint firstItem="vIl-4Q-vYN" firstAttribute="top" secondItem="EdO-do-03K" secondAttribute="top" constant="7" id="FNB-dE-fLt"/>
                                                 <constraint firstItem="Y7j-P2-Lf8" firstAttribute="leading" secondItem="EdO-do-03K" secondAttribute="leading" id="KSa-8d-uFN"/>
                                                 <constraint firstItem="s1x-IM-BDA" firstAttribute="top" secondItem="EdO-do-03K" secondAttribute="top" constant="1" id="QVn-JR-UJI"/>
                                                 <constraint firstItem="F1j-cq-Kga" firstAttribute="top" secondItem="s1x-IM-BDA" secondAttribute="bottom" constant="1" id="RKx-dX-pLe"/>
@@ -232,13 +244,11 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="JH7-80-piD"/>
                                                     <exclude reference="SAV-n0-fe1"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=regular">
                                                 <mask key="constraints">
-                                                    <include reference="JH7-80-piD"/>
                                                     <exclude reference="SAV-n0-fe1"/>
                                                     <exclude reference="TSn-qE-Z2O"/>
                                                     <exclude reference="AKW-CW-Z15"/>
@@ -257,6 +267,7 @@
                                             <outlet property="eventImpact" destination="1Cc-6r-XL8" id="NDz-LU-8as"/>
                                             <outlet property="leadingSpaceForEventDesc" destination="TSn-qE-Z2O" id="6aB-oJ-g3G"/>
                                             <outlet property="listIconLbl" destination="F1j-cq-Kga" id="axV-rZ-gJ0"/>
+                                            <outlet property="listImageLbl" destination="vIl-4Q-vYN" id="M6p-JP-K1L"/>
                                             <outlet property="topSpaceForEventDesc" destination="vOv-KM-iHi" id="3a0-VQ-blI"/>
                                         </connections>
                                     </tableViewCell>

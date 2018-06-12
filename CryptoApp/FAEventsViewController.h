@@ -80,4 +80,5 @@
 
 // Height constraint for search bar. Originally set to 32 in search bar.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventSearchBarHtConstra;
+
 @end

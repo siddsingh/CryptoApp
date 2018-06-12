@@ -414,6 +414,11 @@
     // Make the cell user interaction enabled in case it's been turned off for 52 week events.
     cell.userInteractionEnabled = YES;
     
+    // Make sure the bigger image label for videos and news is hidden by default. Show the company ticker and small image.
+    cell.listImageLbl.hidden = YES;
+    cell.listIconLbl.hidden = NO;
+    cell.companyTicker.hidden = NO;
+    
     // Show the event date in case it's been hidden for news.
     cell.eventDate.hidden = NO;
     
@@ -457,7 +462,10 @@
     }
     // If no search filter
     else {
-        eventAtIndex = [self.eventResultsController objectAtIndexPath:indexPath];
+        // Only if Learn is not selected you do this, since for learn we don't use the eventAtIndex and it creates weird cases
+        if (!([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame)) {
+            eventAtIndex = [self.eventResultsController objectAtIndexPath:indexPath];
+        }
     }
     
     // Depending the type of search filter that has been applied, Show the matching companies with events or companies
@@ -576,8 +584,8 @@
         // If News event put the right info in the right place
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             
-            // Shift the cell contents to the left to make more space
-           // [cell.leadingSpaceForEventDesc setConstant:0];
+            // Set the right spacing from the image, default is 6
+            [cell.leadingSpaceForEventDesc setConstant:6];
             
             // Hide the company ticker
             [[cell companyTicker] setHidden:YES];
@@ -627,7 +635,7 @@
         else
         {
             // Reset the cell contents to the proper position
-           // [cell.leadingSpaceForEventDesc setConstant:6];
+            [cell.leadingSpaceForEventDesc setConstant:6];
             
             // Set the company ticker text
             [[cell companyTicker] setText:eventAtIndex.listedCompany.ticker];
@@ -697,7 +705,15 @@
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
             
             // Show the company ticker
-            [[cell companyTicker] setHidden:NO];
+            //[[cell companyTicker] setHidden:NO];
+            
+            // Hide the company ticker and small image. Show the large image
+            cell.listIconLbl.hidden = YES;
+            cell.companyTicker.hidden = YES;
+            cell.listImageLbl.hidden = NO;
+            
+            // Shift the event desc appropriately to the right
+            [cell.leadingSpaceForEventDesc setConstant:66];
 
             // Reset top space for title to the default 4
             [cell.topSpaceForEventDesc setConstant:4];
