@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Mechanics32_32.png",
+      "filename" : "BMechanics1X.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Mechanics64_64.png",
+      "filename" : "BMechanics2X.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Mechanics96_96.png",
+      "filename" : "BMechanics3X.png",
       "scale" : "3x"
     }
   ],

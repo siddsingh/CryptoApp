@@ -715,8 +715,8 @@
             // Shift the event desc appropriately to the right
             [cell.leadingSpaceForEventDesc setConstant:66];
 
-            // Reset top space for title to the default 4
-            [cell.topSpaceForEventDesc setConstant:4];
+            // Set top space title
+            [cell.topSpaceForEventDesc setConstant:2];
             
             // Show numbering
             /*cell.listIconLbl.clipsToBounds = YES;
@@ -734,10 +734,15 @@
                 [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
             }*/
             // Show play button
-            cell.listIconLbl.clipsToBounds = YES;
+            /*cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 4;
             cell.listIconLbl.text = @"";
-            cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
+            cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];*/
+            
+            cell.listImageLbl.clipsToBounds = YES;
+            cell.listImageLbl.layer.cornerRadius = 0;
+            cell.listImageLbl.text = @"";
+            cell.listImageLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
             
             // Set the learning item title
             [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath]];
@@ -748,7 +753,7 @@
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
             // Show Numbering
-            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+            /*[cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:14]];
             [cell.eventImpact setTextColor:[self formatColorForEventDateBasedOnSelection]];
             rowNo = (indexPath.row + 1);
             if((rowNo == 9)||(rowNo == 8)) {
@@ -761,7 +766,10 @@
             // Show video length where the ticker is
             [cell.companyTicker setFont:[UIFont fontWithName:@"Helvetica" size:14]];
             [cell.companyTicker setTextColor:[self formatColorForEventDateBasedOnSelection]];
-            [[cell companyTicker] setText:[self.dataSnapShot getVideoLength:indexPath]];
+            [[cell companyTicker] setText:[self.dataSnapShot getVideoLength:indexPath]];*/
+            
+            // Don't show numbering
+             [cell.eventImpact setText:@""];
         }
     }
     
