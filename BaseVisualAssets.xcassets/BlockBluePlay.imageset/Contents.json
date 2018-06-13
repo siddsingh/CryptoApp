@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "BBasics1X.png",
+      "filename" : "BlockBasicsMin1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "BBasics2X.png",
+      "filename" : "BlockBasicsMin2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "BBasics3X.png",
+      "filename" : "BlockBasicsMin3x.png",
       "scale" : "3x"
     }
   ],

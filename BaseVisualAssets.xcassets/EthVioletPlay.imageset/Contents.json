@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "EthBasics1X.png",
+      "filename" : "EthBasicsMin1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "EthBasics2X.png",
+      "filename" : "EthBasicsMin2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "EthBasics3X.png",
+      "filename" : "EthBasicsMin3x.png",
       "scale" : "3x"
     }
   ],

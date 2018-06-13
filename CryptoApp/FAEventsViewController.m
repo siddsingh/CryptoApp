@@ -422,6 +422,10 @@
     // Show the event date in case it's been hidden for news.
     cell.eventDate.hidden = NO;
     
+    // Reset to show separator for the price view
+    // Hide the separator by setting it to blend with the background
+    [self.eventsListTable setSeparatorColor:[UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1.0f]];
+    
     // Reset color for Event description to dark text, in case it's been set to blue for a "Get Events" display.
     cell.eventDescription.textColor = [UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f];
     
@@ -584,6 +588,9 @@
         // If News event put the right info in the right place
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             
+            // Hide the separator by setting it to blend with the background
+            [self.eventsListTable setSeparatorColor:[UIColor whiteColor]];
+            
             // Set the right spacing from the image, default is 6
             [cell.leadingSpaceForEventDesc setConstant:6];
             
@@ -707,13 +714,16 @@
             // Show the company ticker
             //[[cell companyTicker] setHidden:NO];
             
+            // Hide the separator by setting it to blend with the background
+            [self.eventsListTable setSeparatorColor:[UIColor whiteColor]];
+            
             // Hide the company ticker and small image. Show the large image
             cell.listIconLbl.hidden = YES;
             cell.companyTicker.hidden = YES;
             cell.listImageLbl.hidden = NO;
             
             // Shift the event desc appropriately to the right
-            [cell.leadingSpaceForEventDesc setConstant:66];
+            [cell.leadingSpaceForEventDesc setConstant:74];
 
             // Set top space title
             [cell.topSpaceForEventDesc setConstant:2];

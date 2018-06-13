@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "CryTypes1X.png",
+      "filename" : "TypesMin1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "CryTypes2X.png",
+      "filename" : "TypesMin2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "CryTypes3X.png",
+      "filename" : "TypesMin3x.png",
       "scale" : "3x"
     }
   ],
