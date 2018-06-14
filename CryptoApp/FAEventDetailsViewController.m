@@ -532,7 +532,7 @@
     // Get a custom cell to display details and reset states/colors of cell elements to avoid carryover
     FAEventDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventDetailsCell" forIndexPath:indexPath];
     Event *eventData = nil;
-    NSInteger rowNo = 0;
+    //NSInteger rowNo = 0;
     
     // If info type details is selected
     if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Info"] == NSOrderedSame) {
@@ -1112,7 +1112,7 @@
         cell.titleLabel.textAlignment = NSTextAlignmentLeft;
         
         // Set number icon
-        cell.detailsIcon.hidden = NO;
+        /*cell.detailsIcon.hidden = NO;
         cell.detailsIcon.clipsToBounds = YES;
         cell.detailsIcon.layer.cornerRadius = 0;
         // cell.listIconLbl.backgroundColor = [UIColor whiteColor];
@@ -1126,7 +1126,13 @@
         else
         {
             [[cell detailsIcon] setText:[NSString stringWithFormat:@"%@",@"..."]];
-        }
+        }*/
+        
+        cell.detailsIcon.hidden = NO;
+        cell.detailsIcon.clipsToBounds = YES;
+        cell.detailsIcon.layer.cornerRadius = 2;
+        cell.detailsIcon.text = @"";
+        cell.detailsIcon.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCNewsSmall1"]];
         
         [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
         // Use the same gray color for text as is used in the main news tab

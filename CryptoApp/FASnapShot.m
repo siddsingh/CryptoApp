@@ -1273,7 +1273,7 @@ static FASnapShot *sharedInstance;
     // Black Color
     txtAttributes = @{
                       NSForegroundColorAttributeName:[UIColor blackColor],
-                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:14]
+                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:14]
                       };
     
     if (rowNo == 1) {
@@ -1298,10 +1298,10 @@ static FASnapShot *sharedInstance;
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Cryptonomics" attributes:txtAttributes];
     }
     else if (rowNo == 8) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"View Slides" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Slides" attributes:txtAttributes];
     }
     else if (rowNo == 9) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact Us" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
     }
     else {
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
@@ -1316,8 +1316,40 @@ static FASnapShot *sharedInstance;
     NSString *nonFormattedTxt = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
+    
+    if (rowNo == 1) {
+        nonFormattedTxt = @"Introduction to the series.";
+    }
+    else if (rowNo == 2) {
+        nonFormattedTxt = @"The technology underpinning Cryptocurrencies.";
+    }
+    else if (rowNo == 3) {
+        nonFormattedTxt = @"Demonstration of how a Blockchain works. By Anders Brownworth.";
+    }
+    else if (rowNo == 4) {
+        nonFormattedTxt = @"The game changing “First” Cryptocurrency.";
+    }
+    else if (rowNo == 5) {
+        nonFormattedTxt = @"The brilliant Blockchain “Platform”.";
+    }
+    else if (rowNo == 6) {
+        nonFormattedTxt = @"Categorizing the 1500+ Cryptocurrencies.";
+    }
+    else if (rowNo == 7) {
+        nonFormattedTxt = @"See what gives Cryptocurrencies value.";
+    }
+    else if (rowNo == 8) {
+        nonFormattedTxt = @"View entire presentation.";
+    }
+    else if (rowNo == 9) {
+        nonFormattedTxt = @"Questions? Suggestions. Write to us.";
+    }
+    else {
+        nonFormattedTxt = @"Hmm! There is nothing here.";
+    }
+    
     // If device is ipad, format for more space
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+  /*  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         if (rowNo == 1) {
             nonFormattedTxt = @"Introduction to the series.";
         }
@@ -1381,7 +1413,7 @@ static FASnapShot *sharedInstance;
         else {
             nonFormattedTxt = @"Hmm! There is nothing here.";
         }
-    }
+    } */
     
     return nonFormattedTxt;
 }

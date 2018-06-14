@@ -438,7 +438,7 @@
     // Get event or company  to display
     Event *eventAtIndex;
     Company *companyAtIndex;
-    NSInteger rowNo = 0;
+    //NSInteger rowNo = 0;
     
     // If a search filter has been applied, GET the matching companies with events or companies with the fetch events message
     // depending on the type of filter applied
@@ -601,7 +601,7 @@
             [cell.topSpaceForEventDesc setConstant:4];
             
             // Show numbering
-            cell.listIconLbl.clipsToBounds = YES;
+           /* cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 0;
             // cell.listIconLbl.backgroundColor = [UIColor whiteColor];
             cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
@@ -614,13 +614,13 @@
             else
             {
                 [[cell listIconLbl] setText:[NSString stringWithFormat:@"%@",@"..."]];
-            }
+            }*/
             
-            // Show news src icon
-           /* cell.listIconLbl.clipsToBounds = YES;
-            cell.listIconLbl.layer.cornerRadius = 0;
+            // Show news image
+            cell.listIconLbl.clipsToBounds = YES;
+            cell.listIconLbl.layer.cornerRadius = 4;
             cell.listIconLbl.text = @"";
-            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"TestNewsSrc"]];*/
+            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCNews1"]];
             
             // Set the source for attribution
             [[cell  eventDescription] setText:[self.dataSnapShot getNewsSource:eventAtIndex]];
@@ -2565,7 +2565,7 @@
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
             
             // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"LEARNING VIDEOS"];
+            [self.navigationController.navigationBar.topItem setTitle:@"CRYPTO 101"];
             // Clear out the search context
             [self.eventsSearchBar setText:@""];
             [self searchBar:self.eventsSearchBar textDidChange:@""];

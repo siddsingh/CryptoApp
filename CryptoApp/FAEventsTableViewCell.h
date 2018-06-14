@@ -39,6 +39,8 @@
 // Layout constraint for leading space for Event Desc. Set to 6 in IB.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingSpaceForEventDesc;
 
+
+
 // For the appropriate icon in the list view.
 @property (weak, nonatomic) IBOutlet UILabel *listIconLbl;
 
