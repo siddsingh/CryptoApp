@@ -1132,7 +1132,7 @@
         cell.detailsIcon.clipsToBounds = YES;
         cell.detailsIcon.layer.cornerRadius = 2;
         cell.detailsIcon.text = @"";
-        cell.detailsIcon.backgroundColor = [self.dataSnapShot2 getSmallNewsImageWithKeyword:[self.dataSnapShot2 getNewsSource:eventData]];
+        cell.detailsIcon.backgroundColor = [self.dataSnapShot2 getSmallNewsImageWithKeyword:[self.dataSnapShot2 getNewsSource:eventData] andDescription:[self formatEventType:eventData]];
         //cell.detailsIcon.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCNewsSmall1"]];
         
         [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];

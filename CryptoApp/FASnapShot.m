@@ -1162,8 +1162,8 @@ static FASnapShot *sharedInstance;
     return colorToReturn;
 }
 
-// Get the regular news icon based on keyword
-- (UIColor *)getNewsImageWithKeyword:(NSString *)keyword {
+// Get the regular news icon based on keyword and desc
+- (UIColor *)getNewsImageWithKeyword:(NSString *)keyword andDescription:(NSString *)desc {
     
     //Default Darkish whitish gray
     UIColor *colorToReturn = [UIColor colorWithRed:177.0f/255.0f green:177.0f/255.0f blue:177.0f/255.0f alpha:1.0f];
@@ -1177,12 +1177,34 @@ static FASnapShot *sharedInstance;
     
     NSLog(@"The random number for regular news is %@:",rndStr); */
     
-    // Source based icons
+    // First set the source icons as default
     if ([keyword caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
         imageSetName = @"CTNews";
     }
+    else if ([keyword caseInsensitiveCompare:@"CCN"] == NSOrderedSame){
+        imageSetName = @"CCNNews";
+    }
+    else if ([keyword caseInsensitiveCompare:@"Bitcoinist"] == NSOrderedSame){
+        imageSetName = @"BitcoinistNews";
+    }
+    else if ([keyword caseInsensitiveCompare:@"Bitcoin Warrior"] == NSOrderedSame){
+        imageSetName = @"BitWarNews";
+    }
     else {
-        imageSetName = [NSString stringWithFormat:@"BTCNews1"];
+        imageSetName = [NSString stringWithFormat:@"EditorNews"];
+    }
+    
+    // Next add special images based on desc
+    if ([desc containsString:@"Bitcoin"]) {
+        imageSetName = @"BTCNews1";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Blockchain"]) {
+        imageSetName = @"BTCNews2";
+    }
+    
+    // For Editor's pick always use the editor image
+    if ([keyword caseInsensitiveCompare:@"Editor's Pick"] == NSOrderedSame){
+        imageSetName = @"EditorNews";
     }
     
     colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:imageSetName]];
@@ -1190,8 +1212,8 @@ static FASnapShot *sharedInstance;
     return colorToReturn;
 }
 
-// Get the small news icon based on keyword
-- (UIColor *)getSmallNewsImageWithKeyword:(NSString *)keyword {
+// Get the small news icon based on keyword and desc
+- (UIColor *)getSmallNewsImageWithKeyword:(NSString *)keyword andDescription:(NSString *)desc {
     
     //Default Darkish whitish gray
     UIColor *colorToReturn = [UIColor colorWithRed:177.0f/255.0f green:177.0f/255.0f blue:177.0f/255.0f alpha:1.0f];
@@ -1205,12 +1227,34 @@ static FASnapShot *sharedInstance;
     
     NSLog(@"The random number for small news is %@:",rndStr);*/
     
-    // Source based icons
+    // First set the source icons as default
     if ([keyword caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
         imageSetName = @"CTNewsSmall";
     }
+    else if ([keyword caseInsensitiveCompare:@"CCN"] == NSOrderedSame){
+        imageSetName = @"CCNNewsSmall";
+    }
+    else if ([keyword caseInsensitiveCompare:@"Bitcoinist"] == NSOrderedSame){
+        imageSetName = @"BitcoinistNewsSmall";
+    }
+    else if ([keyword caseInsensitiveCompare:@"Bitcoin Warrior"] == NSOrderedSame){
+        imageSetName = @"BitWarNewsSmall";
+    }
     else {
-        imageSetName = [NSString stringWithFormat:@"BTCNewsSmall1"];
+        imageSetName = [NSString stringWithFormat:@"EditorNewsSmall"];
+    }
+    
+    // Next add special images based on desc
+    if ([desc containsString:@"Bitcoin"]) {
+        imageSetName = @"BTCNewsSmall1";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Blockchain"]) {
+        imageSetName = @"BTCNewsSmall2";
+    }
+    
+    // For Editor's pick always use the editor image
+    if ([keyword caseInsensitiveCompare:@"Editor's Pick"] == NSOrderedSame){
+        imageSetName = @"EditorNewsSmall";
     }
     
     colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:imageSetName]];
