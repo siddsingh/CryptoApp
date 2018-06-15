@@ -620,7 +620,8 @@
             cell.listIconLbl.clipsToBounds = YES;
             cell.listIconLbl.layer.cornerRadius = 4;
             cell.listIconLbl.text = @"";
-            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCNews1"]];
+            cell.listIconLbl.backgroundColor = [self.dataSnapShot getNewsImageWithKeyword:[self.dataSnapShot getNewsSource:eventAtIndex]];
+            //cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCNews1"]];
             
             // Set the source for attribution
             [[cell  eventDescription] setText:[self.dataSnapShot getNewsSource:eventAtIndex]];

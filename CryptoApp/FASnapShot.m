@@ -1162,6 +1162,62 @@ static FASnapShot *sharedInstance;
     return colorToReturn;
 }
 
+// Get the regular news icon based on keyword
+- (UIColor *)getNewsImageWithKeyword:(NSString *)keyword {
+    
+    //Default Darkish whitish gray
+    UIColor *colorToReturn = [UIColor colorWithRed:177.0f/255.0f green:177.0f/255.0f blue:177.0f/255.0f alpha:1.0f];
+    NSString *imageSetName = nil;
+    
+    // Get a random number between 1 and 5
+    /*int lowerB = 1;
+    int upperB = 3;
+    int rndVal = lowerB + arc4random() % (upperB - lowerB);
+    NSString *rndStr = [NSString stringWithFormat:@"%d",rndVal];
+    
+    NSLog(@"The random number for regular news is %@:",rndStr); */
+    
+    // Source based icons
+    if ([keyword caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
+        imageSetName = @"CTNews";
+    }
+    else {
+        imageSetName = [NSString stringWithFormat:@"BTCNews1"];
+    }
+    
+    colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:imageSetName]];
+    
+    return colorToReturn;
+}
+
+// Get the small news icon based on keyword
+- (UIColor *)getSmallNewsImageWithKeyword:(NSString *)keyword {
+    
+    //Default Darkish whitish gray
+    UIColor *colorToReturn = [UIColor colorWithRed:177.0f/255.0f green:177.0f/255.0f blue:177.0f/255.0f alpha:1.0f];
+    NSString *imageSetName = nil;
+    
+    // Get a random number between 1 and 5
+   /* int lowerB = 1;
+    int upperB = 3;
+    int rndVal = lowerB + arc4random() % (upperB - lowerB);
+    NSString *rndStr = [NSString stringWithFormat:@"%d",rndVal];
+    
+    NSLog(@"The random number for small news is %@:",rndStr);*/
+    
+    // Source based icons
+    if ([keyword caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
+        imageSetName = @"CTNewsSmall";
+    }
+    else {
+        imageSetName = [NSString stringWithFormat:@"BTCNewsSmall1"];
+    }
+    
+    colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:imageSetName]];
+    
+    return colorToReturn;
+}
+
 // Get the event source based on the event type.
 - (NSString *)getNewsSource:(Event *)rawEvent
 {

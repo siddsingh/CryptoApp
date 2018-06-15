@@ -1132,7 +1132,8 @@
         cell.detailsIcon.clipsToBounds = YES;
         cell.detailsIcon.layer.cornerRadius = 2;
         cell.detailsIcon.text = @"";
-        cell.detailsIcon.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCNewsSmall1"]];
+        cell.detailsIcon.backgroundColor = [self.dataSnapShot2 getSmallNewsImageWithKeyword:[self.dataSnapShot2 getNewsSource:eventData]];
+        //cell.detailsIcon.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BTCNewsSmall1"]];
         
         [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
         // Use the same gray color for text as is used in the main news tab

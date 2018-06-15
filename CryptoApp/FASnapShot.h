@@ -55,4 +55,10 @@
 // Get the length of the video string
 - (NSString *)getVideoLength:(NSIndexPath *)rowPath;
 
+// Get the regular news icon based on keyword
+- (UIColor *)getNewsImageWithKeyword:(NSString *)keyword;
+
+// Get the small news icon based on keyword
+- (UIColor *)getSmallNewsImageWithKeyword:(NSString *)keyword;
+
 @end
