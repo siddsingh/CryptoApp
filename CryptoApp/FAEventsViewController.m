@@ -146,15 +146,27 @@
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
     [self.mainNavSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-    //[self.mainNavSelector setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]} forState:UIControlStateNormal];
-    // Set text color for the segment selected for the very first time which is Black for ALL events type. Also set focus bar to draw focus to the search bar to the same color.
-   /* if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:16], NSFontAttributeName,
+    
+    // Format the secondary main nav type selector
+    // Set Background color and tint to a very light almost white gray
+    [self.mainNavSelector2 setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    [self.mainNavSelector2 setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+    // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
+    NSDictionary *unselectedAttributes2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
+                                          [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
+                                          nil];
+    [self.mainNavSelector2 setTitleTextAttributes:unselectedAttributes2 forState:UIControlStateNormal];
+    [self.mainNavSelector2 setTitle:@"▶︎" forSegmentAtIndex:0];
+    [self.mainNavSelector2 setTitle:@"𝘕" forSegmentAtIndex:2];
+    
+    // Set text and size for selected segment
+    NSDictionary *textAttributes2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
-        [self.mainNavSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-    } */
+    [self.mainNavSelector2 setTitleTextAttributes:textAttributes2 forState:UIControlStateSelected];
+    [self.mainNavSelector2 setTitle:@"$" forSegmentAtIndex:1];
 
     // Get a primary data controller that you will use later
     self.primaryDataController = [[FADataController alloc] init];
@@ -588,8 +600,8 @@
         // If News event put the right info in the right place
         if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             
-            // Hide the separator by setting it to blend with the background
-            [self.eventsListTable setSeparatorColor:[UIColor whiteColor]];
+            // Show the separator by setting the correct color
+            [self.eventsListTable setSeparatorColor:[UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1.0f]];
             
             // Set the right spacing from the image, default is 6
             [cell.leadingSpaceForEventDesc setConstant:6];
@@ -692,8 +704,8 @@
         }
         else if ([eventAtIndex.type containsString:@"cryptofinews::"]) {
             [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:10]];
-            //[cell.eventImpact setTextColor:[UIColor lightGrayColor]];
-            [cell.eventImpact setTextColor:[UIColor blackColor]];
+            [cell.eventImpact setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
+            //[cell.eventImpact setTextColor:[UIColor blackColor]];
         }
         // Else show High Impact Label if needed. Taking this out currently to not self design a proper symbol later.
         else if ([self.dataSnapShot isEventHighImpact:eventAtIndex.type eventParent:eventAtIndex.listedCompany.ticker]) {
@@ -3335,10 +3347,10 @@
     UIColor *colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
     
    if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame)) {
-        // Black for news title
-        //colorToReturn = [UIColor blackColor];
+        // Use Black color
+        colorToReturn = [UIColor blackColor];
        // Use the gray color for text
-       colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
+       //colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
     }
     
     return colorToReturn;

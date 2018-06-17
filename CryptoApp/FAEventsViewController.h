@@ -81,4 +81,7 @@
 // Height constraint for search bar. Originally set to 32 in search bar.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventSearchBarHtConstra;
 
+// Secondary main nav selector on top of the primary one.
+@property (weak, nonatomic) IBOutlet UISegmentedControl *mainNavSelector2;
+
 @end

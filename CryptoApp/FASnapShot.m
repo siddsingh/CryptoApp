@@ -1201,6 +1201,27 @@ static FASnapShot *sharedInstance;
     if ([desc localizedCaseInsensitiveContainsString:@"Blockchain"]) {
         imageSetName = @"BTCNews2";
     }
+    if ([desc localizedCaseInsensitiveContainsString:@"Ethereum"]||[desc localizedCaseInsensitiveContainsString:@"Ether"]) {
+        imageSetName = @"EthNews";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Ripple"]||[desc localizedCaseInsensitiveContainsString:@"XRP"]) {
+        imageSetName = @"RippleNews";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Bank"]||[desc localizedCaseInsensitiveContainsString:@"Banks"]) {
+        imageSetName = @"BanksNews";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Trade"]||[desc localizedCaseInsensitiveContainsString:@"Trader"]||[desc localizedCaseInsensitiveContainsString:@"Trading"]) {
+        imageSetName = @"WallStNews";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Fundstrat"]||[desc localizedCaseInsensitiveContainsString:@"Tom Lee"]) {
+        imageSetName = @"TomLeeNews";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Novogratz"]||[desc localizedCaseInsensitiveContainsString:@"Galaxy Digital"]) {
+        imageSetName = @"NovogratzNews";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"EOS"]||[desc localizedCaseInsensitiveContainsString:@"Larimer"]) {
+        imageSetName = @"EosNews";
+    }
     
     // For Editor's pick always use the editor image
     if ([keyword caseInsensitiveCompare:@"Editor's Pick"] == NSOrderedSame){
@@ -1251,6 +1272,32 @@ static FASnapShot *sharedInstance;
     if ([desc localizedCaseInsensitiveContainsString:@"Blockchain"]) {
         imageSetName = @"BTCNewsSmall2";
     }
+    if ([desc localizedCaseInsensitiveContainsString:@"Ethereum"]||[desc localizedCaseInsensitiveContainsString:@"Eth"]||[desc localizedCaseInsensitiveContainsString:@"Ether"]) {
+        imageSetName = @"EthNewsSmall";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Ripple"]||[desc localizedCaseInsensitiveContainsString:@"XRP"]) {
+        imageSetName = @"RippleNewsSmall";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Bank"]||[desc localizedCaseInsensitiveContainsString:@"Banks"]) {
+        imageSetName = @"BanksNewsSmall";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Trade"]||[desc localizedCaseInsensitiveContainsString:@"Trader"]||[desc localizedCaseInsensitiveContainsString:@"Trading"]) {
+        imageSetName = @"WallStNewsSmall";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Fundstrat"]||[desc localizedCaseInsensitiveContainsString:@"Tom Lee"]) {
+        imageSetName = @"TomLeeNewsSmall";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"Novogratz"]||[desc localizedCaseInsensitiveContainsString:@"Galaxy Digital"]) {
+        imageSetName = @"NovogratzNewsSmall";
+    }
+    if ([desc localizedCaseInsensitiveContainsString:@"EOS"]||[desc localizedCaseInsensitiveContainsString:@"Larimer"]) {
+        imageSetName = @"EosNewsSmall";
+    }
+    
+    // For Editor's pick always use the editor image
+    if ([keyword caseInsensitiveCompare:@"Editor's Pick"] == NSOrderedSame){
+        imageSetName = @"EditorNews";
+    }
     
     // For Editor's pick always use the editor image
     if ([keyword caseInsensitiveCompare:@"Editor's Pick"] == NSOrderedSame){
@@ -1297,6 +1344,13 @@ static FASnapShot *sharedInstance;
     NSMutableAttributedString *formattedTxt = nil;
     NSDictionary *txtAttributes = nil;
     
+    // Default formatting in gray
+     txtAttributes = @{
+     NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f],
+     NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:13]
+     };
+     formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
+    
     // Default formatting in black
     /*txtAttributes = @{
                       NSForegroundColorAttributeName:[UIColor blackColor],
@@ -1306,51 +1360,51 @@ static FASnapShot *sharedInstance;
     
     if ([src caseInsensitiveCompare:@"Cointelegraph"] == NSOrderedSame) {
         // Alternate color is 255,137,0
-        txtAttributes = @{
+       /* txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:49.0f/255.0f green:70.0f/255.0f blue:80.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-                          };
+                          };*/
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"CCN"] == NSOrderedSame) {
-        txtAttributes = @{
+       /* txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:255.0f/255.0f green:101.0f/255.0f blue:51.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-                          };
+                          };*/
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Bitcoinist"] == NSOrderedSame) {
-        txtAttributes = @{
+        /*txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:48.0f/255.0f green:153.0f/255.0f blue:251.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-                          };
+                          };*/
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Bitcoin Warrior"] == NSOrderedSame) {
-        txtAttributes = @{
+        /*txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:35.0f/255.0f green:92.0f/255.0f blue:165.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-                          };
+                          };*/
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Amb Crypto"] == NSOrderedSame) {
-        txtAttributes = @{
+        /*txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:233.0f/255.0f green:67.0f/255.0f blue:97.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-                          };
+                          };*/
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else if ([src caseInsensitiveCompare:@"Editor's Pick"] == NSOrderedSame) {
-        txtAttributes = @{
+       /* txtAttributes = @{
                           NSForegroundColorAttributeName:[UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f],
                           NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-                          };
+                          };*/
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }
     else {
         txtAttributes = @{
-                          NSForegroundColorAttributeName:[UIColor blackColor],
-                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
+                          NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f],
+                          NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:13]
                           };
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:src attributes:txtAttributes];
     }

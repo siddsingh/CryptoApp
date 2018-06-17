@@ -1137,11 +1137,13 @@
         
         [cell.descriptionArea setFont:[UIFont fontWithName:@"Helvetica" size:14]];
         // Use the same gray color for text as is used in the main news tab
-        [cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
+        //[cell.descriptionArea setTextColor:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]];
+        // Use black color for text
+        [cell.descriptionArea setTextColor:[UIColor blackColor]];
         
         cell.detailsActionLbl.hidden = NO;
-        // Set to same color as in the main news tab
-        cell.detailsActionLbl.textColor = [UIColor blackColor];
+        // Set to same gray color as in the main news tab
+        cell.detailsActionLbl.textColor = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
         
         // Set the source for attribution
         [[cell  titleLabel] setText:[self.dataSnapShot2 getNewsSource:eventData]];
