@@ -147,27 +147,6 @@
                                     nil];
     [self.mainNavSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
     
-    // Format the secondary main nav type selector
-    // Set Background color and tint to a very light almost white gray
-    [self.mainNavSelector2 setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
-    [self.mainNavSelector2 setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
-    // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
-    NSDictionary *unselectedAttributes2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
-                                          [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
-                                          nil];
-    [self.mainNavSelector2 setTitleTextAttributes:unselectedAttributes2 forState:UIControlStateNormal];
-    [self.mainNavSelector2 setTitle:@"▶︎" forSegmentAtIndex:0];
-    [self.mainNavSelector2 setTitle:@"𝘕" forSegmentAtIndex:2];
-    
-    // Set text and size for selected segment
-    NSDictionary *textAttributes2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                    [UIColor blackColor], NSForegroundColorAttributeName,
-                                    nil];
-    [self.mainNavSelector2 setTitleTextAttributes:textAttributes2 forState:UIControlStateSelected];
-    [self.mainNavSelector2 setTitle:@"$" forSegmentAtIndex:1];
-
     // Get a primary data controller that you will use later
     self.primaryDataController = [[FADataController alloc] init];
     
