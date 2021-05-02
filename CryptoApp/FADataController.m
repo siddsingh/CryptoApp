@@ -17,7 +17,7 @@
 #import "User.h"
 #import "Action.h"
 #import "EventHistory.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface FADataController ()
 
@@ -3806,8 +3806,8 @@ bool eventsUpdated = NO;
     
     // TRACKING EVENT: Explicitly track Price fetch events
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Stock Price Fetched"
-                  parameters:@{ @"Event Type" : @"Daily Price" } ];
+    //[FBSDKAppEvents logEvent:@"Stock Price Fetched"
+    //              parameters:@{ @"Event Type" : @"Daily Price" } ];
 }
 
 // Wrapper method to get price details for an event
@@ -3902,8 +3902,8 @@ bool eventsUpdated = NO;
     
     // TRACKING EVENT: Explicitly track Price fetch events
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Stock Price Fetched"
-                  parameters:@{ @"Event Type" : @"Daily Price" } ];
+    //[FBSDKAppEvents logEvent:@"Stock Price Fetched"
+     //             parameters:@{ @"Event Type" : @"Daily Price" } ];
     
     // Get historical prices if needed
     if(fetchHistory) {
@@ -3915,16 +3915,16 @@ bool eventsUpdated = NO;
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
-                          parameters:@{ @"Event Type" : @"Price History" } ];
+           // [FBSDKAppEvents logEvent:@"Stock Price Fetched"
+           //               parameters:@{ @"Event Type" : @"Price History" } ];
         } else {
             
             [self getStockPricesFromApiForTicker:ticker companyEventType:type fromDateInclusive:eventForPricesFetch.previous1Date toDateInclusive:eventForPricesFetch.currentDate];
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
-                          parameters:@{ @"Event Type" : @"Price History" } ];
+           // [FBSDKAppEvents logEvent:@"Stock Price Fetched"
+           //               parameters:@{ @"Event Type" : @"Price History" } ];
         }
     }
 

@@ -9,7 +9,7 @@
 //
 
 #import "FAEventDetailsTableViewCell.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SafariServices/SafariServices.h>
 
 @interface FAEventDetailsTableViewCell () <SFSafariViewControllerDelegate>

@@ -18,7 +18,7 @@
 #import "FACompanyInfoStore.h"
 #import "FASnapShot.h"
 #import "FACoinAltData.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SafariServices/SafariServices.h>
 #import <QuartzCore/QuartzCore.h>
 @import EventKit;
@@ -1276,10 +1276,10 @@
                         
                         // TRACKING EVENT:
                         // TO DO: Disabling to not track development events. Enable before shipping.
-                        [FBSDKAppEvents logEvent:@"See External About Information"
-                                      parameters:@{ @"About Ticker" : self.parentTicker,
-                                                    @"About Field" : @"What is > Website",
-                                                    @"Action URL" : [targetURL absoluteString]} ];
+                        //[FBSDKAppEvents logEvent:@"See External About Information"
+                        //              parameters:@{ @"About Ticker" : self.parentTicker,
+                        //                            @"About Field" : @"What is > Website",
+                        //                            @"Action URL" : [targetURL absoluteString]} ];
                         
                         SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
                         externalInfoVC.delegate = self;
@@ -1309,10 +1309,10 @@
                         
                         // TRACKING EVENT:
                         // TO DO: Disabling to not track development events. Enable before shipping.
-                        [FBSDKAppEvents logEvent:@"See External About Information"
-                                      parameters:@{ @"About Ticker" : self.parentTicker,
-                                                    @"About Field" : @"Uses > Detailed Description Site",
-                                                    @"Action URL" : [targetURL absoluteString]} ];
+                       // [FBSDKAppEvents logEvent:@"See External About Information"
+                       //               parameters:@{ @"About Ticker" : self.parentTicker,
+                       //                             @"About Field" : @"Uses > Detailed Description Site",
+                       //                             @"Action URL" : [targetURL absoluteString]} ];
                         
                         SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
                         externalInfoVC.delegate = self;
@@ -1363,10 +1363,10 @@
                         
                         // TRACKING EVENT:
                         // TO DO: Disabling to not track development events. Enable before shipping.
-                        [FBSDKAppEvents logEvent:@"See External About Information"
-                                      parameters:@{ @"About Ticker" : self.parentTicker,
-                                                    @"About Field" : @"See Reddit",
-                                                    @"Action URL" : [targetURL absoluteString]} ];
+                      //  [FBSDKAppEvents logEvent:@"See External About Information"
+                       //               parameters:@{ @"About Ticker" : self.parentTicker,
+                       //                             @"About Field" : @"See Reddit",
+                       //                             @"Action URL" : [targetURL absoluteString]} ];
                         
                         SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
                         externalInfoVC.delegate = self;
@@ -1396,10 +1396,10 @@
                         
                         // TRACKING EVENT:
                         // TO DO: Disabling to not track development events. Enable before shipping.
-                        [FBSDKAppEvents logEvent:@"See External About Information"
-                                      parameters:@{ @"About Ticker" : self.parentTicker,
-                                                    @"About Field" : @"See Twitter",
-                                                    @"Action URL" : [targetURL absoluteString]} ];
+                      //  [FBSDKAppEvents logEvent:@"See External About Information"
+                      //                parameters:@{ @"About Ticker" : self.parentTicker,
+                     //                               @"About Field" : @"See Twitter",
+                     //                               @"Action URL" : [targetURL absoluteString]} ];
                         
                         SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
                         externalInfoVC.delegate = self;
@@ -1459,10 +1459,10 @@
                     
                     // TRACKING EVENT:
                     // TO DO: Disabling to not track development events. Enable before shipping.
-                    [FBSDKAppEvents logEvent:@"See External About Information"
-                                  parameters:@{ @"About Ticker" : self.parentTicker,
-                                                @"About Field" : @"See Google News",
-                                                @"Action URL" : [targetURL absoluteString]} ];
+                  //  [FBSDKAppEvents logEvent:@"See External About Information"
+                  //                parameters:@{ @"About Ticker" : self.parentTicker,
+                  //                              @"About Field" : @"See Google News",
+                   //                             @"Action URL" : [targetURL absoluteString]} ];
                     
                     SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
                     externalInfoVC.delegate = self;
@@ -1498,10 +1498,10 @@
             
             // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"See External News Article"
-                          parameters:@{ @"News Source" : cell.titleLabel.text,
-                                        @"News Title" : cell.descriptionArea.text,
-                                        @"External URL" : [targetURL absoluteString]} ];
+            //[FBSDKAppEvents logEvent:@"See External News Article"
+             //             parameters:@{ @"News Source" : cell.titleLabel.text,
+             //                           @"News Title" : cell.descriptionArea.text,
+             //                           @"External URL" : [targetURL absoluteString]} ];
             
             SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
             externalInfoVC.delegate = self;
@@ -1516,8 +1516,8 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     // TRACKING EVENT:
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Viewed About"
-                  parameters:@{ @"About Ticker" : self.parentTicker} ];
+    //[FBSDKAppEvents logEvent:@"Viewed About"
+    //              parameters:@{ @"About Ticker" : self.parentTicker} ];
 }
 
 #pragma mark - Info Selector Related
@@ -1565,8 +1565,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Price Info in Details" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Price Info in Details" } ];
     }
     // If News
     else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
@@ -1607,8 +1607,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"In App News Viewed"
-                      parameters:@{ @"Event Type" : @"Latest News in Details" } ];
+        //[FBSDKAppEvents logEvent:@"In App News Viewed"
+         //             parameters:@{ @"Event Type" : @"Latest News in Details" } ];
     }
 }
 
@@ -1877,10 +1877,10 @@
         
         // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"See External News"
-         parameters:@{ @"News Source" : @"Google",
-         @"Action Query" : searchTerm,
-         @"Action URL" : [targetURL absoluteString]} ];
+        //[FBSDKAppEvents logEvent:@"See External News"
+         //parameters:@{ @"News Source" : @"Google",
+         //@"Action Query" : searchTerm,
+         //@"Action URL" : [targetURL absoluteString]} ];
         
         SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
         externalInfoVC.delegate = self;
@@ -1912,10 +1912,10 @@
         
         // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"See External News"
-                      parameters:@{ @"News Source" : @"Bing_Reddit",
-                                    @"Action Query" : searchTerm,
-                                    @"Action URL" : [targetURL absoluteString]} ];
+       // [FBSDKAppEvents logEvent:@"See External News"
+       //               parameters:@{ @"News Source" : @"Bing_Reddit",
+       //                             @"Action Query" : searchTerm,
+       //                             @"Action URL" : [targetURL absoluteString]} ];
         
         SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
         externalInfoVC.delegate = self;
@@ -2834,9 +2834,9 @@
 {
     // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"External Action Clicked"
-                  parameters:@{ @"Action Title" : textView.text,
-                                @"Action URL" : [URL absoluteString] } ];
+    //[FBSDKAppEvents logEvent:@"External Action Clicked"
+    //              parameters:@{ @"Action Title" : textView.text,
+    //                            @"Action URL" : [URL absoluteString] } ];
     
     // TO DO FINAL: Delete after final test
     //NSLog(@"LINK CLICKED:%@ %@", textView.text, URL);
@@ -3249,8 +3249,8 @@
             
             // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
-                          parameters:@{ @"Event Type" : @"Price Info in Details" } ];
+            //[FBSDKAppEvents logEvent:@"Pull Down Refresh"
+             //             parameters:@{ @"Event Type" : @"Price Info in Details" } ];
         }
         // If News is selected, fetch the news and refresh
         else if ([[self.detailsInfoSelector titleForSegmentAtIndex:self.detailsInfoSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
@@ -3276,8 +3276,8 @@
             
             // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Pull Down Refresh"
-                          parameters:@{ @"Event Type" : @"Latest News in Details" } ];
+            //[FBSDKAppEvents logEvent:@"Pull Down Refresh"
+             //             parameters:@{ @"Event Type" : @"Latest News in Details" } ];
         }
     }
     // If not, show error message

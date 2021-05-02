@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		9E0AC7B81C6EB9CA0078EAA5 /* FACompanyInfoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0AC7B71C6EB9CA0078EAA5 /* FACompanyInfoStore.m */; };
-		9E0CC2A21C894D51009E088C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2C2A491C8786DC00297F37 /* FBSDKCoreKit.framework */; };
 		9E0CC2A31C894D54009E088C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD8EE91BAC9DAB008A0370 /* SystemConfiguration.framework */; };
 		9E0CC2A41C894D58009E088C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6D807A1AAFDF5800E1F2D3 /* CoreData.framework */; };
 		9E1BF82E1DA1FA6000D50E4F /* PriceChangeEvents_Local.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E1BF82D1DA1FA6000D50E4F /* PriceChangeEvents_Local.json */; };
-		9E2C2A4A1C8786DC00297F37 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2C2A491C8786DC00297F37 /* FBSDKCoreKit.framework */; };
 		9E2F49571CE1622700D51401 /* ProductEvents_2016_Local.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F49561CE1622700D51401 /* ProductEvents_2016_Local.json */; };
 		9E2F49581CE1622800D51401 /* ProductEvents_2016_Local.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F49561CE1622700D51401 /* ProductEvents_2016_Local.json */; };
 		9E44C29B1DD6A3B7009D9317 /* FATutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E44C29A1DD6A3B7009D9317 /* FATutorialViewController.m */; };
@@ -70,7 +68,6 @@
 		9E0AC7B61C6EB9CA0078EAA5 /* FACompanyInfoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FACompanyInfoStore.h; sourceTree = "<group>"; };
 		9E0AC7B71C6EB9CA0078EAA5 /* FACompanyInfoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FACompanyInfoStore.m; sourceTree = "<group>"; };
 		9E1BF82D1DA1FA6000D50E4F /* PriceChangeEvents_Local.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PriceChangeEvents_Local.json; sourceTree = "<group>"; };
-		9E2C2A491C8786DC00297F37 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		9E2F49561CE1622700D51401 /* ProductEvents_2016_Local.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductEvents_2016_Local.json; sourceTree = "<group>"; };
 		9E44C2991DD6A3B7009D9317 /* FATutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FATutorialViewController.h; sourceTree = "<group>"; };
 		9E44C29A1DD6A3B7009D9317 /* FATutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FATutorialViewController.m; sourceTree = "<group>"; };
@@ -133,7 +130,6 @@
 				9E6F0BE61EE14961007BACD7 /* SafariServices.framework in Frameworks */,
 				9EEE52131E14AF73009DD013 /* QuartzCore.framework in Frameworks */,
 				9EBD8EEA1BAC9DAB008A0370 /* SystemConfiguration.framework in Frameworks */,
-				9E2C2A4A1C8786DC00297F37 /* FBSDKCoreKit.framework in Frameworks */,
 				9E6D807B1AAFDF5800E1F2D3 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,7 +138,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E0CC2A21C894D51009E088C /* FBSDKCoreKit.framework in Frameworks */,
 				9E0CC2A31C894D54009E088C /* SystemConfiguration.framework in Frameworks */,
 				9E0CC2A41C894D58009E088C /* CoreData.framework in Frameworks */,
 			);
@@ -155,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				9E602D1619E655DF00ACDEC6 /* CryptoApp */,
-				9E2C2A491C8786DC00297F37 /* FBSDKCoreKit.framework */,
 				9EBD8EE91BAC9DAB008A0370 /* SystemConfiguration.framework */,
 				9E6D807A1AAFDF5800E1F2D3 /* CoreData.framework */,
 				9E602D3319E655DF00ACDEC6 /* CryptoAppTests */,
@@ -305,7 +299,7 @@
 		9E602D0C19E655DF00ACDEC6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Sidd Singh";
 				TargetAttributes = {
 					9E602D1319E655DF00ACDEC6 = {
@@ -321,7 +315,7 @@
 			};
 			buildConfigurationList = 9E602D0F19E655DF00ACDEC6 /* Build configuration list for PBXProject "CryptoApp" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -443,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -461,6 +456,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -486,12 +482,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -499,6 +494,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -517,6 +513,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -535,12 +532,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -556,7 +552,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CryptoApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siddsingh.CryptoApp;
@@ -577,7 +573,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CryptoApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.siddsingh.CryptoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

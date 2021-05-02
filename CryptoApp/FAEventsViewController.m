@@ -18,7 +18,7 @@
 #import <UIKit/UIKit.h>
 #import "FAEventDetailsViewController.h"
 #import "EventHistory.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "FASnapShot.h"
 #import <SafariServices/SafariServices.h>
 @import EventKit;
@@ -96,7 +96,7 @@
     // Change the color of the events search bar placeholder text and text entered
     // Set it to a light gray color
     [self.eventsSearchBar setBackgroundImage:[UIImage new]];
-    UITextField *eventSearchBarInputFld = [self.eventsSearchBar valueForKey:@"_searchField"];
+   /* UITextField *eventSearchBarInputFld = [self.eventsSearchBar valueForKey:@"_searchField"];
     [eventSearchBarInputFld setValue:[UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f] forKeyPath:@"_placeholderLabel.textColor"];
     eventSearchBarInputFld.textColor = [UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f];
     eventSearchBarInputFld.clipsToBounds = YES;
@@ -113,7 +113,7 @@
     // Change the color of the Clear button in the search bar to be a light gray color
     UIButton *searchClearBtn = [eventSearchBarInputFld valueForKey:@"_clearButton"];
     [searchClearBtn setImage:[searchClearBtn.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-    searchClearBtn.tintColor = [UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f];
+    searchClearBtn.tintColor = [UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f]; */
     
     // Format the event type selector
     // Set Background color and tint to a very light almost white gray
@@ -813,10 +813,10 @@
             
             // TRACKING EVENT: Learning Action Clicked: User clicked a link to do something outside Knotifi.
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"See Learning"
-                          parameters:@{ @"Learning Title" : cell.eventDescription.text,
-                                        @"Learning Description" : cell.eventDate.text,
-                                        @"External URL" : [targetURL0 absoluteString]} ];
+           // [FBSDKAppEvents logEvent:@"See Learning"
+           //               parameters:@{ @"Learning Title" : cell.eventDescription.text,
+           //                             @"Learning Description" : cell.eventDate.text,
+           //                             @"External URL" : [targetURL0 absoluteString]} ];
             
             SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL0];
             externalInfoVC.delegate = self;
@@ -845,10 +845,10 @@
                 
                 // TRACKING EVENT: External Action Clicked: User clicked a link to do something outside Knotifi.
                 // TO DO: Disabling to not track development events. Enable before shipping.
-                [FBSDKAppEvents logEvent:@"See External News Article"
-                              parameters:@{ @"News Source" : cell.eventDescription.text,
-                                            @"News Title" : cell.eventDate.text,
-                                            @"External URL" : [targetURL absoluteString]} ];
+               // [FBSDKAppEvents logEvent:@"See External News Article"
+               //               parameters:@{ @"News Source" : cell.eventDescription.text,
+               //                             @"News Title" : cell.eventDate.text,
+               //                             @"External URL" : [targetURL absoluteString]} ];
                 
                 SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL];
                 externalInfoVC.delegate = self;
@@ -1580,8 +1580,8 @@
     
     // TRACKING EVENT: Explicitly track Price fetch events
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Stock Price Fetched"
-                  parameters:@{ @"Event Type" : @"Daily Price" } ];
+    //[FBSDKAppEvents logEvent:@"Stock Price Fetched"
+     //             parameters:@{ @"Event Type" : @"Daily Price" } ];
     
     // Get historical prices if needed
     if(fetchHistory) {
@@ -1593,16 +1593,16 @@
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
-                          parameters:@{ @"Event Type" : @"Price History" } ];
+            //[FBSDKAppEvents logEvent:@"Stock Price Fetched"
+            //              parameters:@{ @"Event Type" : @"Price History" } ];
         } else {
             
             [specificDataController getStockPricesFromApiForTicker:ticker companyEventType:type fromDateInclusive:eventForPricesFetch.previous1Date toDateInclusive:eventForPricesFetch.currentDate];
             
             // TRACKING EVENT: Explicitly track Price fetch events
             // TO DO: Disabling to not track development events. Enable before shipping.
-            [FBSDKAppEvents logEvent:@"Stock Price Fetched"
-                          parameters:@{ @"Event Type" : @"Price History" } ];
+            //[FBSDKAppEvents logEvent:@"Stock Price Fetched"
+            //              parameters:@{ @"Event Type" : @"Price History" } ];
         }
     }
     
@@ -1806,8 +1806,8 @@
     
     // TRACKING EVENT: Search Button Clicked: User clicked the search button to search for a company or ticker.
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Search Button Clicked"
-                  parameters:@{ @"Search String" : searchBar.text } ];
+    //[FBSDKAppEvents logEvent:@"Search Button Clicked"
+     //             parameters:@{ @"Search String" : searchBar.text } ];
     
     //[searchBar resignFirstResponder];
     // TO DO: In case you want to clear the search context
@@ -2176,7 +2176,7 @@
     
     // TRACKING EVENT: Search Initiated: User clicked into the search bar to initiate a search.
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"Search Initiated"];
+    //[FBSDKAppEvents logEvent:@"Search Initiated"];
     
     return YES;
 }
@@ -2249,8 +2249,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected All event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Cap" } ];
+       // [FBSDKAppEvents logEvent:@"Event Type Selected"
+       //               parameters:@{ @"Event Type" : @"Cap" } ];
     }
     // For Price->Gainers
     if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
@@ -2279,8 +2279,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Earnings event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Gainers" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Gainers" } ];
     }
     // Price - Losers
     if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
@@ -2308,8 +2308,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Losers" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Losers" } ];
     }
     // Events - Upcoming
     if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
@@ -2337,8 +2337,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Upcoming" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Upcoming" } ];
     }
     // Events - Recent
     if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
@@ -2366,8 +2366,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Recent" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Recent" } ];
     }
     // Events - Latest
     if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
@@ -2403,8 +2403,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Latest" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+         //             parameters:@{ @"Event Type" : @"Latest" } ];
     }
     
     // NEWS (Prod) - Black
@@ -2444,8 +2444,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Product Event" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Product Event" } ];
     }
     
     // PRICE - BLACK
@@ -2538,8 +2538,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Stock Price" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Stock Price" } ];
     }
     
     // LEARN - Black
@@ -2579,8 +2579,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Event Type Selected"
-                      parameters:@{ @"Event Type" : @"Learn" } ];
+        //[FBSDKAppEvents logEvent:@"Event Type Selected"
+        //              parameters:@{ @"Event Type" : @"Learn" } ];
     }
     
 }
@@ -2648,8 +2648,8 @@
         [self.eventTypeSelector setTitle:@"UPCOMING" forSegmentAtIndex:1];
         [self.eventTypeSelector setTitle:@"RECENT" forSegmentAtIndex:2];
          // TRACKING EVENT:
-        [FBSDKAppEvents logEvent:@"In App News Viewed"
-                      parameters:@{ @"Event Type" : @"Latest News from Main" } ];
+       // [FBSDKAppEvents logEvent:@"In App News Viewed"
+       //               parameters:@{ @"Event Type" : @"Latest News from Main" } ];
     }
     // If Learn is selected, disable and hide the search bar and event type selector
     else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Learn"] == NSOrderedSame) {
@@ -2665,8 +2665,8 @@
         [self.eventTypeSelector setTitle:@"INVESTING" forSegmentAtIndex:1];
         [self.eventTypeSelector setTitle:@"PRO" forSegmentAtIndex:2];
         // TRACKING EVENT:
-        [FBSDKAppEvents logEvent:@"Learning Trail Viewed"
-                      parameters:@{ @"Event Type" : @"Learning tab from Main" } ];
+       // [FBSDKAppEvents logEvent:@"Learning Trail Viewed"
+        //              parameters:@{ @"Event Type" : @"Learning tab from Main" } ];
     }
     
     // Set events selector to All Events
@@ -2676,8 +2676,8 @@
     
     // TRACKING EVENT: EventsNav Selected: User clicked the "Reminder Set" button, most likely to unset the reminder.
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [FBSDKAppEvents logEvent:@"MainNav Selected"
-                  parameters:@{ @"Option" :  [self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]} ];
+    //[FBSDKAppEvents logEvent:@"MainNav Selected"
+    //              parameters:@{ @"Option" :  [self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex]} ];
 }
 
 #pragma mark - Support Related
@@ -2917,10 +2917,10 @@
         
         // TRACKING EVENT: Go To Details: User clicked the event in the events list to go to the details screen.
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Go To Details"
-                      parameters:@{ @"Ticker" : sentEvent.listedCompany.ticker,
-                                    @"Event Type" : sentEvent.type,
-                                    @"Name" : sentEvent.listedCompany.name } ];
+        //[FBSDKAppEvents logEvent:@"Go To Details"
+        //              parameters:@{ @"Ticker" : sentEvent.listedCompany.ticker,
+        //                            @"Event Type" : sentEvent.type,
+        //                            @"Name" : sentEvent.listedCompany.name } ];
     }
 }
 
@@ -3915,8 +3915,8 @@
         
         // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents logEvent:@"Pull Down Refresh"
-                      parameters:@{ @"Event Type" : [self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] } ];
+        //[FBSDKAppEvents logEvent:@"Pull Down Refresh"
+        //              parameters:@{ @"Event Type" : [self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] } ];
     }
     // If not, show error message
     else {

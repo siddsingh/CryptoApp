@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "FADataController.h"
 #import "Reachability.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate ()
 
@@ -43,8 +43,8 @@
     
     // TRACKING EVENT: SETUP: Adding the FB SDK
     // TO DO: Disabling to not track development events. Enable before shipping.
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                             didFinishLaunchingWithOptions:launchOptions];
+    //[[FBSDKApplicationDelegate sharedInstance] application:application
+    //                         didFinishLaunchingWithOptions:launchOptions];
 
      
     // Check to see if application version 1.2 has been used by the user at least once. Format is 1 (0 stands for dot 2)
@@ -124,7 +124,7 @@
         
         // TRACKING EVENT: App Launch: Application was launched.
         // TO DO: Disabling to not track development events. Enable before shipping.
-        [FBSDKAppEvents activateApp];
+        //[FBSDKAppEvents activateApp];
     }
 }
 
@@ -149,12 +149,12 @@
 #pragma mark - FB SDK Methods
 
 // Needed to add the FB SDK
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+/*- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation];
-}
+}*/
 
 #pragma mark - State Setup Rfresh
 
