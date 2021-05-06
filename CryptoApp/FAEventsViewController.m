@@ -83,19 +83,29 @@
     self.messageBar.alpha = 0.0;
     
     // Set navigation bar header to title "Upcoming Events"
-    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
     [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
-    [self.navigationController.navigationBar.topItem setTitle:@"HIGHEST CAP"];
+    [self.navigationController.navigationBar.topItem setTitle:@"HIGHEST CAP"];*/
+    
+   /* NSDictionary *regular1HeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                             [UIFont fontWithName:@"Helvetica-Bold" size:30], NSFontAttributeName,
+                                             [UIColor blackColor], NSForegroundColorAttributeName,
+                                             nil];
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:20 forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:regular1HeaderAttributes]; */
+    [self.navigationController.navigationBar setPrefersLargeTitles:true];
+    [self.navigationController.navigationBar setTranslucent:true];
+    [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
     
     // Set font and size for searchbar text.
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setDefaultTextAttributes:@{ NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14],}];
+   // [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setDefaultTextAttributes:@{ NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14],}];
     
     // Change the color of the events search bar placeholder text and text entered
     // Set it to a light gray color
-    [self.eventsSearchBar setBackgroundImage:[UIImage new]];
+    //[self.eventsSearchBar setBackgroundImage:[UIImage new]];
    /* UITextField *eventSearchBarInputFld = [self.eventsSearchBar valueForKey:@"_searchField"];
     [eventSearchBarInputFld setValue:[UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f] forKeyPath:@"_placeholderLabel.textColor"];
     eventSearchBarInputFld.textColor = [UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f];
@@ -2203,11 +2213,11 @@
 - (IBAction)eventTypeSelectAction:(id)sender {
     
     // Reset the navigation bar header text color to black
-    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                                [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                                [UIColor blackColor], NSForegroundColorAttributeName,
                                                nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];*/
     
     // Change formatting of the selected option to indicate selection and filter the table to show the correct events of that type. Also set the color of the focus bar to the same color as the selected option.
     
@@ -2590,11 +2600,11 @@
 - (IBAction)mainNavSelectAction:(id)sender {
     
     // Reset the navigation bar header text color to black
-    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                              [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                              [UIColor blackColor], NSForegroundColorAttributeName,
                                              nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];*/
     
     // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -2653,7 +2663,8 @@
     }
     // If Learn is selected, disable and hide the search bar and event type selector
     else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Learn"] == NSOrderedSame) {
-        [self.eventSelectorHtConstra setConstant:2];
+       // [NEW WORK 2021] Customization of search bar and event type selector when Learn main nav section. Currently handling it in the storyboard.
+        /* [self.eventSelectorHtConstra setConstant:2];
         [self.eventTypeSelector setEnabled:NO];
         [self.eventTypeSelector setHidden:YES];
         [self.eventSearchBarHtConstra setConstant:0];
@@ -2663,7 +2674,7 @@
         // Format the event selectors
         [self.eventTypeSelector setTitle:@"BASICS" forSegmentAtIndex:0];
         [self.eventTypeSelector setTitle:@"INVESTING" forSegmentAtIndex:1];
-        [self.eventTypeSelector setTitle:@"PRO" forSegmentAtIndex:2];
+        [self.eventTypeSelector setTitle:@"PRO" forSegmentAtIndex:2]; */
         // TRACKING EVENT:
        // [FBSDKAppEvents logEvent:@"Learning Trail Viewed"
         //              parameters:@{ @"Event Type" : @"Learning tab from Main" } ];
@@ -2768,12 +2779,12 @@
     */
     
     // Set navigation bar header to an attention orange color
-    NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                                [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                                [UIColor colorWithRed:205.0f/255.0f green:151.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
                                                nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attentionHeaderAttributes];
-    [self.navigationController.navigationBar.topItem setTitle:[notification object]];
+    [self.navigationController.navigationBar.topItem setTitle:[notification object]];*/
 }
 
 // Process the notification to update screen header which is the navigation bar title. Currently just set it to today's date.
@@ -3720,12 +3731,12 @@
     if (self.navigationController.topViewController == self) {
         
         // Set navigation bar header to an attention orange color
-        NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        /*NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                                    [UIColor colorWithRed:205.0f/255.0f green:151.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
                                                    nil];
         [self.navigationController.navigationBar setTitleTextAttributes:attentionHeaderAttributes];
-        [self.navigationController.navigationBar.topItem setTitle:@"Fetching..."];
+        [self.navigationController.navigationBar.topItem setTitle:@"Fetching..."];*/
     }
 }
 
@@ -3738,11 +3749,11 @@
     if (self.navigationController.topViewController == self) {
         
         // Set navigation bar header to title "Upcoming Events"
-        NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        /*NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                                  [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
                                                  [UIColor blackColor], NSForegroundColorAttributeName,
                                                  nil];
-        [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+        [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];*/
         
         // If All Events is selected.
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
