@@ -271,87 +271,23 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nfw-0u-xss" firstAttribute="top" secondItem="fPu-sh-VAw" secondAttribute="top" constant="130" id="3yM-vH-t0T"/>
-                            <constraint firstAttribute="centerX" secondItem="nfw-0u-xss" secondAttribute="centerX" id="5cx-il-ILy"/>
-                            <constraint firstItem="Urn-fH-Oqh" firstAttribute="centerX" secondItem="fPu-sh-VAw" secondAttribute="centerX" id="5ff-PD-DhC"/>
                             <constraint firstAttribute="centerX" secondItem="KbY-6m-WGH" secondAttribute="centerX" id="6QW-kk-iAp"/>
                             <constraint firstItem="Urn-fH-Oqh" firstAttribute="trailing" secondItem="nfw-0u-xss" secondAttribute="trailing" id="6Ut-GS-1Uh"/>
                             <constraint firstItem="iRe-G1-Ld7" firstAttribute="top" secondItem="7Cj-9c-Flh" secondAttribute="bottom" id="6i0-ZG-VIw"/>
-                            <constraint firstItem="KbY-6m-WGH" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leadingMargin" constant="-16" id="7UA-yu-WEj"/>
                             <constraint firstItem="Urn-fH-Oqh" firstAttribute="leading" secondItem="nfw-0u-xss" secondAttribute="leading" id="EUx-Jd-LJC"/>
-                            <constraint firstItem="nfw-0u-xss" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leadingMargin" id="GAJ-cr-gj4"/>
-                            <constraint firstItem="KbY-6m-WGH" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leadingMargin" constant="-16" id="I39-eR-HUe"/>
                             <constraint firstItem="iRe-G1-Ld7" firstAttribute="trailing" secondItem="KbY-6m-WGH" secondAttribute="trailing" id="IhU-yF-6zt"/>
                             <constraint firstItem="7Cj-9c-Flh" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" id="J8U-ZN-8Pp"/>
                             <constraint firstItem="Nql-41-vTF" firstAttribute="top" secondItem="iRe-G1-Ld7" secondAttribute="bottom" id="Oug-Oa-XTb"/>
                             <constraint firstItem="nfw-0u-xss" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" constant="15" id="Oyg-7c-dWb"/>
                             <constraint firstItem="KbY-6m-WGH" firstAttribute="top" secondItem="Urn-fH-Oqh" secondAttribute="bottom" constant="20" id="QFc-k2-5fy"/>
-                            <constraint firstItem="KbY-6m-WGH" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leadingMargin" id="QJJ-ft-4SW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="KbY-6m-WGH" secondAttribute="trailing" constant="-16" id="RdI-kk-aBD"/>
-                            <constraint firstItem="KbY-6m-WGH" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" id="YYc-TA-BAy"/>
-                            <constraint firstAttribute="trailing" secondItem="KbY-6m-WGH" secondAttribute="trailing" id="Yel-CZ-VCU"/>
-                            <constraint firstAttribute="centerX" secondItem="KbY-6m-WGH" secondAttribute="centerX" id="ZPx-EN-Zmh"/>
-                            <constraint firstItem="nfw-0u-xss" firstAttribute="top" secondItem="QkD-j3-H2X" secondAttribute="bottom" id="bW3-uV-gpb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="KbY-6m-WGH" secondAttribute="trailing" constant="-16" id="bbd-M2-ARq"/>
-                            <constraint firstAttribute="centerX" secondItem="KbY-6m-WGH" secondAttribute="centerX" id="bnV-df-4W3"/>
                             <constraint firstAttribute="trailing" secondItem="nfw-0u-xss" secondAttribute="trailing" constant="15" id="cMD-Z7-9ko"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="KbY-6m-WGH" secondAttribute="trailing" constant="-23" id="cPx-KL-hKR">
-                                <variation key="heightClass=regular-widthClass=regular" constant="-16"/>
-                            </constraint>
                             <constraint firstAttribute="trailing" secondItem="KbY-6m-WGH" secondAttribute="trailing" id="dJ7-j4-6XC"/>
                             <constraint firstAttribute="trailing" secondItem="7Cj-9c-Flh" secondAttribute="trailing" id="es3-wJ-mfu"/>
                             <constraint firstItem="KbY-6m-WGH" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" id="fU7-bv-4Cf"/>
-                            <constraint firstItem="Nql-41-vTF" firstAttribute="top" secondItem="KbY-6m-WGH" secondAttribute="bottom" id="hAn-1M-pGq"/>
-                            <constraint firstItem="nfw-0u-xss" firstAttribute="centerX" secondItem="fPu-sh-VAw" secondAttribute="centerX" id="iiw-0T-dVG"/>
-                            <constraint firstAttribute="centerX" secondItem="KbY-6m-WGH" secondAttribute="centerX" id="j4t-m7-Owy"/>
-                            <constraint firstItem="nfw-0u-xss" firstAttribute="trailing" secondItem="fPu-sh-VAw" secondAttribute="trailingMargin" id="jkd-9p-GFJ">
-                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
-                            </constraint>
                             <constraint firstItem="Urn-fH-Oqh" firstAttribute="top" secondItem="nfw-0u-xss" secondAttribute="bottom" constant="6" id="m2z-RK-XZg"/>
-                            <constraint firstItem="KbY-6m-WGH" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leadingMargin" constant="-21" id="mgn-w1-GJi">
-                                <variation key="heightClass=regular-widthClass=regular" constant="-16"/>
-                            </constraint>
-                            <constraint firstItem="KbY-6m-WGH" firstAttribute="top" secondItem="nfw-0u-xss" secondAttribute="bottom" constant="9" id="s0K-VK-9ey"/>
                             <constraint firstItem="7Cj-9c-Flh" firstAttribute="top" secondItem="KbY-6m-WGH" secondAttribute="bottom" id="ski-Zh-8Cl"/>
-                            <constraint firstAttribute="centerX" secondItem="nfw-0u-xss" secondAttribute="centerX" id="t5v-Db-Sqo"/>
-                            <constraint firstItem="Nql-41-vTF" firstAttribute="top" secondItem="KbY-6m-WGH" secondAttribute="bottom" id="v5Y-Tw-fQx"/>
                             <constraint firstItem="iRe-G1-Ld7" firstAttribute="leading" secondItem="KbY-6m-WGH" secondAttribute="leading" id="z8M-cc-tbY"/>
-                            <constraint firstItem="KbY-6m-WGH" firstAttribute="trailing" secondItem="fPu-sh-VAw" secondAttribute="trailingMargin" id="zf7-V9-haM"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="5cx-il-ILy"/>
-                                <exclude reference="GAJ-cr-gj4"/>
-                                <exclude reference="bW3-uV-gpb"/>
-                                <exclude reference="iiw-0T-dVG"/>
-                                <exclude reference="jkd-9p-GFJ"/>
-                                <exclude reference="t5v-Db-Sqo"/>
-                                <exclude reference="5ff-PD-DhC"/>
-                                <exclude reference="7UA-yu-WEj"/>
-                                <exclude reference="I39-eR-HUe"/>
-                                <exclude reference="QJJ-ft-4SW"/>
-                                <exclude reference="RdI-kk-aBD"/>
-                                <exclude reference="YYc-TA-BAy"/>
-                                <exclude reference="Yel-CZ-VCU"/>
-                                <exclude reference="ZPx-EN-Zmh"/>
-                                <exclude reference="bbd-M2-ARq"/>
-                                <exclude reference="bnV-df-4W3"/>
-                                <exclude reference="cPx-KL-hKR"/>
-                                <exclude reference="j4t-m7-Owy"/>
-                                <exclude reference="mgn-w1-GJi"/>
-                                <exclude reference="s0K-VK-9ey"/>
-                                <exclude reference="zf7-V9-haM"/>
-                                <exclude reference="hAn-1M-pGq"/>
-                                <exclude reference="v5Y-Tw-fQx"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=regular">
-                            <mask key="constraints">
-                                <exclude reference="bW3-uV-gpb"/>
-                                <exclude reference="iiw-0T-dVG"/>
-                                <exclude reference="cPx-KL-hKR"/>
-                                <exclude reference="mgn-w1-GJi"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Knotifi" id="Rre-Iz-HOH">
                         <barButtonItem key="backBarButtonItem" title="Back" id="78w-is-WPS">
@@ -897,7 +833,7 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="35"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">

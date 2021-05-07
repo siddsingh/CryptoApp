@@ -49,7 +49,7 @@
      
     // Check to see if application version 1.2 has been used by the user at least once. Format is 1 (0 stands for dot 2)
     // *****************IMPORTANT*********************************************************************** If you are changing this, also change applicationbecameactive and tutorialDonePressed button on FATutorialViewController as that makes more sense.
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"V1_0_5_UsedOnce"])
+   /* if (![[NSUserDefaults standardUserDefaults] boolForKey:@"V1_0_5_UsedOnce"])
     {
         // Show tutorial
         [self configViewControllerWithName:@"FATutorialViewController"];
@@ -79,7 +79,10 @@
     // If yes
     else {
         [self configViewControllerWithName:@"FAEventsNavController"];
-    }
+    } */
+    
+    // [NEW WORK 2021] Skip the tutorial, go directly to the main screen. For showing the tutorial use the commented code right above
+    [self configViewControllerWithName:@"FAEventsNavController"];
     
     return YES;
 }

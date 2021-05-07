@@ -82,20 +82,7 @@
     // Make the message bar fully transparent so that it's invisible to the user
     self.messageBar.alpha = 0.0;
     
-    // Set navigation bar header to title "Upcoming Events"
-    /*NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                    [UIColor blackColor], NSForegroundColorAttributeName,
-                                    nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
-    [self.navigationController.navigationBar.topItem setTitle:@"HIGHEST CAP"];*/
-    
-   /* NSDictionary *regular1HeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                             [UIFont fontWithName:@"Helvetica-Bold" size:30], NSFontAttributeName,
-                                             [UIColor blackColor], NSForegroundColorAttributeName,
-                                             nil];
-    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:20 forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:regular1HeaderAttributes]; */
+    // [NEW WORK 2021] Using the new large titles for navigation bar. Also setting this in the storyboard
     [self.navigationController.navigationBar setPrefersLargeTitles:true];
     [self.navigationController.navigationBar setTranslucent:true];
     [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
