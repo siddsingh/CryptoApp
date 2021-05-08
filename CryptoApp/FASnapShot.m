@@ -1419,19 +1419,16 @@ static FASnapShot *sharedInstance;
     NSDictionary *txtAttributes = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
-    // Item specific coloring
-    /*txtAttributes = @{
-     NSForegroundColorAttributeName:[self getLearningItemColor:rowPath],
-     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:13]
-     };*/
-    // Black Color
+    
+    // [NEW WORK 2021] Setting the title for LEARN to match the specified sizes in the storyboard.
+    // Almost black color
     txtAttributes = @{
-                      NSForegroundColorAttributeName:[UIColor blackColor],
-                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:14]
+                      NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
+                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:18]
                       };
     
     if (rowNo == 1) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Intro" attributes:txtAttributes];
+        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Hi" attributes:txtAttributes];
     }
     else if (rowNo == 2) {
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Basics" attributes:txtAttributes];
@@ -1472,34 +1469,34 @@ static FASnapShot *sharedInstance;
     
     
     if (rowNo == 1) {
-        nonFormattedTxt = @"Introduction to the series.";
+        nonFormattedTxt = @"Introduction.";
     }
     else if (rowNo == 2) {
-        nonFormattedTxt = @"The technology underpinning Cryptocurrencies.";
+        nonFormattedTxt = @"The crypto foundation.";
     }
     else if (rowNo == 3) {
-        nonFormattedTxt = @"Demonstration of how a Blockchain works. By Anders Brownworth.";
+        nonFormattedTxt = @"By Anders Brownworth.";
     }
     else if (rowNo == 4) {
-        nonFormattedTxt = @"The game changing “First” Cryptocurrency.";
+        nonFormattedTxt = @"The game changer.";
     }
     else if (rowNo == 5) {
-        nonFormattedTxt = @"The brilliant Blockchain “Platform”.";
+        nonFormattedTxt = @"The brilliant platform.";
     }
     else if (rowNo == 6) {
-        nonFormattedTxt = @"Categorizing the 1500+ Cryptocurrencies.";
+        nonFormattedTxt = @"Categorizing all cryptos.";
     }
     else if (rowNo == 7) {
-        nonFormattedTxt = @"See what gives Cryptocurrencies value.";
+        nonFormattedTxt = @"What gives crypto value?";
     }
     else if (rowNo == 8) {
-        nonFormattedTxt = @"View entire presentation.";
+        nonFormattedTxt = @"View as a presentation.";
     }
     else if (rowNo == 9) {
-        nonFormattedTxt = @"Questions? Suggestions. Write to us.";
+        nonFormattedTxt = @"Comments? Write to us.";
     }
     else {
-        nonFormattedTxt = @"Hmm! There is nothing here.";
+        nonFormattedTxt = @"Hmm! Nothing here.";
     }
     
     // If device is ipad, format for more space

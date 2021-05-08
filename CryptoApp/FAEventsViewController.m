@@ -420,6 +420,7 @@
     // Unhide the company ticker in case it was hidden during a product timeline view
     [[cell  companyTicker] setHidden:NO];
     // Reset formatting in case it was changed during Learning View
+    
     [cell.companyTicker setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
     [cell.companyTicker setTextColor:[UIColor blackColor]];
     
@@ -706,7 +707,7 @@
             // Hide the separator by setting it to blend with the background
             [self.eventsListTable setSeparatorColor:[UIColor whiteColor]];
             
-            // Hide the company ticker and small image. Show the large image
+            // Hide the company ticker and small image. Show the large image.
             cell.listIconLbl.hidden = YES;
             cell.companyTicker.hidden = YES;
             cell.listImageLbl.hidden = NO;
@@ -715,7 +716,8 @@
             [cell.leadingSpaceForEventDesc setConstant:74];
 
             // Set top space title
-            [cell.topSpaceForEventDesc setConstant:2];
+            // [NEW FOR 2021] commented this as I am handling this in the storyboard
+            //[cell.topSpaceForEventDesc setConstant:2];
             
             // Show numbering
             /*cell.listIconLbl.clipsToBounds = YES;
@@ -738,8 +740,9 @@
             cell.listIconLbl.text = @"";
             cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];*/
             
+            // [NEW FOR 2021] Made the corners slightly rounded.
             cell.listImageLbl.clipsToBounds = YES;
-            cell.listImageLbl.layer.cornerRadius = 0;
+            cell.listImageLbl.layer.cornerRadius = 5;
             cell.listImageLbl.text = @"";
             cell.listImageLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
             
@@ -768,7 +771,7 @@
             [[cell companyTicker] setText:[self.dataSnapShot getVideoLength:indexPath]];*/
             
             // Don't show numbering
-             [cell.eventImpact setText:@""];
+             [cell.eventImpact setText:@"▸"];
         }
     }
     
@@ -2553,8 +2556,9 @@
         // Query all future product events, including today.
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
             
+            // [NEW WORK 2021] Not needed.
             // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"CRYPTO 101"];
+            // [self.navigationController.navigationBar.topItem setTitle:@"CRYPTO 101"];
             // Clear out the search context
             [self.eventsSearchBar setText:@""];
             [self searchBar:self.eventsSearchBar textDidChange:@""];
@@ -3320,8 +3324,10 @@
 // Return the appropriate color for event date based on the UI navigation option selected.
 - (UIColor *)formatColorForEventDateBasedOnSelection {
    
-    // Default gray for event date in the storyboard
-    UIColor *colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
+    // [NEW WORK 2021] Almost black default
+    //UIColor *colorToReturn = [UIColor colorWithRed:31.0f/255.0f green:31.0f/255.0f blue:31.0f/255.0f alpha:1.0f];
+    UIColor *colorToReturn = [UIColor darkGrayColor];
+    
     
    if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame)) {
         // Use Black color
