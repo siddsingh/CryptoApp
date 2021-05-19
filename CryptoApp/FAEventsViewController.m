@@ -112,9 +112,23 @@
     [searchClearBtn setImage:[searchClearBtn.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     searchClearBtn.tintColor = [UIColor colorWithRed:160.0f/255.0f green:160.0f/255.0f blue:160.0f/255.0f alpha:1.0f]; */
     
+    // [NEW FOR 2021]
     // Format the event type selector
+    // Set text color (black) and size (helvetica 14 unselected, helvetica bold 14 selected) of all segments.
+    NSDictionary *unselEvTypeAttribs = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont fontWithName:@"Helvetica" size:14], NSFontAttributeName,
+                                    [UIColor blackColor], NSForegroundColorAttributeName,
+                                    nil];
+    NSDictionary *selEvTypeAttribs = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont fontWithName:@"Helvetica-Bold" size:14], NSFontAttributeName,
+                                    [UIColor blackColor], NSForegroundColorAttributeName,
+                                    nil];
+    [self.eventTypeSelector setTitleTextAttributes:unselEvTypeAttribs forState:UIControlStateNormal];
+    [self.eventTypeSelector setTitleTextAttributes:selEvTypeAttribs forState:UIControlStateSelected];
+    
+    
     // Set Background color and tint to a very light almost white gray
-    [self.eventTypeSelector setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
+   /* [self.eventTypeSelector setBackgroundColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
     [self.eventTypeSelector setTintColor:[UIColor colorWithRed:241.0f/255.0f green:243.0f/255.0f blue:243.0f/255.0f alpha:1.0f]];
     // Set text color of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     [self.eventTypeSelector setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f]} forState:UIControlStateNormal];
@@ -125,7 +139,7 @@
                                         [UIColor blackColor], NSForegroundColorAttributeName,
                                         nil];
         [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-    }
+    } */
     
     // Format the main nav type selector
     // Set Background color and tint to a very light almost white gray

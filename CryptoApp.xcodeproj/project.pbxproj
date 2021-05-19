@@ -42,6 +42,8 @@
 		9E81709D1DE0DD610066C85B /* EconomicEvents_2017.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E81709B1DE0DD610066C85B /* EconomicEvents_2017.json */; };
 		9E81709F1DE11FBC0066C85B /* ZEA-datasets-codes_20161119.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9E81709E1DE11FBB0066C85B /* ZEA-datasets-codes_20161119.csv */; };
 		9E8170A01DE11FBC0066C85B /* ZEA-datasets-codes_20161119.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9E81709E1DE11FBB0066C85B /* ZEA-datasets-codes_20161119.csv */; };
+		9E89076826530B0E0034F5EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E89076726530B0E0034F5EE /* Launch Screen.storyboard */; };
+		9E89076926530B0E0034F5EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E89076726530B0E0034F5EE /* Launch Screen.storyboard */; };
 		9E953F651FEDE0C200D60343 /* EconomicEvents_2018.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E953F641FEDE0C200D60343 /* EconomicEvents_2018.json */; };
 		9EA8E47C1C99053C002B1F5E /* Cryptos_Jan_2018.json in Resources */ = {isa = PBXBuildFile; fileRef = 9EA8E47B1C99053C002B1F5E /* Cryptos_Jan_2018.json */; };
 		9EBD8EE61B82CEB9008A0370 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD8EE51B82CEB9008A0370 /* Action.m */; };
@@ -110,6 +112,7 @@
 		9E79C9361BDAC78F007E17B6 /* FAEventDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAEventDetailsTableViewCell.m; sourceTree = "<group>"; };
 		9E81709B1DE0DD610066C85B /* EconomicEvents_2017.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EconomicEvents_2017.json; sourceTree = "<group>"; };
 		9E81709E1DE11FBB0066C85B /* ZEA-datasets-codes_20161119.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ZEA-datasets-codes_20161119.csv"; sourceTree = "<group>"; };
+		9E89076726530B0E0034F5EE /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9E953F641FEDE0C200D60343 /* EconomicEvents_2018.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EconomicEvents_2018.json; sourceTree = "<group>"; };
 		9EA8E47B1C99053C002B1F5E /* Cryptos_Jan_2018.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Cryptos_Jan_2018.json; sourceTree = "<group>"; };
 		9EBD8EE41B82CEB9008A0370 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 				9E4C8411203B56D2003760B0 /* FACoinAltData.h */,
 				9E4C8412203B56D2003760B0 /* FACoinAltData.m */,
 				9E602D2419E655DF00ACDEC6 /* Main.storyboard */,
+				9E89076726530B0E0034F5EE /* Launch Screen.storyboard */,
 				9E602D2919E655DF00ACDEC6 /* LaunchScreen.xib */,
 				9ECE7B461CBF60BF000F8D77 /* ToDelete_FinApp.sqlite */,
 				9E602D1E19E655DF00ACDEC6 /* FinApp.xcdatamodeld */,
@@ -343,6 +347,7 @@
 				9ECE7B471CBF60BF000F8D77 /* ToDelete_FinApp.sqlite in Resources */,
 				9EA8E47C1C99053C002B1F5E /* Cryptos_Jan_2018.json in Resources */,
 				9E81709C1DE0DD610066C85B /* EconomicEvents_2017.json in Resources */,
+				9E89076826530B0E0034F5EE /* Launch Screen.storyboard in Resources */,
 				9E602D2B19E655DF00ACDEC6 /* LaunchScreen.xib in Resources */,
 				9E1BF82E1DA1FA6000D50E4F /* PriceChangeEvents_Local.json in Resources */,
 				9EBD8EE81BA38DA9008A0370 /* BaseVisualAssets.xcassets in Resources */,
@@ -357,6 +362,7 @@
 				9ECE7B481CBF60BF000F8D77 /* ToDelete_FinApp.sqlite in Resources */,
 				9E81709D1DE0DD610066C85B /* EconomicEvents_2017.json in Resources */,
 				9E8170A01DE11FBC0066C85B /* ZEA-datasets-codes_20161119.csv in Resources */,
+				9E89076926530B0E0034F5EE /* Launch Screen.storyboard in Resources */,
 				9E2F49581CE1622800D51401 /* ProductEvents_2016_Local.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,7 +550,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = N9Q8RJ74WR;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -565,7 +570,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = N9Q8RJ74WR;
 				FRAMEWORK_SEARCH_PATHS = (

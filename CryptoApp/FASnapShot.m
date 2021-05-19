@@ -1420,11 +1420,11 @@ static FASnapShot *sharedInstance;
     NSInteger rowNo = (rowPath.row + 1);
     
     
-    // [NEW WORK 2021] Setting the title for LEARN to match the specified sizes in the storyboard.
+    // [NEW WORK 2021] Setting the title for learning videos to match the specified sizes in the storyboard.
     // Almost black color
     txtAttributes = @{
                       NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
-                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:18]
+                      NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]
                       };
     
     if (rowNo == 1) {
