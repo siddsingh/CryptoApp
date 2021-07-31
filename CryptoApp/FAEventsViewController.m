@@ -390,11 +390,23 @@
             numberOfRows = [filteredCompaniesSection numberOfObjects];
         }
     }
-    // If not, show events or learning
+    // NEW FOR 2021: If no filter then based on combination of main nav and type selector return appropriate # of rows
     else {
-            // For learning show hardcoded number of videos
+            // If main nav is learning based on type of learning return appropriately
             if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
-                numberOfRows = 9;
+                if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+                    numberOfRows = 7;
+                }
+                else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+                    numberOfRows = 6;
+                }
+                else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+                    numberOfRows = 6;
+                }
+                else
+                {
+                    numberOfRows = 1;
+                }
             }
             else {
                 // Use all events results set
@@ -467,7 +479,7 @@
             companyAtIndex = [self.filteredResultsController objectAtIndexPath:indexPath];
         }
     }
-    // If no search filter
+    // NEW FOR 2021: If no search filter, special handling for Learning main nav.
     else {
         // Only if Learn is not selected you do this, since for learn we don't use the eventAtIndex and it creates weird cases
         if (!([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame)) {
@@ -758,13 +770,13 @@
             cell.listImageLbl.clipsToBounds = YES;
             cell.listImageLbl.layer.cornerRadius = 5;
             cell.listImageLbl.text = @"";
-            cell.listImageLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];
+            cell.listImageLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]];
             
-            // Set the learning item title
-            [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath]];
+            // NEW FOR 2021: Set the learning item title
+            [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]]];
             
-            // Show the learning item description
-            [[cell eventDate] setText:[self.dataSnapShot getLearningDescription:indexPath]];
+            // NEW FOR 2021: Show the learning item description
+            [[cell eventDate] setText:[self.dataSnapShot getLearningDescription:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]]];
             // Set the appropriate event date text color
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
@@ -821,7 +833,8 @@
     // If Learning video
     else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
         
-        NSURL *targetURL0 = [NSURL URLWithString:[self.dataSnapShot getLearningURL:indexPath]];
+        // NEW FOR 2021: URL based on type of article and actual article
+        NSURL *targetURL0 = [NSURL URLWithString:[self.dataSnapShot getLearningURL:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]]];
         
         if (targetURL0) {
             
@@ -2556,21 +2569,13 @@
         //              parameters:@{ @"Event Type" : @"Stock Price" } ];
     }
     
-    // LEARN - Black
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+    // NEW FOR 2021: If any of the different learning types are selected, refresh the table
+    if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Advanced"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Trending"] == NSOrderedSame)) {
         
-        // Black
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        
-        // Query all future product events, including today.
+        // NEW FOR 2021: Make sure you are in the Learning section
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
             
-            // [NEW WORK 2021] Not needed.
+            // [NEW FOR 2021]: This is not needed.
             // Set correct header text
             // [self.navigationController.navigationBar.topItem setTitle:@"CRYPTO 101"];
             // Clear out the search context
@@ -2578,17 +2583,8 @@
             [self searchBar:self.eventsSearchBar textDidChange:@""];
             // Set correct search bar placeholder text
             self.eventsSearchBar.placeholder = @"COMPANY/TICKER/EVENT";
-            
-            //self.eventResultsController = [self.primaryDataController getAllFutureProductEvents];
+    
             [self.eventsListTable reloadData];
-            
-            // Refresh all product events asynchronously
-            // Don't need to do this anymore as we are syncing on startup every 6 hours.
-            /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
-             // Create a new FADataController so that this thread has its own MOC
-             FADataController *newsDataController = [[FADataController alloc] init];
-             [newsDataController syncProductEventsWrapper];
-             });*/
             
         }
         

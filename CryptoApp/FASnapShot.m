@@ -1412,8 +1412,8 @@ static FASnapShot *sharedInstance;
     return formattedTxt;
 }
 
-// Get formatted title of learning article
-- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath {
+// Get formatted title of learning article based on learning type
+- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
     
     NSMutableAttributedString *formattedTxt = nil;
     NSDictionary *txtAttributes = nil;
@@ -1427,32 +1427,78 @@ static FASnapShot *sharedInstance;
                       NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]
                       };
     
-    if (rowNo == 1) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Hi" attributes:txtAttributes];
+    // [NEW WORK 2021] Setting the titles based on type selected.
+    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Hi" attributes:txtAttributes];
+        }
+        else if (rowNo == 2) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Basics" attributes:txtAttributes];
+        }
+        else if (rowNo == 3) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Mechanics" attributes:txtAttributes];
+        }
+        else if (rowNo == 4) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Bitcoin Basics" attributes:txtAttributes];
+        }
+        else if (rowNo == 5) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Ethereum Basics" attributes:txtAttributes];
+        }
+        else if (rowNo == 6) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Slides" attributes:txtAttributes];
+        }
+        else if (rowNo == 7) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
+        }
+        else {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
+        }
     }
-    else if (rowNo == 2) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Basics" attributes:txtAttributes];
+    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Crypto Types" attributes:txtAttributes];
+        }
+        else if (rowNo == 2) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Cryptonomics" attributes:txtAttributes];
+        }
+        else if (rowNo == 3) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"DeFi" attributes:txtAttributes];
+        }
+        else if (rowNo == 4) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NFT" attributes:txtAttributes];
+        }
+        else if (rowNo == 5) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Slides" attributes:txtAttributes];
+        }
+        else if (rowNo == 6) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
+        }
+        else {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
+        }
     }
-    else if (rowNo == 3) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Blockchain Mechanics" attributes:txtAttributes];
-    }
-    else if (rowNo == 4) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Bitcoin Basics" attributes:txtAttributes];
-    }
-    else if (rowNo == 5) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Ethereum Basics" attributes:txtAttributes];
-    }
-    else if (rowNo == 6) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Crypto Types" attributes:txtAttributes];
-    }
-    else if (rowNo == 7) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Cryptonomics" attributes:txtAttributes];
-    }
-    else if (rowNo == 8) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Slides" attributes:txtAttributes];
-    }
-    else if (rowNo == 9) {
-        formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
+    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"The B word: By Ark" attributes:txtAttributes];
+        }
+        else if (rowNo == 2) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"US Banking Committee" attributes:txtAttributes];
+        }
+        else if (rowNo == 3) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"SEC Chairman: On CNBC" attributes:txtAttributes];
+        }
+        else if (rowNo == 4) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Ethereum" attributes:txtAttributes];
+        }
+        else if (rowNo == 5) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"DeFi" attributes:txtAttributes];
+        }
+        else if (rowNo == 6) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
+        }
+        else {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
+        }
     }
     else {
         formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
@@ -1461,205 +1507,266 @@ static FASnapShot *sharedInstance;
     return formattedTxt;
 }
 
-// Get formatted title of learning article
-- (NSString *)getLearningDescription:(NSIndexPath *)rowPath {
+// Get sub title of learning article based on type of learning
+- (NSString *)getLearningDescription:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
     
-    NSString *nonFormattedTxt = nil;
+    NSString *formattedTxt = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
-    
-    if (rowNo == 1) {
-        nonFormattedTxt = @"Introduction.";
-    }
-    else if (rowNo == 2) {
-        nonFormattedTxt = @"The crypto foundation.";
-    }
-    else if (rowNo == 3) {
-        nonFormattedTxt = @"By Anders Brownworth.";
-    }
-    else if (rowNo == 4) {
-        nonFormattedTxt = @"The game changer.";
-    }
-    else if (rowNo == 5) {
-        nonFormattedTxt = @"The brilliant platform.";
-    }
-    else if (rowNo == 6) {
-        nonFormattedTxt = @"Categorizing all cryptos.";
-    }
-    else if (rowNo == 7) {
-        nonFormattedTxt = @"What gives crypto value?";
-    }
-    else if (rowNo == 8) {
-        nonFormattedTxt = @"View as a presentation.";
-    }
-    else if (rowNo == 9) {
-        nonFormattedTxt = @"Comments? Write to us.";
-    }
-    else {
-        nonFormattedTxt = @"Hmm! Nothing here.";
-    }
-    
-    // If device is ipad, format for more space
-  /*  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+    // [NEW WORK 2021] Setting the sub titles based on type of learning
+    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction to the series.";
+            formattedTxt = @"Introduction.";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.";
+            formattedTxt = @"The crypto foundation.";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.";
+            formattedTxt = @"By Anders Brownworth.";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency.";
+            formattedTxt = @"The game changer.";
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.";
+            formattedTxt = @"The brilliant platform.";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies.";
+            formattedTxt = @"View as a presentation.";
         }
         else if (rowNo == 7) {
-            nonFormattedTxt = @"See what gives cryptocurrencies value.";
-        }
-        else if (rowNo == 8) {
-            nonFormattedTxt = @"View entire presentation.";
-        }
-        else if (rowNo == 9) {
-            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Write to us.";
+            formattedTxt = @"Comments? Write to us.";
         }
         else {
-            nonFormattedTxt = @"Hmm! There is nothing here.";
+            formattedTxt = @"Hmm! Nothing here.";
         }
     }
-    // Format for lesser space
-    else {
+    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
         if (rowNo == 1) {
-            nonFormattedTxt = @"Introduction to the series.";
+            formattedTxt = @"Categorizing all cryptos.";
         }
         else if (rowNo == 2) {
-            nonFormattedTxt = @"Learn the technology that underpins cryptocurrencies.";
+            formattedTxt = @"What gives crypto value?";
         }
         else if (rowNo == 3) {
-            nonFormattedTxt = @"Dive into how a blockchain works. By Anders Brownworth.";
+            formattedTxt = @"Decentralized Finance overview.";
         }
         else if (rowNo == 4) {
-            nonFormattedTxt = @"Get the basics of the game changing “First” Cryptocurrency.";
+            formattedTxt = @"Non Fungible Tokens explained.";
+            
         }
         else if (rowNo == 5) {
-            nonFormattedTxt = @"Understand the brilliance of the first Blockchain “Platform”.";
+            formattedTxt = @"View as a presentation.";
         }
         else if (rowNo == 6) {
-            nonFormattedTxt = @"Make sense of the 1500+ cryptocurrencies.";
-        }
-        else if (rowNo == 7) {
-            nonFormattedTxt = @"See what gives cryptocurrencies value.";
-        }
-        else if (rowNo == 8) {
-            nonFormattedTxt = @"View entire presentation.";
-        }
-        else if (rowNo == 9) {
-            nonFormattedTxt = @"Questions? Want us to cover a specific topic? Write to us.";
+            formattedTxt = @"Comments? Write to us.";
         }
         else {
-            nonFormattedTxt = @"Hmm! There is nothing here.";
+            formattedTxt = @"Hmm! Nothing here.";
         }
-    } */
+    }
+    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            formattedTxt = @"Cathie, Jack & Elon talk.";
+        }
+        else if (rowNo == 2) {
+            formattedTxt = @"Hearing on Cryptocurrencies.";
+        }
+        else if (rowNo == 3) {
+            formattedTxt = @"Need for investor protection.";
+        }
+        else if (rowNo == 4) {
+            formattedTxt = @"Platform powering DeFi.";
+        }
+        else if (rowNo == 5) {
+            formattedTxt = @"Finance on Blockchain";
+        }
+        else if (rowNo == 6) {
+            formattedTxt = @"Comments? Write to us.";
+        }
+        else {
+            formattedTxt = @"Hmm! Nothing here.";
+        }
+    }
+    else {
+        formattedTxt = @"Hmm! Nothing here.";
+    }
     
-    return nonFormattedTxt;
+    return formattedTxt;
 }
 
-// Get formatted title of learning article
-- (NSString *)getLearningURL:(NSIndexPath *)rowPath {
+// Get URL of learning article based on type of learning
+- (NSString *)getLearningURL:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
     
     NSString *externalURLStr = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
-    if (rowNo == 1) {
-        //externalURLStr = @"https://www.youtube.com/embed/GYQNNfDs_bk?autoplay=1";
-        externalURLStr = @"https://youtu.be/GYQNNfDs_bk";
+    // [NEW WORK 2021] Setting the learning article URL based on type of learning
+    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            externalURLStr = @"https://youtu.be/GYQNNfDs_bk";
+        }
+        else if (rowNo == 2) {
+            externalURLStr = @"https://youtu.be/Q32NcEH_uHM";
+        }
+        else if (rowNo == 3) {
+            externalURLStr = @"https://youtu.be/_160oMzblY8";
+        }
+        else if (rowNo == 4) {
+            externalURLStr = @"https://youtu.be/gfZEVGN_KlY";
+        }
+        else if (rowNo == 5) {
+            externalURLStr = @"https://youtu.be/_Y71wrngQ3k";
+        }
+        else if (rowNo == 6) {
+            externalURLStr = @"https://docs.google.com/presentation/d/1csWbrHybgL8I8a76c8AfgBMmL8NcTB1TGuFzwCEJS6Y";
+        }
+        else if (rowNo == 7) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
     }
-    else if (rowNo == 2) {
-        externalURLStr = @"https://youtu.be/Q32NcEH_uHM";
+    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            externalURLStr = @"https://youtu.be/ASl0Um1FcuE";
+        }
+        else if (rowNo == 2) {
+            externalURLStr = @"https://youtu.be/1olbtC2djy4";
+        }
+        else if (rowNo == 3) {
+            externalURLStr = @"https://youtu.be/HpNFgFgpo04";
+        }
+        else if (rowNo == 4) {
+            // 2021 TO DO: Change URL for NFT
+            externalURLStr = @"https://www.google.com";
+        }
+        else if (rowNo == 5) {
+            externalURLStr = @"https://docs.google.com/presentation/d/1csWbrHybgL8I8a76c8AfgBMmL8NcTB1TGuFzwCEJS6Y";
+        }
+        else if (rowNo == 6) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
     }
-    else if (rowNo == 3) {
-        externalURLStr = @"https://youtu.be/_160oMzblY8";
-    }
-    else if (rowNo == 4) {
-        externalURLStr = @"https://youtu.be/gfZEVGN_KlY";
-    }
-    else if (rowNo == 5) {
-        externalURLStr = @"https://youtu.be/_Y71wrngQ3k";
-    }
-    else if (rowNo == 6) {
-        externalURLStr = @"https://youtu.be/ASl0Um1FcuE";
-    }
-    else if (rowNo == 7) {
-        externalURLStr = @"https://youtu.be/1olbtC2djy4";
-    }
-    else if (rowNo == 8) {
-        externalURLStr = @"https://docs.google.com/presentation/d/1csWbrHybgL8I8a76c8AfgBMmL8NcTB1TGuFzwCEJS6Y";
-    }
-    else if (rowNo == 9) {
-        externalURLStr = @"http://www.knotifi.com/p/contact.html";
+    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else if (rowNo == 2) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else if (rowNo == 3) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else if (rowNo == 4) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else if (rowNo == 5) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else if (rowNo == 6) {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
+        else {
+            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        }
     }
     else {
         externalURLStr = @"http://www.knotifi.com/p/contact.html";
     }
+    
+    
     
     return externalURLStr;
 }
 
 // Get the learning item color
-- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath {
+- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
     
     //Default black color
     UIColor *colorToReturn = [UIColor whiteColor];
     
     NSInteger rowNo = (rowPath.row + 1);
     
-    if (rowNo == 1) {
-        // Pinkish Red
-        //colorToReturn = [UIColor colorWithRed:226.0f/255.0f green:35.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PinkRedPlay"]];
+    //NEW FOR 2021: Images for Learning articles
+    
+    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PinkRedPlay"]];
+        }
+        else if (rowNo == 2) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlockBluePlay"]];
+        }
+        else if (rowNo == 3) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MechanicsPlay"]];
+        }
+        else if (rowNo == 4) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BtcYellowPlay"]];
+        }
+        else if (rowNo == 5) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"EthVioletPlay"]];
+        }
+        else if (rowNo == 6) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
+        }
+        else if (rowNo == 7) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlackSupport"]];
+        }
+        else {
+            colorToReturn = [UIColor whiteColor];
+        }
     }
-    else if (rowNo == 2) {
-        // Blockchain Blue
-        //colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlockBluePlay"]];
+    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"FoundBrickPlay"]];
+        }
+        else if (rowNo == 2) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"CbBluePlay"]];
+        }
+        else if (rowNo == 3) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"DefiIntro"]];
+        }
+        else if (rowNo == 4) {
+            // 2021 TO DO: Change image for NFT
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"DefiIntro"]];
+            
+        }
+        else if (rowNo == 5) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
+        }
+        else if (rowNo == 6) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlackSupport"]];
+        }
+        else {
+            colorToReturn = [UIColor whiteColor];
+        }
     }
-    else if (rowNo == 3) {
-        //colorToReturn = [UIColor colorWithRed:28.0f/255.0f green:62.0f/255.0f blue:207.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MechanicsPlay"]];
-    }
-    else if (rowNo == 4) {
-        // Bitcoin Yellow color
-        //colorToReturn = [UIColor colorWithRed:239.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BtcYellowPlay"]];
-    }
-    else if (rowNo == 5) {
-        // Ethereum Violet
-        //colorToReturn = [UIColor colorWithRed:94.0f/255.0f green:117.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"EthVioletPlay"]];
-    }
-    else if (rowNo == 6) {
-        // Brick Color
-        //colorToReturn = [UIColor colorWithRed:95.0f/255.0f green:17.0f/255.0f blue:6.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"FoundBrickPlay"]];
-    }
-    else if (rowNo == 7) {
-        // Coinbase Blue
-        //colorToReturn = [UIColor colorWithRed:57.0f/255.0f green:118.0f/255.0f blue:254.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"CbBluePlay"]];
-    }
-    else if (rowNo == 8) {
-        // Up Green
-        //colorToReturn = [UIColor colorWithRed:0.0f/255.0f green:151.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
-    }
-    else if (rowNo == 9) {
-        //colorToReturn = [UIColor blackColor];
-        colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlackSupport"]];
+    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+        if (rowNo == 1) {
+            //formattedTxt = @"Cathie, Jack & Elon talk.";
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
+        }
+        else if (rowNo == 2) {
+            //formattedTxt = @"Hearing on Cryptocurrencies.";
+        }
+        else if (rowNo == 3) {
+            //formattedTxt = @"Need for investor protection.";
+        }
+        else if (rowNo == 4) {
+            //formattedTxt = @"Platform powering DeFi.";
+        }
+        else if (rowNo == 5) {
+            //formattedTxt = @"Finance on Blockchain";
+        }
+        else if (rowNo == 6) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlackSupport"]];
+        }
+        else {
+            colorToReturn = [UIColor whiteColor];
+        }
     }
     else {
         colorToReturn = [UIColor whiteColor];
