@@ -1638,11 +1638,10 @@ static FASnapShot *sharedInstance;
             externalURLStr = @"https://youtu.be/HpNFgFgpo04";
         }
         else if (rowNo == 4) {
-            // 2021 TO DO: Change URL for NFT
-            externalURLStr = @"https://www.google.com";
+            externalURLStr = @"https://youtu.be/CsMsnflDQ0E";
         }
         else if (rowNo == 5) {
-            externalURLStr = @"https://docs.google.com/presentation/d/1csWbrHybgL8I8a76c8AfgBMmL8NcTB1TGuFzwCEJS6Y";
+            externalURLStr = @"https://docs.google.com/presentation/d/1OQfm76x7fENczyQL1d0SuublNlHQUMDvyozItixQnLk";
         }
         else if (rowNo == 6) {
             externalURLStr = @"http://www.knotifi.com/p/contact.html";
@@ -1730,8 +1729,7 @@ static FASnapShot *sharedInstance;
             colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"DefiIntro"]];
         }
         else if (rowNo == 4) {
-            // 2021 TO DO: Change image for NFT
-            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"DefiIntro"]];
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NftIntro"]];
             
         }
         else if (rowNo == 5) {
