@@ -451,9 +451,10 @@
     [cell.companyTicker setTextColor:[UIColor blackColor]];
     
     // Get event or company  to display
+    // NEW FOR 2021: Make the rowNo variable available.
     Event *eventAtIndex;
     Company *companyAtIndex;
-    //NSInteger rowNo = 0;
+    NSInteger rowNo = 0;
     
     // If a search filter has been applied, GET the matching companies with events or companies with the fetch events message
     // depending on the type of filter applied
@@ -780,24 +781,36 @@
             // Set the appropriate event date text color
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
-            // Show Numbering
-            /*[cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica" size:14]];
-            [cell.eventImpact setTextColor:[self formatColorForEventDateBasedOnSelection]];
+            // NEW FOR 2021: Show the video numbering
+            // Set the right font, color to not hide it and then text
+            [cell.eventImpact setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+            // Pinkish deep red color
+            [[cell eventImpact] setTextColor:[UIColor colorWithRed:224.0f/255.0f green:63.0f/255.0f blue:93.0f/255.0f alpha:1.0f]];
             rowNo = (indexPath.row + 1);
-            if((rowNo == 9)||(rowNo == 8)) {
-                [cell.eventImpact setText:@"▸"];
+            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+                if((rowNo == 6)||(rowNo == 7)) {
+                    // Reset to black color for non core content
+                    [[cell eventImpact] setTextColor:[UIColor grayColor]];
+                    [cell.eventImpact setText:@">"];
+                }
+                else {
+                    [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+                }
             }
-            else {
-                [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+            else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+                if((rowNo == 5)||(rowNo == 6)) {
+                    // Reset to black color for non core content
+                    [[cell eventImpact] setTextColor:[UIColor grayColor]];
+                    [cell.eventImpact setText:@">"];
+                }
+                else {
+                    [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
+                }
             }
-            
-            // Show video length where the ticker is
-            [cell.companyTicker setFont:[UIFont fontWithName:@"Helvetica" size:14]];
-            [cell.companyTicker setTextColor:[self formatColorForEventDateBasedOnSelection]];
-            [[cell companyTicker] setText:[self.dataSnapShot getVideoLength:indexPath]];*/
-            
-            // Don't show numbering
-             [cell.eventImpact setText:@"▸"];
+            else
+            {
+                [cell.eventImpact setText:@" "];
+            }
         }
     }
     

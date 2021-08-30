@@ -1621,10 +1621,10 @@ static FASnapShot *sharedInstance;
             externalURLStr = @"https://docs.google.com/presentation/d/1csWbrHybgL8I8a76c8AfgBMmL8NcTB1TGuFzwCEJS6Y";
         }
         else if (rowNo == 7) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
     }
     else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
@@ -1644,37 +1644,37 @@ static FASnapShot *sharedInstance;
             externalURLStr = @"https://docs.google.com/presentation/d/1OQfm76x7fENczyQL1d0SuublNlHQUMDvyozItixQnLk";
         }
         else if (rowNo == 6) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
     }
     else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
         if (rowNo == 1) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else if (rowNo == 2) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else if (rowNo == 3) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else if (rowNo == 4) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else if (rowNo == 5) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else if (rowNo == 6) {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else {
-            externalURLStr = @"http://www.knotifi.com/p/contact.html";
+            externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
     }
     else {
-        externalURLStr = @"http://www.knotifi.com/p/contact.html";
+        externalURLStr = @"https://sidd37.wixsite.com/website-1";
     }
     
     

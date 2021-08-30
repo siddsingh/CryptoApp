@@ -6,7 +6,7 @@
 //
 //  Created by Sidd Singh on 2/19/18.
 //  Copyright © 2018 Litchi Labs LLC. All rights reserved.
-//  The data in this file has been curated by Litchi Labs. Cannot be used in apps without approval from Litchi Labs. If you need to please reach connect with us here: http://www.knotifi.com/p/contact.html
+//  The data in this file has been curated by Litchi Labs. Cannot be used in apps without approval from Litchi Labs. If you need to please reach connect with us here: https://sidd37.wixsite.com/website-1
 //
 
 #import "FACoinAltData.h"
