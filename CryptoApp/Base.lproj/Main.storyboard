@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -89,7 +90,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KbY-6m-WGH">
-                                <rect key="frame" x="0.0" y="166" width="390" height="590"/>
+                                <rect key="frame" x="0.0" y="166" width="390" height="359"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.85309709194538152" green="0.85309709194538152" blue="0.85309709194538152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -241,11 +242,103 @@
                                     <outlet property="delegate" destination="WNQ-2i-B77" id="K4r-Sx-ibt"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhu-Ic-vuL">
+                                <rect key="frame" x="15" y="566" width="172.66666666666666" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="uFy-Zz-es4"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="  ">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="11" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="   ">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="14" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content=" ">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Light"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Featured">
+                                            <attributes>
+                                                <color key="NSColor" red="0.44326073230000002" green="0.44326073230000002" blue="0.44326073230000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Light"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment>
+                                            <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                            <attributes>
+                                                <color key="NSColor" red="0.25287023190000002" green="0.56951713559999995" blue="0.52549010519999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="11" name="Helvetica-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="DeFi Overview">
+                                            <attributes>
+                                                <color key="NSColor" red="0.25287023190000002" green="0.56951713559999995" blue="0.52549010519999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UY-x1-BFm">
+                                <rect key="frame" x="202.66666666666663" y="566" width="172.33333333333337" height="150"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="uQJ-ta-bXm"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Popular: NFTs Explained">
+                                            <attributes>
+                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <font key="NSFont" size="11" name="Helvetica"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpS-GQ-SEX">
+                                <rect key="frame" x="40" y="545" width="310" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="jeg-Mj-2ng"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="7Cj-9c-Flh" firstAttribute="top" secondItem="fhu-Ic-vuL" secondAttribute="bottom" constant="40" id="02r-79-J3Y"/>
                             <constraint firstItem="iRe-G1-Ld7" firstAttribute="top" secondItem="Nql-41-vTF" secondAttribute="bottom" id="08h-RA-OWz"/>
+                            <constraint firstItem="8UY-x1-BFm" firstAttribute="top" secondItem="tpS-GQ-SEX" secondAttribute="bottom" constant="20" id="17d-wF-0sC"/>
                             <constraint firstAttribute="centerX" secondItem="KbY-6m-WGH" secondAttribute="centerX" id="6QW-kk-iAp"/>
                             <constraint firstItem="Urn-fH-Oqh" firstAttribute="trailing" secondItem="nfw-0u-xss" secondAttribute="trailing" id="6Ut-GS-1Uh"/>
                             <constraint firstItem="iRe-G1-Ld7" firstAttribute="top" secondItem="7Cj-9c-Flh" secondAttribute="bottom" id="6i0-ZG-VIw"/>
@@ -255,16 +348,24 @@
                             <constraint firstItem="7Cj-9c-Flh" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" id="J8U-ZN-8Pp"/>
                             <constraint firstItem="nfw-0u-xss" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" constant="40" id="Oyg-7c-dWb"/>
                             <constraint firstItem="KbY-6m-WGH" firstAttribute="top" secondItem="Urn-fH-Oqh" secondAttribute="bottom" constant="12" id="QFc-k2-5fy"/>
+                            <constraint firstAttribute="trailing" secondItem="tpS-GQ-SEX" secondAttribute="trailing" constant="40" id="X5D-sv-4sl"/>
+                            <constraint firstItem="7Cj-9c-Flh" firstAttribute="top" secondItem="8UY-x1-BFm" secondAttribute="bottom" constant="40" id="aKK-S4-6he"/>
                             <constraint firstAttribute="trailing" secondItem="nfw-0u-xss" secondAttribute="trailing" constant="40" id="cMD-Z7-9ko"/>
+                            <constraint firstAttribute="trailing" secondItem="8UY-x1-BFm" secondAttribute="trailing" constant="15" id="cs7-z4-rsb"/>
                             <constraint firstAttribute="trailing" secondItem="KbY-6m-WGH" secondAttribute="trailing" id="dJ7-j4-6XC"/>
                             <constraint firstAttribute="trailing" secondItem="7Cj-9c-Flh" secondAttribute="trailing" id="es3-wJ-mfu"/>
                             <constraint firstItem="KbY-6m-WGH" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" id="fU7-bv-4Cf"/>
-                            <constraint firstItem="7Cj-9c-Flh" firstAttribute="top" secondItem="KbY-6m-WGH" secondAttribute="bottom" id="ski-Zh-8Cl"/>
+                            <constraint firstItem="tpS-GQ-SEX" firstAttribute="top" secondItem="KbY-6m-WGH" secondAttribute="bottom" constant="20" id="gCv-Fo-mib"/>
+                            <constraint firstItem="fhu-Ic-vuL" firstAttribute="top" secondItem="tpS-GQ-SEX" secondAttribute="bottom" constant="20" id="jpU-Tr-kcC"/>
+                            <constraint firstItem="tpS-GQ-SEX" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" constant="40" id="mK8-9V-eUY"/>
+                            <constraint firstItem="fhu-Ic-vuL" firstAttribute="width" secondItem="8UY-x1-BFm" secondAttribute="width" id="o6i-8a-hfA"/>
+                            <constraint firstItem="fhu-Ic-vuL" firstAttribute="leading" secondItem="fPu-sh-VAw" secondAttribute="leading" constant="15" id="tEp-bq-2Mm"/>
+                            <constraint firstItem="8UY-x1-BFm" firstAttribute="leading" secondItem="fhu-Ic-vuL" secondAttribute="trailing" constant="15" id="ujO-HX-KxK"/>
                             <constraint firstItem="nfw-0u-xss" firstAttribute="top" secondItem="QkD-j3-H2X" secondAttribute="bottom" constant="5" id="uuO-rq-ggN"/>
                             <constraint firstItem="iRe-G1-Ld7" firstAttribute="leading" secondItem="KbY-6m-WGH" secondAttribute="leading" id="z8M-cc-tbY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Knotifi" id="Rre-Iz-HOH">
+                    <navigationItem key="navigationItem" title="Cryptofi" id="Rre-Iz-HOH">
                         <barButtonItem key="backBarButtonItem" title="Back" id="78w-is-WPS">
                             <color key="tintColor" red="0.24652777779999999" green="0.24652777779999999" blue="0.24652777779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
@@ -787,4 +888,9 @@
             <point key="canvasLocation" x="1358" y="-493"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
