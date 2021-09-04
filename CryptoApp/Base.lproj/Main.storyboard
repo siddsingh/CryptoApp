@@ -90,7 +90,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KbY-6m-WGH">
-                                <rect key="frame" x="0.0" y="166" width="390" height="359"/>
+                                <rect key="frame" x="0.0" y="166" width="390" height="389"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.85309709194538152" green="0.85309709194538152" blue="0.85309709194538152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -243,10 +243,10 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhu-Ic-vuL">
-                                <rect key="frame" x="15" y="566" width="172.66666666666666" height="150"/>
+                                <rect key="frame" x="15" y="596" width="172.66666666666666" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="uFy-Zz-es4"/>
+                                    <constraint firstAttribute="height" constant="120" id="uFy-Zz-es4"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
@@ -274,8 +274,8 @@
                                         </fragment>
                                         <fragment content="Featured">
                                             <attributes>
-                                                <color key="NSColor" red="0.44326073230000002" green="0.44326073230000002" blue="0.44326073230000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="16" name="Helvetica-Light"/>
+                                                <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <font key="NSFont" size="14" name="Helvetica-Bold"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
@@ -303,28 +303,93 @@ Cg
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="hilightButton1Press:" destination="WNQ-2i-B77" eventType="touchUpInside" id="VNF-8e-Ztu"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UY-x1-BFm">
-                                <rect key="frame" x="202.66666666666663" y="566" width="172.33333333333337" height="150"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="202.66666666666663" y="596" width="172.33333333333337" height="120"/>
+                                <color key="backgroundColor" red="0.83530539270000004" green="0.83527380230000003" blue="0.83529525999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="uQJ-ta-bXm"/>
+                                    <constraint firstAttribute="height" constant="120" id="uQJ-ta-bXm"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="Popular: NFTs Explained">
+                                        <fragment content="           ">
                                             <attributes>
-                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <font key="NSFont" size="11" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Popular">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="14" name="Helvetica-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment>
+                                            <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="11" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="NF">
+                                            <attributes>
+                                                <color key="NSColor" red="0.4152051806" green="0.36254647369999998" blue="0.90593272449999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Ts">
+                                            <attributes>
+                                                <color key="NSColor" red="0.50527650120000001" green="0.31124654410000002" blue="0.88632422690000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content=" ">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Expl">
+                                            <attributes>
+                                                <color key="NSColor" red="0.56988775729999996" green="0.26228275899999998" blue="0.87455928329999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="ain">
+                                            <attributes>
+                                                <color key="NSColor" red="0.73100423810000004" green="0.20347094539999999" blue="0.84710496660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="ed">
+                                            <attributes>
+                                                <color key="NSColor" red="0.82754415270000004" green="0.19540062550000001" blue="0.83533740040000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="hilightButton2Press:" destination="WNQ-2i-B77" eventType="touchUpInside" id="fAE-wP-IAJ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpS-GQ-SEX">
-                                <rect key="frame" x="40" y="545" width="310" height="1"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <rect key="frame" x="40" y="575" width="310" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray3Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="jeg-Mj-2ng"/>
                                 </constraints>
@@ -377,6 +442,8 @@ Cg
                         <outlet property="eventsListTable" destination="KbY-6m-WGH" id="U1B-qA-4Xm"/>
                         <outlet property="eventsSearchBar" destination="nfw-0u-xss" id="pfV-29-mXe"/>
                         <outlet property="focusBar" destination="7Cj-9c-Flh" id="CjA-qO-Zek"/>
+                        <outlet property="hilightButton1" destination="fhu-Ic-vuL" id="OOK-Ui-k2W"/>
+                        <outlet property="hilightButton2" destination="8UY-x1-BFm" id="975-pw-WVI"/>
                         <outlet property="mainNavSelector" destination="iRe-G1-Ld7" id="XrM-4M-1oq"/>
                         <segue destination="4jH-eb-uDY" kind="show" identifier="ShowEventDetails1" id="qyp-oL-r3P"/>
                     </connections>
@@ -889,8 +956,8 @@ Cg
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

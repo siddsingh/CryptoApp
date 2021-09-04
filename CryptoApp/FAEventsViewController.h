@@ -81,4 +81,13 @@
 // Height constraint for search bar. Originally set to 32 in search bar.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventSearchBarHtConstra;
 
+// NEW FOR 2021 - 1st button to highlight content.
+@property (weak, nonatomic) IBOutlet UIButton *hilightButton1;
+- (IBAction)hilightButton1Press:(id)sender;
+
+// NEW FOR 2021 - 2nd button to highlight content.
+@property (weak, nonatomic) IBOutlet UIButton *hilightButton2;
+- (IBAction)hilightButton2Press:(id)sender;
+
+
 @end

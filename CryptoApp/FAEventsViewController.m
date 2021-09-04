@@ -791,7 +791,7 @@
                 if((rowNo == 6)||(rowNo == 7)) {
                     // Reset to black color for non core content
                     [[cell eventImpact] setTextColor:[UIColor grayColor]];
-                    [cell.eventImpact setText:@">"];
+                    [cell.eventImpact setText:@" "];
                 }
                 else {
                     [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
@@ -801,7 +801,7 @@
                 if((rowNo == 5)||(rowNo == 6)) {
                     // Reset to black color for non core content
                     [[cell eventImpact] setTextColor:[UIColor grayColor]];
-                    [cell.eventImpact setText:@">"];
+                    [cell.eventImpact setText:@" "];
                 }
                 else {
                     [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
@@ -860,7 +860,9 @@
             
             SFSafariViewController *externalInfoVC = [[SFSafariViewController alloc] initWithURL:targetURL0];
             externalInfoVC.delegate = self;
-            // Just use whatever is the default color for the Safari View Controller
+            // Currently using black color for the resulting view
+            externalInfoVC.preferredControlTintColor = [UIColor blackColor];
+            // If you want to customize the color in the future.
             //externalInfoVC.preferredControlTintColor = [self getColorForEventType:[self formatBackToEventType:tappedIconCell.eventDescription.text withAddedInfo:tappedIconCell.eventCertainty.text] withCompanyTicker:ticker];
             [self presentViewController:externalInfoVC animated:YES completion:nil];
         }
@@ -904,6 +906,28 @@
         
         [self.eventsSearchBar resignFirstResponder];
     }
+}
+
+#pragma mark - Highlighted Content Related
+
+// NEW FOR 2021 - Open highlighted video when button 1 is clicked.
+- (IBAction)hilightButton1Press:(id)sender {
+    
+    // Currently DeFi
+    SFSafariViewController *hilightVC1 = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://youtu.be/HpNFgFgpo04"]];
+    hilightVC1.delegate = self;
+    hilightVC1.preferredControlTintColor = [UIColor blackColor];
+    [self presentViewController:hilightVC1 animated:YES completion:nil];
+}
+
+// NEW FOR 2021 - Open highlighted video when button 2 is clicked.
+- (IBAction)hilightButton2Press:(id)sender {
+    
+    // Currently NFTs
+    SFSafariViewController *hilightVC2 = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://youtu.be/CsMsnflDQ0E"]];
+    hilightVC2.delegate = self;
+    hilightVC2.preferredControlTintColor = [UIColor blackColor];
+    [self presentViewController:hilightVC2 animated:YES completion:nil];
 }
 
 #pragma mark - Following Related
