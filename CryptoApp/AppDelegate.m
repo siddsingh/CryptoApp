@@ -108,10 +108,11 @@
     // Check for connectivity. If yes, sync data from remote data source
     if ([self checkForInternetConnectivity]) {
         
+        // NEW FOR 2021: All this sync is not needed so disabling for now.
         // Refresh events, sync product events after upgrade is done
         // Async processing of non ui tasks should not be done on the main thread.
         // *****************IMPORTANT*********************************************************************** If you are changing this, also change applicationfinishedlaunching and tutorialDonePressed button on FATutorialViewController.
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"V1_0_5_UsedOnce"])
+      /*  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"V1_0_5_UsedOnce"])
         {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
                 
@@ -123,7 +124,7 @@
                 
                 [self refreshEventsIfNeededFromApiInBackgroundWithDataController:eventDataController];
             });
-        }
+        } */
         
         // TRACKING EVENT: App Launch: Application was launched.
         // TO DO: Disabling to not track development events. Enable before shipping.
@@ -164,6 +165,7 @@
 // Refresh events that are likely to be updated, from API. Additionally also get the events for trending tickers initially. Check to see if product events need to be added or refreshed. If yes, do that. Currently product events are being fetched whole each time. Plus  Typically called in a background thread.
 - (void)refreshEventsIfNeededFromApiInBackgroundWithDataController:(FADataController *)existingDC
 {
+    
     // TO DO: Uncomment for actual use. Comment for test data for event update testing.
     [existingDC updateEventsFromRemoteIfNeeded];
 }

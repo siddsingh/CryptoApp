@@ -83,7 +83,7 @@
     self.messageBar.alpha = 0.0;
     
     // [NEW WORK 2021] Using the new large titles for navigation bar. Also setting this in the storyboard
-    [self.navigationController.navigationBar setPrefersLargeTitles:true];
+    //[self.navigationController.navigationBar setPrefersLargeTitles:true];
     [self.navigationController.navigationBar setTranslucent:true];
     [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
     
@@ -115,7 +115,7 @@
     // [NEW FOR 2021]
     // Format the event type selector
     // Set text color (black) and size (helvetica 14 unselected, helvetica bold 14 selected) of all segments.
-    NSDictionary *unselEvTypeAttribs = [NSDictionary dictionaryWithObjectsAndKeys:
+   /* NSDictionary *unselEvTypeAttribs = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIFont fontWithName:@"Helvetica" size:14], NSFontAttributeName,
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
@@ -124,7 +124,7 @@
                                     [UIColor blackColor], NSForegroundColorAttributeName,
                                     nil];
     [self.eventTypeSelector setTitleTextAttributes:unselEvTypeAttribs forState:UIControlStateNormal];
-    [self.eventTypeSelector setTitleTextAttributes:selEvTypeAttribs forState:UIControlStateSelected];
+    [self.eventTypeSelector setTitleTextAttributes:selEvTypeAttribs forState:UIControlStateSelected]; */
     
     
     // Set Background color and tint to a very light almost white gray
@@ -394,14 +394,19 @@
     else {
             // If main nav is learning based on type of learning return appropriately
             if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
-                if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+                
+                // Use index to support image based selector
+                if (self.eventTypeSelector.selectedSegmentIndex == 0) {
                     numberOfRows = 7;
                 }
-                else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+                else if (self.eventTypeSelector.selectedSegmentIndex == 1) {
                     numberOfRows = 6;
                 }
-                else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
-                    numberOfRows = 6;
+                else if (self.eventTypeSelector.selectedSegmentIndex == 2) {
+                    numberOfRows = 0;
+                }
+                else if (self.eventTypeSelector.selectedSegmentIndex == 3) {
+                    numberOfRows = 0;
                 }
                 else
                 {
@@ -767,17 +772,17 @@
             cell.listIconLbl.text = @"";
             cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];*/
             
-            // [NEW FOR 2021] Made the corners slightly rounded.
+            // [NEW FOR 2021] Made the corners slightly rounded. Set the appropriate icon.
             cell.listImageLbl.clipsToBounds = YES;
             cell.listImageLbl.layer.cornerRadius = 5;
             cell.listImageLbl.text = @"";
-            cell.listImageLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]];
+            cell.listImageLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath ofType:self.eventTypeSelector.selectedSegmentIndex];
             
             // NEW FOR 2021: Set the learning item title
-            [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]]];
+            [[cell eventDescription] setAttributedText:[self.dataSnapShot getFormattedLearningTitle:indexPath ofType:self.eventTypeSelector.selectedSegmentIndex]];
             
             // NEW FOR 2021: Show the learning item description
-            [[cell eventDate] setText:[self.dataSnapShot getLearningDescription:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]]];
+            [[cell eventDate] setText:[self.dataSnapShot getLearningDescription:indexPath ofType:self.eventTypeSelector.selectedSegmentIndex]];
             // Set the appropriate event date text color
             [[cell eventDate] setTextColor:[self formatColorForEventDateBasedOnSelection]];
             
@@ -787,7 +792,7 @@
             // Pinkish deep red color
             [[cell eventImpact] setTextColor:[UIColor colorWithRed:224.0f/255.0f green:63.0f/255.0f blue:93.0f/255.0f alpha:1.0f]];
             rowNo = (indexPath.row + 1);
-            if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+            if (self.eventTypeSelector.selectedSegmentIndex == 0) {
                 if((rowNo == 6)||(rowNo == 7)) {
                     // Reset to black color for non core content
                     [[cell eventImpact] setTextColor:[UIColor grayColor]];
@@ -847,7 +852,7 @@
     else if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
         
         // NEW FOR 2021: URL based on type of article and actual article
-        NSURL *targetURL0 = [NSURL URLWithString:[self.dataSnapShot getLearningURL:indexPath ofType:[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex]]];
+        NSURL *targetURL0 = [NSURL URLWithString:[self.dataSnapShot getLearningURL:indexPath ofType:self.eventTypeSelector.selectedSegmentIndex]];
         
         if (targetURL0) {
             
@@ -2265,349 +2270,9 @@
 
 // When an event type selection has been made, change the color of the selected type and 1) show the appropriate event types in the results table 2) Set the correct search bar placeholder text 3) Clear out the search context
 - (IBAction)eventTypeSelectAction:(id)sender {
-    
-    // Reset the navigation bar header text color to black
-    /*NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                               [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                               [UIColor blackColor], NSForegroundColorAttributeName,
-                                               nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];*/
-    
-    // Change formatting of the selected option to indicate selection and filter the table to show the correct events of that type. Also set the color of the focus bar to the same color as the selected option.
-    
-    // For Price->Cap
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        // Old way is just set color
-        //[self.eventTypeSelector setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} forState:UIControlStateSelected];
-        
-        // Clear out the search context
-        [self.eventsSearchBar setText:@""];
-        [self searchBar:self.eventsSearchBar textDidChange:@""];
-        
-        // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
-        
-        // Query all future events or future following events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"HIGHEST CAP"];
-            // Query all price change events
-            self.eventResultsController = [self.primaryDataController getAllCurrencyPriceChangeEvents];
-            [self.eventsListTable reloadData];
-        }
-        // If Product Main Option is selected
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:self.mainNavProductOption] == NSOrderedSame) {
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"See Product Timeline"];
-            // Set correct search bar placeholder text
-            self.eventsSearchBar.placeholder = @"Company/Ticker/Cryptocurrency";
-            // Get No Events as the default view for the product main option is empty
-            self.eventResultsController = [self.primaryDataController getNoEvents];
-            [self.eventsListTable reloadData];
-        }
-        
-        // TRACKING EVENT: Event Type Selected: User selected All event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-       // [FBSDKAppEvents logEvent:@"Event Type Selected"
-       //               parameters:@{ @"Event Type" : @"Cap" } ];
-    }
-    // For Price->Gainers
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
-        
-        // Making size smaller to fit iphone SE
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:13], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        
-        // Clear out the search context
-        [self.eventsSearchBar setText:@""];
-        [self searchBar:self.eventsSearchBar textDidChange:@""];
-        
-        // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
-        
-        // Query all future earnings events or following future events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"TOP GAINERS"];
-            self.eventResultsController = [self.primaryDataController getTopGainersCurrencyPriceChangeEvents];
-            [self.eventsListTable reloadData];
-        }
-        
-        // TRACKING EVENT: Event Type Selected: User selected Earnings event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        //[FBSDKAppEvents logEvent:@"Event Type Selected"
-        //              parameters:@{ @"Event Type" : @"Gainers" } ];
-    }
-    // Price - Losers
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
-        
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        
-        // Clear out the search context
-        [self.eventsSearchBar setText:@""];
-        [self searchBar:self.eventsSearchBar textDidChange:@""];
-        
-        // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"CURRENCY/TICKER";
-        
-        // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"TOP LOSERS"];
-            self.eventResultsController = [self.primaryDataController getTopLosersCurrencyPriceChangeEvents];
-            [self.eventsListTable reloadData];
-        }
-        
-        // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        //[FBSDKAppEvents logEvent:@"Event Type Selected"
-        //              parameters:@{ @"Event Type" : @"Losers" } ];
-    }
-    // Events - Upcoming
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
-        
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        
-        // Clear out the search context
-        [self.eventsSearchBar setText:@""];
-        [self searchBar:self.eventsSearchBar textDidChange:@""];
-        
-        // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
-        
-        // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING EVENTS"];
-            self.eventResultsController = [self.primaryDataController getAllFutureCryptoEvents];
-            [self.eventsListTable reloadData];
-        }
-        
-        // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        //[FBSDKAppEvents logEvent:@"Event Type Selected"
-        //              parameters:@{ @"Event Type" : @"Upcoming" } ];
-    }
-    // Events - Recent
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
-        
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        
-        // Clear out the search context
-        [self.eventsSearchBar setText:@""];
-        [self searchBar:self.eventsSearchBar textDidChange:@""];
-        
-        // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"CURRENCY/TICKER/EVENT";
-        
-        // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"RECENT EVENTS"];
-            self.eventResultsController = [self.primaryDataController getAllPastCryptoEvents];
-            [self.eventsListTable reloadData];
-        }
-        
-        // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        //[FBSDKAppEvents logEvent:@"Event Type Selected"
-        //              parameters:@{ @"Event Type" : @"Recent" } ];
-    }
-    // Events - Latest
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
-        
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        
-        // Clear out the search context
-        [self.eventsSearchBar setText:@""];
-        [self searchBar:self.eventsSearchBar textDidChange:@""];
-        
-        // Set correct search bar placeholder text
-        self.eventsSearchBar.placeholder = @"NEWS";
-        
-        // Query all future economic events or following economic events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"News"] == NSOrderedSame) {
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"THE LATEST"];
-            self.eventResultsController = [self.primaryDataController getLatestCryptoEvents];
-            [self.eventsListTable reloadData];
-        }
-        
-        // Get all price change events for followed stocks asynchronously
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
-            // Create a new FADataController so that this thread has its own MOC
-            FADataController *prodEventsDataController = [[FADataController alloc] init];
-            
-            [prodEventsDataController syncProductEventsWrapper];
-        });
-        
-        // TRACKING EVENT: Event Type Selected: User selected Crypto event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        //[FBSDKAppEvents logEvent:@"Event Type Selected"
-         //             parameters:@{ @"Event Type" : @"Latest" } ];
-    }
-    
-    // NEWS (Prod) - Black
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Prod"] == NSOrderedSame) {
-        
-        // Black
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        
-        // Query all future product events, including today.
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-            
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING PRODUCT EVENTS"];
-            // Clear out the search context
-            [self.eventsSearchBar setText:@""];
-            [self searchBar:self.eventsSearchBar textDidChange:@""];
-            // Set correct search bar placeholder text
-            self.eventsSearchBar.placeholder = @"COMPANY/TICKER/EVENT";
-            
-            self.eventResultsController = [self.primaryDataController getAllFutureProductEvents];
-            [self.eventsListTable reloadData];
-            
-            // Refresh all product events asynchronously
-            // Don't need to do this anymore as we are syncing on startup every 6 hours.
-            /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
-                // Create a new FADataController so that this thread has its own MOC
-                FADataController *newsDataController = [[FADataController alloc] init];
-                [newsDataController syncProductEventsWrapper];
-            });*/
-            
-        }
-        
-        // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        //[FBSDKAppEvents logEvent:@"Event Type Selected"
-        //              parameters:@{ @"Event Type" : @"Product Event" } ];
-    }
-    
-    // PRICE - BLACK
-    if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-        
-        NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                        [UIColor blackColor], NSForegroundColorAttributeName,
-                                        nil];
-        [self.eventTypeSelector setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
-        // Old way is just set color
-        //[self.eventTypeSelector setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:240.0f/255.0f green:142.0f/255.0f blue:51.0f/255.0f alpha:1.0f]} forState:UIControlStateSelected];
-        
-        if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Following"] == NSOrderedSame) {
-            
-            // Set correct header text
-            [self.navigationController.navigationBar.topItem setTitle:@"FOLLOWED PRICE CHANGES"];
-            // Set correct search bar placeholder text
-            self.eventsSearchBar.placeholder = @"COMPANY/TICKER";
-            
-            // TURNED THIS OFF CURRENTLY  as it was not consistently working. Check to make sure we are syncing daily price data only once a day, after the market has opened.
-            // Get time in GMT, US markets open at 9:30 am ET which is 1:30 pm GMT
-            /*NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSDate *todaysDate1 = [NSDate date];
-            NSTimeInterval tzOffset = [[NSTimeZone systemTimeZone] secondsFromGMT];
-            NSTimeInterval gmtTimeIt = [todaysDate1 timeIntervalSinceReferenceDate] - tzOffset;
-            NSDate *todaysDateInGmt = [NSDate dateWithTimeIntervalSinceReferenceDate:gmtTimeIt];
-            NSLog(@"TODAYS DATE AND TIME IN GMT IS:%@",todaysDateInGmt);
-            NSDateComponents *components1 = [gregorianCalendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:todaysDateInGmt];
-            NSInteger gmtHour = [components1 hour];
-            NSInteger gmtMinute = [components1 minute];
-            NSLog(@"TODAYS HOUR IN GMT IS:%ld",(long)gmtHour);
-            NSLog(@"TODAYS MINUTES IN GMT IS:%ld",(long)gmtMinute);
-            NSDate *todaysDate = [self setTimeToMidnightLastNightOnDate:[NSDate date]];
-            // Get the event sync date
-            NSDate *lastSyncDate = [self setTimeToMidnightLastNightOnDate:[self.primaryDataController getDailyPriceEventSyncDate]];
-            NSLog(@"MIDNIGHT ADJUSTED LAST EVENT SYNCED DATE AND TIME IS:%@",lastSyncDate);
-            NSLog(@"MIDNIGHT ADJUSTED TODAYS DATE AND TIME IS:%@",lastSyncDate);
-            // Get the number of days between the 2 dates
-            NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay fromDate:lastSyncDate toDate:todaysDate options:0];
-            NSInteger daysBetween = [components day];
-            NSLog(@"Days between LAST EVENT SYNC AND TODAY are: %ld",(long)daysBetween);
-            // Refresh only if a day has passed since last refresh and if the market has opened.
-            // Make sure in the new version string in app delegate you delete all daily price events. That brings you to a clean state
-            // If it's been more than one day since sync. For clean slate the sync date method returns 7 days ago
-            if ((int)daysBetween > 0) {
-                
-                // If time is past the market open time, refresh
-                if(((gmtHour * 60) + gmtMinute) > 810) { */
-                    
-                    // Delete existing price events.
-                    [self.primaryDataController deleteAllDailyPriceChangeEvents];
-                    // Delete 52 weeks events
-                    [self.primaryDataController deleteAll52WkEvents];
-                    
-                    self.eventResultsController = [self.primaryDataController getAllPriceChangeEventsForFollowedStocks];
-                    [self.eventsListTable reloadData];
-                    
-                    // Get all price change events for followed stocks asynchronously
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
-                        // Create a new FADataController so that this thread has its own MOC
-                        FADataController *priceDataController = [[FADataController alloc] init];
-                        
-                        [priceDataController getPriceChangeEventsForFollowingStocksWrapper];
-                    });
-                /*}
-                // Show existing price events along with a refresh message
-                else {
-                    
-                    self.eventResultsController = [self.primaryDataController getAllPriceChangeEventsForFollowedStocks];
-                    [self.eventsListTable reloadData];
-                    
-                    // Set navigation bar header to an attention orange color
-                    NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                               [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                                               [UIColor colorWithRed:205.0f/255.0f green:151.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
-                                                               nil];
-                    
-                    // Set navigation bar header to indicate busy
-                    [self.navigationController.navigationBar setTitleTextAttributes:attentionHeaderAttributes];
-                    [self.navigationController.navigationBar.topItem setTitle:@"Will refresh when markets open!"];
-                }
-            }
-            // If not attempting a sync show current price change events.
-            else {
-                self.eventResultsController = [self.primaryDataController getAllPriceChangeEventsForFollowedStocks];
-                [self.eventsListTable reloadData];
-            } */
-        }
-        
-        // TRACKING EVENT: Event Type Selected: User selected Product event type explicitly in the events type selector
-        // TO DO: Disabling to not track development events. Enable before shipping.
-        //[FBSDKAppEvents logEvent:@"Event Type Selected"
-        //              parameters:@{ @"Event Type" : @"Stock Price" } ];
-    }
-    
-    // NEW FOR 2021: If any of the different learning types are selected, refresh the table
-    if (([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Basics"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Advanced"] == NSOrderedSame)||([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Trending"] == NSOrderedSame)) {
+
+    // NEW FOR 2021: Removing all event type selection to only accomodate learning based on images currently. If any of the different learning types are selected, refresh the table
+    if (self.eventTypeSelector.selectedSegmentIndex == 0||self.eventTypeSelector.selectedSegmentIndex == 1||self.eventTypeSelector.selectedSegmentIndex == 2||self.eventTypeSelector.selectedSegmentIndex == 3) {
         
         // NEW FOR 2021: Make sure you are in the Learning section
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
@@ -3371,8 +3036,8 @@
 // Return the appropriate color for event date based on the UI navigation option selected.
 - (UIColor *)formatColorForEventDateBasedOnSelection {
    
-    // [NEW WORK 2021] Almost black default
-    //UIColor *colorToReturn = [UIColor colorWithRed:31.0f/255.0f green:31.0f/255.0f blue:31.0f/255.0f alpha:1.0f];
+    // [NEW WORK 2021] Dark Gray color as set in storyboard
+    // UIColor *colorToReturn = [UIColor colorWithRed:113.0f/255.0f green:113.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
     UIColor *colorToReturn = [UIColor darkGrayColor];
     
     

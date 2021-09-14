@@ -41,16 +41,16 @@
 - (NSMutableAttributedString *)getFormattedSource:(NSString *)src;
 
 // Get formatted title of learning article
-- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc;
+- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc;
 
 // Get formatted description of learning article
-- (NSString *)getLearningDescription:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc;
+- (NSString *)getLearningDescription:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc;
 
 // Get URL of learning article
-- (NSString *)getLearningURL:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc;
+- (NSString *)getLearningURL:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc;
 
 // Get the learning item color
-- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc;
+- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc;
 
 // Get the length of the video string
 - (NSString *)getVideoLength:(NSIndexPath *)rowPath;

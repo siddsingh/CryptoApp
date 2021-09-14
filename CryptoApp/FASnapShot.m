@@ -1413,7 +1413,7 @@ static FASnapShot *sharedInstance;
 }
 
 // Get formatted title of learning article based on learning type
-- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
+- (NSMutableAttributedString *)getFormattedLearningTitle:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc {
     
     NSMutableAttributedString *formattedTxt = nil;
     NSDictionary *txtAttributes = nil;
@@ -1421,14 +1421,14 @@ static FASnapShot *sharedInstance;
     
     
     // [NEW WORK 2021] Setting the title for learning videos to match the specified sizes in the storyboard.
-    // Almost black color
+    // Black color
     txtAttributes = @{
-                      NSForegroundColorAttributeName:[UIColor colorWithRed:63.0f/255.0f green:63.0f/255.0f blue:63.0f/255.0f alpha:1.0f],
+                      NSForegroundColorAttributeName:[UIColor blackColor],
                       NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:16]
                       };
     
     // [NEW WORK 2021] Setting the titles based on type selected.
-    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+    if (typeDesc == 0) {
         if (rowNo == 1) {
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Hi" attributes:txtAttributes];
         }
@@ -1445,7 +1445,7 @@ static FASnapShot *sharedInstance;
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Ethereum Basics" attributes:txtAttributes];
         }
         else if (rowNo == 6) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Slides" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"All" attributes:txtAttributes];
         }
         else if (rowNo == 7) {
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
@@ -1454,7 +1454,7 @@ static FASnapShot *sharedInstance;
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+    else if (typeDesc == 1) {
         if (rowNo == 1) {
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Crypto Types" attributes:txtAttributes];
         }
@@ -1468,7 +1468,7 @@ static FASnapShot *sharedInstance;
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NFT" attributes:txtAttributes];
         }
         else if (rowNo == 5) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Slides" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"All" attributes:txtAttributes];
         }
         else if (rowNo == 6) {
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
@@ -1477,7 +1477,7 @@ static FASnapShot *sharedInstance;
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+    else if (typeDesc == 2) {
         if (rowNo == 1) {
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"The B word: By Ark" attributes:txtAttributes];
         }
@@ -1508,13 +1508,13 @@ static FASnapShot *sharedInstance;
 }
 
 // Get sub title of learning article based on type of learning
-- (NSString *)getLearningDescription:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
+- (NSString *)getLearningDescription:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc {
     
     NSString *formattedTxt = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
     // [NEW WORK 2021] Setting the sub titles based on type of learning
-    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+    if (typeDesc == 0) {
         if (rowNo == 1) {
             formattedTxt = @"Introduction.";
         }
@@ -1531,7 +1531,7 @@ static FASnapShot *sharedInstance;
             formattedTxt = @"The brilliant platform.";
         }
         else if (rowNo == 6) {
-            formattedTxt = @"View as a presentation.";
+            formattedTxt = @"View all as a presentation.";
         }
         else if (rowNo == 7) {
             formattedTxt = @"Comments? Write to us.";
@@ -1540,7 +1540,7 @@ static FASnapShot *sharedInstance;
             formattedTxt = @"Hmm! Nothing here.";
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+    else if (typeDesc == 1) {
         if (rowNo == 1) {
             formattedTxt = @"Categorizing all cryptos.";
         }
@@ -1555,7 +1555,7 @@ static FASnapShot *sharedInstance;
             
         }
         else if (rowNo == 5) {
-            formattedTxt = @"View as a presentation.";
+            formattedTxt = @"View all as a presentation.";
         }
         else if (rowNo == 6) {
             formattedTxt = @"Comments? Write to us.";
@@ -1564,7 +1564,7 @@ static FASnapShot *sharedInstance;
             formattedTxt = @"Hmm! Nothing here.";
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+    else if (typeDesc == 2) {
         if (rowNo == 1) {
             formattedTxt = @"Cathie, Jack & Elon talk.";
         }
@@ -1595,13 +1595,13 @@ static FASnapShot *sharedInstance;
 }
 
 // Get URL of learning article based on type of learning
-- (NSString *)getLearningURL:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
+- (NSString *)getLearningURL:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc {
     
     NSString *externalURLStr = nil;
     NSInteger rowNo = (rowPath.row + 1);
     
     // [NEW WORK 2021] Setting the learning article URL based on type of learning
-    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+    if (typeDesc == 0) {
         if (rowNo == 1) {
             externalURLStr = @"https://youtu.be/GYQNNfDs_bk";
         }
@@ -1627,7 +1627,7 @@ static FASnapShot *sharedInstance;
             externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+    else if (typeDesc == 1) {
         if (rowNo == 1) {
             externalURLStr = @"https://youtu.be/ASl0Um1FcuE";
         }
@@ -1650,7 +1650,7 @@ static FASnapShot *sharedInstance;
             externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+    else if (typeDesc == 2) {
         if (rowNo == 1) {
             externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
@@ -1677,13 +1677,11 @@ static FASnapShot *sharedInstance;
         externalURLStr = @"https://sidd37.wixsite.com/website-1";
     }
     
-    
-    
     return externalURLStr;
 }
 
 // Get the learning item color
-- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath ofType:(NSString *)typeDesc {
+- (UIColor *)getLearningItemColor:(NSIndexPath *)rowPath ofType:(NSInteger)typeDesc {
     
     //Default black color
     UIColor *colorToReturn = [UIColor whiteColor];
@@ -1692,7 +1690,7 @@ static FASnapShot *sharedInstance;
     
     //NEW FOR 2021: Images for Learning articles
     
-    if ([typeDesc caseInsensitiveCompare:@"Basics"] == NSOrderedSame) {
+    if (typeDesc == 0) {
         if (rowNo == 1) {
             colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"PinkRedPlay"]];
         }
@@ -1718,7 +1716,7 @@ static FASnapShot *sharedInstance;
             colorToReturn = [UIColor whiteColor];
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+    else if (typeDesc == 1) {
         if (rowNo == 1) {
             colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"FoundBrickPlay"]];
         }
@@ -1742,7 +1740,7 @@ static FASnapShot *sharedInstance;
             colorToReturn = [UIColor whiteColor];
         }
     }
-    else if ([typeDesc caseInsensitiveCompare:@"Trending"] == NSOrderedSame) {
+    else if (typeDesc == 2) {
         if (rowNo == 1) {
             //formattedTxt = @"Cathie, Jack & Elon talk.";
             colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
