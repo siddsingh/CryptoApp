@@ -195,7 +195,7 @@
     } */
     
     // Set color of back navigation item based on event type
-    self.navigationController.navigationBar.tintColor = [self getColorForEventTypeForBackNav:self.eventType];
+    //self.navigationController.navigationBar.tintColor = [self getColorForEventTypeForBackNav:self.eventType];
     
     // Register a listener for guidance messages to be shown to the user in the messages bar
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1525,14 +1525,6 @@
 // Take action when a details info type is selected
 - (IBAction)detailsInfoTypeSelected:(id)sender {
     
-    // Reset the navigation bar header text color to black
-    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                             [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                             [UIColor blackColor], NSForegroundColorAttributeName,
-                                             nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
-    
-    
     // Set text color and size of all unselected segments to a medium dark gray used in the event dates (R:113, G:113, B:113)
     NSDictionary *unselectedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                           [UIFont systemFontOfSize:14], NSFontAttributeName,
@@ -1586,15 +1578,6 @@
         // Reload the details table with the news.
         self.infoResultsController = [self.primaryDetailsDataController getLatestCryptoEvents];
         [self.eventDetailsTable reloadData];
-        
-        // Set navigation bar header to an attention orange color
-        NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                   [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                                   [UIColor colorWithRed:205.0f/255.0f green:151.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
-                                                   nil];
-        [self.navigationController.navigationBar setTitleTextAttributes:attentionHeaderAttributes];
-        //[self.navigationController.navigationBar.topItem setTitle:[notification object]];
-        self.navigationItem.title = @"Fetching...";
         
         // Force a pull down to refresh asynchronously
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
@@ -2441,13 +2424,6 @@
 // TO DO: Currently set to 20 seconds. Change as you see fit.
 - (void)userGuidanceGenerated:(NSNotification *)notification {
     
-    // Set navigation bar header to an attention orange color
-    NSDictionary *attentionHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                               [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                               [UIColor colorWithRed:205.0f/255.0f green:151.0f/255.0f blue:61.0f/255.0f alpha:1.0f], NSForegroundColorAttributeName,
-                                               nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:attentionHeaderAttributes];
-    [self.navigationController.navigationBar.topItem setTitle:[notification object]];
 }
 
 #pragma mark - Connectivity Methods
@@ -3233,12 +3209,7 @@
                     [priceRefreshDataController getAllCryptoPriceChangeEventsFromApi];
                     [self.eventDetailsTable reloadData];
                     [refreshTblControl endRefreshing];
-                    // Reset the navigation bar header text color to black
-                    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                             [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                                             [UIColor blackColor], NSForegroundColorAttributeName,
-                                                             nil];
-                    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
+                    
                     // Reset the company name in the navigation bar header.
                     self.navigationItem.title = [self.eventTitleStr uppercaseString];
                     // Make sure the price list is refreshed as well.
@@ -3263,14 +3234,6 @@
                     self.infoResultsController = [newsRefreshDataController getLatestCryptoEvents];
                     [self.eventDetailsTable reloadData];
                     [refreshTblControl endRefreshing];
-                    // Reset the navigation bar header text color to black
-                    NSDictionary *regularHeaderAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                             [UIFont boldSystemFontOfSize:14], NSFontAttributeName,
-                                                             [UIColor blackColor], NSForegroundColorAttributeName,
-                                                             nil];
-                    [self.navigationController.navigationBar setTitleTextAttributes:regularHeaderAttributes];
-                    // Reset the company name in the navigation bar header.
-                    self.navigationItem.title = @"CRYPTO";
                 });
             });
             

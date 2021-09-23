@@ -82,10 +82,8 @@
     // Make the message bar fully transparent so that it's invisible to the user
     self.messageBar.alpha = 0.0;
     
-    // [NEW WORK 2021] Using the new large titles for navigation bar. Also setting this in the storyboard
-    //[self.navigationController.navigationBar setPrefersLargeTitles:true];
-    [self.navigationController.navigationBar setTranslucent:true];
-    [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
+    // [NEW WORK 2021] Handling all the Nav bar settings in the storyboard from now on. Only setting content in code.
+    [self.navigationController.navigationBar.topItem setTitle:@"Learn Basics"];
     
     // Set font and size for searchbar text.
    // [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setDefaultTextAttributes:@{ NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14],}];
@@ -390,7 +388,7 @@
             numberOfRows = [filteredCompaniesSection numberOfObjects];
         }
     }
-    // NEW FOR 2021: If no filter then based on combination of main nav and type selector return appropriate # of rows
+    // NEW FOR 2021: If no filter then based on combination of main nav and type selector return appropriate # of rows TO DO: 2021: Add number of rows for new tabs here.
     else {
             // If main nav is learning based on type of learning return appropriately
             if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
@@ -403,10 +401,7 @@
                     numberOfRows = 6;
                 }
                 else if (self.eventTypeSelector.selectedSegmentIndex == 2) {
-                    numberOfRows = 0;
-                }
-                else if (self.eventTypeSelector.selectedSegmentIndex == 3) {
-                    numberOfRows = 0;
+                    numberOfRows = 7;
                 }
                 else
                 {
@@ -747,31 +742,6 @@
             // Shift the event desc appropriately to the right
             [cell.leadingSpaceForEventDesc setConstant:74];
 
-            // Set top space title
-            // [NEW FOR 2021] commented this as I am handling this in the storyboard
-            //[cell.topSpaceForEventDesc setConstant:2];
-            
-            // Show numbering
-            /*cell.listIconLbl.clipsToBounds = YES;
-            cell.listIconLbl.layer.cornerRadius = 0;
-            cell.listIconLbl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"NumLabel"]];
-            cell.listIconLbl.clipsToBounds = YES;
-            cell.listIconLbl.layer.cornerRadius = 16;
-            //cell.listIconLbl.textColor = [self.dataSnapShot getLearningItemColor:indexPath];
-            cell.listIconLbl.textColor = [UIColor blackColor];
-            rowNo = (indexPath.row + 1);
-            if(rowNo == 9) {
-                [[cell listIconLbl] setText:@"?"];
-            }
-            else {
-                [[cell listIconLbl] setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
-            }*/
-            // Show play button
-            /*cell.listIconLbl.clipsToBounds = YES;
-            cell.listIconLbl.layer.cornerRadius = 4;
-            cell.listIconLbl.text = @"";
-            cell.listIconLbl.backgroundColor = [self.dataSnapShot getLearningItemColor:indexPath];*/
-            
             // [NEW FOR 2021] Made the corners slightly rounded. Set the appropriate icon.
             cell.listImageLbl.clipsToBounds = YES;
             cell.listImageLbl.layer.cornerRadius = 5;
@@ -802,7 +772,7 @@
                     [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
                 }
             }
-            else if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Advanced"] == NSOrderedSame) {
+            else if (self.eventTypeSelector.selectedSegmentIndex == 1) {
                 if((rowNo == 5)||(rowNo == 6)) {
                     // Reset to black color for non core content
                     [[cell eventImpact] setTextColor:[UIColor grayColor]];
@@ -811,6 +781,10 @@
                 else {
                     [cell.eventImpact setText:[NSString stringWithFormat:@"%ld",(long)rowNo]];
                 }
+            }
+            else if (self.eventTypeSelector.selectedSegmentIndex == 2) {
+                [[cell eventImpact] setTextColor:[UIColor lightGrayColor]];
+                [cell.eventImpact setText:@" "];
             }
             else
             {
@@ -2105,7 +2079,7 @@
                 self.filterType = [NSString stringWithFormat:@"None_Specified"];
                 
                 // Set correct header text
-                [self.navigationController.navigationBar.topItem setTitle:@"See Product Timeline"];
+               // [self.navigationController.navigationBar.topItem setTitle:@"See Product Timeline"];
             }
             
             // Reload messages table
@@ -2277,9 +2251,24 @@
         // NEW FOR 2021: Make sure you are in the Learning section
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:@"LEARN"] == NSOrderedSame) {
             
-            // [NEW FOR 2021]: This is not needed.
+            // [NEW FOR 2021]: This is not needed. TO DO: 2021: Change title based on selected option
             // Set correct header text
             // [self.navigationController.navigationBar.topItem setTitle:@"CRYPTO 101"];
+            // Use index to support image based selector
+            if (self.eventTypeSelector.selectedSegmentIndex == 0) {
+                [self.navigationController.navigationBar.topItem setTitle:@"Learn Basics"];
+            }
+            else if (self.eventTypeSelector.selectedSegmentIndex == 1) {
+                [self.navigationController.navigationBar.topItem setTitle:@"Learn Advanced"];
+            }
+            else if (self.eventTypeSelector.selectedSegmentIndex == 2) {
+                [self.navigationController.navigationBar.topItem setTitle:@"See Resources"];
+            }
+            else
+            {
+                [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
+            }
+            
             // Clear out the search context
             [self.eventsSearchBar setText:@""];
             [self searchBar:self.eventsSearchBar textDidChange:@""];
@@ -2495,7 +2484,7 @@
     
     NSDateFormatter *todayDateFormatter = [[NSDateFormatter alloc] init];
     [todayDateFormatter setDateFormat:@"EEE MMMM dd"];
-    [self.navigationController.navigationBar.topItem setTitle:[todayDateFormatter stringFromDate:[NSDate date]]];
+    //[self.navigationController.navigationBar.topItem setTitle:[todayDateFormatter stringFromDate:[NSDate date]]];
 }
 
 // Take a queued reminder and create it in the user's OS Reminders now that the event has been confirmed.
@@ -3465,27 +3454,27 @@
             
             // If Home is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Cap"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"HIGHEST CAP"];
+               // [self.navigationController.navigationBar.topItem setTitle:@"HIGHEST CAP"];
             }
             
             // If Earnings is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Gainers"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"TOP GAINERS"];
+              //  [self.navigationController.navigationBar.topItem setTitle:@"TOP GAINERS"];
             }
             
             // If Econ events is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Econ"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING ECON EVENTS"];
+              //  [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING ECON EVENTS"];
             }
             
             // If Crypto events is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Losers"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"TOP LOSERS"];
+              //  [self.navigationController.navigationBar.topItem setTitle:@"TOP LOSERS"];
             }
             
             // If News (Prod) is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Prod"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"PRODUCT NEWS"];
+               // [self.navigationController.navigationBar.topItem setTitle:@"PRODUCT NEWS"];
             }
         }
         // If following is selected
@@ -3493,36 +3482,36 @@
             
             // If Home is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Upcoming"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING EVENTS"];
+              //  [self.navigationController.navigationBar.topItem setTitle:@"UPCOMING EVENTS"];
             }
             
             // If Earnings is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Recent"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"RECENT EVENTS"];
+               // [self.navigationController.navigationBar.topItem setTitle:@"RECENT EVENTS"];
             }
             
             // If Econ events is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Latest"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"THE LATEST"];
+               // [self.navigationController.navigationBar.topItem setTitle:@"THE LATEST"];
             }
             
             // If Crypto events is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Crypto"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"FOLLOWED CRYPTO EVENTS"];
+               // [self.navigationController.navigationBar.topItem setTitle:@"FOLLOWED CRYPTO EVENTS"];
             }
             
             // If Price is selected
             if ([[self.eventTypeSelector titleForSegmentAtIndex:self.eventTypeSelector.selectedSegmentIndex] caseInsensitiveCompare:@"Price"] == NSOrderedSame) {
-                [self.navigationController.navigationBar.topItem setTitle:@"FOLLOWED PRICE CHANGES"];
+              //  [self.navigationController.navigationBar.topItem setTitle:@"FOLLOWED PRICE CHANGES"];
             }
         }
         // Check to see if the Product Main Nav is selected
         if ([[self.mainNavSelector titleForSegmentAtIndex:self.mainNavSelector.selectedSegmentIndex] caseInsensitiveCompare:self.mainNavProductOption] == NSOrderedSame) {
             // If no product timeline is displayed
             if ([self.filterType isEqualToString:@"None_Specified"]) {
-                [self.navigationController.navigationBar.topItem setTitle:@"See Product Timeline"];
+              //  [self.navigationController.navigationBar.topItem setTitle:@"See Product Timeline"];
             } else {
-                [self.navigationController.navigationBar.topItem setTitle:@"PRODUCT TIMELINE"];
+              //  [self.navigationController.navigationBar.topItem setTitle:@"PRODUCT TIMELINE"];
             }
         }
     }

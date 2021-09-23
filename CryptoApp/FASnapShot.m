@@ -1479,22 +1479,25 @@ static FASnapShot *sharedInstance;
     }
     else if (typeDesc == 2) {
         if (rowNo == 1) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"The B word: By Ark" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Cointelegraph" attributes:txtAttributes];
         }
         else if (rowNo == 2) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"US Banking Committee" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"CNBC, Bitcoin" attributes:txtAttributes];
         }
         else if (rowNo == 3) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"SEC Chairman: On CNBC" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Gary Gensler, SEC Chair" attributes:txtAttributes];
         }
         else if (rowNo == 4) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Ethereum" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Jerry Brito, Coin Center" attributes:txtAttributes];
         }
         else if (rowNo == 5) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"DeFi" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Reddit, CryptoCurrency" attributes:txtAttributes];
         }
         else if (rowNo == 6) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Jake Chervinsky, Compound" attributes:txtAttributes];
+        }
+        else if (rowNo == 7) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Epicenter" attributes:txtAttributes];
         }
         else {
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NA" attributes:txtAttributes];
@@ -1566,22 +1569,25 @@ static FASnapShot *sharedInstance;
     }
     else if (typeDesc == 2) {
         if (rowNo == 1) {
-            formattedTxt = @"Cathie, Jack & Elon talk.";
+            formattedTxt = @"Read news.";
         }
         else if (rowNo == 2) {
-            formattedTxt = @"Hearing on Cryptocurrencies.";
+            formattedTxt = @"Read news.";
         }
         else if (rowNo == 3) {
-            formattedTxt = @"Need for investor protection.";
+            formattedTxt = @"See tweets.";
         }
         else if (rowNo == 4) {
-            formattedTxt = @"Platform powering DeFi.";
+            formattedTxt = @"See tweets.";
         }
         else if (rowNo == 5) {
-            formattedTxt = @"Finance on Blockchain";
+            formattedTxt = @"See messages.";
         }
         else if (rowNo == 6) {
-            formattedTxt = @"Comments? Write to us.";
+            formattedTxt = @"See tweets.";
+        }
+        else if (rowNo == 7) {
+            formattedTxt = @"Listen to podcast.";
         }
         else {
             formattedTxt = @"Hmm! Nothing here.";
@@ -1652,22 +1658,25 @@ static FASnapShot *sharedInstance;
     }
     else if (typeDesc == 2) {
         if (rowNo == 1) {
-            externalURLStr = @"https://sidd37.wixsite.com/website-1";
+            externalURLStr = @"https://cointelegraph.com";
         }
         else if (rowNo == 2) {
-            externalURLStr = @"https://sidd37.wixsite.com/website-1";
+            externalURLStr = @"https://www.cnbc.com/bitcoin/";
         }
         else if (rowNo == 3) {
-            externalURLStr = @"https://sidd37.wixsite.com/website-1";
+            externalURLStr = @"https://twitter.com/GaryGensler";
         }
         else if (rowNo == 4) {
-            externalURLStr = @"https://sidd37.wixsite.com/website-1";
+            externalURLStr = @"https://twitter.com/jerrybrito";
         }
         else if (rowNo == 5) {
-            externalURLStr = @"https://sidd37.wixsite.com/website-1";
+            externalURLStr = @"https://www.reddit.com/r/CryptoCurrency/";
         }
         else if (rowNo == 6) {
-            externalURLStr = @"https://sidd37.wixsite.com/website-1";
+            externalURLStr = @"https://twitter.com/jchervinsky";
+        }
+        else if (rowNo == 7) {
+            externalURLStr = @"https://podcasts.apple.com/us/podcast/epicenter-learn-about-crypto-blockchain-ethereum-bitcoin/id792338939?mt=2";
         }
         else {
             externalURLStr = @"https://sidd37.wixsite.com/website-1";
@@ -1742,23 +1751,25 @@ static FASnapShot *sharedInstance;
     }
     else if (typeDesc == 2) {
         if (rowNo == 1) {
-            //formattedTxt = @"Cathie, Jack & Elon talk.";
-            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"DailyNews"]];
         }
         else if (rowNo == 2) {
-            //formattedTxt = @"Hearing on Cryptocurrencies.";
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MainstreamNews"]];
         }
         else if (rowNo == 3) {
-            //formattedTxt = @"Need for investor protection.";
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"RegUpdates"]];
         }
         else if (rowNo == 4) {
-            //formattedTxt = @"Platform powering DeFi.";
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"RegUpdates"]];
         }
         else if (rowNo == 5) {
-            //formattedTxt = @"Finance on Blockchain";
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"CommUpdates"]];
         }
         else if (rowNo == 6) {
-            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlackSupport"]];
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"DefiUpdates"]];
+        }
+        else if (rowNo == 7) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IndepthConvo"]];
         }
         else {
             colorToReturn = [UIColor whiteColor];
