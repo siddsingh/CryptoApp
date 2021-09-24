@@ -398,7 +398,7 @@
                     numberOfRows = 7;
                 }
                 else if (self.eventTypeSelector.selectedSegmentIndex == 1) {
-                    numberOfRows = 6;
+                    numberOfRows = 7;
                 }
                 else if (self.eventTypeSelector.selectedSegmentIndex == 2) {
                     numberOfRows = 7;
@@ -773,7 +773,7 @@
                 }
             }
             else if (self.eventTypeSelector.selectedSegmentIndex == 1) {
-                if((rowNo == 5)||(rowNo == 6)) {
+                if((rowNo == 6)||(rowNo == 7)) {
                     // Reset to black color for non core content
                     [[cell eventImpact] setTextColor:[UIColor grayColor]];
                     [cell.eventImpact setText:@" "];

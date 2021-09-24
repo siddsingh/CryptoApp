@@ -1468,9 +1468,12 @@ static FASnapShot *sharedInstance;
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"NFT" attributes:txtAttributes];
         }
         else if (rowNo == 5) {
-            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"All" attributes:txtAttributes];
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Solana" attributes:txtAttributes];
         }
         else if (rowNo == 6) {
+            formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"All" attributes:txtAttributes];
+        }
+        else if (rowNo == 7) {
             formattedTxt = [[NSMutableAttributedString alloc] initWithString:@"Contact" attributes:txtAttributes];
         }
         else {
@@ -1558,9 +1561,13 @@ static FASnapShot *sharedInstance;
             
         }
         else if (rowNo == 5) {
-            formattedTxt = @"View all as a presentation.";
+            formattedTxt = @"The Ethereum challenger.";
+            
         }
         else if (rowNo == 6) {
+            formattedTxt = @"View all as a presentation.";
+        }
+        else if (rowNo == 7) {
             formattedTxt = @"Comments? Write to us.";
         }
         else {
@@ -1647,9 +1654,12 @@ static FASnapShot *sharedInstance;
             externalURLStr = @"https://youtu.be/CsMsnflDQ0E";
         }
         else if (rowNo == 5) {
-            externalURLStr = @"https://docs.google.com/presentation/d/1OQfm76x7fENczyQL1d0SuublNlHQUMDvyozItixQnLk";
+            externalURLStr = @"https://youtu.be/fal3dnelLpM";
         }
         else if (rowNo == 6) {
+            externalURLStr = @"https://docs.google.com/presentation/d/1OQfm76x7fENczyQL1d0SuublNlHQUMDvyozItixQnLk";
+        }
+        else if (rowNo == 7) {
             externalURLStr = @"https://sidd37.wixsite.com/website-1";
         }
         else {
@@ -1740,9 +1750,13 @@ static FASnapShot *sharedInstance;
             
         }
         else if (rowNo == 5) {
-            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"SolanaOverview"]];
+            
         }
         else if (rowNo == 6) {
+            colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"UpGreenPlay"]];
+        }
+        else if (rowNo == 7) {
             colorToReturn = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BlackSupport"]];
         }
         else {

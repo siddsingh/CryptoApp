@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "DefiOverview1x.png",
+      "filename" : "SolanaOverview1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "DefiOverview2x.png",
+      "filename" : "SolanaOverview2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "DefiOverview3x.png",
+      "filename" : "SolanaOverview3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
