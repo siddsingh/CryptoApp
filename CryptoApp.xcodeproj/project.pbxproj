@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E09387F2740B47700368ED5 /* FAResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E09387E2740B47700368ED5 /* FAResourcesViewController.m */; };
+		9E0938802740B47700368ED5 /* FAResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E09387E2740B47700368ED5 /* FAResourcesViewController.m */; };
 		9E0AC7B81C6EB9CA0078EAA5 /* FACompanyInfoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0AC7B71C6EB9CA0078EAA5 /* FACompanyInfoStore.m */; };
 		9E0CC2A31C894D54009E088C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD8EE91BAC9DAB008A0370 /* SystemConfiguration.framework */; };
 		9E0CC2A41C894D58009E088C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6D807A1AAFDF5800E1F2D3 /* CoreData.framework */; };
@@ -67,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E09387D2740B47700368ED5 /* FAResourcesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAResourcesViewController.h; sourceTree = "<group>"; };
+		9E09387E2740B47700368ED5 /* FAResourcesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAResourcesViewController.m; sourceTree = "<group>"; };
 		9E0AC7B61C6EB9CA0078EAA5 /* FACompanyInfoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FACompanyInfoStore.h; sourceTree = "<group>"; };
 		9E0AC7B71C6EB9CA0078EAA5 /* FACompanyInfoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FACompanyInfoStore.m; sourceTree = "<group>"; };
 		9E1BF82D1DA1FA6000D50E4F /* PriceChangeEvents_Local.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PriceChangeEvents_Local.json; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				9E44C29A1DD6A3B7009D9317 /* FATutorialViewController.m */,
 				9E681D4B1A43B08F00FC5E5D /* FAEventsViewController.h */,
 				9E681D4C1A43B08F00FC5E5D /* FAEventsViewController.m */,
+				9E09387D2740B47700368ED5 /* FAResourcesViewController.h */,
+				9E09387E2740B47700368ED5 /* FAResourcesViewController.m */,
 				9E681D4E1A4A660D00FC5E5D /* FAEventsTableViewCell.h */,
 				9E681D4F1A4A660D00FC5E5D /* FAEventsTableViewCell.m */,
 				9E79C9291BD85C46007E17B6 /* FAEventDetailsViewController.h */,
@@ -389,6 +395,7 @@
 				9EBD8EE61B82CEB9008A0370 /* Action.m in Sources */,
 				9E6D80761A9EB49700E1F2D3 /* FADataStore.m in Sources */,
 				9E4C8413203B56D2003760B0 /* FACoinAltData.m in Sources */,
+				9E09387F2740B47700368ED5 /* FAResourcesViewController.m in Sources */,
 				9E6D80731A958C9E00E1F2D3 /* Company.m in Sources */,
 				9E79C92B1BD85C46007E17B6 /* FAEventDetailsViewController.m in Sources */,
 				9EBD8EED1BAC9EA0008A0370 /* Reachability.m in Sources */,
@@ -400,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E0938802740B47700368ED5 /* FAResourcesViewController.m in Sources */,
 				9E79C9251BCDE3B9007E17B6 /* EventHistory.m in Sources */,
 				9E44C29C1DD6A3B7009D9317 /* FATutorialViewController.m in Sources */,
 				9E79C9381BDAC78F007E17B6 /* FAEventDetailsTableViewCell.m in Sources */,
