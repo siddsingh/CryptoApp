@@ -82,7 +82,7 @@
     } */
     
     // [NEW WORK 2021] Skip the tutorial, go directly to the main screen. For showing the tutorial use the commented code right above
-    [self configViewControllerWithName:@"FAEventsNavController"];
+    [self configViewControllerWithName:@"FAHomeSelectionViewController"];
     
     return YES;
 }
