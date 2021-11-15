@@ -83,7 +83,7 @@
     self.messageBar.alpha = 0.0;
     
     // [NEW WORK 2021] Handling all the Nav bar settings in the storyboard from now on. Only setting content in code.
-    [self.navigationController.navigationBar.topItem setTitle:@"Learn Basics"];
+    [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
     
     // Set font and size for searchbar text.
    // [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setDefaultTextAttributes:@{ NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14],}];
@@ -2256,10 +2256,10 @@
             // [self.navigationController.navigationBar.topItem setTitle:@"CRYPTO 101"];
             // Use index to support image based selector
             if (self.eventTypeSelector.selectedSegmentIndex == 0) {
-                [self.navigationController.navigationBar.topItem setTitle:@"Learn Basics"];
+                [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
             }
             else if (self.eventTypeSelector.selectedSegmentIndex == 1) {
-                [self.navigationController.navigationBar.topItem setTitle:@"Learn Advanced"];
+                [self.navigationController.navigationBar.topItem setTitle:@"Learn"];
             }
             else if (self.eventTypeSelector.selectedSegmentIndex == 2) {
                 [self.navigationController.navigationBar.topItem setTitle:@"See Resources"];
